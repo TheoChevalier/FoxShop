@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/install-button.css">
+    <link rel="stylesheet" href="css/layouts.css">
+  </head>
+  <body>
+    <!-- Use this installation button to install locally without going
+         through the marketpace (see app.js) -->
+    <button id="install-btn">Install</button>
+
+    <div class="loading">Loading...</div>
+
+    <x-view id="app">
+      <x-view class="home">
+        <x-view class="homesub">
+          <header>
+            <h1>Home</h1>
+          </header>
+
+          <p>Welcome to your next app!</p>
+
+          <p>
+            The "List" button below opens up a list view and pushes it
+            on the navigation stack, so you can press back to get back
+            here. The buttons at the bottom switch between different
+            views like tabs.
+          </p>
+
+          <p>
+            When a view is pushed onto the navigation stack, it slides
+            open and a "back" button is automatically added to the
+            header (if it has one).
+          </p>
+
+          <p>
+            <strong>
+              View more documentation in
+              the <a href="http://github.com/mozilla/mortar-tab-view/">README</a>.
+            </strong>
+          </p>
+
+          <footer>
+            <button data-view=".list">List</button>
+          </footer>
+        </x-view>
+
+        <x-listview class="list">
+          <header>
+            <h1>Items</h1>
+          </header>
+        </x-listview>
+
+        <x-view class="details">
+          <header><h1>Details</h1></header>
+          
+          This item has the title "<span class="title"></span>"
+        </x-view>
+      </x-view>
+
+      <x-view class="foo">
+        <h1>Section #1</h1>
+        <p>
+          This is another section. If you go back to the "Home"
+          section, notice that it puts you back exactly where you were
+          before you switched tabs (if you opened and subviews or
+          scrolled).
+        </p>
+      </x-view>
+
+      <x-view class="bar">
+        <h1>Section #2</h1>
+        <button>Press me!</button>
+        <p>
+          This is yet another section. The button above does nothing.
+        </p>
+      </x-view>
+
+      <footer>
+        <button data-view=".home">Home</button>
+        <button data-view=".foo">Section #1</button>
+        <button data-view=".bar">Section #2</button>
+      </footer>
+    </x-view>
+
+    <!-- Using require.js, a module system for javascript, include the
+         js files. This loads "main.js", which in turn can load other
+         files, all handled by require.js:
+         http://requirejs.org/docs/api.html#jsfiles -->
+    <script type="text/javascript"
+            data-main="js/init.js"
+            src="js/lib/require.js"></script>
+  </body>
+</html>
