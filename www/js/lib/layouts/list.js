@@ -40,6 +40,7 @@ define(function(require) {
                                         render: this.options.renderRow,
                                         nextView: this.options.nextView,
                                         parent: this });
+            console.log(row);
             $('._list', this.el).append(row.render().el);
         }
     });
@@ -135,6 +136,9 @@ define(function(require) {
             },
             close: function(anim) {
                 this.view.close(anim);
+            },
+            reset: function() {
+              this.view.collection.reset();
             }
         }
     });
