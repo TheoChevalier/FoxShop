@@ -14,41 +14,14 @@
     <link rel="stylesheet" href="css/layouts.css">
   </head>
   <body>
-    <!-- Use this installation button to install locally without going
-         through the marketpace (see app.js) -->
-    <button id="install-btn">Install</button>
-
     <div class="loading">Loading...</div>
-
     <x-view id="app">
       <x-view class="home">
         <x-view class="homesub">
           <header>
             <h1>Home</h1>
           </header>
-
-          <p>Welcome to your next app!</p>
-
-          <p>
-            The "List" button below opens up a list view and pushes it
-            on the navigation stack, so you can press back to get back
-            here. The buttons at the bottom switch between different
-            views like tabs.
-          </p>
-
-          <p>
-            When a view is pushed onto the navigation stack, it slides
-            open and a "back" button is automatically added to the
-            header (if it has one).
-          </p>
-
-          <p>
-            <strong>
-              View more documentation in
-              the <a href="http://github.com/mozilla/mortar-tab-view/">README</a>.
-            </strong>
-          </p>
-
+           
           <footer>
             <button data-view=".list">List</button>
           </footer>
@@ -58,6 +31,7 @@
           <header>
             <h1>Items</h1>
           </header>
+          <div id="msg">test</div>
         </x-listview>
 
         <x-view class="details">
