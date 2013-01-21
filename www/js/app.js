@@ -74,10 +74,18 @@ SL.Lists = {
     }
   },
   add: function(aList) {
-    DB.storeList(aList, SL.Lists);
+    DB.store(aList, SL.Lists);
     SL.Lists.display(aList, SL.Lists);
     SL.Lists.lists[aList.guid] = aList;
     console.log("add: "+aList);
+  },
+  edit: function (aItem, elm) {
+    aList.done = elm.getElementsByTagName("input")[0].checked;
+    aList.name = elm.getElementsByTagName("a")[0].innerHTML;
+
+    // Delete the list, add the updated one
+    DB.deleteFromDB(aList.guid, SL.Lists);
+    DB.store(aList, SL.Lists);
   },
   display: function(aList) {
     var newToggle = document.createElement('input');
@@ -95,7 +103,7 @@ SL.Lists = {
     var newDelete = document.createElement('a');
     newDelete.innerHTML = "[x]";
     newDelete.addEventListener("click", function(e) {
-      DB.deleteListFromDB(aList.guid);
+      DB.deleteFromDB(aList.guid, SL.Lists);
     });
 
     var newLi = document.createElement('li');
@@ -121,7 +129,7 @@ SL.Items = {
   elm: document.getElementById("items"),
   store: DB_STORE_ITEMS,
   init: function(aList) {
-    // Set title of the displyed list
+    // Set title of the displayed Items list
     document.getElementById("title").innerHTML=aList.name;
 
     SL.Lists.elm.style.display = "none";
@@ -132,13 +140,101 @@ SL.Items = {
     // Display buttons
     SL.action("back", "back", this, "click");
     SL.action("add-item", "add", this, "click");
+    DB.displayItems(aList);
   },
+
+  // Go back to Lists view
   back: function() {
+    // Hide Items list
     SL.action("items", "hide");
+    // Display Lists list
     SL.Lists.init();
   },
-  add: function() {
 
+  // Add an item to the current list
+  add: function() {
+    var name = document.getElementById('itemName').value;
+    var qty = document.getElementById('itemQty').value;
+    var date = new Date();
+
+    // Handle empty form
+    if (!name || !qty) {
+      var msg = "";
+      if (!name) {
+        msg += "You must enter a name";
+        if (!qty)
+          msg += "and a quantity"
+      }
+      if (!qty)
+        msg += "You must enter a quantity"
+
+      displayActionFailure(msg);
+      return;
+    }
+
+    aItem = { guid: guid(),
+                   name: name,
+                   list: SL.Items.list.guid,
+                   nb: qty,
+                   date: date.getTime(),
+                   done: false
+    };
+    name = "";
+    qty = "1";
+
+    DB.store(aItem, SL.Items);
+    SL.Items.display(aItem, SL.Items);
+  },
+
+  edit: function (aItem, elm) {
+    aItem.done = elm.getElementsByTagName("input")[0].checked;
+    aItem.name = elm.getElementsByTagName("a")[0].innerHTML;
+
+    // Delete the item, add the updated one
+    DB.deleteFromDB(aItem.guid, SL.Items);
+    DB.store(aItem, SL.Items);
+  },
+  display: function(aItem) {
+    var newLi = document.createElement('li');
+    var newToggle = document.createElement('input');
+    newToggle.setAttribute('type', 'checkbox');
+    if (aItem.done)
+      newToggle.setAttribute('checked', 'true');
+
+    newToggle.addEventListener("click", function(e) {
+      newLi.style.fontStyle = "italic";
+      console.log(newLi.style.fontStyle);
+      SL.Items.edit(aItem, newLi);
+    });
+
+    var newTitle = document.createElement('a');
+    newTitle.innerHTML = aItem.name;
+    /*newTitle.addEventListener("click", function(e) {
+      SL.Items.init(aList);
+    });*/
+
+    var newDelete = document.createElement('a');
+    newDelete.innerHTML = "[x]";
+    newDelete.addEventListener("click", function(e) {
+      DB.deleteFromDB(aItem.guid, SL.Items);
+      newLi.style.display = "none";
+    });
+
+    
+    newLi.dataset.listkey = aItem.guid;
+
+    newLi.appendChild(newToggle);
+    newLi.appendChild(newTitle);
+    newLi.appendChild(newDelete);
+
+    SL.Items.elm.getElementsByClassName("list")[0].appendChild(newLi);
+    console.log("added!");
+  },
+  clear: function() {
+    SL.Items.elm.removeChild(SL.Items.elm.getElementsByClassName("list")[0]);
+    var ul = document.createElement('ul');
+    ul.setAttribute('class', 'list');
+    SL.Items.elm.appendChild(ul);
   }
 };
 
@@ -187,10 +283,9 @@ SL.Items = {
   /**
    * @param {string} name
    * @param {string} date
-   * Insert the new list in the DB
+   * Insert a new object in the view's DB
    */
-  storeList: function(aList, view) {
-    console.log("addPublication arguments:", arguments);
+  store: function(aList, view) {
 
     var store = this.getObjectStore(view.store, 'readwrite');
     var req;
@@ -202,6 +297,9 @@ SL.Items = {
     req.onsuccess = function (evt) {
       console.log("Insertion in DB successful");
       displayActionSuccess("Inserted");
+      try {
+        DB.displayItems(view.list);
+      } catch(e){ throw e;console.log("fail");}
     };
     req.onerror = function() {
       console.error("addPublication error", this.error);
@@ -216,13 +314,11 @@ SL.Items = {
     if (store == null || typeof store == 'undefined' ){
       store = DB.getObjectStore(view.store, 'readonly');
     }
-        console.log(store);
       
-    var req;
-    req = store.count();
+    var req = store.count();
     // Requests are executed in the order in which they were made against the
     // transaction, and their results are returned in the same order.
-    // Thus the count text below will be displayed before the actual pub list
+    // Thus the count text below will be displayed before the actual list
     // (not that it is algorithmically important in this case).
     req.onsuccess = function(evt) {
 
@@ -236,7 +332,6 @@ SL.Items = {
     req = store.openCursor();
     req.onsuccess = function(evt) {
       var cursor = evt.target.result;
-      console.log("curs:"+cursor);
       // If the cursor is pointing at something, ask for the data
       if (cursor) {
         console.log("displayPubList cursor:", cursor);
@@ -251,8 +346,6 @@ SL.Items = {
         // Move on to the next object in store
         cursor.continue();
 
-        // This counter serves only to create distinct ids
-        i++;
       } else {
         console.log("No more entries");
       }
@@ -263,8 +356,7 @@ SL.Items = {
   /**
    * @param {string} biblioid
    */
-  deleteListFromDB: function(guid, view) {
-    console.log("deletePublication:", arguments);
+  deleteFromDB: function(guid, view) {
     var store = DB.getObjectStore(view.store, 'readwrite');
     var req = store.index('guid');
     req.get(guid).onsuccess = function(evt) {
@@ -272,7 +364,7 @@ SL.Items = {
         displayActionFailure("No matching record found");
         return;
       }
-      DB.deleteList(evt.target.result.id, store);
+      DB.deleteList(evt.target.result.id, store, view);
     };
     req.onerror = function (evt) {
       console.error("deletePublicationFromBib:", evt.target.errorCode);
@@ -284,7 +376,6 @@ SL.Items = {
    * @param {IDBObjectStore=} store
    */
   deleteList: function(key, store, view) {
-    console.log("deletePublication:", arguments);
 
     if (typeof store == 'undefined')
       store = DB.getObjectStore(view.store, 'readwrite');
@@ -306,13 +397,7 @@ SL.Items = {
       // be a Number for deletion.
       req = store.delete(key);
       req.onsuccess = function(evt) {
-        console.log("evt:", evt);
-        console.log("evt.target:", evt.target);
-        console.log("evt.target.result:", evt.target.result);
-        console.log("delete successful");
-        displayActionSuccess("Deletion successful");
-        view.clear();
-        DB.displayList(store, view);
+        displayActionSuccess("Item succesfully deleted");
       };
       req.onerror = function (evt) {
         console.error("deletePublication:", evt.target.errorCode);
@@ -323,7 +408,7 @@ SL.Items = {
       };
   },
 
-  getItems: function(aList) {
+  displayItems: function(aList) {
     var store = DB.getObjectStore(DB_STORE_ITEMS, 'readonly');
     var req = store.index('list');
     req.get(aList.guid).onsuccess = function(evt) {
@@ -331,55 +416,27 @@ SL.Items = {
         displayActionFailure("No matching record found");
         return;
       }
-      DB.displayItems(evt.target.result.id, store);
+      var key = evt.target.result.id;  
+      var req = store.get(key);
+
+      req.onsuccess = function(evt) {
+        var record = evt.target.result;
+        console.log("record:", record);
+        if (typeof record == 'undefined') {
+          displayActionFailure("No matching record found");
+          return;
+        }
+          SL.Items.clear();
+          DB.displayList(store, SL.Items);
+        };
+      req.onerror = function (evt) {
+        console.error("deletePublication:", evt.target.errorCode);
+      };
+
     };
     req.onerror = function (evt) {
       console.error("deletePublicationFromBib:", evt.target.errorCode);
     };
-  },
-
-    /**
-   * @param {number} key
-   * @param {IDBObjectStore=} store
-   */
-  displayItems: function(key, store) {
-    console.log("display items:", arguments);
-
-    if (typeof store == 'undefined')
-      store = DB.getObjectStore(DB_STORE_ITEMS, 'readonly');
-
-    // As per spec http://www.w3.org/TR/IndexedDB/#object-store-deletion-operation
-    // the result of the Object Store Deletion Operation algorithm is
-    // undefined, so it's not possible to know if some records were actually
-    // deleted by looking at the request result.
-    var req = store.get(key);
-    req.onsuccess = function(evt) {
-      var record = evt.target.result;
-      console.log("record:", record);
-      if (typeof record == 'undefined') {
-        displayActionFailure("No matching record found");
-        return;
-      }
-      // Warning: The exact same key used for creation needs to be passed for
-      // the deletion. If the key was a Number for creation, then it needs to
-      // be a Number for deletion.
-      req = store.delete(key);
-      req.onsuccess = function(evt) {
-        console.log("evt:", evt);
-        console.log("evt.target:", evt.target);
-        console.log("evt.target.result:", evt.target.result);
-        console.log("delete successful");
-        displayActionSuccess("Deletion successful");
-        SL.Lists.clear();
-        DB.displayList(store);
-      };
-      req.onerror = function (evt) {
-        console.error("deletePublication:", evt.target.errorCode);
-      };
-    };
-    req.onerror = function (evt) {
-      console.error("deletePublication:", evt.target.errorCode);
-      };
   },
 
   /**
@@ -403,7 +460,7 @@ SL.Items = {
     document.getElementById('msg').innerHTML = '<span class="action-failure">' + msg + '</span>';
   }
   function resetActionStatus() {
-    document.getElementById('msg').innerHTML = 'plop';
+    document.getElementById('msg').innerHTML = '';
   }
 
 // Generate four random hex digits.
