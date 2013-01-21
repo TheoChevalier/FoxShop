@@ -88,10 +88,20 @@ SL.Lists = {
     DB.store(aList, SL.Lists);
   },
   display: function(aList) {
+    var newLi = document.createElement('li');
     var newToggle = document.createElement('input');
     newToggle.setAttribute('type', 'checkbox');
     newToggle.addEventListener("click", function(e) {
-      alert("toggle liste "+aList.guid);
+      if (!aList.done) {
+        newLi.style.textDecoration = "line-through";
+      }else
+        newLi.style.textDecoration = "none";
+
+      aList.done = newLi.getElementsByTagName("input")[0].checked;
+
+      // Delete the item, add the updated one
+      DB.deleteFromDB(aList.guid, SL.Lists);
+      DB.store(aList, SL.Lists);
     });
 
     var newTitle = document.createElement('a');
@@ -106,7 +116,7 @@ SL.Lists = {
       DB.deleteFromDB(aList.guid, SL.Lists);
     });
 
-    var newLi = document.createElement('li');
+    
     newLi.dataset.listkey = aList.guid;
 
     newLi.appendChild(newToggle);
@@ -183,28 +193,31 @@ SL.Items = {
     qty = "1";
 
     DB.store(aItem, SL.Items);
-    SL.Items.display(aItem, SL.Items);
+    SL.Items.display(aItem);
   },
 
-  edit: function (aItem, elm) {
-    aItem.done = elm.getElementsByTagName("input")[0].checked;
-    aItem.name = elm.getElementsByTagName("a")[0].innerHTML;
-
-    // Delete the item, add the updated one
-    DB.deleteFromDB(aItem.guid, SL.Items);
-    DB.store(aItem, SL.Items);
-  },
   display: function(aItem) {
     var newLi = document.createElement('li');
     var newToggle = document.createElement('input');
     newToggle.setAttribute('type', 'checkbox');
-    if (aItem.done)
+    if (aItem.done) {
       newToggle.setAttribute('checked', 'true');
+      newLi.style.textDecoration = "line-through";
+    }else
+      newLi.style.textDecoration = "none";
 
     newToggle.addEventListener("click", function(e) {
-      newLi.style.fontStyle = "italic";
+      if (!aItem.done) {
+        newLi.style.textDecoration = "line-through";
+      }else
+        newLi.style.textDecoration = "none";
+
       console.log(newLi.style.fontStyle);
-      SL.Items.edit(aItem, newLi);
+      aItem.done = newLi.getElementsByTagName("input")[0].checked;
+
+      // Delete the item, add the updated one
+      DB.deleteFromDB(aItem.guid, SL.Items);
+      DB.store(aItem, SL.Items);
     });
 
     var newTitle = document.createElement('a');
@@ -295,14 +308,9 @@ SL.Items = {
       throw e;
     }
     req.onsuccess = function (evt) {
-      console.log("Insertion in DB successful");
       displayActionSuccess("Inserted");
-      try {
-        DB.displayItems(view.list);
-      } catch(e){ throw e;console.log("fail");}
     };
     req.onerror = function() {
-      console.error("addPublication error", this.error);
       displayActionFailure(this.error);
     };
   },
