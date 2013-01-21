@@ -1,77 +1,45 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
+<html lang="en">
 
-    <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
+<head>
+  <meta charset="utf-8">
+  <title>Shopping List</title>
+  <link rel="stylesheet" href="css/app.css"/>
+</head>
 
-    <!-- Place favicon.ico in the root directory -->
+<body>
+    <header>
+      <a id="back" class="button">Back</a><h1 id="title"></h1><a id="settings" class="button">Settings</a>
+    </header>
+    <div id="msg"></div>
+      <section id="lists">
+        <input id="toggle-all" type="checkbox">
+        <label for="toggle-all">Mark all as complete</label>
+        <ul class="list">
+          <li><input id="listName" type="text" placeholder="Name"></input><a id="add-list" class="button">+</a></li>
+        </ul>
+      </section>
 
-    <link rel="stylesheet" href="css/app.css">
-    <link rel="stylesheet" href="css/install-button.css">
-    <link rel="stylesheet" href="css/layouts.css">
-  </head>
-  <body>
-    <div class="loading">Loading...</div>
-    <x-view id="app">
-      <x-view class="home">
-        <x-view class="homesub">
-          <header>
-            <h1>Home</h1>
-          </header>
-           
-          <footer>
-            <button data-view=".list">List</button>
-          </footer>
-        </x-view>
-
-        <x-listview class="list">
-          <header>
-            <h1>Items</h1>
-          </header>
-          <div id="msg">test</div>
-        </x-listview>
-
-        <x-view class="details">
-          <header><h1>Details</h1></header>
-          
-          This item has the title "<span class="title"></span>"
-        </x-view>
-      </x-view>
-
-      <x-view class="foo">
-        <h1>Section #1</h1>
-        <p>
-          This is another section. If you go back to the "Home"
-          section, notice that it puts you back exactly where you were
-          before you switched tabs (if you opened and subviews or
-          scrolled).
-        </p>
-      </x-view>
-
-      <x-view class="bar">
-        <h1>Section #2</h1>
-        <button>Press me!</button>
-        <p>
-          This is yet another section. The button above does nothing.
-        </p>
-      </x-view>
+      <section id="items">
+        <input id="toggle-all" type="checkbox">
+        <label for="toggle-all">Mark all as complete</label>
+        <ul class="list">
+          <li><input id="itemName" type="text" placeholder="Name"></input><input id="itemQty" type="text" placeholder="Name" value="1"></input><a id="add-item">+</a></li>
+        </ul>
+      </section>
 
       <footer>
-        <button data-view=".home">Home</button>
-        <button data-view=".edit" id="edit-button">Edit</button>
-        <button data-view=".bar">Section #2</button>
+        <a id="edit" class="button">Edit</a><a id="clear-completed">Clear completed</a>
+        <div id="list-count"></div>
       </footer>
-    </x-view>
+  </div>
 
-    <!-- Using require.js, a module system for javascript, include the
-         js files. This loads "main.js", which in turn can load other
-         files, all handled by require.js:
-         http://requirejs.org/docs/api.html#jsfiles -->
-    <script type="text/javascript"
-            data-main="js/init.js"
-            src="js/lib/require.js"></script>
+  <div id="instructions">
+    Click to edit a list.
+  </div>
+
+  <div id="credits">
+  </div>
+  <script src="js/app.js"></script>
   </body>
 </html>
