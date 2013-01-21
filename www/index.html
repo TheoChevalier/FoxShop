@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/install-button.css">
+    <link rel="stylesheet" href="css/layouts.css">
+  </head>
+  <body>
+    <div class="loading">Loading...</div>
+    <x-view id="app">
+      <x-view class="home">
+        <x-view class="homesub">
+          <header>
+            <h1>Home</h1>
+          </header>
+           
+          <footer>
+            <button data-view=".list">List</button>
+          </footer>
+        </x-view>
+
+        <x-listview class="list">
+          <header>
+            <h1>Items</h1>
+          </header>
+          <div id="msg">test</div>
+        </x-listview>
+
+        <x-view class="details">
+          <header><h1>Details</h1></header>
+          
+          This item has the title "<span class="title"></span>"
+        </x-view>
+      </x-view>
+
+      <x-view class="foo">
+        <h1>Section #1</h1>
+        <p>
+          This is another section. If you go back to the "Home"
+          section, notice that it puts you back exactly where you were
+          before you switched tabs (if you opened and subviews or
+          scrolled).
+        </p>
+      </x-view>
+
+      <x-view class="bar">
+        <h1>Section #2</h1>
+        <button>Press me!</button>
+        <p>
+          This is yet another section. The button above does nothing.
+        </p>
+      </x-view>
+
+      <footer>
+        <button data-view=".home">Home</button>
+        <button data-view=".edit" id="edit-button">Edit</button>
+        <button data-view=".bar">Section #2</button>
+      </footer>
+    </x-view>
+
+    <!-- Using require.js, a module system for javascript, include the
+         js files. This loads "main.js", which in turn can load other
+         files, all handled by require.js:
+         http://requirejs.org/docs/api.html#jsfiles -->
+    <script type="text/javascript"
+            data-main="js/init.js"
+            src="js/lib/require.js"></script>
+  </body>
+</html>
