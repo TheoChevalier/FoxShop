@@ -227,11 +227,15 @@ SL.Items = {
     newTitle.className = 'listElmTitle';
     newTitle.innerHTML = aItem.name;
     if (aItem.nb > 1) {
-      //var nb = document.createElement('input');
-      //nb.setAttribute('type', 'number');
-      //nb.value = aItem.nb;
-      newTitle.insertAdjacentHTML('beforeend',
-        '<a class="number">x <input type="number" value="'+aItem.nb+'"/></a>');
+      var container = document.createElement('a');
+      container.innerHTML = "X ";
+      var input = document.createElement('input');
+      input.setAttribute('type', 'number');
+      input.value = aItem.nb;
+      container.appendChild(input);
+      //container.insertAdjacentHTML('beforeend',
+      //  '<input type="number" value="'+aItem.nb+'"/>');
+      newTitle.appendChild(container);
     }
 
     var newDelete = document.createElement('a');
@@ -275,6 +279,7 @@ SL.Items = {
     };
     req.onerror = function (evt) {
       console.error("openDb:", evt.target.errorCode);
+      // FIXME: Show a message stating that the app couldn't start
     };
 
     req.onupgradeneeded = function (evt) {
