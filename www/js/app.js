@@ -91,11 +91,16 @@ SL.Lists = {
     var newLi = document.createElement('li');
     var newToggle = document.createElement('input');
     newToggle.setAttribute('type', 'checkbox');
+    if (aList.done) {
+      newLi.className += " done";
+      newToggle.setAttribute('checked', true);
+    } 
     newToggle.addEventListener("click", function(e) {
       if (!aList.done) {
-        newLi.style.textDecoration = "line-through";
-      }else
-        newLi.style.textDecoration = "none";
+        newLi.className += " done";
+      } else {
+        newLi.className = newLi.className.replace ( /(?:^|\s)done(?!\S)/g , '' );
+      }
 
       aList.done = newLi.getElementsByTagName("input")[0].checked;
 
@@ -201,18 +206,16 @@ SL.Items = {
     var newToggle = document.createElement('input');
     newToggle.setAttribute('type', 'checkbox');
     if (aItem.done) {
-      newToggle.setAttribute('checked', 'true');
-      newLi.style.textDecoration = "line-through";
-    }else
-      newLi.style.textDecoration = "none";
-
+      newLi.className += " done";
+      newToggle.setAttribute('checked', true);
+    } 
     newToggle.addEventListener("click", function(e) {
       if (!aItem.done) {
-        newLi.style.textDecoration = "line-through";
-      }else
-        newLi.style.textDecoration = "none";
+        newLi.className += " done";
+      } else {
+        newLi.className = newLi.className.replace ( /(?:^|\s)done(?!\S)/g , '' );
+      }
 
-      console.log(newLi.style.fontStyle);
       aItem.done = newLi.getElementsByTagName("input")[0].checked;
 
       // Delete the item, add the updated one
@@ -221,13 +224,19 @@ SL.Items = {
     });
 
     var newTitle = document.createElement('a');
+    newTitle.className = 'listElmTitle';
     newTitle.innerHTML = aItem.name;
-    /*newTitle.addEventListener("click", function(e) {
-      SL.Items.init(aList);
-    });*/
+    if (aItem.nb > 1) {
+      //var nb = document.createElement('input');
+      //nb.setAttribute('type', 'number');
+      //nb.value = aItem.nb;
+      newTitle.insertAdjacentHTML('beforeend',
+        '<a class="number">x <input type="number" value="'+aItem.nb+'"/></a>');
+    }
 
     var newDelete = document.createElement('a');
-    newDelete.innerHTML = "[x]";
+    newDelete.className = 'delete';
+    //newDelete.innerHTML = "[x]";
     newDelete.addEventListener("click", function(e) {
       DB.deleteFromDB(aItem.guid, SL.Items);
       newLi.style.display = "none";
