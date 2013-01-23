@@ -51,11 +51,34 @@ var SL = {
   },
   show: function(target) {
     document.getElementById(target).style.display = "block";
+  },
+  settings: function(aView) {
+    this.show("settings");
+
+    var button = document.getElementById("settings");
+    button.addEventListener("click", function(e) {
+      aView.close();
+      SL.Settings.init(aView);
+    });
   }
 };
+SL.Settings = {
+  init: function(aView) {
+    document.getElementById("title").innerHTML = "Settings";
+    SL.action("settingsPanel", "show");
+    SL.action("back", "show");
+    document.getElementById("back").addEventListener("click", function(e) {
+      SL.Settings.close();
+      aView.init();
+    });
+  },
+  close: function() {
+    SL.action("settingsPanel", "hide");
+    SL.action("back", "hide");
+  }
 
+}
 SL.Lists = {
-  lists: {},
   elm : document.getElementById("lists"),
   store: DB_STORE_LISTS,
   init: function() {
@@ -63,8 +86,15 @@ SL.Lists = {
     SL.action("lists", "show");
     SL.action("back", "hide");
     SL.action(null, "edit", this, "click");
-    //SL.action("settings", "open", SL.Settings, "click");
-    console.log("init Lists view");
+    //SL.action("settings", "settings", SL, "click");
+    //FIXME: don’t hardcode this:
+    SL.settings(SL.Lists);
+    
+  },
+  close: function() {
+    SL.action("lists", "hide");
+    SL.action("edit", "hide");
+    SL.action("settings", "hide");
   },
   edit: function() {
     var nodes = SL.Lists.elm.getElementsByClassName("list").childNodes;
@@ -78,6 +108,7 @@ SL.Lists = {
     SL.Lists.display(aList, SL.Lists);
     SL.Lists.lists[aList.guid] = aList;
     console.log("add: "+aList);
+
   },
   edit: function (aItem, elm) {
     aList.done = elm.getElementsByTagName("input")[0].checked;
@@ -128,7 +159,7 @@ SL.Lists = {
     newLi.appendChild(newTitle);
     newLi.appendChild(newDelete);
 
-    SL.Lists.elm.getElementsByTagName("li")[0].appendChild(newLi);
+    SL.Lists.elm.getElementsByClassName("list")[0].appendChild(newLi);
     console.log("added!");
   },
   clear: function() {
@@ -240,7 +271,6 @@ SL.Items = {
 
     var newDelete = document.createElement('a');
     newDelete.className = 'delete';
-    //newDelete.innerHTML = "[x]";
     newDelete.addEventListener("click", function(e) {
       DB.deleteFromDB(aItem.guid, SL.Items);
       newLi.style.display = "none";
@@ -513,8 +543,6 @@ function guid() {
                      date: date.getTime(),
                      items:{}
       });
-      console.log("add..."+name);
-      name = "";
     });
 
     document.getElementById('edit').addEventListener("click", function(evt) {

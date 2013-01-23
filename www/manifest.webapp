@@ -1,8 +1,8 @@
 {
-  "version": "0.1.2",
+  "version": "0.1.3",
   "name": "Shopping List",
   "description": "Your new awesome Open Web App",
-  "launch_path": "/ShoppingList/",
+  "launch_path": "/app/",
   "icons": {
     "16": "/img/icons/mortar-16.png",
     "48": "/img/icons/mortar-48.png",

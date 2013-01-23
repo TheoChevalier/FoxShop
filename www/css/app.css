@@ -56,7 +56,7 @@ body {
   font-style: italic;
 }
 
-#items, #main-items {
+section {
   display: none;
 }
 
