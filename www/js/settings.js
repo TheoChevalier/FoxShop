@@ -7,10 +7,14 @@ SL.Settings = {
       SL.Settings.close();
       aView.init();
     });
+    document.getElementById("archiveAll").addEventListener("click", function() {
+      SL.Settings.archiveAll();
+    });
   },
   close: function() {
     SL.action("settingsPanel", "hide");
     SL.action("back", "hide");
   }
+  
 
 }

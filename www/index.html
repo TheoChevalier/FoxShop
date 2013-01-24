@@ -10,46 +10,44 @@
 
 <body>
     <header>
-      <a id="back" class="button">Back</a><h1 id="title"></h1><a id="settings" class="button">Settings</a>
+      <div class="left">
+        <a id="back" class="button">Back</a>
+      </div>
+      <h1 id="title"></h1>
+      <div class="right">
+        <a id="settings" class="button"></a>
+      </div>
     </header>
     <div id="msg"></div>
+    <div id="content">
       <section id="lists">
-        <input id="toggle-all" type="checkbox">
-        <label for="toggle-all">Mark all as complete</label>
+        <span id="toggle-all-lists">Mark all as complete</span>
         <ul class="list">
           
         </ul>
-        <li><input id="listName" type="text" placeholder="Name"></input><a id="add-list" class="button">+</a></li>
+        <li><input id="listName" type="text" placeholder="Name"></input><a id="add-list" class="button add">+</a></li>
       </section>
 
       <section id="items">
-        <input id="toggle-all" type="checkbox">
-        <label for="toggle-all">Mark all as complete</label>
+        <span id="toggle-all-items">Mark all as complete</span>
         <ul class="list">
           
         </ul>
-        <li><input id="itemName" type="text" placeholder="Name"></input><input id="itemQty" type="text" placeholder="Name" value="1"></input><a id="add-item">+</a></li>
+        <li><input id="itemName" type="text" placeholder="Name"></input><input id="itemQty" type="text" placeholder="Name" value="1"></input><a id="add-item" class="button add">+</a></li>
       </section>
 
       <section id="settingsPanel">
         <ul class="list">
-          <li id="ArchiveAll">Archive all</li>
+          <li id="archiveAll">Archive all</li>
 
         </ul>
       </section>
+    </div>
+    <footer>
+      <a id="edit" class="button">Edit</a><a id="clear-completed">Clear completed</a>
+      <div id="list-count"></div>
+    </footer>
 
-      <footer>
-        <a id="edit" class="button">Edit</a><a id="clear-completed">Clear completed</a>
-        <div id="list-count"></div>
-      </footer>
-  </div>
-
-  <div id="instructions">
-    Click to edit a list.
-  </div>
-
-  <div id="credits">
-  </div>
   <script src="js/lists.js"></script>
   <script src="js/items.js"></script>
   <script src="js/settings.js"></script>
