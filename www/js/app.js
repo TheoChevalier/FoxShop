@@ -13,6 +13,7 @@ SL = {
       if(typeof listener != "undefined" &&
        typeof view != "undefined" && typeof func != "undefined") {
         elm.style.display = "block";
+
         elm.addEventListener(listener, function(e) {
           view[func]();
         });  
@@ -84,23 +85,47 @@ SL.Lists = {
     document.getElementById("title").innerHTML = "Shopping List";
     SL.action("lists", "show");
     SL.action("back", "hide");
+    SL.action("install", "show");
+    SL.action(null, "install", this, "click");
+    SL.action("edit", "show");
     SL.action(null, "edit", this, "click");
     //SL.action("settings", "settings", SL, "click");
     //FIXME: don’t hardcode this:
     SL.settings(SL.Lists);
-    
+    var install = document.getElementById('install');
+    install.addEventListener('click', function(e){
+      console.log("ok install");
+      navigator.mozApps.install("http://theochevalier.fr/app/manifest.webapp");
+    })
   },
   close: function() {
     SL.action("lists", "hide");
     SL.action("edit", "hide");
     SL.action("settings", "hide");
+    SL.action("install", "hide");
   },
-  edit: function() {
-    var nodes = SL.Lists.elm.getElementsByClassName("list").childNodes;
-    for(var i=0; i<nodes.length; i+=3) {
-        //FIXME:Add css classes to be in edit mode, change some layout parts
-        alert(nodes[i]);
+  editMode: function() {
+    var nodes = SL.Lists.elm.getElementsByClassName("list")[0].childNodes;
+    for(var i=1; i<nodes.length; i++) {
+        nodes[i].getElementsByTagName('label')[0].style.display = "none";
+        var a = document.createElement('a');
+        a.className =  'dnd';
+        a.innerHTML = "DND";
+        //nodes[i].appendChild(a);
+        //FIXME: remove class with a regex
+        nodes[i].className = "";
+        //nodes[i].className.replace ( /(?:^|\s)done(?!\S)/g , '' );
+        nodes[i].insertAdjacentHTML('afterbegin',
+        '<a class="dnd">DND</a>');
+        var edit = document.getElementById('edit');
+        edit.removeEventListener("click", function(e){}, false);
+        edit.addEventListener("click", function(e) {
+          console.log("coucou");
+          SL.Lists.clear();
+          DB.displayList(null, SL.Lists);
+        });
     }
+    console.log(SL.Lists.elm.lastChild);
   },
   add: function(aList) {
     DB.store(aList, SL.Lists);
@@ -116,19 +141,16 @@ SL.Lists = {
   },
   display: function(aList) {
     var newLi = document.createElement('li');
-    var newToggle = document.createElement('div');
-    var label = document.createElement('label');
+    var newToggle = document.createElement('label');
+    var span = document.createElement('span');
     var checkbox = document.createElement('input');
     checkbox.setAttribute('type', 'checkbox');
-    checkbox.setAttribute('id', aList.guid);
-    label.setAttribute('for', aList.guid);
-    newToggle.className += " checkboxSquared";
     if (aList.done) {
       newLi.className += " done";
       checkbox.setAttribute('checked', true);
     } 
 
-    label.addEventListener("click", function(e) {
+    newToggle.addEventListener("click", function(e) {
       if (!aList.done) {
         newLi.className += " done";
       } else {
@@ -141,11 +163,13 @@ SL.Lists = {
       DB.deleteFromDB(aList.guid, SL.Lists);
       DB.store(aList, SL.Lists);
     });
+
     newToggle.appendChild(checkbox);
-    newToggle.appendChild(label);
+    newToggle.appendChild(span);
 
     var newTitle = document.createElement('a');
     newTitle.innerHTML = aList.name;
+    newTitle.className = "liTitle";
     newTitle.addEventListener("click", function(e) {
       SL.Items.init(aList);
     });
@@ -167,12 +191,12 @@ SL.Lists = {
     console.log("added!");
   },
   clear: function() {
-    var list = document.getElementById("list");
-    var main = document.getElementById("main");
-    main.removeChild(list);
+    var lists = document.getElementById("lists");
+    var list = document.getElementsByClassName("list")[0];
+    lists.removeChild(list);
     var ul = document.createElement('ul');
-    ul.setAttribute('id', 'list');
-    main.appendChild(ul);
+    ul.className =  'list';
+    lists.appendChild(ul);
   }
 };
 
@@ -184,6 +208,7 @@ SL.Items = {
     document.getElementById("title").innerHTML=aList.name;
 
     SL.Lists.elm.style.display = "none";
+    SL.action("install", "hide");
     var items = document.getElementById('items');
     items.style.display = "block";
     this.list = aList;
@@ -240,25 +265,31 @@ SL.Items = {
 
   display: function(aItem) {
     var newLi = document.createElement('li');
-    var newToggle = document.createElement('input');
-    newToggle.setAttribute('type', 'checkbox');
+    var newToggle = document.createElement('label');
+    var span = document.createElement('span');
+    var checkbox = document.createElement('input');
+    checkbox.setAttribute('type', 'checkbox');
     if (aItem.done) {
       newLi.className += " done";
-      newToggle.setAttribute('checked', true);
+      checkbox.setAttribute('checked', true);
     } 
+
     newToggle.addEventListener("click", function(e) {
       if (!aItem.done) {
         newLi.className += " done";
       } else {
         newLi.className = newLi.className.replace ( /(?:^|\s)done(?!\S)/g , '' );
       }
-
       aItem.done = newLi.getElementsByTagName("input")[0].checked;
 
       // Delete the item, add the updated one
       DB.deleteFromDB(aItem.guid, SL.Items);
       DB.store(aItem, SL.Items);
     });
+
+    newToggle.appendChild(checkbox);
+    newToggle.appendChild(span);
+
 
     var newTitle = document.createElement('a');
     newTitle.className = 'listElmTitle';
@@ -342,10 +373,11 @@ function addEventListeners() {
                    date: date.getTime(),
                    items:{}
     });
+    document.getElementById('listName').value ="";
   });
 
   document.getElementById('edit').addEventListener("click", function(evt) {
-     console.log("edit");
+     SL.Lists.editMode();
   });
 }
  

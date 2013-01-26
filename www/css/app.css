@@ -69,9 +69,18 @@ body {
 }
 
 #content {
-  padding: 45px 0;
+  padding: 50px 0;
   height: 100%;
 }
+
+.action-success {
+  color: green;
+}
+
+.action-failure {
+  color: red;
+}
+
  input[type="text"] {
   font-size: 24px;
   font-family: inherit;
@@ -91,80 +100,42 @@ body {
   font-style: italic;
 }
 
-.checkboxSquared input[type="checkbox"] { visibility: hidden;display: none;}
-.checkboxSquared {
+
+label {
   display: inline-block;
-  width: 28px;
-  height: 28px;
-  margin-right: 10px;
-  background: #fcfff4;
-
-  background: -webkit-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-  background: -moz-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-  background: -o-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-  background: -ms-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-  background: linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfff4', endColorstr='#b3bead',GradientType=0 );
-
-  -webkit-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5);
-  -moz-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5);
-  box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5);
-  position: relative;
-}
-
-.checkboxSquared label {
-  cursor: pointer;
-  position: absolute;
+  vertical-align: middle;
   width: 20px;
   height: 20px;
-  left: 4px;
-  top: 4px;
-
-  -webkit-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,1);
-  -moz-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,1);
-  box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,1);
-
-  background: -webkit-linear-gradient(top, #ddd 0%, #a0a6b2 100%);
-  background: -moz-linear-gradient(top, #ddd 0%, #a0a6b2 100%);
-  background: -o-linear-gradient(top, #ddd 0%, #a0a6b2 100%);
-  background: -ms-linear-gradient(top, #ddd 0%, #a0a6b2 100%);
-  background: linear-gradient(top, #ddd 0%, #a0a6b2 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ddd', endColorstr='#a0a6b2',GradientType=0 );
+  position: relative;
+  background: none;
 }
-.checkboxSquared label:after {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-  filter: alpha(opacity=0);
+
+label input {
+  margin: 0;
   opacity: 0;
-  content: '';
   position: absolute;
-  width: 9px;
-  height: 5px;
-  background: transparent;
-  top: 4px;
-  left: 4px;
-  border: 3px solid #fcfff4;
-  border-top: none;
-  border-right: none;
-
-  -webkit-transform: rotate(-45deg);
-  -moz-transform: rotate(-45deg);
-  -o-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  transform: rotate(-45deg);
+  top: 0;
+  left: 0;
 }
 
-.checkboxSquared label:hover::after {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
-  filter: alpha(opacity=30);
-  opacity: 0.3;
+label input + span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -1.1rem 0 0 -1.1rem;
+  width: 2.2rem;
+  height: 2.2rem;
+  pointer-events: none;
 }
 
-.checkboxSquared input[type=checkbox]:checked + label:after {
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-  filter: alpha(opacity=100);
-  opacity: 1;
+label input[type="checkbox"] + span {
+  background: url(../img/check/default.png) no-repeat center top;
 }
 
+
+label input:checked + span {
+  background-position: center bottom;
+}
 
 section {
   display: none;
@@ -190,11 +161,25 @@ section {
   text-overflow: ellipsis;
   overflow: hidden;
 }
+.liTitle {
+  display: inline-block;
+  width: -moz-calc(100% - 60px);
+  height: 100%;
+  padding: 18px 0;
+  margin-top: -18px;
+  margin-bottom: -18px;
+}
+.dnd {
+  display: inline-block;
+  border: 1px solid #000;
+  width: 20px;
+}
 .number {
   float:right;
   display: block;
   width: 10%;
   min-width: 60px;
+  padding: 18px 0;
 }
 .listElmTitle {display: inline-block;position: relative;}
 
@@ -242,8 +227,8 @@ section {
   background: #ddd;
 }
 
-#itemQty {width: 40px;}
-#itemName {width: 200px;}
+#itemQty {width: 10% ;}
+#itemName {width: -moz-calc(90% - 70px);}
 
 #list li.editing {
   border-bottom: none;
@@ -276,6 +261,7 @@ section {
 
 #listName {
   width: -moz-calc(100% - 70px);
+
 }
 
 .add {
@@ -322,6 +308,13 @@ section {
 .button:active {
   position: relative;
   top: 1px;
+}
+
+.add {
+  height: 42px;
+  margin: 0;
+  font-size: 60px;
+  line-height: 42px;
 }
 
 #todo-count span {
