@@ -6,26 +6,40 @@
   <title>Shopping List</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
   <link rel="stylesheet" href="css/app.css"/>
+  <link rel="stylesheet" type="text/css" href="css/headers.css"/>
+  <link rel="stylesheet" type="text/css" href="css/lists.css">
+  <link rel="stylesheet" type="text/css" href="css/switches.css">
 </head>
 
 <body>
+  <!--
     <header>
       <div class="left">
-        <a id="install" class="button">Install</a>
+        <a id="install" class="button">Inst.</a>
         <a id="back" class="button">Back</a>
       </div>
       <h1 id="title"></h1>
       <div class="right">
         <a id="settings" class="button"></a>
       </div>
-    </header>
+    </header>-->
+<section role="region" id="header">
+  <header>
+  <button id="back"><span class="icon icon-back"></span></button>
+  <menu type="toolbar">
+    <button id="install"><span class="icon icon-add">Inst.</span></button>
+    <button id="settings"><span class="icon icon-settings">s</span></button>
+  </menu>
+  <h1 id="title"></h1>
+  </header>
+</section>
     <div id="content">
       <div id="msg"></div>
       <section id="lists">
         <span id="toggle-all-lists">Mark all as complete</span>
-        <ul class="list">
-          
-        </ul>
+          <ul data-type="list" class="list">
+          </ul>
+        </section>
         <li><input id="listName" type="text" placeholder="Name"></input><a id="add-list" class="button add">+</a></li>
       </section>
 

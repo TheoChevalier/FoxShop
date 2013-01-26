@@ -140,17 +140,29 @@ SL.Lists = {
     DB.store(aList, SL.Lists);
   },
   display: function(aList) {
+
     var newLi = document.createElement('li');
+    newLi.dataset.listkey = aList.guid;
+
+    // Part 1 toggle
     var newToggle = document.createElement('label');
-    var span = document.createElement('span');
+    //newToggle.className +="danger";
+    //newToggle.setAttribute('for', aList.guid);
+    var mySpan = document.createElement('span');
     var checkbox = document.createElement('input');
     checkbox.setAttribute('type', 'checkbox');
+    //checkbox.setAttribute('id', aList.guid);
     if (aList.done) {
       newLi.className += " done";
       checkbox.setAttribute('checked', true);
     } 
 
-    newToggle.addEventListener("click", function(e) {
+    newToggle.appendChild(checkbox);
+    newToggle.appendChild(mySpan);
+
+    mySpan.addEventListener("click", function(e) {
+      console.log("span ok");
+
       if (!aList.done) {
         newLi.className += " done";
       } else {
@@ -164,28 +176,39 @@ SL.Lists = {
       DB.store(aList, SL.Lists);
     });
 
-    newToggle.appendChild(checkbox);
-    newToggle.appendChild(span);
 
+    // Part 2 pack-end
+    var packEnd  = document.createElement('aside');
+    packEnd.className = "pack-end";
+
+    // part 3 title
     var newTitle = document.createElement('a');
-    newTitle.innerHTML = aList.name;
+    var p1 = document.createElement('p');
+    var p2 = document.createElement('p');
+
+    p1.innerHTML = aList.name;
+    p2.innerHTML = "x  items";
     newTitle.className = "liTitle";
     newTitle.addEventListener("click", function(e) {
       SL.Items.init(aList);
     });
+    newTitle.appendChild(p1);
+    newTitle.appendChild(p2);
 
+
+/*
     var newDelete = document.createElement('a');
     newDelete.className = 'delete';
     newDelete.addEventListener("click", function(e) {
       newLi.style.display = "none";
       DB.deleteFromDB(aList.guid, SL.Lists);
     });
+    */
     
-    newLi.dataset.listkey = aList.guid;
-
     newLi.appendChild(newToggle);
+    newLi.appendChild(packEnd);
     newLi.appendChild(newTitle);
-    newLi.appendChild(newDelete);
+    //newLi.appendChild(newDelete);
 
     SL.Lists.elm.getElementsByClassName("list")[0].appendChild(newLi);
     console.log("added!");
@@ -204,11 +227,10 @@ SL.Items = {
   elm: document.getElementById("items"),
   store: DB_STORE_ITEMS,
   init: function(aList) {
+    SL.Lists.close();
     // Set title of the displayed Items list
     document.getElementById("title").innerHTML=aList.name;
 
-    SL.Lists.elm.style.display = "none";
-    SL.action("install", "hide");
     var items = document.getElementById('items');
     items.style.display = "block";
     this.list = aList;
@@ -217,6 +239,7 @@ SL.Items = {
     SL.action("back", "back", this, "click");
     SL.action("add-item", "add", this, "click");
     document.getElementById('add-item').style.display = "inline-block";
+    SL.Items.clear();
     DB.displayItems(aList);
   },
 
@@ -389,6 +412,7 @@ function finishInit() {
     var height = document.body.clientHeight;
   console.log(height);
   document.getElementById("content").style.height = height;
+  document.getElementById("header").style.display = "block";
 }
 var db;
 window.addEventListener("load", function() {

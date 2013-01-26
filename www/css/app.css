@@ -4,18 +4,9 @@
 }  
 
 header,footer {
-  overflow: hidden;
-  text-align: center;
+
   width: 100%;
-  margin: 0px;
-  background: -moz-linear-gradient(center top , rgb(198, 106, 0), rgb(181, 77, 23)) repeat scroll 0% 0% transparent;
-  border-bottom: 1px solid rgb(147, 50, 18);
-  box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.7);
-  color: white;
-  height: 2em;
-  padding: 0.5em 0px;
-  position: fixed;
-  z-index: 1;
+
 }
 header {top: 0;}
 footer {bottom: 0;}
@@ -100,7 +91,7 @@ body {
   font-style: italic;
 }
 
-
+/*
 label {
   display: inline-block;
   vertical-align: middle;
@@ -135,7 +126,7 @@ label input[type="checkbox"] + span {
 
 label input:checked + span {
   background-position: center bottom;
-}
+}*/
 
 section {
   display: none;
@@ -163,11 +154,8 @@ section {
 }
 .liTitle {
   display: inline-block;
-  width: -moz-calc(100% - 60px);
+  width: 100%;
   height: 100%;
-  padding: 18px 0;
-  margin-top: -18px;
-  margin-bottom: -18px;
 }
 .dnd {
   display: inline-block;
@@ -319,4 +307,31 @@ section {
 
 #todo-count span {
   font-weight: bold;
+}
+button {display: none;}
+section[role="region"] > header:first-child {
+   position: fixed!important;
+}
+
+.pack-end {
+  background: url('../img/icons/go.png') no-repeat;
+  width: 16px;
+  height: 16px;
+}
+.list{
+  padding: 0!important;
+}
+.list > li {
+  padding: 0 2rem;
+  pointer-events: none;
+}
+
+span {
+  pointer-events: auto;
+  height: 1.6rem!important;
+}
+
+.liTitle {
+  pointer-events: auto;
+  margin-left: 2rem;
 }
