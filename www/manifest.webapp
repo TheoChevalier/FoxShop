@@ -1,12 +1,10 @@
 {
-  "version": "0.1.6",
+  "version": "0.1.8",
   "name": "Shopping List",
   "description": "Your new awesome Open Web App",
   "launch_path": "/app/",
   "icons": {
-    "16": "http://theochevalier.fr/app/img/icons/mortar-16.png",
-    "48": "http://theochevalier.fr/app/img/icons/mortar-48.png",
-    "128": "http://theochevalier.fr/app/img/icons/mortar-128.png"
+    "60": "http://theochevalier.fr/app/img/icons/icon.png"
   },
   "developer": {
     "name": "Théo Chevalier",

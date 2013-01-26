@@ -5,7 +5,7 @@ section[role="region"] > header:first-child {
   position: relative;
   z-index: 10;
   padding: 0;
-  height: 5rem;
+  height: 3rem;
   color: #fff;
   background: url(headers/images/ui/header.png) repeat-x 0 0;
   background-size: auto 100%;
@@ -25,7 +25,7 @@ section[role="region"] > header:first-child:after {
 }
 
 section[role="region"] > header:first-child h1 {
-  font: 2.5rem/4.8rem "MozTT", Sans-serif;
+  font: 1.8rem/2.8rem "MozTT", Sans-serif;
   text-align: left;
   color: #fff;
   white-space: nowrap;
@@ -221,7 +221,7 @@ section[role="region"] > header:first-child > a {
   position: absolute;
   left: 0;
   width: 5rem;
-  height: 5rem;
+  height: 3rem;
   background: url(headers/images/ui/separator-large.png) no-repeat 2rem center;
   overflow: hidden;
 }

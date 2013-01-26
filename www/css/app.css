@@ -11,20 +11,6 @@ header,footer {
 header {top: 0;}
 footer {bottom: 0;}
 
-header h1 {
-  margin: -12px 60px 0px 60px;
-  font-size: 2em;
-  line-height: 40pt;
-  text-align: center;
-  position: relative;
-  font-size: 20pt;
-  font-weight: bold;
-  text-align: center;
-  padding: 0 0 10px 0;
-  display: inline-block;
-  height: 100%;
-
-}
 .left, .right {
   width: 60px;
   height: 100%;
@@ -61,6 +47,7 @@ body {
 
 #content {
   padding: 50px 0;
+  padding-bottom: 70px;
   height: 100%;
 }
 
@@ -197,11 +184,12 @@ section {
   display: block;
   float:right;
   right: 5px;
-  top: 20px;
   cursor: pointer;
   width: 20px;
   height: 20px;
+  margin-top: 2rem;
   background: url(../img/delete.png) no-repeat;
+  pointer-events: auto;
 }
 
 
@@ -334,4 +322,15 @@ span {
 .liTitle {
   pointer-events: auto;
   margin-left: 2rem;
+}
+.labelItem {
+  margin-left: -3.5rem;
+}
+
+.icon-install {
+  background: url('../img/icons/install.png') no-repeat;
+}
+
+.icon-complete {
+  background: url('../img/icons/complete.png') no-repeat;
 }

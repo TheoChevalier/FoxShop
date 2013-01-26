@@ -85,16 +85,28 @@ SL.Lists = {
     document.getElementById("title").innerHTML = "Shopping List";
     SL.action("lists", "show");
     SL.action("back", "hide");
-    SL.action("install", "show");
-    SL.action(null, "install", this, "click");
+
+    var request = navigator.mozApps.getSelf();
+    request.onsuccess = function() {
+      if (!request.result) {
+        SL.action("install", "show");
+        SL.action(null, "install", this, "click");
+      }
+    };
+    
     SL.action("edit", "show");
     SL.action(null, "edit", this, "click");
+    SL.action("form-list", "show");
+    SL.action("completeall", "show");
+    //SL.action(null, "completeall", this, "click");  -> marche pas!
+    document.getElementById("completeall").addEventListener("click", function() {
+      SL.Lists.completeall();
+    });
     //SL.action("settings", "settings", SL, "click");
     //FIXME: don’t hardcode this:
     SL.settings(SL.Lists);
     var install = document.getElementById('install');
     install.addEventListener('click', function(e){
-      console.log("ok install");
       navigator.mozApps.install("http://theochevalier.fr/app/manifest.webapp");
     })
   },
@@ -103,6 +115,8 @@ SL.Lists = {
     SL.action("edit", "hide");
     SL.action("settings", "hide");
     SL.action("install", "hide");
+    SL.action("form-list", "hide");
+    SL.action("completeall", "hide");
   },
   editMode: function() {
     var nodes = SL.Lists.elm.getElementsByClassName("list")[0].childNodes;
@@ -120,7 +134,6 @@ SL.Lists = {
         var edit = document.getElementById('edit');
         edit.removeEventListener("click", function(e){}, false);
         edit.addEventListener("click", function(e) {
-          console.log("coucou");
           SL.Lists.clear();
           DB.displayList(null, SL.Lists);
         });
@@ -191,6 +204,7 @@ SL.Lists = {
     newTitle.className = "liTitle";
     newTitle.addEventListener("click", function(e) {
       SL.Items.init(aList);
+      console.log(aList);
     });
     newTitle.appendChild(p1);
     newTitle.appendChild(p2);
@@ -220,6 +234,16 @@ SL.Lists = {
     var ul = document.createElement('ul');
     ul.className =  'list';
     lists.appendChild(ul);
+  },
+  completeall: function() {
+    
+    var nodes = SL.Lists.elm.getElementsByClassName("list")[0].childNodes;
+    for(var i=1; i<nodes.length; i++) {
+        console.log(nodes[i].getElementsByTagName('label')[0].checked);
+        nodes[i].getElementsByTagName('input')[0].setAttribute("checked", true);
+        nodes[i].className.replace ( /(?:^|\s)done(?!\S)/g , '' );
+        nodes[i].className += " done";
+    }
   }
 };
 
@@ -289,6 +313,7 @@ SL.Items = {
   display: function(aItem) {
     var newLi = document.createElement('li');
     var newToggle = document.createElement('label');
+    newToggle.className = "labelItem";
     var span = document.createElement('span');
     var checkbox = document.createElement('input');
     checkbox.setAttribute('type', 'checkbox');
