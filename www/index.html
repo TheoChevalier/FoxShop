@@ -10,6 +10,7 @@
   <link rel="stylesheet" type="text/css" href="css/lists.css">
   <link rel="stylesheet" type="text/css" href="css/switches.css">
   <link rel="stylesheet" type="text/css" href="css/toolbars.css">
+  <link rel="stylesheet" type="text/css" href="css/edit_mode.css">
 </head>
 
 <body>
@@ -24,25 +25,56 @@
         <a id="settings" class="button"></a>
       </div>
     </header>-->
-<section role="region" id="header">
-  <header>
-  <button id="back"><span class="icon icon-back"></span></button>
-  <menu type="toolbar">
-    <button id="settings"><span class="icon icon-settings">s</span></button>
-  </menu>
-  <h1 id="title"></h1>
-  </header>
-</section>
+
     <div id="content">
-      <div id="msg"></div>
       <section id="lists">
+        <section role="region" id="header">
+          <header>
+          <button id="back"><span class="icon icon-back"></span></button>
+          <menu type="toolbar">
+            <button id="settings"><span class="icon icon-settings">s</span></button>
+          </menu>
+          <h1 id="title"></h1>
+          </header>
+          <header>
+        <h2 id="msg">Subheader text</h2>
+        </header>
           <ul data-type="list" class="list">
           </ul>
         </section>
         <li id="form-list"><input id="listName" type="text" placeholder="Name"></input><a id="add-list" class="button add">+</a></li>
       </section>
+      <form role="dialog" data-type="edit" onsubmit="return false;" id="editLists">
+        <section>
+          <header>
+            <button><span class="icon icon-close">close</span></button>
+            <menu type="toolbar">
+              <button>done</button>
+            </menu>
+            <h1>Edit</h1>
+          </header>
+          <ul data-type="list" class="list">
+          </ul>
+        </section>
+        <menu>
+          <button>Delete all</button>
+          <button>Delete selected</button>
+        </menu>
+      </form>
 
       <section id="items">
+        <section role="region" id="header">
+          <header>
+          <button id="back"><span class="icon icon-back"></span></button>
+          <menu type="toolbar">
+            <button id="settings"><span class="icon icon-settings">s</span></button>
+          </menu>
+          <h1 id="title">Items</h1>
+          </header>
+          <header>
+        <h2 id="msg">Subheader text</h2>
+        </header>
+        </section>
         <ul class="list">
           
         </ul>
@@ -62,7 +94,8 @@
     </li>
     </ul>
     <ul>
-    <li><button id="completeall" class="icon-complete">Complete all</button></li>
+      <li><button id="edit" class="icon-complete">Edit</button></li>
+      <li><button id="completeall" class="icon-complete">Complete all</button></li>
     </ul>
     </div>
 

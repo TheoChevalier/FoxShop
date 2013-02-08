@@ -119,6 +119,9 @@ SL.Lists = {
     SL.action("completeall", "hide");
   },
   editMode: function() {
+    SL.Lists.close();
+    SL.show("editLists");
+
     var nodes = SL.Lists.elm.getElementsByClassName("list")[0].childNodes;
     for(var i=1; i<nodes.length; i++) {
         nodes[i].getElementsByTagName('label')[0].style.display = "none";
