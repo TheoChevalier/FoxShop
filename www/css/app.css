@@ -300,7 +300,7 @@ label input:checked + span {
 #todo-count span {
   font-weight: bold;
 }
-button {display: none;}
+/*button {display: none;}*/
 section[role="region"] > header:first-child {
    position: fixed!important;
 }

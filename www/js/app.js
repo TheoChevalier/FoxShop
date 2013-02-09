@@ -53,6 +53,9 @@ SL = {
       aView.close();
       SL.Settings.init(aView);
     });
+  },
+  removeElement: function(node) {
+    node.parentNode.removeChild(node);
   }
 };
 
@@ -80,11 +83,12 @@ SL.Settings = {
 
 SL.Lists = {
   elm : document.getElementById("lists"),
+  arrayList : {},
   store: DB_STORE_LISTS,
   init: function() {
+    SL.view = "Lists";
     document.getElementById("title").innerHTML = "Shopping List";
     SL.action("lists", "show");
-    SL.action("back", "hide");
 
     var request = navigator.mozApps.getSelf();
     request.onsuccess = function() {
@@ -93,14 +97,17 @@ SL.Lists = {
         SL.action(null, "install", this, "click");
       }
     };
-    
-    SL.action("edit", "show");
-    SL.action(null, "edit", this, "click");
+
     SL.action("form-list", "show");
     SL.action("completeall", "show");
     //SL.action(null, "completeall", this, "click");  -> marche pas!
     document.getElementById("completeall").addEventListener("click", function() {
       SL.Lists.completeall();
+    });
+    
+    // Init event for edit view
+    this.elm.getElementsByClassName('edit')[0].addEventListener("click", function(evt) {
+      SL.editLists.init();
     });
     //SL.action("settings", "settings", SL, "click");
     //FIXME: don’t hardcode this:
@@ -111,37 +118,8 @@ SL.Lists = {
     })
   },
   close: function() {
-    SL.action("lists", "hide");
-    SL.action("edit", "hide");
-    SL.action("settings", "hide");
-    SL.action("install", "hide");
-    SL.action("form-list", "hide");
-    SL.action("completeall", "hide");
-  },
-  editMode: function() {
-    SL.Lists.close();
-    SL.show("editLists");
-
-    var nodes = SL.Lists.elm.getElementsByClassName("list")[0].childNodes;
-    for(var i=1; i<nodes.length; i++) {
-        nodes[i].getElementsByTagName('label')[0].style.display = "none";
-        var a = document.createElement('a');
-        a.className =  'dnd';
-        a.innerHTML = "DND";
-        //nodes[i].appendChild(a);
-        //FIXME: remove class with a regex
-        nodes[i].className = "";
-        //nodes[i].className.replace ( /(?:^|\s)done(?!\S)/g , '' );
-        nodes[i].insertAdjacentHTML('afterbegin',
-        '<a class="dnd">DND</a>');
-        var edit = document.getElementById('edit');
-        edit.removeEventListener("click", function(e){}, false);
-        edit.addEventListener("click", function(e) {
-          SL.Lists.clear();
-          DB.displayList(null, SL.Lists);
-        });
-    }
-    console.log(SL.Lists.elm.lastChild);
+    SL.view = "";
+    SL.hide("lists");
   },
   add: function(aList) {
     DB.store(aList, SL.Lists);
@@ -207,7 +185,6 @@ SL.Lists = {
     newTitle.className = "liTitle";
     newTitle.addEventListener("click", function(e) {
       SL.Items.init(aList);
-      console.log(aList);
     });
     newTitle.appendChild(p1);
     newTitle.appendChild(p2);
@@ -226,9 +203,14 @@ SL.Lists = {
     newLi.appendChild(packEnd);
     newLi.appendChild(newTitle);
     //newLi.appendChild(newDelete);
-
-    SL.Lists.elm.getElementsByClassName("list")[0].appendChild(newLi);
-    console.log("added!");
+     
+    console.log(SL.view);
+    if(SL.view == "editLists") {
+      document.getElementById("editLists").getElementsByClassName("list")[0].appendChild(newLi);
+    } else {
+      SL.Lists.elm.getElementsByClassName("list")[0].appendChild(newLi);
+    }
+    this.arrayList[aList.guid] = aList;
   },
   clear: function() {
     var lists = document.getElementById("lists");
@@ -250,20 +232,86 @@ SL.Lists = {
   }
 };
 
+SL.editLists = {
+  elm: document.getElementById("editLists"),
+  store: DB_STORE_LISTS,
+  init: function() {
+    SL.Lists.close();
+    SL.view = "editLists";
+
+    SL.show("editLists");
+    var node = this.elm.getElementsByClassName("list")[0];
+while (node.hasChildNodes()) {
+    node.removeChild(node.lastChild);
+    console.log("mon node:"+node);
+}
+
+    DB.displayList(null, SL.editLists);
+
+  
+
+
+    //Add events to buttons
+    var editLists = this.elm.getElementsByTagName("header")[0];
+    console.log(editLists);
+
+    // Close
+    editLists.getElementsByTagName("button")[0].addEventListener("click", function() {
+      SL.hide("editLists");
+      SL.Lists.init();
+    });
+
+    // Done
+    editLists.getElementsByTagName("button")[1].addEventListener("click", function() {
+      SL.hide("editLists");
+      SL.Lists.init();
+    });
+
+  },
+  display: function(aList) {
+    var newLi = document.createElement('li');
+    newLi.dataset.listkey = aList.guid;
+
+    // Part 1 toggle
+    var newToggle = document.createElement('label');
+    newToggle.className +="danger";
+    //newToggle.setAttribute('for', aList.guid);
+    var mySpan = document.createElement('span');
+    var checkbox = document.createElement('input');
+    checkbox.setAttribute('type', 'checkbox');
+    //checkbox.setAttribute('id', aList.guid);
+
+    newToggle.appendChild(checkbox);
+    newToggle.appendChild(mySpan);
+
+    // part 3 title
+    var newTitle = document.createElement('a');
+    var p1 = document.createElement('p');
+
+    p1.innerHTML = aList.name;
+    newTitle.className = "liTitle";
+    newTitle.appendChild(p1);
+
+    newLi.appendChild(newToggle);
+    newLi.appendChild(newTitle);
+
+    this.elm.getElementsByClassName("list")[0].appendChild(newLi);
+  }
+}
+
 SL.Items = {
   elm: document.getElementById("items"),
   store: DB_STORE_ITEMS,
   init: function(aList) {
     SL.Lists.close();
-    // Set title of the displayed Items list
-    document.getElementById("title").innerHTML=aList.name;
-
-    var items = document.getElementById('items');
-    items.style.display = "block";
+    this.elm.style.display = "block";
+    console.log(this.elm.style.display);
     this.list = aList;
+    // Set title of the displayed Items list
+    this.elm.getElementsByClassName("title")[0].innerHTML=aList.name;
 
     // Display buttons
-    SL.action("back", "back", this, "click");
+    this.elm.getElementsByClassName("back")[0].addEventListener("click", SL.Items.back());
     SL.action("add-item", "add", this, "click");
     document.getElementById('add-item').style.display = "inline-block";
     SL.Items.clear();
@@ -427,9 +475,6 @@ function addEventListeners() {
     document.getElementById('listName').value ="";
   });
 
-  document.getElementById('edit').addEventListener("click", function(evt) {
-     SL.Lists.editMode();
-  });
 }
  
 // Actions that needs the DB to be ready

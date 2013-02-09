@@ -30,7 +30,6 @@
       <section id="lists">
         <section role="region" id="header">
           <header>
-          <button id="back"><span class="icon icon-back"></span></button>
           <menu type="toolbar">
             <button id="settings"><span class="icon icon-settings">s</span></button>
           </menu>
@@ -43,7 +42,17 @@
           </ul>
         </section>
         <li id="form-list"><input id="listName" type="text" placeholder="Name"></input><a id="add-list" class="button add">+</a></li>
+        <div role="toolbar">
+          <ul>
+            <li><button id="install" class="icon icon-install"></button></li>
+          </ul>
+          <ul>
+            <li><button class="edit icon-complete">Edit</button></li>
+            <li><button id="completeall" class="icon-complete">Complete all</button></li>
+          </ul>
+        </div>
       </section>
+
       <form role="dialog" data-type="edit" onsubmit="return false;" id="editLists">
         <section>
           <header>
@@ -65,11 +74,11 @@
       <section id="items">
         <section role="region" id="header">
           <header>
-          <button id="back"><span class="icon icon-back"></span></button>
+          <button class="back"><span class="icon icon-back"></span></button>
           <menu type="toolbar">
             <button id="settings"><span class="icon icon-settings">s</span></button>
           </menu>
-          <h1 id="title">Items</h1>
+          <h1 class="title">Items</h1>
           </header>
           <header>
         <h2 id="msg">Subheader text</h2>
@@ -79,6 +88,15 @@
           
         </ul>
         <li><input id="itemName" type="text" placeholder="Name"></input><input id="itemQty" type="text" placeholder="Name" value="1"></input><a id="add-item" class="button add">+</a></li>
+        <div role="toolbar">
+          <ul>
+            <li><button id="install" class="icon icon-install"></button></li>
+          </ul>
+          <ul>
+            <li><button id="edit" class="icon-complete">Edit</button></li>
+            <li><button id="completeall" class="icon-complete">Complete all</button></li>
+          </ul>
+        </div>
       </section>
 
       <section id="settingsPanel">
@@ -87,16 +105,6 @@
 
         </ul>
       </section>
-    </div>
-    <div role="toolbar">
-    <ul>
-    <li><button id="install" class="icon icon-install"></button>
-    </li>
-    </ul>
-    <ul>
-      <li><button id="edit" class="icon-complete">Edit</button></li>
-      <li><button id="completeall" class="icon-complete">Complete all</button></li>
-    </ul>
     </div>
 
   <script src="js/db.js"></script>
