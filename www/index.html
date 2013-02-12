@@ -12,6 +12,7 @@
   <link rel="stylesheet" type="text/css" href="css/toolbars.css">
   <link rel="stylesheet" type="text/css" href="css/edit_mode.css">
   <link rel="stylesheet" type="text/css" href="css/input_areas.css">
+  <link rel="stylesheet" type="text/css" href="css/action_menu.css">
 </head>
 
 <body>
@@ -106,12 +107,15 @@
         </div>
       </section>
 
-      <section id="settingsPanel">
-        <ul class="list">
-          <li id="archiveAll">Archive all</li>
-
-        </ul>
-      </section>
+    <form id="settingsPanel" role="dialog" data-type="action" onsubmit="return false;">
+    <header>Settings</header>
+    <menu>
+    <button> Action 1 </button>
+    <button> Action 2 </button>
+    <button> Action 3 </button>
+    <button> Cancel </button>
+    </menu>
+    </form>
     </div>
 
   <script src="js/db.js"></script>
