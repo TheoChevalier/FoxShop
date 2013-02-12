@@ -165,6 +165,14 @@ var DB = {
       };
   },
 
+  // Delete a store
+  deleteAll: function(view) {
+    var store = DB.getObjectStore(view.store, 'readwrite');
+    store.clear().onsuccess = function(evt) {
+      console.log("store cleared");
+    }
+  },
+
   displayItems: function(aList) {
     var store = DB.getObjectStore(DB_STORE_ITEMS, 'readonly');
     var req = store.index('list');

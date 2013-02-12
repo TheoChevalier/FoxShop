@@ -90,13 +90,13 @@ SL.Lists = {
     document.getElementById("title").innerHTML = "Shopping List";
     SL.action("lists", "show");
 
-    var request = navigator.mozApps.getSelf();
+    /*var request = navigator.mozApps.getSelf();
     request.onsuccess = function() {
       if (!request.result) {
         SL.action("install", "show");
         SL.action(null, "install", this, "click");
       }
-    };
+    };*/
 
     SL.action("form-list", "show");
     SL.action("completeall", "show");
@@ -115,7 +115,9 @@ SL.Lists = {
     var install = document.getElementById('install');
     install.addEventListener('click', function(e){
       navigator.mozApps.install("http://theochevalier.fr/app/manifest.webapp");
-    })
+    });
+
+
   },
   close: function() {
     SL.view = "";
@@ -241,32 +243,38 @@ SL.editLists = {
 
     SL.show("editLists");
     var node = this.elm.getElementsByClassName("list")[0];
-while (node.hasChildNodes()) {
-    node.removeChild(node.lastChild);
-    console.log("mon node:"+node);
-}
+    while (node.hasChildNodes()) {
+        node.removeChild(node.lastChild);
+        console.log("mon node:"+node);
+    }
 
     DB.displayList(null, SL.editLists);
 
-  
-
-
     //Add events to buttons
-    var editLists = this.elm.getElementsByTagName("header")[0];
-    console.log(editLists);
+    var header = this.elm.getElementsByTagName("header")[0];
+    console.log(header);
 
     // Close
-    editLists.getElementsByTagName("button")[0].addEventListener("click", function() {
+    header.getElementsByTagName("button")[0].addEventListener("click", function() {
       SL.hide("editLists");
       SL.Lists.init();
     });
 
-    // Done
-    editLists.getElementsByTagName("button")[1].addEventListener("click", function() {
-      SL.hide("editLists");
-      SL.Lists.init();
+    // Delete Selected
+    header.getElementsByTagName("button")[1].addEventListener("click", function() {
+      SL.editLists.deleteSelected();
     });
 
+    var menu = this.elm.getElementsByTagName("menu")[1];
+
+    // Select All
+    menu.getElementsByTagName("button")[0].addEventListener("click", function() {
+      SL.editLists.selectAll();
+    });
+    // Deselect All
+    menu.getElementsByTagName("button")[1].addEventListener("click", function() {
+      SL.editLists.deselectAll();
+    });
   },
   display: function(aList) {
     var newLi = document.createElement('li');
@@ -277,6 +285,9 @@ while (node.hasChildNodes()) {
     newToggle.className +="danger";
     //newToggle.setAttribute('for', aList.guid);
     var mySpan = document.createElement('span');
+    mySpan.addEventListener("click", function(e) {
+      newLi.dataset.select = "true";
+    });
     var checkbox = document.createElement('input');
     checkbox.setAttribute('type', 'checkbox');
     //checkbox.setAttribute('id', aList.guid);
@@ -296,6 +307,28 @@ while (node.hasChildNodes()) {
     newLi.appendChild(newTitle);
 
     this.elm.getElementsByClassName("list")[0].appendChild(newLi);
+  },
+  deleteSelected: function() {
+    var nodes = this.elm.getElementsByClassName("list")[0].childNodes;
+    for(var i=0; i<nodes.length; i++) {
+      if(nodes[i].getElementsByTagName("input")[0].checked) {
+        DB.deleteFromDB(nodes[i].dataset.listkey, SL.editLists);
+        nodes[i].style.display = "none";
+      }
+    }
+  },
+  selectAll: function() {
+    var nodes = this.elm.getElementsByClassName("list")[0].childNodes;
+    console.log(nodes);
+    for(var i=0; i<nodes.length; i++) {
+      nodes[i].getElementsByTagName("input")[0].setAttribute("checked", "true");
+    }  
+  },
+  deselectAll: function() {
+    var nodes = this.elm.getElementsByClassName("list")[0].childNodes;
+    for(var i=0; i<nodes.length; i++) {
+      nodes[i].getElementsByTagName("input")[0].removeAttribute("checked");
+    }   
   }
 }
 
