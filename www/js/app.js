@@ -242,6 +242,7 @@ SL.editLists = {
     SL.view = "editLists";
 
     SL.show("editLists");
+
     var node = this.elm.getElementsByClassName("list")[0];
     while (node.hasChildNodes()) {
         node.removeChild(node.lastChild);
@@ -257,7 +258,7 @@ SL.editLists = {
     // Close
     header.getElementsByTagName("button")[0].addEventListener("click", function() {
       SL.hide("editLists");
-      SL.Lists.init();
+      SL.show("lists");
     });
 
     // Delete Selected
