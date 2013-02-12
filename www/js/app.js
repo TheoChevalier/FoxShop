@@ -322,13 +322,13 @@ SL.editLists = {
     console.log(nodes);
     for(var i=0; i<nodes.length; i++) {
       nodes[i].getElementsByTagName("input")[0].setAttribute("checked", "true");
-    }  
+    }
   },
   deselectAll: function() {
     var nodes = this.elm.getElementsByClassName("list")[0].childNodes;
     for(var i=0; i<nodes.length; i++) {
       nodes[i].getElementsByTagName("input")[0].removeAttribute("checked");
-    }   
+    }
   }
 }
 

@@ -239,11 +239,6 @@ label input:checked + span {
   display: none;
 }
 
-#listName {
-  width: -moz-calc(100% - 70px);
-
-}
-
 .add {
   padding: 10px;
   display: block;

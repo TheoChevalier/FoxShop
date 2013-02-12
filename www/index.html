@@ -11,6 +11,7 @@
   <link rel="stylesheet" type="text/css" href="css/switches.css">
   <link rel="stylesheet" type="text/css" href="css/toolbars.css">
   <link rel="stylesheet" type="text/css" href="css/edit_mode.css">
+  <link rel="stylesheet" type="text/css" href="css/input_areas.css">
 </head>
 
 <body>
@@ -41,7 +42,13 @@
           <ul data-type="list" class="list">
           </ul>
         </section>
-        <li id="form-list"><input id="listName" type="text" placeholder="Name"></input><a id="add-list" class="button add">+</a></li>
+        <form role="search" class="bottom" id="form-list">
+        <button type="submit" id="add-list">Add</button>
+        <p>
+        <textarea id="listName" placeholder="New list name" required=""></textarea>
+        <button type="reset">reset</button>
+        </p>
+        </form>
         <div role="toolbar">
           <ul>
             <li><button id="install" class="icon icon-install"></button></li>
