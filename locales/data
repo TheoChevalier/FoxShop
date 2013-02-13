@@ -1,0 +1,5 @@
+
+@import url(en-US.properties)
+
+[fr]
+@import url(fr.properties)

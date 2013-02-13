@@ -516,8 +516,7 @@ function finishInit() {
   // Populate the list
   SL.Lists.init();
   DB.displayList(null, SL.Lists);
-    var height = document.body.clientHeight;
-  console.log(height);
+  var height = document.body.clientHeight;
   document.getElementById("content").style.height = height;
   document.getElementById("header").style.display = "block";
 }

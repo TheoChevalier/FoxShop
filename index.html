@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
   <meta charset="utf-8">
@@ -13,101 +13,92 @@
   <link rel="stylesheet" type="text/css" href="css/edit_mode.css">
   <link rel="stylesheet" type="text/css" href="css/input_areas.css">
   <link rel="stylesheet" type="text/css" href="css/action_menu.css">
-  <script type="text/javascript" src="js/libs/webL10n/l10n.js"></script>
-  <link rel="resource" type="application/l10n" href="locales/data.ini" />
+  <link rel="resource" type="application/l10n" href="locales/data" />
+  <script type="text/javascript" src="webL10n/l10n.js"></script>
+
 </head>
 
 <body>
-  <!--
-    <header>
-      <div class="left">
-        <a id="install" class="button">Inst.</a>
-        <a id="back" class="button">Back</a>
-      </div>
-      <h1 id="title"></h1>
-      <div class="right">
-        <a id="settings" class="button"></a>
-      </div>
-    </header>-->
+  <div id="content">
 
-    <div id="content">
-      <section id="lists">
-        <section role="region" id="header">
-          <header>
-          <menu type="toolbar">
-            <button id="settings"><span class="icon icon-settings">s</span></button>
-          </menu>
-          <h1 id="title"></h1>
-          </header>
-          <header>
-        <h2 id="msg">Subheader text</h2>
-        </header>
-          <ul data-type="list" class="list">
-          </ul>
-        </section>
-        <form role="search" class="bottom" id="form-list">
-        <button type="submit" id="add-list" data-l10n-id="test">Add</button>
-        <p>
-        <textarea id="listName" placeholder="New list name" required=""></textarea>
-        <button type="reset">reset</button>
-        </p>
-        </form>
-        <div role="toolbar">
-          <ul>
-            <li><button id="install" class="icon icon-install"></button></li>
-          </ul>
-          <ul>
-            <li><button class="edit icon-complete">Edit</button></li>
-            <li><button id="completeall" class="icon-complete">Complete all</button></li>
-          </ul>
-        </div>
-      </section>
-
-      <form role="dialog" data-type="edit" onsubmit="return false;" id="editLists">
-        <section>
-          <header>
-            <button><span class="icon icon-close">close</span></button>
-            <menu type="toolbar">
-              <button>Delete</button>
-            </menu>
-            <h1>Edit Mode</h1>
-          </header>
-          <ul data-type="list" class="list">
-          </ul>
-        </section>
-        <menu>
-          <button>Select all</button>
-          <button>Deselect all</button>
+    <section id="lists">
+      <section role="region" id="header">
+        <header>
+        <menu type="toolbar">
+          <button id="settings"><span class="icon icon-settings">s</span></button>
         </menu>
-      </form>
-
-      <section id="items">
-        <section role="region" id="header">
-          <header>
-          <button class="back"><span class="icon icon-back"></span></button>
-          <menu type="toolbar">
-            <button id="settings"><span class="icon icon-settings">s</span></button>
-          </menu>
-          <h1 class="title">Items</h1>
-          </header>
-          <header>
-        <h2 id="msg">Subheader text</h2>
+        <h1 id="title" data-l10n-id="app-name">Shopping List</h1>
         </header>
-        </section>
-        <ul class="list">
-          
+        <header>
+      <h2 id="msg">Subheader text</h2>
+      </header>
+        <ul data-type="list" class="list">
         </ul>
-        <li><input id="itemName" type="text" placeholder="Name"></input><input id="itemQty" type="text" placeholder="Name" value="1"></input><a id="add-item" class="button add">+</a></li>
-        <div role="toolbar">
-          <ul>
-            <li><button id="install" class="icon icon-install"></button></li>
-          </ul>
-          <ul>
-            <li><button id="edit" class="icon-complete">Edit</button></li>
-            <li><button id="completeall" class="icon-complete">Complete all</button></li>
-          </ul>
-        </div>
       </section>
+
+      <form role="search" class="bottom" id="form-list">
+      <button type="submit" id="add-list" data-l10n-id="add-list">Add</button>
+      <p>
+      <textarea id="listName" data-l10n-id="listName"placeholder="New list name" required=""></textarea>
+      <button type="reset">reset</button>
+      </p>
+      </form>
+      <div role="toolbar">
+        <ul>
+          <li><button id="install" class="icon icon-install"></button></li>
+        </ul>
+        <ul>
+          <li><button class="edit icon-complete">Edit</button></li>
+          <li><button id="completeall" class="icon-complete">Complete all</button></li>
+        </ul>
+      </div>
+    </section>
+
+    <form role="dialog" data-type="edit" onsubmit="return false;" id="editLists">
+      <section>
+        <header>
+          <button><span class="icon icon-close">close</span></button>
+          <menu type="toolbar">
+            <button>Delete</button>
+          </menu>
+          <h1>Edit Mode</h1>
+        </header>
+        <ul data-type="list" class="list">
+        </ul>
+      </section>
+      <menu>
+        <button data-l10n-id="select-all">Select all</button>
+        <button data-l10n-id="deselect-all">Deselect all</button>
+      </menu>
+    </form>
+
+    <section id="items">
+      <section role="region" id="header">
+        <header>
+        <button class="back"><span class="icon icon-back"></span></button>
+        <menu type="toolbar">
+          <button id="settings"><span class="icon icon-settings">s</span></button>
+        </menu>
+        <h1 class="title" data-l10n-id="items">Items</h1>
+        </header>
+        <header>
+      <h2 id="msg">Subheader text</h2>
+      </header>
+      </section>
+      <ul class="list">
+        
+      </ul>
+      <li><input id="itemName" type="text" placeholder="Name"></input><input id="itemQty" type="text" placeholder="Name" value="1"></input><a id="add-item" class="button add">+</a></li>
+      <div role="toolbar">
+        <ul>
+          <li><button id="install" class="icon icon-install"></button></li>
+        </ul>
+        <ul>
+          <li><button id="edit" class="icon pack-icon-move">Edit</button></li>
+          <li><button id="completeall" class="icon-complete">Complete all</button></li>
+        </ul>
+      </div>
+    </section>
 
     <form id="settingsPanel" role="dialog" data-type="action" onsubmit="return false;">
     <header>Settings</header>
@@ -120,7 +111,7 @@
     </form>
     </div>
 
-  <script src="js/db.js"></script>
-  <script src="js/app.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/app.js"></script>
   </body>
 </html>
