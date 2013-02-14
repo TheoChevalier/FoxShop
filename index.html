@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <title>Shopping List</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <link rel="stylesheet" href="css/app.css"/>
   <link rel="stylesheet" type="text/css" href="css/headers.css"/>
   <link rel="stylesheet" type="text/css" href="css/lists.css">
@@ -24,9 +24,6 @@
     <section id="lists">
       <section role="region" id="header">
         <header>
-        <menu type="toolbar">
-          <button id="settings"><span class="icon icon-settings">s</span></button>
-        </menu>
         <h1 id="title" data-l10n-id="app-name">Shopping List</h1>
         </header>
         <header>
@@ -34,8 +31,6 @@
       </header>
         <ul data-type="list" class="list">
         </ul>
-      </section>
-
       <form role="search" class="bottom" id="form-list">
       <button type="submit" id="add-list" data-l10n-id="add-list">Add</button>
       <p>
@@ -43,6 +38,8 @@
       <button type="reset">reset</button>
       </p>
       </form>
+      </section>
+
       <div role="toolbar">
         <ul>
           <li><button id="install" class="icon icon-install"></button></li>
@@ -50,6 +47,7 @@
         <ul>
           <li><button class="edit icon-complete">Edit</button></li>
           <li><button id="completeall" class="icon-complete">Complete all</button></li>
+          <li><button id="settings" class="icon-complete icon-more"></button></li>
         </ul>
       </div>
     </section>
@@ -59,9 +57,9 @@
         <header>
           <button><span class="icon icon-close">close</span></button>
           <menu type="toolbar">
-            <button>Delete</button>
+            <button data-l10n-id="delete-list">Delete</button>
           </menu>
-          <h1>Edit Mode</h1>
+          <h1 data-l10n-id="edit-list">Edit Mode</h1>
         </header>
         <ul data-type="list" class="list">
         </ul>

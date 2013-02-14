@@ -23,9 +23,6 @@ footer {bottom: 0;}
 
 #settings {
   background: url('../img/icons/gear.png') no-repeat;
-  width: 10px;
-  height: 30px;
-  margin-right: 10px;
 }
 
 
@@ -82,42 +79,6 @@ html, body {
   font-style: italic;
 }
 
-/*
-label {
-  display: inline-block;
-  vertical-align: middle;
-  width: 20px;
-  height: 20px;
-  position: relative;
-  background: none;
-}
-
-label input {
-  margin: 0;
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-label input + span {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  margin: -1.1rem 0 0 -1.1rem;
-  width: 2.2rem;
-  height: 2.2rem;
-  pointer-events: none;
-}
-
-label input[type="checkbox"] + span {
-  background: url(../img/check/default.png) no-repeat center top;
-}
-
-
-label input:checked + span {
-  background-position: center bottom;
-}*/
 
 #items, #lists, #settingsPanel, #editLists, #editItems {
   display: none;
@@ -148,11 +109,7 @@ label input:checked + span {
   width: 100%;
   height: 100%;
 }
-.dnd {
-  display: inline-block;
-  border: 1px solid #000;
-  width: 20px;
-}
+
 .number {
   float:right;
   display: block;
@@ -237,6 +194,13 @@ label input:checked + span {
 
 #list li .edit {
   display: none;
+}
+
+.list {
+  position: absolute;
+  height: -moz-calc(100% - 8.5rem);
+  width: 100%;
+  overflow: scroll;
 }
 
 .add {

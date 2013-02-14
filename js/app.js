@@ -50,7 +50,7 @@ SL = {
 
     var button = document.getElementById("settings");
     button.addEventListener("click", function(e) {
-      aView.close();
+      //aView.close();
       SL.Settings.init(aView);
     });
   },
@@ -60,16 +60,12 @@ SL = {
 };
 
 SL.Settings = {
+  elm: document.getElementById("settingsPanel"),
   init: function(aView) {
-    document.getElementById("title").innerHTML = "Settings";
     SL.action("settingsPanel", "show");
-    SL.action("back", "show");
-    document.getElementById("back").addEventListener("click", function(e) {
-      SL.Settings.close();
-      aView.init();
-    });
-    document.getElementById("archiveAll").addEventListener("click", function() {
-      SL.Settings.archiveAll();
+    this.elm.getElementsByTagName("button")[3].addEventListener("click", function(e) {
+      SL.hide("settingsPanel");
+      alert("coucou");
     });
   },
   close: function() {
@@ -370,23 +366,24 @@ SL.Items = {
     if (!name || !qty) {
       var msg = "";
       if (!name) {
-        msg += "You must enter a name";
+        //l10n += "You must enter a name";
+        l10n += "msg-name";
         if (!qty)
-          msg += "and a quantity"
+          l10n += "msg-name-qty"
       }
       if (!qty)
-        msg += "You must enter a quantity"
+        l10n += "msg-qty"
 
-      displayActionFailure(msg);
+      displayActionFailure(l10n);
       return;
     }
 
     aItem = { guid: guid(),
-                   name: name,
-                   list: SL.Items.list.guid,
-                   nb: qty,
-                   date: date.getTime(),
-                   done: false
+              name: name,
+              list: SL.Items.list.guid,
+              nb: qty,
+              date: date.getTime(),
+              done: false
     };
     name = "";
     qty = "1";
@@ -454,7 +451,6 @@ SL.Items = {
     newLi.appendChild(newDelete);
 
     SL.Items.elm.getElementsByClassName("list")[0].appendChild(newLi);
-    console.log("added!");
   },
   clear: function() {
     SL.Items.elm.removeChild(SL.Items.elm.getElementsByClassName("list")[0]);
@@ -462,16 +458,14 @@ SL.Items = {
     ul.setAttribute('class', 'list');
     SL.Items.elm.appendChild(ul);
   }
-};
+}
 
   // Messages handlers
-  function displayActionSuccess(msg) {
-    msg = typeof msg != 'undefined' ? "Success: " + msg : "Success";
-    document.getElementById('msg').innerHTML = '<span class="action-success">' + msg + '</span>';
+  function displayActionSuccess(id) {
+    document.getElementById('msg').innerHTML = '<span class="action-success" data-l10n-id="' + id + '"></span>';
   }
-  function displayActionFailure(msg) {
-    msg = typeof msg != 'undefined' ? "Failure: " + msg : "Failure";
-    document.getElementById('msg').innerHTML = '<span class="action-failure">' + msg + '</span>';
+  function displayActionFailure(id) {
+    document.getElementById('msg').innerHTML = '<span class="action-failure" data-l10n-id="' + id + '"></span>';
   }
   function resetActionStatus() {
     document.getElementById('msg').innerHTML = '';
@@ -480,12 +474,12 @@ SL.Items = {
 // Generate four random hex digits.
 function S4() {
    return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-};
+}
 
 // Generate a pseudo-GUID by concatenating random hexadecimal.
 function guid() {
    return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
-};
+}
 
 // Add the eventListeners to buttons, etc.
 function addEventListeners() {
@@ -498,7 +492,7 @@ function addEventListeners() {
     var date = new Date();
 
     if (!name || name === undefined) {
-      displayActionFailure("You must enter a name");
+      displayActionFailure("msg-name");
       return;
     }
     SL.Lists.add({ guid: guid(),
@@ -510,6 +504,41 @@ function addEventListeners() {
   });
 
 }
+
+
+    function update() {
+        var btn = document.getElementById('install');
+        if(install.state == 'uninstalled') {
+            btn.style.display = 'block';
+        }
+        else if(install.state == 'installed' || install.state == 'unsupported') {
+            btn.style.display = 'none';
+        }
+    }
+
+    function init() {
+        var btn = document.getElementById('install');
+        btn.addEventListener('click', function() {
+            install();
+        });
+
+        install.on('change', update);
+
+        install.on('error', function(e, err) {
+            // Feel free to customize this
+            alert('There was an error during installation.');
+        });
+
+        install.on('showiOSInstall', function() {
+            // Feel free to customize this
+            alert('To install, press the forward arrow in Safari ' +
+                  'and touch "Add to Home Screen"');
+        });
+    }
+
+
+       
+
  
 // Actions that needs the DB to be ready
 function finishInit() {
@@ -519,6 +548,7 @@ function finishInit() {
   var height = document.body.clientHeight;
   document.getElementById("content").style.height = height;
   document.getElementById("header").style.display = "block";
+  init();
 }
 var db;
 window.addEventListener("load", function() {
