@@ -201,13 +201,8 @@ SL.Lists = {
     newLi.appendChild(packEnd);
     newLi.appendChild(newTitle);
     //newLi.appendChild(newDelete);
-     
-    console.log(SL.view);
-    if(SL.view == "editLists") {
-      document.getElementById("editLists").getElementsByClassName("list")[0].appendChild(newLi);
-    } else {
-      SL.Lists.elm.getElementsByClassName("list")[0].appendChild(newLi);
-    }
+
+    SL.Lists.elm.getElementsByClassName("list")[0].appendChild(newLi);
     this.arrayList[aList.guid] = aList;
   },
   clear: function() {
@@ -335,7 +330,8 @@ SL.Items = {
   init: function(aList) {
     SL.Lists.close();
     this.elm.style.display = "block";
-    console.log(this.elm.style.display);
+    SL.Lists.elm.style.display = "none";
+    console.log(this.elm.style.display + SL.Lists.elm.style.display);
     this.list = aList;
     // Set title of the displayed Items list
     this.elm.getElementsByClassName("title")[0].innerHTML=aList.name;
@@ -548,11 +544,13 @@ function finishInit() {
   var height = document.body.clientHeight;
   document.getElementById("content").style.height = height;
   document.getElementById("header").style.display = "block";
-  init();
+  //init();
 }
 var db;
 window.addEventListener("load", function() {
-  
   DB.openDb();
   addEventListeners();
+});
+window.addEventListener("localized", function() {
+  SL.hide("loader");
 });

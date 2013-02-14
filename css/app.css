@@ -46,6 +46,27 @@ html, body {
   margin: 0 auto;
 }
 
+#loader {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  background:
+    url(action_menu/images/ui/pattern.png) repeat left top,
+    url(action_menu/images/ui/gradient.png) no-repeat left top / 100% 100%;
+  text-align:center;
+}
+
+#loader div {
+  top: 50%;
+  display:inline-block;
+  position: relative;
+  vertical-align:middle;
+  font: 1.6rem/1em 'MozTT', Sans-serif;
+  color: #fff;
+}
+
+
 #content {
   padding: 50px 0;
   padding-bottom: 70px;

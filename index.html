@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="utf-8">
   <title>Shopping List</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <link rel="stylesheet" href="css/app.css"/>
+
+    <!-- Building blocks -->
   <link rel="stylesheet" type="text/css" href="css/headers.css"/>
   <link rel="stylesheet" type="text/css" href="css/lists.css">
   <link rel="stylesheet" type="text/css" href="css/switches.css">
@@ -13,12 +14,21 @@
   <link rel="stylesheet" type="text/css" href="css/edit_mode.css">
   <link rel="stylesheet" type="text/css" href="css/input_areas.css">
   <link rel="stylesheet" type="text/css" href="css/action_menu.css">
+  <link rel="stylesheet" type="text/css" href="css/progress_activity.css">
+
+  <!-- l10n resources -->
   <link rel="resource" type="application/l10n" href="locales/data" />
   <script type="text/javascript" src="webL10n/l10n.js"></script>
-
 </head>
 
 <body>
+  <div id="loader">
+
+    <div>
+      <progress></progress><br/>
+      <span data-l10n-id="loading">Loading application, please wait…</span>
+    </div>
+  </div>
   <div id="content">
 
     <section id="lists">
