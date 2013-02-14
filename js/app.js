@@ -1,4 +1,4 @@
-//'use strict';
+ //'use strict';
         // DB init
   const DB_NAME = 'ShoppingList';
   const DB_VERSION = 2; // Use a long long for this value (don't use a float)
