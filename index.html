@@ -96,7 +96,14 @@
       <ul class="list">
         
       </ul>
-      <li><input id="itemName" type="text" placeholder="Name"></input><input id="itemQty" type="text" placeholder="Name" value="1"></input><a id="add-item" class="button add">+</a></li>
+      <form role="search" class="bottom" id="form-item">
+      <button type="submit" id="add-item" data-l10n-id="add-item">Add</button>
+      <p>
+      <textarea id="itemName" data-l10n-id="item-name"placeholder="New item" required=""></textarea>
+      <!--<button type="reset">reset</button>-->
+      <textarea id="itemQty" data-l10n-id="item-qty"required="">1</textarea>
+      </p>
+      </form>
       <div role="toolbar">
         <ul>
           <li><button id="install" class="icon icon-install"></button></li>

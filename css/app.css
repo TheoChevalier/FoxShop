@@ -140,22 +140,6 @@ html, body {
 }
 .listElmTitle {display: inline-block;position: relative;}
 
-.list input[type="number"] {
-  border: none;
-  background: none;
-  font-size: inherit;
-  /*float: right;*/
-  max-width: 100%;
-  width: 30px;
-  display:inline-block;
-  margin: 0;
-  padding: 0;
-}
-.list input[type="number"]:focus {
-  border: 1px solid black;
-  background: white;
-  font-size: inherit;
-}
 .done {
   color: #777777;
   text-decoration: line-through;
@@ -179,15 +163,12 @@ html, body {
   background-position: 0 -20px;
 }
 
-#add-item {
-  width: 20px;
-  font-size: 25px;
-  background: #ddd;
+#itemQty {width: 15% ;}
+#itemName {width: calc(85% - 10px);}
+
+#itemQty, #itemName {
+  display: inline-block;
 }
-
-#itemQty {width: 10% ;}
-#itemName {width: -moz-calc(90% - 70px);}
-
 #list li.editing {
   border-bottom: none;
   margin-top: -1px;

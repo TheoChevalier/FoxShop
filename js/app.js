@@ -65,15 +65,10 @@ SL.Settings = {
     SL.action("settingsPanel", "show");
     this.elm.getElementsByTagName("button")[3].addEventListener("click", function(e) {
       SL.hide("settingsPanel");
-      alert("coucou");
     });
   },
   close: function() {
-    SL.action("settingsPanel", "hide");
-    SL.action("back", "hide");
-  },
-  archiveAll: function () {
-    
+    SL.hide("settingsPanel");
   }
 };
 
@@ -84,7 +79,7 @@ SL.Lists = {
   init: function() {
     SL.view = "Lists";
     document.getElementById("title").innerHTML = "Shopping List";
-    SL.action("lists", "show");
+    SL.show("lists");
 
     /*var request = navigator.mozApps.getSelf();
     request.onsuccess = function() {
@@ -329,19 +324,25 @@ SL.Items = {
   store: DB_STORE_ITEMS,
   init: function(aList) {
     SL.Lists.close();
-    this.elm.style.display = "block";
-    SL.Lists.elm.style.display = "none";
+    SL.view = "Items";
+    SL.Lists.close();
+    
     console.log(this.elm.style.display + SL.Lists.elm.style.display);
     this.list = aList;
     // Set title of the displayed Items list
     this.elm.getElementsByClassName("title")[0].innerHTML=aList.name;
 
     // Display buttons
-    this.elm.getElementsByClassName("back")[0].addEventListener("click", SL.Items.back());
+    this.elm.getElementsByClassName("back")[0].addEventListener("click", function() {
+      SL.hide("items");
+      SL.show("lists");
+    });
     SL.action("add-item", "add", this, "click");
     document.getElementById('add-item').style.display = "inline-block";
     SL.Items.clear();
     DB.displayItems(aList);
+    SL.Lists.elm.style.display = "none";
+    SL.show("items");
   },
 
   // Go back to Lists view
@@ -449,10 +450,11 @@ SL.Items = {
     SL.Items.elm.getElementsByClassName("list")[0].appendChild(newLi);
   },
   clear: function() {
-    SL.Items.elm.removeChild(SL.Items.elm.getElementsByClassName("list")[0]);
-    var ul = document.createElement('ul');
-    ul.setAttribute('class', 'list');
-    SL.Items.elm.appendChild(ul);
+    var node = SL.Items.elm.getElementsByClassName("list")[0];
+    while (node.hasChildNodes()) {
+        node.removeChild(node.lastChild);
+        console.log("mon node:"+node);
+    }
   }
 }
 
