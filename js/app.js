@@ -543,9 +543,13 @@ function finishInit() {
   // Populate the list
   SL.Lists.init();
   DB.displayList(null, SL.Lists);
+
+  // Dynamically calculate height of content
   var height = document.body.clientHeight;
-  document.getElementById("content").style.height = height;
-  document.getElementById("header").style.display = "block";
+  var header = document.getElementById("header");
+  document.getElementById("content").style.height = height+"px";
+  header.style.maxHeight = height-90+"px";
+  header.style.display = "block";
   //init();
 }
 var db;
