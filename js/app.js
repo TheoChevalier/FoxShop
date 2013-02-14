@@ -546,10 +546,12 @@ function finishInit() {
 
   // Dynamically calculate height of content
   var height = document.body.clientHeight;
-  var header = document.getElementById("header");
   document.getElementById("content").style.height = height+"px";
-  header.style.maxHeight = height-90+"px";
-  header.style.display = "block";
+  var els = document.getElementsByClassName("header");
+  var elsArray = Array.prototype.slice.call(els, 0);
+  elsArray.forEach(function(el) {
+    el.style.height = height-90+"px";
+  });
   //init();
 }
 var db;

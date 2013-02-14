@@ -32,7 +32,7 @@
   <div id="content">
 
     <section id="lists">
-      <section role="region" id="header">
+      <section role="region" class="header">
         <header>
         <h1 id="title" data-l10n-id="app-name">Shopping List</h1>
         </header>
@@ -63,14 +63,14 @@
     </section>
 
     <form role="dialog" data-type="edit" onsubmit="return false;" id="editLists">
-      <section>
-        <header>
-          <button><span class="icon icon-close">close</span></button>
-          <menu type="toolbar">
-            <button data-l10n-id="delete-list">Delete</button>
-          </menu>
-          <h1 data-l10n-id="edit-list">Edit Mode</h1>
-        </header>
+      <header>
+        <button><span class="icon icon-close">close</span></button>
+        <menu type="toolbar">
+          <button data-l10n-id="delete-list">Delete</button>
+        </menu>
+        <h1 data-l10n-id="edit-list">Edit Mode</h1>
+      </header>
+      <section class="header">
         <ul data-type="list" class="list">
         </ul>
       </section>
@@ -81,29 +81,29 @@
     </form>
 
     <section id="items">
-      <section role="region" id="header">
+      <section role="region" class="header">
         <header>
-        <button class="back"><span class="icon icon-back"></span></button>
-        <menu type="toolbar">
-          <button id="settings"><span class="icon icon-settings">s</span></button>
-        </menu>
-        <h1 class="title" data-l10n-id="items">Items</h1>
+          <button class="back"><span class="icon icon-back"></span></button>
+          <menu type="toolbar">
+            <button id="settings"><span class="icon icon-settings">s</span></button>
+          </menu>
+          <h1 class="title" data-l10n-id="items">Items</h1>
         </header>
         <header>
-      <h2 id="msg">Subheader text</h2>
-      </header>
+          <h2 id="msg">Subheader text</h2>
+        </header>
+        <ul class="list">
+        </ul>
+        <form role="search" class="bottom" id="form-item">
+        <button type="submit" id="add-item" data-l10n-id="add-item">Add</button>
+        <p>
+        <textarea id="itemName" data-l10n-id="item-name"placeholder="New item" required=""></textarea>
+        <!--<button type="reset">reset</button>-->
+        <textarea id="itemQty" data-l10n-id="item-qty"required="">1</textarea>
+        </p>
+        </form>
       </section>
-      <ul class="list">
-        
-      </ul>
-      <form role="search" class="bottom" id="form-item">
-      <button type="submit" id="add-item" data-l10n-id="add-item">Add</button>
-      <p>
-      <textarea id="itemName" data-l10n-id="item-name"placeholder="New item" required=""></textarea>
-      <!--<button type="reset">reset</button>-->
-      <textarea id="itemQty" data-l10n-id="item-qty"required="">1</textarea>
-      </p>
-      </form>
+
       <div role="toolbar">
         <ul>
           <li><button id="install" class="icon icon-install"></button></li>
