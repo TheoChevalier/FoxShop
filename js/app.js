@@ -133,9 +133,10 @@ SL.Lists = {
     var newTitle = document.createElement('a');
     var p1 = document.createElement('p');
     var p2 = document.createElement('p');
-
+    var nb = 0;
     p1.innerHTML = aList.name;
-    p2.innerHTML = "x  items";
+    DB.getItems(aList.guid);
+    p2.innerHTML = nb + " items";
     newTitle.className = "liTitle";
     newTitle.addEventListener("click", function(e) {
       SL.Items.init(aList);
@@ -382,7 +383,6 @@ SL.Items = {
     var node = SL.Items.elm.getElementsByClassName("list")[0];
     while (node.hasChildNodes()) {
         node.removeChild(node.lastChild);
-        console.log("mon node:"+node);
     }
   }
 }
@@ -548,10 +548,43 @@ function addEventListeners() {
       sendAddress();
     }
   }
+
   function sendAddress() {
     if (SL.id("email").value != "") {
       SL.hide("enterEmail");
       SL.show("sendEmail");
+      createXHR();
+      var url = "http://app.theochevalier.fr/php/email.php";
+      request.open('POST', url, true);
+      request.onreadystatechange = function() {
+        if (request.readyState == 4) {
+          console.log(request.responseText);
+          SL.hide("sendEmail");
+        }
+      };
+      request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      var email = SL.id("email").value;
+      var data = "email=" + email + "&data=" + encodeURIComponent(SL.Items.list);
+      request.send(data);
+    }
+  }
+
+  function createXHR() {
+    try {
+      request = new XMLHttpRequest();
+    } catch (microsoft) {
+      try {
+        request = new ActiveXObject('Msxml2.XMLHTTP');
+      } catch(autremicrosoft) {
+        try {
+          request = new ActiveXObject('Microsoft.XMLHTTP');
+        } catch(echec) {
+          request = null;
+        }
+      }
+    }
+    if(request == null) {
+    console.error("Can't create XHR");
     }
   }
 
@@ -562,7 +595,6 @@ function addEventListeners() {
     function() {
       SL.hide("settingsPanel");
     });
-
 }
 
 
@@ -616,6 +648,7 @@ function finishInit() {
   });
   //init();
 }
+
 var db;
 window.addEventListener("load", function() {
   DB.openDb();

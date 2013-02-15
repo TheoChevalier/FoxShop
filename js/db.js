@@ -92,8 +92,9 @@ var DB = {
         req.onsuccess = function (evt) {
           var aList = evt.target.result;
           view.display(aList);
+          i++;
         };
-
+        view.count = i;
         // Move on to the next object in store
         cursor.continue();
 
@@ -192,6 +193,53 @@ var DB = {
     req.onerror = function (evt) {
       console.error("deletePublicationFromBib:", evt.target.errorCode);
     };
+  },
+
+  getItems: function(guid) {
+    var store = DB.getObjectStore(DB_STORE_ITEMS, 'readonly');
+    var req = store.index('list');
+    req.get(guid).onsuccess = function(evt) {
+      if (typeof evt.target.result == 'undefined') {
+        displayActionFailure("No matching record found");
+        return;
+      }
+      var key = evt.target.result.id;  
+      var req = store.get(key);
+
+      req.onsuccess = function(evt) {
+        var record = evt.target.result;
+        if (typeof record == 'undefined') {
+          displayActionFailure("No matching record found");
+          return;
+        }
+        var req = store.count();
+        req.onerror = function(evt) {
+          console.error("add error", this.error);
+          displayActionFailure(this.error);
+        };
+
+        var i = 0;
+        req = store.openCursor();
+        req.onsuccess = function(evt) {
+          var cursor = evt.target.result;
+          // If the cursor is pointing at something, ask for the data
+          if (cursor) {
+            req = store.get(cursor.key);
+            req.onsuccess = function (evt) {
+              var aList = evt.target.result;
+              console.log(aList);
+
+            };
+            // Move on to the next object in store
+            cursor ? ++i && cursor.continue() : console.log(i);
+          }
+          var li = document.querySelector('li[data-listkey="'+guid+'"]');
+          inner = li.getElementsByTagName("p")[1].innerHTML;
+          li.getElementsByTagName("p")[1].innerHTML = i+ inner;
+        };
+
+      }
+    }
   },
 
   /**
