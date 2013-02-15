@@ -80,26 +80,6 @@ html, body {
   color: red;
 }
 
- input[type="text"] {
-  font-size: 24px;
-  font-family: inherit;
-  line-height: 1.4em;
-  border: 0;
-  outline: none;
-  padding: 6px;
-  border: 1px solid #999999;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
-  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
-  -ms-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
-  -o-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
-  box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
-}
-
- input::-webkit-input-placeholder {
-  font-style: italic;
-}
-
-
 #items, #lists, #settingsPanel, #editLists, #editItems, #enterEmail {
   z-index: 1;
   position: absolute;
@@ -166,44 +146,11 @@ html, body {
   pointer-events: auto;
 }
 
-
-.delete:hover {
-  background-position: 0 -20px;
-}
-
 #itemQty {width: 15% ;}
 #itemName {width: calc(85% - 10px);}
 
 #itemQty, #itemName {
   display: inline-block;
-}
-#list li.editing {
-  border-bottom: none;
-  margin-top: -1px;
-  padding: 0;
-}
-
-#list li.editing:last-child {
-  margin-bottom: -1px;
-}
-
-#list li.editing .edit {
-  display: block;
-  width: 444px;
-  padding: 15px 15px 14px 20px;
-  margin: 0;
-}
-
-#list li.editing .view {
-  display: none;
-}
-
-#list li .view label {
-  word-break: keep-all;
-}
-
-#list li .edit {
-  display: none;
 }
 
 .header {
@@ -212,64 +159,13 @@ html, body {
   display: block;
   position: relative;
 }
+
 .list {
   position: relative;
   z-index: 1;
 }
 menu {z-index: 5;}
 
-.add {
-  padding: 10px;
-  display: block;
-  background: #666;
-  width: 30px;
-}
-
-.button {
-  display: none;
-  float: right;
-  line-height: 20px;
-  font-size: 20px;
-  font-weight: 800;
-  text-decoration: none;
-  background: rgba(0, 0, 0, 0.1);
-
-  margin-top: 8px;
-  margin-bottom: 8px;
-  padding: 0 10px 1px;
-  cursor: pointer;
-  -webkit-border-radius: 12px;
-  -moz-border-radius: 12px;
-  -ms-border-radius: 12px;
-  -o-border-radius: 12px;
-  border-radius: 12px;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
-  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
-  -ms-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
-  -o-box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
-  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 0 0;
-}
-
-.button:hover {
-  background: rgba(0, 0, 0, 0.15);
-  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
-  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
-  -ms-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
-  -o-box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
-  box-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0 0;
-}
-
-.button:active {
-  position: relative;
-  top: 1px;
-}
-
-.add {
-  height: 42px;
-  margin: 0;
-  font-size: 60px;
-  line-height: 42px;
-}
 
 #add-item {
   display: inline-block;
@@ -278,7 +174,7 @@ menu {z-index: 5;}
 #todo-count span {
   font-weight: bold;
 }
-/*button {display: none;}*/
+
 section[role="region"] > header:first-child {
    position: fixed!important;
 }
@@ -320,4 +216,16 @@ span {
 
 [role="toolbar"] .pack-icon-send {
     background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo4NDA1RDQxQUE3MjA2ODExODhDNkE3NjAxQjM4MUZDNSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpDOUM5NjE4NEREODYxMUUxQjVDNEE4QjczREVCRENENCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpDOUM5NjE4M0REODYxMUUxQjVDNEE4QjczREVCRENENCIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjk4MjBGQzc5QjkyMDY4MTE4OEM2QjcwQTAwNDE1NjQ1IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjg0MDVENDFBQTcyMDY4MTE4OEM2QTc2MDFCMzgxRkM1Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8++54hAwAAAPNJREFUeNrslrsKwjAYRptQn0FHn0EUJ9FN8PJgPoC3UXB0EgRBwRdwdxNHn8DFIX6BBkqxf5sbFcwPZ2lSzlmSlgkhoiqHhYAQ8GsBDJxAy5PvCoZA5AW0wQscQNOx/A6moA4u6iHPbOqAORiDhwf5CnTTC/zL5oHjiLS8l13kOS+5iiDlVICLCCmfUPKiAJsIJV9T8jIBKmKhEVFaXjZATj+JGBVEaMl1AlTEkojQlusGUBFGcpOAbMQxwUguJzY83zJiA2agBram34/Y4pKR1/bO9prkUcUTAv4y4E2dgjO4gYYn+RPsw19xCAgB6fkIMAARU2AUmZAWLwAAAABJRU5ErkJggg==");
+}
+
+/**
+ *   Building blocks overrides
+ */
+
+form[role="dialog"][data-type="confirm"] > section {
+  font-size: 1.5rem;
+}
+
+form[role="search"] button {
+    width: auto;
 }
