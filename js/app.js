@@ -22,7 +22,7 @@ SL = {
   id: function(target) {
     return document.getElementById(target);
   },
-  
+
   //Unused for now
   class: function(target, n) {
     if (typeof n === "undefined")
@@ -65,6 +65,21 @@ SL.Lists = {
   add: function(aList) {
     DB.store(aList, SL.Lists);
     SL.Lists.display(aList, SL.Lists);
+  },
+  new: function() {
+    var name = SL.id('listName').value;
+    var date = new Date();
+
+    if (!name || name === undefined) {
+      displayActionFailure("msg-name");
+      return;
+    }
+    SL.Lists.add({ guid: guid(),
+                   name: name,
+                   date: date.getTime(),
+                   items:{}
+    });
+    SL.id('listName').value ="";
   },
   edit: function (aItem, elm) {
     aList.done = elm.getElementsByTagName("input")[0].checked;
@@ -268,14 +283,14 @@ SL.Items = {
   },
 
   // Add an item to the current list
-  add: function() {
+  new: function() {
     var name = SL.id('itemName').value;
     var qty = SL.id('itemQty').value;
     var date = new Date();
 
     // Handle empty form
     if (!name || !qty) {
-      var msg = "";
+      var l10n = "";
       if (!name) {
         //l10n += "You must enter a name";
         l10n += "msg-name";
@@ -418,35 +433,19 @@ function addEventListeners() {
   /*****************************************************************************
    * Lists
    ****************************************************************************/
-  // 
-  SL.id("add-list").addEventListener("click", addList());
-  // or if the user hit enter key
+  // Add list when the user click the button…
+  SL.id("add-list").addEventListener("click", function() {
+    SL.Lists.new();
+  });
+  // …or if he hit enter key
   SL.id("listName").onkeyup = function (e) {
     if (e.keyCode == 13) {
-      addList();
+      SL.Lists.new();
     }
   }
 
-  function addList() {
-    var name = SL.id('listName').value;
-    var date = new Date();
-
-    if (!name || name === undefined) {
-      displayActionFailure("msg-name");
-      return;
-    }
-    SL.Lists.add({ guid: guid(),
-                   name: name,
-                   date: date.getTime(),
-                   items:{}
-    });
-    SL.id('listName').value ="";
-  }
-
-
-
-  SL.id("completeall").addEventListener("click", function() {
-    SL.Lists.completeall();
+  SL.id("completeall").addEventListener("click",  function() {
+    SL.Lists.completeall()
   });
   
   // Init event for edit view
@@ -490,6 +489,31 @@ function addEventListeners() {
   /*****************************************************************************
    * Items
    ****************************************************************************/
+  // Add item when the user click the button…
+  SL.id("add-item").addEventListener("click", SL.Items.new());
+  // …or if he hit enter key
+  SL.id("itemName").onkeyup = function (e) {
+    if (e.keyCode == 13) {
+      SL.Items.new();
+    }
+  }
+
+  function addItem() {
+    var name = SL.id('listName').value;
+    var date = new Date();
+
+    if (!name || name === undefined) {
+      displayActionFailure("msg-name");
+      return;
+    }
+    SL.Lists.add({ guid: guid(),
+                   name: name,
+                   date: date.getTime(),
+                   items:{}
+    });
+    SL.id('listName').value ="";
+  }
+
   // Display buttons
   SL.Items.elm.getElementsByClassName("back")[0].addEventListener("click",
   function() {
@@ -502,10 +526,6 @@ function addEventListeners() {
     SL.show("enterEmail");
   });
 
-  SL.id("add-item").addEventListener("click", function() {
-    SL.Items.add();
-  });
-
   /*****************************************************************************
    * send e-mail views
    ****************************************************************************/
@@ -513,26 +533,35 @@ function addEventListeners() {
 
   //Cancel
   SL.enterEmail.elm.getElementsByClassName("cancel")[0].addEventListener("click",
-  function() {
-    SL.hide("enterEmail");
-  });
+    function() {
+      SL.hide("enterEmail");
+    });
 
   // Send
   SL.enterEmail.elm.getElementsByClassName("send")[0].addEventListener("click",
- function() {
+    function() {
+      sendAddress();
+    });
+  // …or if he hit enter key
+  SL.id("email").onkeyup = function (e) {
+    if (e.keyCode == 13) {
+      sendAddress();
+    }
+  }
+  function sendAddress() {
     if (SL.id("email").value != "") {
       SL.hide("enterEmail");
       SL.show("sendEmail");
     }
-  });
+  }
 
   /*****************************************************************************
    * Settings
    ****************************************************************************/
   SL.Settings.elm.getElementsByTagName("button")[3].addEventListener("click",
-  function() {
+    function() {
       SL.hide("settingsPanel");
-  });
+    });
 
 }
 
