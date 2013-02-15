@@ -340,8 +340,16 @@ SL.Items = {
       SL.hide("items");
       SL.show("lists");
     });
+    var send = this.elm.getElementsByClassName("send")[0];
+    send.addEventListener("click", function(e) {
+      SL.show("enterEmail");
+    });
+
+    SL.enterEmail.elm.getElementsByClassName("cancel")[0].addEventListener("click", function() {
+      SL.hide("enterEmail");
+    });
+
     SL.action("add-item", "add", this, "click");
-    document.getElementById('add-item').style.display = "inline-block";
     SL.Items.clear();
     DB.displayItems(aList);
     SL.hide("lists");
@@ -458,6 +466,13 @@ SL.Items = {
         node.removeChild(node.lastChild);
         console.log("mon node:"+node);
     }
+  }
+}
+
+SL.enterEmail = {
+  elm: document.getElementById("enterEmail"),
+  init: function() {
+
   }
 }
 

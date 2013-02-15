@@ -14,6 +14,8 @@
   <link rel="stylesheet" type="text/css" href="css/edit_mode.css">
   <link rel="stylesheet" type="text/css" href="css/input_areas.css">
   <link rel="stylesheet" type="text/css" href="css/action_menu.css">
+  <link rel="stylesheet" type="text/css" href="css/confirm.css">
+   <link rel="stylesheet" type="text/css" href="css/buttons.css">
   <link rel="stylesheet" type="text/css" href="css/progress_activity.css">
 
   <!-- l10n resources -->
@@ -114,6 +116,23 @@
         </ul>
       </div>
     </section>
+    <form role="dialog" data-type="confirm" id="enterEmail">
+    <section>
+    <h1 data-l10n-id="send-title">Send this list</h1>
+    <!-- Note: inline style only for demo purposes -->
+    <p style="text-align: center">
+      <span data-l10n-id="send-desc">To send this list to another person, please provide his email:</span>
+      <p>
+        <input type="text" id="email" data-l10n-id="email"placeholder="Email" required=""/>
+        <button type="reset">reset</button>
+      </p>
+      <button role="button" class="recommend" data-l10n-id="send">Send</button>
+    </p>
+    </section>
+    <menu>
+    <button class="full cancel" data-l10n-id="cancel">Cancel</button>
+    </menu>
+    </form>
 
     <form id="settingsPanel" role="dialog" data-type="action" onsubmit="return false;">
     <header>Settings</header>
@@ -121,7 +140,7 @@
     <button> Action 1 </button>
     <button> Action 2 </button>
     <button> Action 3 </button>
-    <button data-l10n-id="cancel"> Cancel </button>
+    <button class="cancel" data-l10n-id="cancel"> Cancel </button>
     </menu>
     </form>
     </div>
