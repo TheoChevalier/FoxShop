@@ -82,7 +82,6 @@ SL.Lists = {
   store: DB_STORE_LISTS,
   init: function() {
     SL.view = "Lists";
-    document.getElementById("title").innerHTML = "Shopping List";
     SL.show("lists");
 
     /*var request = navigator.mozApps.getSelf();
