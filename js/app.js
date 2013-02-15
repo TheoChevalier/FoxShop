@@ -591,9 +591,58 @@ function addEventListeners() {
   /*****************************************************************************
    * Settings
    ****************************************************************************/
-  SL.Settings.elm.getElementsByTagName("button")[3].addEventListener("click",
+  SL.Settings.elm.getElementsByClassName("icon-back")[0].addEventListener("click",
     function() {
       SL.hide("settingsPanel");
+    });
+
+  /*
+   * Currency settings
+   */
+  // Show position & currency panels
+  SL.id("currency").addEventListener("click",
+    function() {
+      SL.show("editCurrency");
+    });
+  SL.id("position").addEventListener("click",
+    function() {
+      SL.show("editPosition");
+    });
+
+  // Hide currency panel
+  SL.id("cEditCurrency").addEventListener("click",
+    function() {
+      SL.hide("editCurrency");
+    });
+  SL.id("setEditCurrency").addEventListener("click",
+    function() {
+      SL.hide("editCurrency");
+    });
+
+  // Hide position panel
+  SL.id("cEditPosition").addEventListener("click",
+    function() {
+      SL.hide("editPosition");
+    });
+  SL.id("setEditPosition").addEventListener("click",
+    function() {
+      SL.hide("editPosition");
+    });
+
+  /*
+   * About panel
+   */
+  SL.id("about").addEventListener("click",
+    function() {
+      SL.show("aboutPanel");
+    });
+  SL.id("aboutBack").addEventListener("click",
+    function() {
+      SL.hide("aboutPanel");
+    });
+  SL.id("aboutClose").addEventListener("click",
+    function() {
+      SL.hide("aboutPanel");
     });
 }
 

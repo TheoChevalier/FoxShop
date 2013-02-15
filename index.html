@@ -7,6 +7,7 @@
 
     <!-- Building blocks -->
   <link rel="stylesheet" type="text/css" href="css/headers.css"/>
+    <link rel="stylesheet" type="text/css" href="css/buttons.css">
   <link rel="stylesheet" type="text/css" href="css/lists.css">
   <link rel="stylesheet" type="text/css" href="css/switches.css">
   <link rel="stylesheet" type="text/css" href="css/toolbars.css">
@@ -14,7 +15,7 @@
   <link rel="stylesheet" type="text/css" href="css/input_areas.css">
   <link rel="stylesheet" type="text/css" href="css/action_menu.css">
   <link rel="stylesheet" type="text/css" href="css/confirm.css">
-   <link rel="stylesheet" type="text/css" href="css/buttons.css">
+
   <link rel="stylesheet" type="text/css" href="css/progress_activity.css">
 
   <!-- Custom CSS -->
@@ -121,18 +122,18 @@
 
     <form role="dialog" data-type="confirm" id="enterEmail" onsubmit="return false;">
     <section>
-    <h1 data-l10n-id="send-title">Send this list</h1>
-    <p>
-      <span data-l10n-id="send-desc">To send this list to another person, please provide his email:</span>
-      <p style="text-align: center">
-        <input type="email" id="email" data-l10n-id="email"placeholder="Email" required=""/>
-        <button type="reset">reset</button>
+      <h1 data-l10n-id="send-title">Send this list</h1>
+      <p>
+        <span data-l10n-id="send-desc">To send this list to another person, please provide his email:</span>
+        <p style="text-align: center">
+          <input type="email" id="email" data-l10n-id="email"placeholder="Email" required=""/>
+          <button type="reset">reset</button>
+        </p>
+        <button role="button" class="recommend send" data-l10n-id="send">Send</button>
       </p>
-      <button role="button" class="recommend send" data-l10n-id="send">Send</button>
-    </p>
     </section>
     <menu>
-    <button class="full cancel" data-l10n-id="cancel">Cancel</button>
+      <button class="full cancel" data-l10n-id="cancel">Cancel</button>
     </menu>
     </form>
 
@@ -145,21 +146,78 @@
     </p>
     </section>
     <menu>
-    <button class="full cancel" data-l10n-id="cancel">Cancel</button>
+      <button class="full cancel" data-l10n-id="cancel">Cancel</button>
     </menu>
     </form>
 
 
-    <form id="settingsPanel" role="dialog" data-type="action" onsubmit="return false;">
-    <header>Settings</header>
-    <menu>
-    <button> Action 1 </button>
-    <button> Action 2 </button>
-    <button> Action 3 </button>
-    <button class="cancel" data-l10n-id="cancel"> Cancel </button>
-    </menu>
+
+    <section role="region" class="skin-organic" id="settingsPanel">
+    <header>
+      <a href="#"><span class="icon icon-back">back</span></a>
+      <h1>Settings</h1>
+    </header>
+    <header>
+      <h2>Subheader text</h2>
+    </header>
+      <ul>
+        <li>
+          <label>Currency</label>
+          <button id="currency">Choose your currency</button>
+        </li>
+        <li>
+          <button id="about">About</button>
+        </li>
+      </ul>
+    </section>
+
+
+    <form role="dialog" data-type="confirm" id="editCurrency" onsubmit="return false;">
+      <section>
+      <h1 data-l10n-id="currency-title">Edit currency</h1>
+        <p style="text-align: center">
+          <input type="text" id="userCurrency" data-l10n-id="user-currency" placeholder="Your currency" />
+          <button type="reset">reset</button>
+          <li>
+            <button id="position" class="icon icon-dialog">Position</button>
+          </li>
+        </p>
+      </section>
+      <menu>
+        <button id="cEditCurrency" class="cancel" data-l10n-id="cancel">Cancel</button>
+        <button id="setEditCurrency" class="recommend" data-l10n-id="set">Set</button>
+      </menu>
     </form>
-    </div>
+
+
+    <form role="dialog" data-type="confirm" id="editPosition" onsubmit="return false;">
+      <section>
+        <select>
+          <option>Left</option>
+          <option>Right</option>
+        </select>
+      </section>
+      <menu>
+        <button id="cEditPosition" class="cancel" data-l10n-id="cancel">Cancel</button>
+        <button id="setEditPosition" class="recommend" data-l10n-id="set">Set</button>
+      </menu>
+    </form>
+
+
+    <section role="region" class="skin-organic" id="aboutPanel">
+    <header>
+      <a href="#"><span id="aboutBack" class="icon icon-back">back</span></a>
+      <h1>About</h1>
+    </header>
+    <header>
+      <h2>Subheader text</h2>
+    </header>
+      <ul>
+        <li>
+          <button id="aboutClose" class="recommend" data-l10n-id="close">Close</button>
+        </li>
+      </ul>
+    </section>
 
     <script src="js/db.js"></script>
     <script src="js/app.js"></script>

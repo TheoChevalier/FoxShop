@@ -80,12 +80,14 @@ html, body {
   color: red;
 }
 
-#items, #lists, #settingsPanel, #editLists, #editItems, #enterEmail, #sendEmail {
+#items, #lists, #settingsPanel, #editLists, #editItems, #enterEmail, #sendEmail,
+#editCurrency, #editPosition, #aboutPanel {
   z-index: 1;
   position: absolute;
   opacity: 0;
   background-color: #fff;
   min-width: 100%;
+  min-height: 100%;
 }
 
 #lists {
@@ -263,4 +265,16 @@ form[role="dialog"][data-type="confirm"] > section {
 
 form[role="search"] button {
   width: auto;
+}
+
+#settingsPanel ul, #aboutPanel ul {
+  padding: 2.5rem;
+  list-style-type:none!important; 
+}
+#settingsPanel label:not([for]), #aboutPanel label:not([for]){
+  height: auto;
+  width: auto;
+}
+form[role="dialog"][data-type="confirm"] {
+  padding: 0;
 }
