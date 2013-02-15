@@ -49,15 +49,6 @@ SL = {
     target.zIndex = "6";
     target.opacity = "1";
   },
-  settings: function(aView) {
-    this.show("settings");
-
-    var button = document.getElementById("settings");
-    button.addEventListener("click", function(e) {
-      //aView.close();
-      SL.Settings.init(aView);
-    });
-  },
   removeElement: function(node) {
     node.parentNode.removeChild(node);
   }
@@ -65,15 +56,14 @@ SL = {
 
 SL.Settings = {
   elm: document.getElementById("settingsPanel"),
-  init: function(aView) {
-    SL.action("settingsPanel", "show");
-
-  },
   close: function() {
     SL.hide("settingsPanel");
   }
 };
 
+/*******************************************************************************
+ * Lists
+ ******************************************************************************/
 SL.Lists = {
   elm : document.getElementById("lists"),
   arrayList : {},
@@ -81,7 +71,6 @@ SL.Lists = {
   init: function() {
     SL.view = "Lists";
     SL.show("lists");
-    SL.settings(SL.Lists);
 
     /*var request = navigator.mozApps.getSelf();
     request.onsuccess = function() {
@@ -201,6 +190,9 @@ SL.Lists = {
   }
 };
 
+/*******************************************************************************
+ * editLists
+ ******************************************************************************/
 SL.editLists = {
   elm: document.getElementById("editLists"),
   store: DB_STORE_LISTS,
@@ -274,6 +266,9 @@ SL.editLists = {
   }
 }
 
+/*******************************************************************************
+ * Items
+ ******************************************************************************/
 SL.Items = {
   elm: document.getElementById("items"),
   store: DB_STORE_ITEMS,
@@ -404,23 +399,11 @@ SL.Items = {
   }
 }
 
+/*******************************************************************************
+ * enterEmail
+ ******************************************************************************/
 SL.enterEmail = {
   elm: document.getElementById("enterEmail"),
-  init: function() {
-
-    // Add event listeners to buttons
-
-    //Cancel
-    this.elm.getElementsByClassName("cancel")[0].addEventListener("click", function() {
-      SL.hide("enterEmail");
-    });
-
-    // Send
-    this.elm.getElementsByClassName("send")[0].addEventListener("click", function() {
-      SL.hide("enterEmail");
-      SL.show("sendEmail");
-    });
-  }
 }
 
   // Messages handlers
@@ -447,10 +430,22 @@ function guid() {
 // Add the eventListeners to buttons, etc.
 function addEventListeners() {
 
-  console.log("addEventListeners");
-  var add = document.getElementById('add-list');
-  add.style.display = "block";
-  add.addEventListener("click", function(evt) {
+  /*****************************************************************************
+   * Shared
+   ****************************************************************************/
+    // Add event listener on every Settings button
+  var els = document.getElementsByClassName("settings");
+  var elsArray = Array.prototype.slice.call(els, 0);
+  elsArray.forEach(function(el) {
+    el.addEventListener("click", function() {
+      SL.show("settingsPanel");
+    });
+  });
+
+  /*****************************************************************************
+   * Lists
+   ****************************************************************************/
+  document.getElementById("add-list").addEventListener("click", function(evt) {
     var name = document.getElementById('listName').value;
     var date = new Date();
 
@@ -465,10 +460,7 @@ function addEventListeners() {
     });
     document.getElementById('listName').value ="";
   });
-  
-  /*****************************************************************************
-   * Lists
-   ****************************************************************************/
+
   document.getElementById("completeall").addEventListener("click", function() {
     SL.Lists.completeall();
   });
@@ -524,10 +516,30 @@ function addEventListeners() {
   var send = SL.Items.elm.getElementsByClassName("send")[0];
   send.addEventListener("click", function() {
     SL.show("enterEmail");
-    SL.enterEmail.init();
   });
 
-  SL.action("add-item", "add", SL.Items, "click");
+  document.getElementById("add-item").addEventListener("click", function() {
+    SL.Items.add();
+  });
+
+  /*****************************************************************************
+   * Items
+   ****************************************************************************/
+  // Add event listeners to buttons
+
+  //Cancel
+  SL.enterEmail.elm.getElementsByClassName("cancel")[0].addEventListener("click",
+  function() {
+    SL.hide("enterEmail");
+  });
+
+  // Send
+  SL.enterEmail.elm.getElementsByClassName("send")[0].addEventListener("click",
+ function() {
+    SL.hide("enterEmail");
+    SL.show("sendEmail");
+  });
+
   /*****************************************************************************
    * Settings
    ****************************************************************************/
