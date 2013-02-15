@@ -523,7 +523,7 @@ function addEventListeners() {
   });
 
   /*****************************************************************************
-   * Items
+   * send e-mail views
    ****************************************************************************/
   // Add event listeners to buttons
 
@@ -536,8 +536,10 @@ function addEventListeners() {
   // Send
   SL.enterEmail.elm.getElementsByClassName("send")[0].addEventListener("click",
  function() {
-    SL.hide("enterEmail");
-    SL.show("sendEmail");
+    if (document.getElementById("email").value != "") {
+      SL.hide("enterEmail");
+      SL.show("sendEmail");
+    }
   });
 
   /*****************************************************************************

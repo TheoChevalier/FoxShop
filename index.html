@@ -27,7 +27,6 @@
 
 <body>
   <div id="loader">
-
     <div>
       <progress></progress><br/>
       <span data-l10n-id="loading">Loading application, please wait…</span>
@@ -46,7 +45,7 @@
       </header>
         <ul data-type="list" class="list">
         </ul>
-      <form role="search" class="bottom" id="form-list">
+      <form role="search" class="bottom" id="form-list" onsubmit="return false;">
       <button type="submit" id="add-list" data-l10n-id="add-list">Add</button>
       <p>
       <textarea id="listName" data-l10n-id="listName"placeholder="New list name" required=""></textarea>
@@ -90,9 +89,6 @@
       <section role="region" class="header">
         <header>
           <button class="back"><span class="icon icon-back"></span></button>
-          <menu type="toolbar">
-            <button id="settings"><span class="icon icon-settings">s</span></button>
-          </menu>
           <h1 class="title" data-l10n-id="items">Items</h1>
         </header>
         <header>
@@ -141,7 +137,7 @@
     </form>
 
 
-    <form role="dialog" data-type="confirm" id="sendEmail">
+    <form role="dialog" data-type="confirm" id="sendEmail" onsubmit="return false;">
     <section>
     <h1 data-l10n-id="sending-title">Sending…</h1>
     <p style="text-align: center">
