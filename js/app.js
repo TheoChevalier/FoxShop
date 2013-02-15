@@ -7,22 +7,33 @@
 
 SL = {
   hide: function(target) {
-    target = document.getElementById(target).style;
+    target = SL.id(target).style;
     target.zIndex = "1";
     target.opacity = "0";
   },
   show: function(target) {
-    target = document.getElementById(target).style;
+    target = SL.id(target).style;
     target.zIndex = "6";
     target.opacity = "1";
   },
   removeElement: function(node) {
     node.parentNode.removeChild(node);
+  },
+  id: function(target) {
+    return document.getElementById(target);
+  },
+  
+  //Unused for now
+  class: function(target, n) {
+    if (typeof n === "undefined")
+      n = 0;
+
+    return document.getElementByClassName(target)[n];
   }
 };
 
 SL.Settings = {
-  elm: document.getElementById("settingsPanel"),
+  elm: SL.id("settingsPanel"),
   close: function() {
     SL.hide("settingsPanel");
   }
@@ -32,7 +43,7 @@ SL.Settings = {
  * Lists
  ******************************************************************************/
 SL.Lists = {
-  elm : document.getElementById("lists"),
+  elm : SL.id("lists"),
   arrayList : {},
   store: DB_STORE_LISTS,
   init: function() {
@@ -85,14 +96,12 @@ SL.Lists = {
     newToggle.appendChild(mySpan);
 
     mySpan.addEventListener("click", function(e) {
-      console.log("span ok");
 
       if (!aList.done) {
         newLi.className += " done";
       } else {
         newLi.className = newLi.className.replace ( /(?:^|\s)done(?!\S)/g , '' );
       }
-      console.log(newLi.getElementsByTagName("input")[0].checked);
       aList.done = !aList.done;
 
       // Delete the item, add the updated one
@@ -138,7 +147,7 @@ SL.Lists = {
     this.arrayList[aList.guid] = aList;
   },
   clear: function() {
-    var lists = document.getElementById("lists");
+    var lists = SL.id("lists");
     var list = document.getElementsByClassName("list")[0];
     lists.removeChild(list);
     var ul = document.createElement('ul');
@@ -149,7 +158,6 @@ SL.Lists = {
     
     var nodes = SL.Lists.elm.getElementsByClassName("list")[0].childNodes;
     for(var i=1; i<nodes.length; i++) {
-        console.log(nodes[i].getElementsByTagName('label')[0].checked);
         nodes[i].getElementsByTagName('input')[0].setAttribute("checked", true);
         nodes[i].className.replace ( /(?:^|\s)done(?!\S)/g , '' );
         nodes[i].className += " done";
@@ -161,7 +169,7 @@ SL.Lists = {
  * editLists
  ******************************************************************************/
 SL.editLists = {
-  elm: document.getElementById("editLists"),
+  elm: SL.id("editLists"),
   store: DB_STORE_LISTS,
   init: function() {
     SL.Lists.close();
@@ -172,7 +180,6 @@ SL.editLists = {
     var node = this.elm.getElementsByClassName("list")[0];
     while (node.hasChildNodes()) {
         node.removeChild(node.lastChild);
-        console.log("mon node:"+node);
     }
 
     DB.displayList(null, SL.editLists);
@@ -220,7 +227,6 @@ SL.editLists = {
   },
   selectAll: function() {
     var nodes = this.elm.getElementsByClassName("list")[0].childNodes;
-    console.log(nodes);
     for(var i=0; i<nodes.length; i++) {
       nodes[i].getElementsByTagName("input")[0].setAttribute("checked", "true");
     }
@@ -237,7 +243,7 @@ SL.editLists = {
  * Items
  ******************************************************************************/
 SL.Items = {
-  elm: document.getElementById("items"),
+  elm: SL.id("items"),
   store: DB_STORE_ITEMS,
   init: function(aList) {
     SL.Lists.close();
@@ -263,8 +269,8 @@ SL.Items = {
 
   // Add an item to the current list
   add: function() {
-    var name = document.getElementById('itemName').value;
-    var qty = document.getElementById('itemQty').value;
+    var name = SL.id('itemName').value;
+    var qty = SL.id('itemQty').value;
     var date = new Date();
 
     // Handle empty form
@@ -370,18 +376,18 @@ SL.Items = {
  * enterEmail
  ******************************************************************************/
 SL.enterEmail = {
-  elm: document.getElementById("enterEmail"),
+  elm: SL.id("enterEmail"),
 }
 
   // Messages handlers
   function displayActionSuccess(id) {
-    document.getElementById('msg').innerHTML = '<span class="action-success" data-l10n-id="' + id + '"></span>';
+    SL.id('msg').innerHTML = '<span class="action-success" data-l10n-id="' + id + '"></span>';
   }
   function displayActionFailure(id) {
-    document.getElementById('msg').innerHTML = '<span class="action-failure" data-l10n-id="' + id + '"></span>';
+    SL.id('msg').innerHTML = '<span class="action-failure" data-l10n-id="' + id + '"></span>';
   }
   function resetActionStatus() {
-    document.getElementById('msg').innerHTML = '';
+    SL.id('msg').innerHTML = '';
   }
 
 // Generate four random hex digits.
@@ -412,8 +418,17 @@ function addEventListeners() {
   /*****************************************************************************
    * Lists
    ****************************************************************************/
-  document.getElementById("add-list").addEventListener("click", function(evt) {
-    var name = document.getElementById('listName').value;
+  // 
+  SL.id("add-list").addEventListener("click", addList());
+  // or if the user hit enter key
+  SL.id("listName").onkeyup = function (e) {
+    if (e.keyCode == 13) {
+      addList();
+    }
+  }
+
+  function addList() {
+    var name = SL.id('listName').value;
     var date = new Date();
 
     if (!name || name === undefined) {
@@ -425,10 +440,12 @@ function addEventListeners() {
                    date: date.getTime(),
                    items:{}
     });
-    document.getElementById('listName').value ="";
-  });
+    SL.id('listName').value ="";
+  }
 
-  document.getElementById("completeall").addEventListener("click", function() {
+
+
+  SL.id("completeall").addEventListener("click", function() {
     SL.Lists.completeall();
   });
   
@@ -438,7 +455,7 @@ function addEventListeners() {
     SL.editLists.init();
   });
 
-  var install = document.getElementById('install');
+  var install = SL.id('install');
   install.addEventListener('click', function(e){
     navigator.mozApps.install("http://theochevalier.fr/app/manifest.webapp");
   });
@@ -485,7 +502,7 @@ function addEventListeners() {
     SL.show("enterEmail");
   });
 
-  document.getElementById("add-item").addEventListener("click", function() {
+  SL.id("add-item").addEventListener("click", function() {
     SL.Items.add();
   });
 
@@ -503,7 +520,7 @@ function addEventListeners() {
   // Send
   SL.enterEmail.elm.getElementsByClassName("send")[0].addEventListener("click",
  function() {
-    if (document.getElementById("email").value != "") {
+    if (SL.id("email").value != "") {
       SL.hide("enterEmail");
       SL.show("sendEmail");
     }
@@ -521,7 +538,7 @@ function addEventListeners() {
 
 
     function update() {
-        var btn = document.getElementById('install');
+        var btn = SL.id('install');
         if(install.state == 'uninstalled') {
             btn.style.display = 'block';
         }
@@ -531,7 +548,7 @@ function addEventListeners() {
     }
 
     function init() {
-        var btn = document.getElementById('install');
+        var btn = SL.id('install');
         btn.addEventListener('click', function() {
             install();
         });
@@ -562,7 +579,7 @@ function finishInit() {
 
   // Dynamically calculate height of content
   var height = document.body.clientHeight;
-  document.getElementById("content").style.height = height+"px";
+  SL.id("content").style.height = height+"px";
   var els = document.getElementsByClassName("header");
   var elsArray = Array.prototype.slice.call(els, 0);
   elsArray.forEach(function(el) {
