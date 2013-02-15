@@ -40,10 +40,14 @@ SL = {
     }
   },
   hide: function(target) {
-    document.getElementById(target).style.display = "none";
+    target = document.getElementById(target).style;
+    target.zIndex = "1";
+    target.opacity = "0";
   },
   show: function(target) {
-    document.getElementById(target).style.display = "block";
+    target = document.getElementById(target).style;
+    target.zIndex = "6";
+    target.opacity = "1";
   },
   settings: function(aView) {
     this.show("settings");
@@ -341,7 +345,7 @@ SL.Items = {
     document.getElementById('add-item').style.display = "inline-block";
     SL.Items.clear();
     DB.displayItems(aList);
-    SL.Lists.elm.style.display = "none";
+    SL.hide("lists");
     SL.show("items");
   },
 
