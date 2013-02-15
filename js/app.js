@@ -67,9 +67,7 @@ SL.Settings = {
   elm: document.getElementById("settingsPanel"),
   init: function(aView) {
     SL.action("settingsPanel", "show");
-    this.elm.getElementsByTagName("button")[3].addEventListener("click", function(e) {
-      SL.hide("settingsPanel");
-    });
+
   },
   close: function() {
     SL.hide("settingsPanel");
@@ -83,6 +81,7 @@ SL.Lists = {
   init: function() {
     SL.view = "Lists";
     SL.show("lists");
+    SL.settings(SL.Lists);
 
     /*var request = navigator.mozApps.getSelf();
     request.onsuccess = function() {
@@ -91,27 +90,6 @@ SL.Lists = {
         SL.action(null, "install", this, "click");
       }
     };*/
-
-    SL.action("form-list", "show");
-    SL.action("completeall", "show");
-    //SL.action(null, "completeall", this, "click");  -> marche pas!
-    document.getElementById("completeall").addEventListener("click", function() {
-      SL.Lists.completeall();
-    });
-    
-    // Init event for edit view
-    this.elm.getElementsByClassName('edit')[0].addEventListener("click", function(evt) {
-      SL.editLists.init();
-    });
-    //SL.action("settings", "settings", SL, "click");
-    //FIXME: don’t hardcode this:
-    SL.settings(SL.Lists);
-    var install = document.getElementById('install');
-    install.addEventListener('click', function(e){
-      navigator.mozApps.install("http://theochevalier.fr/app/manifest.webapp");
-    });
-
-
   },
   close: function() {
     SL.view = "";
@@ -239,32 +217,6 @@ SL.editLists = {
     }
 
     DB.displayList(null, SL.editLists);
-
-    //Add events to buttons
-    var header = this.elm.getElementsByTagName("header")[0];
-    console.log(header);
-
-    // Close
-    header.getElementsByTagName("button")[0].addEventListener("click", function() {
-      SL.hide("editLists");
-      SL.show("lists");
-    });
-
-    // Delete Selected
-    header.getElementsByTagName("button")[1].addEventListener("click", function() {
-      SL.editLists.deleteSelected();
-    });
-
-    var menu = this.elm.getElementsByTagName("menu")[1];
-
-    // Select All
-    menu.getElementsByTagName("button")[0].addEventListener("click", function() {
-      SL.editLists.selectAll();
-    });
-    // Deselect All
-    menu.getElementsByTagName("button")[1].addEventListener("click", function() {
-      SL.editLists.deselectAll();
-    });
   },
   display: function(aList) {
     var newLi = document.createElement('li');
@@ -328,28 +280,11 @@ SL.Items = {
   init: function(aList) {
     SL.Lists.close();
     SL.view = "Items";
-    SL.Lists.close();
-    
-    console.log(this.elm.style.display + SL.Lists.elm.style.display);
+
     this.list = aList;
     // Set title of the displayed Items list
     this.elm.getElementsByClassName("title")[0].innerHTML=aList.name;
 
-    // Display buttons
-    this.elm.getElementsByClassName("back")[0].addEventListener("click", function() {
-      SL.hide("items");
-      SL.show("lists");
-    });
-    var send = this.elm.getElementsByClassName("send")[0];
-    send.addEventListener("click", function(e) {
-      SL.show("enterEmail");
-    });
-
-    SL.enterEmail.elm.getElementsByClassName("cancel")[0].addEventListener("click", function() {
-      SL.hide("enterEmail");
-    });
-
-    SL.action("add-item", "add", this, "click");
     SL.Items.clear();
     DB.displayItems(aList);
     SL.hide("lists");
@@ -473,6 +408,18 @@ SL.enterEmail = {
   elm: document.getElementById("enterEmail"),
   init: function() {
 
+    // Add event listeners to buttons
+
+    //Cancel
+    this.elm.getElementsByClassName("cancel")[0].addEventListener("click", function() {
+      SL.hide("enterEmail");
+    });
+
+    // Send
+    this.elm.getElementsByClassName("send")[0].addEventListener("click", function() {
+      SL.hide("enterEmail");
+      SL.show("sendEmail");
+    });
   }
 }
 
@@ -517,6 +464,76 @@ function addEventListeners() {
                    items:{}
     });
     document.getElementById('listName').value ="";
+  });
+  
+  /*****************************************************************************
+   * Lists
+   ****************************************************************************/
+  document.getElementById("completeall").addEventListener("click", function() {
+    SL.Lists.completeall();
+  });
+  
+  // Init event for edit view
+  SL.Lists.elm.getElementsByClassName('edit')[0].addEventListener("click",
+  function() {
+    SL.editLists.init();
+  });
+
+  var install = document.getElementById('install');
+  install.addEventListener('click', function(e){
+    navigator.mozApps.install("http://theochevalier.fr/app/manifest.webapp");
+  });
+
+  /*****************************************************************************
+   * editLists
+   ****************************************************************************/
+  var header = SL.editLists.elm.getElementsByTagName("header")[0];
+
+  // Close
+  header.getElementsByTagName("button")[0].addEventListener("click", function() {
+    SL.hide("editLists");
+    SL.show("lists");
+  });
+
+  // Delete Selected
+  header.getElementsByTagName("button")[1].addEventListener("click", function() {
+    SL.editLists.deleteSelected();
+  });
+
+  var menu = SL.editLists.elm.getElementsByTagName("menu")[1];
+
+  // Select All
+  menu.getElementsByTagName("button")[0].addEventListener("click", function() {
+    SL.editLists.selectAll();
+  });
+  // Deselect All
+  menu.getElementsByTagName("button")[1].addEventListener("click", function() {
+    SL.editLists.deselectAll();
+  });
+
+  /*****************************************************************************
+   * Items
+   ****************************************************************************/
+  // Display buttons
+  SL.Items.elm.getElementsByClassName("back")[0].addEventListener("click",
+  function() {
+    SL.hide("items");
+    SL.show("lists");
+  });
+
+  var send = SL.Items.elm.getElementsByClassName("send")[0];
+  send.addEventListener("click", function() {
+    SL.show("enterEmail");
+    SL.enterEmail.init();
+  });
+
+  SL.action("add-item", "add", SL.Items, "click");
+  /*****************************************************************************
+   * Settings
+   ****************************************************************************/
+  SL.Settings.elm.getElementsByTagName("button")[3].addEventListener("click",
+  function() {
+      SL.hide("settingsPanel");
   });
 
 }

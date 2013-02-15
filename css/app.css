@@ -80,12 +80,14 @@ html, body {
   color: red;
 }
 
-#items, #lists, #settingsPanel, #editLists, #editItems, #enterEmail {
+#items, #lists, #settingsPanel, #editLists, #editItems, #enterEmail, #sendEmail {
   z-index: 1;
   position: absolute;
   opacity: 0;
   background-color: #fff;
+  min-width: 100%;
 }
+
 #lists {
   z-index: 6;
   min-width: 100%;
@@ -227,5 +229,5 @@ form[role="dialog"][data-type="confirm"] > section {
 }
 
 form[role="search"] button {
-    width: auto;
+  width: auto;
 }
