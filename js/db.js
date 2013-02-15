@@ -2,14 +2,12 @@
 
 var DB = {
   openDb: function() {
-    console.log("openDb ...");
     var req = indexedDB.open(DB_NAME, DB_VERSION);
     req.onsuccess = function (evt) {
       // Better use "this" than "req" to get the result to avoid problems with
       // garbage collection.
       // db = req.result;
       db = this.result;
-      console.log("openDb DONE");
       finishInit();
     };
     req.onerror = function (evt) {
@@ -18,7 +16,6 @@ var DB = {
     };
 
     req.onupgradeneeded = function (evt) {
-      console.log("openDb.onupgradeneeded");
       var store = evt.currentTarget.result.createObjectStore(
         DB_STORE_LISTS, { keyPath: 'id', autoIncrement: true });
 
@@ -91,12 +88,9 @@ var DB = {
       var cursor = evt.target.result;
       // If the cursor is pointing at something, ask for the data
       if (cursor) {
-        console.log("displayPubList cursor:", cursor);
         req = store.get(cursor.key);
-        console.log("key: "+cursor.key);
         req.onsuccess = function (evt) {
           var aList = evt.target.result;
-          console.log("liste:"+aList);
           view.display(aList);
         };
 
@@ -144,7 +138,6 @@ var DB = {
     var req = store.get(key);
     req.onsuccess = function(evt) {
       var record = evt.target.result;
-      console.log("record:", record);
       if (typeof record == 'undefined') {
         displayActionFailure("No matching record found");
         return;
@@ -168,9 +161,7 @@ var DB = {
   // Delete a store
   deleteAll: function(view) {
     var store = DB.getObjectStore(view.store, 'readwrite');
-    store.clear().onsuccess = function(evt) {
-      console.log("store cleared");
-    }
+    store.clear();
   },
 
   displayItems: function(aList) {
@@ -186,7 +177,6 @@ var DB = {
 
       req.onsuccess = function(evt) {
         var record = evt.target.result;
-        console.log("record:", record);
         if (typeof record == 'undefined') {
           displayActionFailure("No matching record found");
           return;
