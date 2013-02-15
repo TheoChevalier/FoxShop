@@ -6,39 +6,6 @@
   const DB_STORE_ITEMS = 'items1';
 
 SL = {
-  action: function(target, func, view, listener) {
-    var elm = document.getElementById(target);
-    if(typeof elm != "undefined" && elm != null) {
-
-      if(typeof listener != "undefined" &&
-       typeof view != "undefined" && typeof func != "undefined") {
-        elm.style.display = "block";
-
-        elm.addEventListener(listener, function(e) {
-          view[func]();
-        });  
-      } else {
-        if(typeof target != "undefined") {
-
-          if(typeof view != "undefined" && typeof func != "undefined") {
-            view[func](target);
-          } else {
-            if(typeof func != "undefined") {
-              SL[func](target)
-            }
-          }
-        } else {
-          if(typeof view != "undefined" && typeof func != "undefined") {
-            view[func]();
-          } else {
-            if(typeof func != "undefined") {
-              SL[func]()
-            }
-          }
-        }
-      }
-    }
-  },
   hide: function(target) {
     target = document.getElementById(target).style;
     target.zIndex = "1";
@@ -289,7 +256,7 @@ SL.Items = {
   // Go back to Lists view
   back: function() {
     // Hide Items list
-    SL.action("items", "hide");
+    SL.hide("items");
     // Display Lists list
     SL.Lists.init();
   },
