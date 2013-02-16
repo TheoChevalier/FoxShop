@@ -167,7 +167,7 @@
             <select name="language.current"></select>
           </p>
         </li>
-        <li hidden>
+        <li>
           <p data-l10n-id="region">Region</p>
           <p class="fake-select">
             <button class="icon icon-dialog">empty</button>
@@ -215,9 +215,13 @@
         <p style="text-align: center">
           <input type="text" id="userCurrency" data-l10n-id="user-currency" placeholder="Your currency" />
           <button type="reset">reset</button>
-          <li>
-            <button id="position" class="icon icon-dialog">Position</button>
-          </li>
+          <p class="fake-select">
+            <button id="position" class="icon icon-dialog">empty</button>
+            <select>
+              <option value="left">Left</option>
+              <option value="right">Right</option>
+            </select>
+          </p>
         </p>
       </section>
       <menu>

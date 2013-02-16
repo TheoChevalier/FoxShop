@@ -50,7 +50,10 @@ SL.Settings = {
       SL.id("currency").removeAttribute("disabled");
       SL.id("taxes").removeAttribute("disabled");
     }
-
+    if (this.obj["userCurrency"].value) {
+      SL.id("userCurrency").value = this.obj["userCurrency"].value;
+    }
+    this.loaded = true;
   },
   close: function() {
     SL.hide("settingsPanel");
@@ -624,6 +627,10 @@ function addEventListeners() {
   SL.id("setEditCurrency").addEventListener("click",
     function() {
       SL.hide("editCurrency");
+      var save = {guid:"userCurrency",value:SL.id("userCurrency").value};
+      DB.deleteFromDB("userCurrency", SL.Settings);
+      DB.store(save, SL.Settings);
+      DB.getSetting();
     });
 
   // Switches

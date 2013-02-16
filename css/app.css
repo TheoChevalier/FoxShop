@@ -143,7 +143,7 @@ html, body {
 .scroll {
   width: 100%;
   display: block;
-  overflow: scroll;
+  overflow-y: scroll;
   position: relative;
   padding-bottom: 40px;
 }
@@ -259,4 +259,9 @@ label:not([for]) input + span {
 /*lists.css*/
 [data-type="list"] li > label {
   left: 1rem;
+}
+
+/*confirm.css*/
+form[role="dialog"][data-type="confirm"] > section {
+  overflow-y: auto;
 }

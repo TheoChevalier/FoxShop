@@ -61,7 +61,7 @@ var DB = {
       throw e;
     }
     req.onsuccess = function (evt) {
-      console.log("Inserted");
+      //console.log("Inserted");
     };
     req.onerror = function() {
       console.error(this.error);
@@ -252,7 +252,6 @@ var DB = {
   getSetting: function() {
     var store = DB.getObjectStore(DB_STORE_SETTINGS, 'readonly');
     var req = store.count();
-    var i = 0;
     req = store.openCursor();
     req.onsuccess = function(evt) {
       var cursor = evt.target.result;
