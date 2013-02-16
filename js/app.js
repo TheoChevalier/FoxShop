@@ -604,10 +604,6 @@ function addEventListeners() {
     function() {
       SL.show("editCurrency");
     });
-  SL.id("position").addEventListener("click",
-    function() {
-      SL.show("editPosition");
-    });
 
   // Hide currency panel
   SL.id("cEditCurrency").addEventListener("click",
@@ -617,16 +613,6 @@ function addEventListeners() {
   SL.id("setEditCurrency").addEventListener("click",
     function() {
       SL.hide("editCurrency");
-    });
-
-  // Hide position panel
-  SL.id("cEditPosition").addEventListener("click",
-    function() {
-      SL.hide("editPosition");
-    });
-  SL.id("setEditPosition").addEventListener("click",
-    function() {
-      SL.hide("editPosition");
     });
 
   /*
