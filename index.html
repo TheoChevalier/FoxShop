@@ -6,20 +6,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
     <!-- Building blocks -->
-  <link rel="stylesheet" type="text/css" href="css/headers.css"/>
-    <link rel="stylesheet" type="text/css" href="css/buttons.css">
-  <link rel="stylesheet" type="text/css" href="css/lists.css">
-  <link rel="stylesheet" type="text/css" href="css/switches.css">
-  <link rel="stylesheet" type="text/css" href="css/toolbars.css">
-  <link rel="stylesheet" type="text/css" href="css/edit_mode.css">
-  <link rel="stylesheet" type="text/css" href="css/input_areas.css">
-  <link rel="stylesheet" type="text/css" href="css/action_menu.css">
-  <link rel="stylesheet" type="text/css" href="css/confirm.css">
-
-  <link rel="stylesheet" type="text/css" href="css/progress_activity.css">
+  <link rel="stylesheet" type="text/css" href="css/building_blocks/headers.css"/>
+  <link rel="stylesheet" type="text/css" href="css/building_blocks/buttons.css">
+  <link rel="stylesheet" type="text/css" href="css/building_blocks/lists.css">
+  <link rel="stylesheet" type="text/css" href="css/building_blocks/switches.css">
+  <link rel="stylesheet" type="text/css" href="css/building_blocks/toolbars.css">
+  <link rel="stylesheet" type="text/css" href="css/building_blocks/edit_mode.css">
+  <link rel="stylesheet" type="text/css" href="css/building_blocks/input_areas.css">
+  <link rel="stylesheet" type="text/css" href="css/building_blocks/action_menu.css">
+  <link rel="stylesheet" type="text/css" href="css/building_blocks/confirm.css">
+  <link rel="stylesheet" type="text/css" href="css/building_blocks/progress_activity.css">
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/app.css"/>
+  <link rel="stylesheet" href="css/lists.css"/>
 
   <!-- l10n resources -->
   <link rel="resource" type="application/l10n" href="locales/data" />
@@ -151,7 +151,7 @@
 
 
 
-    <section role="region" class="skin-organic" id="settingsPanel">
+    <section role="region" class="skin-organic settings" id="settingsPanel">
     <header>
       <a href="#"><span class="icon icon-back">back</span></a>
       <h1>Settings</h1>
@@ -186,11 +186,21 @@
         </li>
       </ul>
     <header>
-      <h2 data-l10n-id="language">Language</h2>
+      <h2 data-l10n-id="prices">Prices</h2>
     </header>
       <ul>
         <li>
-          <button id="currency">Choose your currency</button>
+          <label>
+            <input type="checkbox" data-type="switch" id="prices-enable" />
+            <span></span>
+          </label>
+          <a data-l10n-id="currency-enable">Enable prices</a>
+        </li>
+        <li>
+          <button id="currency" disabled="">Choose your currency</button>
+        </li>
+        <li>
+          <button id="taxes"disabled="">Apply taxes</button>
         </li>
         <li>
           <button id="about">About</button>
@@ -199,7 +209,7 @@
     </section>
 
 
-    <form role="dialog" data-type="confirm" id="editCurrency" onsubmit="return false;">
+    <form role="dialog" data-type="confirm" id="editCurrency" onsubmit="return false;" class="settings">
       <section>
       <h1 data-l10n-id="currency-title">Edit currency</h1>
         <p style="text-align: center">
@@ -217,7 +227,7 @@
     </form>
 
 
-    <form role="dialog" data-type="confirm" id="editPosition" onsubmit="return false;">
+    <form role="dialog" data-type="confirm" id="editPosition" onsubmit="return false;" class="settings">
       <section>
         <select>
           <option>Left</option>
@@ -231,7 +241,7 @@
     </form>
 
 
-    <section role="region" class="skin-organic" id="aboutPanel">
+    <section role="region" class="skin-organic settings" id="aboutPanel">
     <header>
       <a href="#"><span id="aboutBack" class="icon icon-back">back</span></a>
       <h1>About</h1>

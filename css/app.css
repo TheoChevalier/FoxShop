@@ -247,14 +247,6 @@ form[role="search"] button {
   width: auto;
 }
 
-#settingsPanel ul, #aboutPanel ul {
-  padding: 2.5rem;
-  list-style-type:none!important; 
-}
-#settingsPanel label:not([for]), #aboutPanel label:not([for]){
-  height: auto;
-  width: auto;
-}
 form[role="dialog"][data-type="confirm"] {
   padding: 0;
 }

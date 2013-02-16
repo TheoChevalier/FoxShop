@@ -49,14 +49,6 @@ SL.Lists = {
   init: function() {
     SL.view = "Lists";
     SL.show("lists");
-
-    /*var request = navigator.mozApps.getSelf();
-    request.onsuccess = function() {
-      if (!request.result) {
-        SL.action("install", "show");
-        SL.action(null, "install", this, "click");
-      }
-    };*/
   },
   close: function() {
     SL.view = "";
