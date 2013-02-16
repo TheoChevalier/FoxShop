@@ -278,3 +278,8 @@ form[role="search"] button {
 form[role="dialog"][data-type="confirm"] {
   padding: 0;
 }
+
+/*switches.css*/
+label:not([for]) input + span {
+pointer-events: auto;
+}
