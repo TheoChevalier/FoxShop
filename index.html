@@ -44,15 +44,15 @@
         <header>
       <h2 id="msg">Subheader text</h2>
       </header>
-        <ul data-type="list" class="list">
-        </ul>
-      <form role="search" class="bottom" id="form-list" onsubmit="return false;">
+      <form role="search" id="form-list" onsubmit="return false;">
       <button type="submit" id="add-list" data-l10n-id="add-list">Add</button>
       <p>
       <textarea id="listName" data-l10n-id="listName"placeholder="New list name" required=""></textarea>
       <button type="reset">reset</button>
       </p>
       </form>
+        <ul data-type="list" class="list">
+        </ul>
       </section>
       <div role="toolbar">
         <ul>
@@ -95,9 +95,7 @@
         <header>
           <h2 id="msg">Subheader text</h2>
         </header>
-        <ul class="list">
-        </ul>
-        <form role="search" class="bottom" id="form-item" onsubmit="return false;">
+        <form role="search" id="form-item" onsubmit="return false;">
         <button type="submit" id="add-item" data-l10n-id="add-item">Add</button>
         <p>
         <textarea id="itemName" data-l10n-id="item-name"placeholder="New item" required=""></textarea>
@@ -105,6 +103,8 @@
         <textarea id="itemQty" data-l10n-id="item-qty"required="">1</textarea>
         </p>
         </form>
+        <ul class="list">
+        </ul>
       </section>
 
       <div role="toolbar">

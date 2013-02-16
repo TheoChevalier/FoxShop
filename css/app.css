@@ -4,27 +4,11 @@
 }  
 
 header,footer {
-
   width: 100%;
-
 }
+
 header {top: 0;}
 footer {bottom: 0;}
-
-.left, .right {
-  width: 60px;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  display: inline-block;
-}
-.right {right: 0;}
-.left {left: 0;}
-
-#settings {
-  background: url('../img/icons/gear.png') no-repeat;
-}
-
 
 html,
 body {
@@ -96,7 +80,6 @@ html, body {
   opacity: 1;
 }
 
-
 .list {
   margin: 10px 0;
   padding: 0;
@@ -151,7 +134,7 @@ html, body {
 }
 
 #itemQty {width: 15% ;}
-#itemName {width: calc(85% - 10px);}
+#itemName {width: calc(84% - 10px);}
 
 #itemQty, #itemName {
   display: inline-block;
@@ -164,12 +147,7 @@ html, body {
   position: relative;
 }
 
-.list {
-  position: relative;
-  z-index: 1;
-}
 menu {z-index: 5;}
-
 
 #add-item {
   display: inline-block;
@@ -189,9 +167,10 @@ section[role="region"] > header:first-child {
   height: 16px;
 }
 .list{
+  position: relative;
+  z-index: 1;
   padding: 0!important;
   overflow: hidden;
-  height: 100%;
 }
 .list > li {
   padding: 0 2rem;
