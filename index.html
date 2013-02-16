@@ -36,24 +36,23 @@
   <div id="content">
 
 
-    <section id="lists">
-      <section role="region" class="header">
-        <header>
+    <section role="region" id="lists">
+      <header>
         <h1 id="title" data-l10n-id="app-name">Shopping List</h1>
-        </header>
-        <header>
-      <h2 id="msg">Subheader text</h2>
       </header>
-      <form role="search" id="form-list" onsubmit="return false;">
-      <button type="submit" id="add-list" data-l10n-id="add-list">Add</button>
-      <p>
-      <textarea id="listName" data-l10n-id="listName"placeholder="New list name" required=""></textarea>
-      <button type="reset">reset</button>
-      </p>
-      </form>
-        <ul data-type="list" class="list">
-        </ul>
-      </section>
+      <header>
+        <h2 id="msg">Subheader text</h2>
+      </header>
+      <div class="scroll">
+        <form role="search" id="form-list" onsubmit="return false;">
+          <button type="submit" id="add-list" data-l10n-id="add-list">Add</button>
+          <p>
+            <textarea id="listName" data-l10n-id="listName"placeholder="New list name" required=""></textarea>
+            <button type="reset">reset</button>
+          </p>
+        </form>
+        <ul data-type="list" class="list"></ul>
+      </div>
       <div role="toolbar">
         <ul>
           <li><button id="install" class="icon icon-install"></button></li>
@@ -75,10 +74,10 @@
         </menu>
         <h1 data-l10n-id="edit-list">Edit Mode</h1>
       </header>
-      <section class="header">
+      <div class="scroll">
         <ul data-type="list" class="list">
         </ul>
-      </section>
+      </div>
       <menu>
         <button data-l10n-id="select-all">Select all</button>
         <button data-l10n-id="deselect-all">Deselect all</button>
@@ -86,15 +85,15 @@
     </form>
 
 
-    <section id="items">
-      <section role="region" class="header">
-        <header>
-          <button class="back"><span class="icon icon-back"></span></button>
-          <h1 class="title" data-l10n-id="items">Items</h1>
-        </header>
-        <header>
-          <h2 id="msg">Subheader text</h2>
-        </header>
+    <section id="items" role="region">
+      <header>
+        <button class="back"><span class="icon icon-back"></span></button>
+        <h1 class="title" data-l10n-id="items">Items</h1>
+      </header>
+      <header>
+        <h2 id="msg">Subheader text</h2>
+      </header>
+      <div class="scroll">
         <form role="search" id="form-item" onsubmit="return false;">
         <button type="submit" id="add-item" data-l10n-id="add-item">Add</button>
         <p>
@@ -105,7 +104,7 @@
         </form>
         <ul class="list">
         </ul>
-      </section>
+      </div>
 
       <div role="toolbar">
         <ul>

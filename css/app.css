@@ -140,11 +140,12 @@ html, body {
   display: inline-block;
 }
 
-.header {
+.scroll {
   width: 100%;
-  overflow: scroll;
   display: block;
+  overflow: scroll;
   position: relative;
+  padding-bottom: 40px;
 }
 
 menu {z-index: 5;}

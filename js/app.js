@@ -690,10 +690,10 @@ function finishInit() {
   // Dynamically calculate height of content
   var height = document.body.clientHeight;
   SL.id("content").style.height = height+"px";
-  var els = document.getElementsByClassName("header");
+  var els = document.getElementsByClassName("scroll");
   var elsArray = Array.prototype.slice.call(els, 0);
   elsArray.forEach(function(el) {
-    el.style.height = height-90+"px";
+    el.style.maxHeight = height-120+"px";
   });
   //init();
 }
