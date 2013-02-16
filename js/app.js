@@ -1,9 +1,10 @@
   //'use strict';
         // DB init
   const DB_NAME = 'ShoppingList';
-  const DB_VERSION = 2; // Use a long long for this value (don't use a float)
+  const DB_VERSION = 3; // Use a long long for this value (don't use a float)
   const DB_STORE_LISTS = 'lists2';
   const DB_STORE_ITEMS = 'items1';
+  const DB_STORE_SETTINGS = 'settings1';
 
 SL = {
   hide: function(target) {
@@ -32,12 +33,34 @@ SL = {
   }
 };
 
+
+/*******************************************************************************
+ * Settings
+ ******************************************************************************/
 SL.Settings = {
   elm: SL.id("settingsPanel"),
+  store: DB_STORE_SETTINGS,
+  names: [
+    "prices-enable",
+    "plop",
+    ],
+  obj: {},
+  init: function() {
+    var y;
+    this.names.forEach(function(y) {
+      DB.getSetting(y);
+    });
+  },
+  updateUI: function() {
+    console.log("coucou"+this.obj["prices-enable"]);
+    if (this.obj["prices-enable"].value)
+      SL.id("prices-enable").setAttribute("checked", "");
+  },
   close: function() {
     SL.hide("settingsPanel");
   }
 };
+
 
 /*******************************************************************************
  * Lists
@@ -607,6 +630,25 @@ function addEventListeners() {
       SL.hide("editCurrency");
     });
 
+  // Switches
+  SL.id("prices-enable").addEventListener("click",
+    function() {
+      if(this.checked) {
+        SL.id("currency").removeAttribute("disabled");
+        SL.id("taxes").removeAttribute("disabled");
+      } else {
+        SL.id("currency").setAttribute("disabled", "");
+        SL.id("taxes").setAttribute("disabled", "");
+      }
+
+      if(DB.getSetting("prices-enable") != this.checked) {
+        var save = {guid:"prices-enable",value:this.checked};
+        DB.deleteFromDB("prices-enable", SL.Settings);
+        DB.store(save, SL.Settings);
+      }
+      
+    });
+
   /*
    * About panel
    */
@@ -674,6 +716,9 @@ function finishInit() {
     el.style.maxHeight = height-120+"px";
   });
   //init();
+
+  // Put user’s values in settings
+  SL.Settings.init();
 }
 
 var db;

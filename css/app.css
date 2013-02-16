@@ -35,8 +35,8 @@ html, body {
   height: 100%;
   z-index: 999;
   background:
-    url(action_menu/images/ui/pattern.png) repeat left top,
-    url(action_menu/images/ui/gradient.png) no-repeat left top / 100% 100%;
+    url(building_blocks/action_menu/images/ui/pattern.png) repeat left top,
+    url(building_blocks/action_menu/images/ui/gradient.png) no-repeat left top / 100% 100%;
   text-align:center;
 }
 
@@ -179,7 +179,7 @@ section[role="region"] > header:first-child {
 }
 
 span {
-  pointer-events: auto;
+  pointer-events: auto!important;
 }
 
 .liTitle {

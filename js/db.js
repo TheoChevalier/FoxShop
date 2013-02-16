@@ -36,6 +36,13 @@ var DB = {
       storeItems.createIndex('done', 'done', { unique: false });
       storeItems.createIndex('position', 'position', { unique: false });
       storeItems.createIndex('nb', 'nb', { unique: false });
+
+      // Store items
+      var storeSettings = evt.currentTarget.result.createObjectStore(
+        DB_STORE_SETTINGS, { keyPath: 'id', autoIncrement: true });
+
+      storeSettings.createIndex('guid', 'guid', { unique: true });
+      storeSettings.createIndex('value', 'value', { unique: false });
     };
   },
 
@@ -54,10 +61,10 @@ var DB = {
       throw e;
     }
     req.onsuccess = function (evt) {
-      displayActionSuccess("Inserted");
+      console.log("Inserted");
     };
     req.onerror = function() {
-      displayActionFailure(this.error);
+      console.error(this.error);
     };
   },
 
@@ -238,6 +245,28 @@ var DB = {
           li.getElementsByTagName("p")[1].innerHTML = i+ inner;
         };
 
+      }
+    }
+  },
+
+  getSetting: function(guid) {
+    var store = DB.getObjectStore(DB_STORE_SETTINGS, 'readonly');
+    var req = store.index('guid');
+    req.get(guid).onsuccess = function(evt) {
+      if (typeof evt.target.result == 'undefined') {
+        displayActionFailure("No matching setting found");
+        return;
+      }
+      var key = evt.target.result.id;  
+      var req = store.get(key);
+
+      req.onsuccess = function(evt) {
+        var setting = evt.target.result;
+        SL.Settings.obj[guid] = setting;
+        if (guid == "prices-enable") {
+          SL.Settings.updateUI();
+          return;
+        }
       }
     }
   },
