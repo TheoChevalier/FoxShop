@@ -40,21 +40,17 @@ SL = {
 SL.Settings = {
   elm: SL.id("settingsPanel"),
   store: DB_STORE_SETTINGS,
-  names: [
-    "prices-enable",
-    "plop",
-    ],
+  loaded: false,
   obj: {},
-  init: function() {
-    var y;
-    this.names.forEach(function(y) {
-      DB.getSetting(y);
-    });
-  },
+
+  // Function called after populating this.names in DB.getSetting()
   updateUI: function() {
-    console.log("coucou"+this.obj["prices-enable"]);
-    if (this.obj["prices-enable"].value)
+    if (this.obj["prices-enable"].value) {
       SL.id("prices-enable").setAttribute("checked", "");
+      SL.id("currency").removeAttribute("disabled");
+      SL.id("taxes").removeAttribute("disabled");
+    }
+
   },
   close: function() {
     SL.hide("settingsPanel");
@@ -641,10 +637,11 @@ function addEventListeners() {
         SL.id("taxes").setAttribute("disabled", "");
       }
 
-      if(DB.getSetting("prices-enable") != this.checked) {
+      if(SL.Settings.obj["prices-enable"].value != this.checked) {
         var save = {guid:"prices-enable",value:this.checked};
         DB.deleteFromDB("prices-enable", SL.Settings);
         DB.store(save, SL.Settings);
+        DB.getSetting();
       }
       
     });
@@ -718,7 +715,7 @@ function finishInit() {
   //init();
 
   // Put user’s values in settings
-  SL.Settings.init();
+  DB.getSetting();
 }
 
 var db;

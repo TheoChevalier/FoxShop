@@ -249,24 +249,25 @@ var DB = {
     }
   },
 
-  getSetting: function(guid) {
+  getSetting: function() {
     var store = DB.getObjectStore(DB_STORE_SETTINGS, 'readonly');
-    var req = store.index('guid');
-    req.get(guid).onsuccess = function(evt) {
-      if (typeof evt.target.result == 'undefined') {
-        displayActionFailure("No matching setting found");
-        return;
-      }
-      var key = evt.target.result.id;  
-      var req = store.get(key);
-
-      req.onsuccess = function(evt) {
-        var setting = evt.target.result;
-        SL.Settings.obj[guid] = setting;
-        if (guid == "prices-enable") {
+    var req = store.count();
+    var i = 0;
+    req = store.openCursor();
+    req.onsuccess = function(evt) {
+      var cursor = evt.target.result;
+      // If the cursor is pointing at something, ask for the data
+      if (cursor) {
+        req = store.get(cursor.key);
+        req.onsuccess = function (evt) {
+          var setting = evt.target.result;
+          SL.Settings.obj[setting.guid] = setting;
+        };
+        // Move on to the next object in store
+        cursor.continue();
+      } else {
+        if(!SL.Settings.loaded)
           SL.Settings.updateUI();
-          return;
-        }
       }
     }
   },
