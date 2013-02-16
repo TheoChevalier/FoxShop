@@ -281,5 +281,10 @@ form[role="dialog"][data-type="confirm"] {
 
 /*switches.css*/
 label:not([for]) input + span {
-pointer-events: auto;
+  pointer-events: auto;
+}
+
+/*lists.css*/
+[data-type="list"] li > label {
+  left: 1rem;
 }
