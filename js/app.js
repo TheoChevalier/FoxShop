@@ -249,10 +249,9 @@ SL.editMode = {
         // Remove from DB
         DB.deleteFromDB(guid, SL.editMode);
 
-        // Hide nodes
-        var li = this.elm.querySelector('li[data-listkey="'+guid+'"]');
-        li.style.display = "none";
-        nodes[i].style.display = "none";
+        // Remove nodes
+        SL.removeElement(nodes[i]);
+        SL.removeElement(this.elm.querySelector('li[data-listkey="'+guid+'"]'));
       }
     }
   },
