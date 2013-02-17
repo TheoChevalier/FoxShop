@@ -1,19 +1,28 @@
 ﻿CACHE MANIFEST
-# 2013-02-17:v3
+# 2013-02-17:v5
+
+CACHE:
 
 # Main files
-CACHE:
+index.html
 manifest.webapp
 favicon.ico
-index.html
-css/app.css
-css/lists.css
+
+# JS
 js/app.js
 js/db.js
+
+# L10N
+webL10n/l10n.js
 locales/data
 locales/fr.properties
 locales/en-US.properties
-webL10n/l10n.js
+
+# Custom CSS
+css/app.css
+css/lists.css
+
+# CSS Building Blocks
 css/building_blocks/headers.css
 css/building_blocks/buttons.css
 css/building_blocks/lists.css
@@ -24,3 +33,74 @@ css/building_blocks/input_areas.css
 css/building_blocks/action_menu.css
 css/building_blocks/confirm.css
 css/building_blocks/progress_activity.css
+
+img/delete.png
+img/icons/complete.png
+img/icons/edit.png
+img/icons/ellipsis.png
+img/icons/go.png
+img/icons/install.png
+
+css/building_blocks/action_menu/images/ui/alpha.png
+css/building_blocks/action_menu/images/ui/pattern.png
+css/building_blocks/action_menu/images/ui/gradient.png
+css/building_blocks/buttons/images/icons/dialog.png
+css/building_blocks/buttons/images/icons/view.png
+css/building_blocks/buttons/images/ui/danger-press.png
+css/building_blocks/buttons/images/ui/danger.png
+css/building_blocks/buttons/images/ui/default.png
+css/building_blocks/buttons/images/ui/recommend.png
+css/building_blocks/buttons/images/ui/shadow.png
+css/building_blocks/confirm/images/ui/default.png
+css/building_blocks/confirm/images/ui/pattern.png
+css/building_blocks/confirm/images/ui/gradient.png
+css/building_blocks/edit_mode/images/icons/close.png
+css/building_blocks/edit_mode/images/ui/alpha.png
+css/building_blocks/edit_mode/images/ui/danger-press.png
+css/building_blocks/edit_mode/images/ui/danger.png
+css/building_blocks/edit_mode/images/ui/default.png
+css/building_blocks/edit_mode/images/ui/recommend.png
+css/building_blocks/edit_mode/images/ui/separator-large.png
+css/building_blocks/edit_mode/images/ui/separator.png
+css/building_blocks/edit_mode/images/ui/shadow.png
+css/building_blocks/headers/images/icons/add.png
+css/building_blocks/headers/images/icons/back-rtl.png
+css/building_blocks/headers/images/icons/back.png
+css/building_blocks/headers/images/icons/clear.png
+css/building_blocks/headers/images/icons/close.png
+css/building_blocks/headers/images/icons/compose.png
+css/building_blocks/headers/images/icons/edit.png
+css/building_blocks/headers/images/icons/menu.png
+css/building_blocks/headers/images/icons/reply-all.png
+css/building_blocks/headers/images/icons/reply.png
+css/building_blocks/headers/images/icons/send.png
+css/building_blocks/headers/images/icons/user.png
+css/building_blocks/headers/images/ui/dark/header.png
+css/building_blocks/headers/images/ui/dark/negative.png
+css/building_blocks/headers/images/ui/dark/separator.png
+css/building_blocks/headers/images/ui/dark/subheader.png
+css/building_blocks/headers/images/ui/header.png
+css/building_blocks/headers/images/ui/negative.png
+css/building_blocks/headers/images/ui/organic/header.png
+css/building_blocks/headers/images/ui/organic/negative.png
+css/building_blocks/headers/images/ui/organic/pattern.png
+css/building_blocks/headers/images/ui/organic/separator.png
+css/building_blocks/headers/images/ui/organic/subheader.png
+css/building_blocks/headers/images/ui/separator-large.png
+css/building_blocks/headers/images/ui/separator.png
+css/building_blocks/headers/images/ui/shadow.png
+css/building_blocks/headers/images/ui/subheader.png
+css/building_blocks/input_areas/images/icons/clear.png
+css/building_blocks/input_areas/images/ui/background.png
+css/building_blocks/input_areas/images/ui/separator.png
+css/building_blocks/input_areas/images/ui/shadow-invert.png
+css/building_blocks/input_areas/images/ui/shadow-search.png
+css/building_blocks/input_areas/images/ui/shadow.png
+css/building_blocks/progress_activity/images/ui/activity.png
+css/building_blocks/progress_activity/images/ui/default.png
+css/building_blocks/switches/images/check/danger.png
+css/building_blocks/switches/images/check/default.png
+css/building_blocks/switches/images/radio/danger.png
+css/building_blocks/switches/images/radio/default.png
+css/building_blocks/switches/images/switch/handler.png
+css/building_blocks/switches/images/switch/icon.png
