@@ -60,7 +60,7 @@
         <ul>
           <li><button class="edit icon-edit">Edit</button></li>
           <li><button id="completeall" class="icon-complete">Complete all</button></li>
-          <li><button class="icon-more settings"></button></li>
+          <li><button class="icon-settings"></button></li>
         </ul>
       </div>
     </section>
@@ -102,7 +102,7 @@
         <textarea id="itemQty" data-l10n-id="item-qty"required="">1</textarea>
         </p>
         </form>
-        <ul class="list">
+        <ul class="list" data-type="list">
         </ul>
       </div>
 
@@ -114,11 +114,25 @@
           <li><button class="send pack-icon-send">Send</button></li>
           <li><button class="edit icon-edit">Edit</button></li>
           <li><button id="completeall" class="icon-complete">Complete all</button></li>
-          <li><button class="icon-more settings"></button></li>
+          <li><button class="icon-settings"></button></li>
         </ul>
       </div>
     </section>
 
+
+    <section id="itemView" role="region">
+      <header>
+        <button class="back"><span class="icon icon-back"></span></button>
+        <h1 class="title" data-l10n-id="item">Item</h1>
+      </header>
+      <div class="scroll">
+        <button type="submit" id="item-name" data-l10n-id="add-item">Add</button>
+        <p>
+        <textarea id="itemName" data-l10n-id="item-name"placeholder="New item" required=""></textarea>
+        <textarea id="itemQty" data-l10n-id="item-qty"required="">1</textarea>
+        </p>
+      </div>
+    </section>
 
     <form role="dialog" data-type="confirm" id="enterEmail" onsubmit="return false;">
     <section>
@@ -160,6 +174,7 @@
     <header>
       <h2 data-l10n-id="language">Language</h2>
     </header>
+    <div class="scroll">
       <ul>
         <li>
           <p data-l10n-id="language">Language</p>
@@ -207,6 +222,7 @@
           <button id="about">About</button>
         </li>
       </ul>
+      </div>
     </section>
 
 

@@ -65,7 +65,7 @@ html, body {
 }
 
 #items, #lists, #settingsPanel, #editMode, #editItems, #enterEmail, #sendEmail,
-#editCurrency, #editPosition, #aboutPanel {
+#editCurrency, #editPosition, #aboutPanel, #itemView {
   z-index: 1;
   position: absolute;
   opacity: 0;
@@ -201,7 +201,7 @@ span {
   background: url('../img/icons/complete.png') no-repeat 50% 50%!important;
 }
 
-.icon-more {
+.icon-settings {
   background: url("../img/icons/ellipsis.png") no-repeat 50% 50%!important;
 }
 

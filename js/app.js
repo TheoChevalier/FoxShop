@@ -36,6 +36,64 @@ SL = {
       n = 0;
 
     return document.getElementByClassName(target)[n];
+  },
+  display: function(aList, aView) {
+    console.log(aView.nextView);
+    var newLi = document.createElement('li');
+    newLi.dataset.listkey = aList.guid;
+
+    // Part 1 toggle
+    var newToggle = document.createElement('label');
+    var mySpan = document.createElement('span');
+    var checkbox = document.createElement('input');
+    checkbox.setAttribute('type', 'checkbox');
+    if (aList.done) {
+      newLi.className += " done";
+      checkbox.setAttribute('checked', true);
+    }
+
+    newToggle.appendChild(checkbox);
+    newToggle.appendChild(mySpan);
+
+    mySpan.addEventListener("click", function(e) {
+
+      if (!aList.done) {
+        newLi.className += " done";
+      } else {
+        newLi.className = newLi.className.replace ( /(?:^|\s)done(?!\S)/g , '' );
+      }
+      aList.done = !aList.done;
+
+      // Delete the item, add the updated one
+      DB.deleteFromDB(aList.guid, aView);
+      DB.store(aList, aView);
+    });
+
+
+    // Part 2 pack-end
+    var packEnd  = document.createElement('aside');
+    packEnd.className = "pack-end";
+
+    // part 3 title
+    var newTitle = document.createElement('a');
+    var p1 = document.createElement('p');
+    var p2 = document.createElement('p');
+    var nb = 0;
+    p1.innerHTML = aList.name;
+    DB.getItems(aList.guid);
+    p2.innerHTML = nb + " items";
+    newTitle.className = "liTitle";
+    newTitle.addEventListener("click", function(e) {
+      SL[aView.nextView].init(aList);
+    });
+    newTitle.appendChild(p1);
+    newTitle.appendChild(p2);
+
+    newLi.appendChild(newToggle);
+    newLi.appendChild(packEnd);
+    newLi.appendChild(newTitle);
+
+    aView.elm.getElementsByClassName("list")[0].appendChild(newLi);
   }
 };
 
@@ -52,15 +110,20 @@ SL.Settings = {
 
   // Function called after populating this.names in DB.getSetting()
   updateUI: function() {
-    if (this.obj["prices-enable"].value) {
-      SL.id("prices-enable").setAttribute("checked", "");
-      SL.id("currency").removeAttribute("disabled");
-      SL.id("taxes").removeAttribute("disabled");
-    }
-    if (this.obj["userCurrency"].value) {
-      SL.id("userCurrency").value = this.obj["userCurrency"].value;
-    }
     this.loaded = true;
+    if (typeof this.obj["prices-enable"] != "undefined") {
+      if (this.obj["prices-enable"].value) {
+        SL.id("prices-enable").setAttribute("checked", "");
+        SL.id("currency").removeAttribute("disabled");
+        SL.id("taxes").removeAttribute("disabled");
+      }
+    }
+
+    if (typeof this.obj["userCurrency"] != "undefined") {
+      if (this.obj["userCurrency"].value) {
+        SL.id("userCurrency").value = this.obj["userCurrency"].value;
+      }
+    }
   },
   close: function() {
     SL.hide("settingsPanel");
@@ -74,6 +137,7 @@ SL.Settings = {
 SL.Lists = {
   elm : SL.id("lists"),
   name: "Lists",
+    nextView: "Items",
   arrayList : {},
   store: DB_STORE_LISTS,
   init: function() {
@@ -112,77 +176,7 @@ SL.Lists = {
     DB.store(aList, SL.Lists);
   },
   display: function(aList) {
-
-    var newLi = document.createElement('li');
-    newLi.dataset.listkey = aList.guid;
-
-    // Part 1 toggle
-    var newToggle = document.createElement('label');
-    //newToggle.className +="danger";
-    //newToggle.setAttribute('for', aList.guid);
-    var mySpan = document.createElement('span');
-    var checkbox = document.createElement('input');
-    checkbox.setAttribute('type', 'checkbox');
-    //checkbox.setAttribute('id', aList.guid);
-    if (aList.done) {
-      newLi.className += " done";
-      checkbox.setAttribute('checked', true);
-    } 
-
-    newToggle.appendChild(checkbox);
-    newToggle.appendChild(mySpan);
-
-    mySpan.addEventListener("click", function(e) {
-
-      if (!aList.done) {
-        newLi.className += " done";
-      } else {
-        newLi.className = newLi.className.replace ( /(?:^|\s)done(?!\S)/g , '' );
-      }
-      aList.done = !aList.done;
-
-      // Delete the item, add the updated one
-      DB.deleteFromDB(aList.guid, SL.Lists);
-      DB.store(aList, SL.Lists);
-    });
-
-
-    // Part 2 pack-end
-    var packEnd  = document.createElement('aside');
-    packEnd.className = "pack-end";
-
-    // part 3 title
-    var newTitle = document.createElement('a');
-    var p1 = document.createElement('p');
-    var p2 = document.createElement('p');
-    var nb = 0;
-    p1.innerHTML = aList.name;
-    DB.getItems(aList.guid);
-    p2.innerHTML = nb + " items";
-    newTitle.className = "liTitle";
-    newTitle.addEventListener("click", function(e) {
-      SL.Items.init(aList);
-    });
-    newTitle.appendChild(p1);
-    newTitle.appendChild(p2);
-
-
-/*
-    var newDelete = document.createElement('a');
-    newDelete.className = 'delete';
-    newDelete.addEventListener("click", function(e) {
-      newLi.style.display = "none";
-      DB.deleteFromDB(aList.guid, SL.Lists);
-    });
-    */
-    
-    newLi.appendChild(newToggle);
-    newLi.appendChild(packEnd);
-    newLi.appendChild(newTitle);
-    //newLi.appendChild(newDelete);
-
-    SL.Lists.elm.getElementsByClassName("list")[0].appendChild(newLi);
-    this.arrayList[aList.guid] = aList;
+    SL.display(aList, this);
   },
   completeall: function() {
     var nodes = SL.Lists.elm.getElementsByClassName("list")[0].childNodes;
@@ -284,6 +278,7 @@ SL.editMode = {
 SL.Items = {
   elm: SL.id("items"),
   name: "Items",
+  nextView: "ItemView",
   store: DB_STORE_ITEMS,
   init: function(aList) {
     SL.Lists.close();
@@ -344,68 +339,26 @@ SL.Items = {
     SL.Items.display(aItem);
   },
 
-  display: function(aItem) {
-    var newLi = document.createElement('li');
-    var newToggle = document.createElement('label');
-    newToggle.className = "labelItem";
-    var span = document.createElement('span');
-    var checkbox = document.createElement('input');
-    checkbox.setAttribute('type', 'checkbox');
-    if (aItem.done) {
-      newLi.className += " done";
-      checkbox.setAttribute('checked', true);
-    } 
-
-    newToggle.addEventListener("click", function(e) {
-      if (!aItem.done) {
-        newLi.className += " done";
-      } else {
-        newLi.className = newLi.className.replace ( /(?:^|\s)done(?!\S)/g , '' );
-      }
-      aItem.done = newLi.getElementsByTagName("input")[0].checked;
-
-      // Delete the item, add the updated one
-      DB.deleteFromDB(aItem.guid, SL.Items);
-      DB.store(aItem, SL.Items);
-    });
-
-    newToggle.appendChild(checkbox);
-    newToggle.appendChild(span);
-
-
-    var newTitle = document.createElement('a');
-    newTitle.className = 'listElmTitle';
-    newTitle.innerHTML = aItem.name;
-    if (aItem.nb > 1) {
-      var container = document.createElement('a');
-      container.innerHTML = " x";
-      var input = document.createElement('input');
-      input.setAttribute('type', 'number');
-      input.value = aItem.nb;
-      container.appendChild(input);
-      //container.insertAdjacentHTML('beforeend',
-      //  '<input type="number" value="'+aItem.nb+'"/>');
-      newTitle.appendChild(container);
-    }
-
-    var newDelete = document.createElement('a');
-    newDelete.className = 'delete';
-    newDelete.addEventListener("click", function(e) {
-      newLi.style.display = "none";
-      DB.deleteFromDB(aItem.guid, SL.Items);
-    });
-
-    
-    newLi.dataset.listkey = aItem.guid;
-
-    newLi.appendChild(newToggle);
-    newLi.appendChild(newTitle);
-    newLi.appendChild(newDelete);
-
-    SL.Items.elm.getElementsByClassName("list")[0].appendChild(newLi);
+  // Use SL.display function to populate the list
+  display: function(aList) {
+    SL.display(aList, this);
   }
 }
 
+
+/*******************************************************************************
+ * ItemView
+ ******************************************************************************/
+SL.ItemView = {
+  elm: SL.id("itemView"),
+  name: "ItemView",
+  init: function(aGuid) {
+    SL.hide("items");
+    SL.show("itemView");
+    SL.view = this.name;
+    this.guid = aGuid;
+  },
+}
 /*******************************************************************************
  * enterEmail
  ******************************************************************************/
@@ -441,7 +394,7 @@ function addEventListeners() {
    * Shared
    ****************************************************************************/
     // Add event listener on every Settings button
-  var els = document.getElementsByClassName("settings");
+  var els = document.getElementsByClassName("icon-settings");
   var elsArray = Array.prototype.slice.call(els, 0);
   elsArray.forEach(function(el) {
     el.addEventListener("click", function() {
@@ -553,6 +506,15 @@ function addEventListeners() {
   });
 
   /*****************************************************************************
+   * itemView
+   ****************************************************************************/
+  SL.ItemView.elm.getElementsByClassName("icon-back")[0].parentNode.addEventListener("click",
+    function() {
+      SL.hide("itemView");
+      SL.show("items");
+    });
+
+  /*****************************************************************************
    * send e-mail views
    ****************************************************************************/
   // Add event listeners to buttons
@@ -617,7 +579,7 @@ function addEventListeners() {
   /*****************************************************************************
    * Settings
    ****************************************************************************/
-  SL.Settings.elm.getElementsByClassName("icon-back")[0].addEventListener("click",
+  SL.Settings.elm.getElementsByClassName("icon-back")[0].parentNode.addEventListener("click",
     function() {
       SL.hide("settingsPanel");
     });
