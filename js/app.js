@@ -348,11 +348,11 @@ SL.Items = {
 SL.ItemView = {
   elm: SL.id("itemView"),
   name: "ItemView",
-  init: function(aGuid) {
+  init: function(aItem) {
     SL.hide("items");
     SL.show("itemView");
     SL.view = this.name;
-    this.guid = aGuid;
+    this.item = aItem;
   },
 }
 /*******************************************************************************
@@ -508,6 +508,15 @@ function addEventListeners() {
     function() {
       SL.hide("itemView");
       SL.show("items");
+    });
+
+  SL.ItemView.elm.getElementsByClassName("icon-delete")[0].parentNode.addEventListener("click",
+    function() {
+      var guid = SL.ItemView.item.guid;
+      SL.hide("itemView");
+      SL.removeElement(SL.Items.elm.querySelector('li[data-listkey="'+guid+'"]'));
+      SL.show("items");
+      DB.deleteFromDB(guid, SL.Items);
     });
 
   /*****************************************************************************

@@ -234,8 +234,6 @@ var DB = {
             req = store.get(cursor.key);
             req.onsuccess = function (evt) {
               var aList = evt.target.result;
-              console.log(aList);
-
             };
             // Move on to the next object in store
             cursor ? ++i && cursor.continue() : console.log(i);
