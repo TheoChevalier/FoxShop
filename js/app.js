@@ -23,7 +23,7 @@ SL = {
   clear: function() {
     var node = SL[this.view].elm.getElementsByClassName("list")[0];
     while (node.hasChildNodes()) {
-        node.removeChild(node.lastChild);
+      node.removeChild(node.lastChild);
     }
   },
   id: function(target) {
@@ -38,7 +38,6 @@ SL = {
     return document.getElementByClassName(target)[n];
   },
   display: function(aList, aView) {
-    console.log(aView.nextView);
     var newLi = document.createElement('li');
     newLi.dataset.listkey = aList.guid;
 
@@ -137,7 +136,7 @@ SL.Settings = {
 SL.Lists = {
   elm : SL.id("lists"),
   name: "Lists",
-    nextView: "Items",
+  nextView: "Items",
   arrayList : {},
   store: DB_STORE_LISTS,
   init: function() {
@@ -217,14 +216,13 @@ SL.editMode = {
     // Part 1 toggle
     var newToggle = document.createElement('label');
     newToggle.className +="danger";
-    //newToggle.setAttribute('for', aList.guid);
+
     var mySpan = document.createElement('span');
     mySpan.addEventListener("click", function(e) {
       newLi.dataset.select = "true";
     });
     var checkbox = document.createElement('input');
     checkbox.setAttribute('type', 'checkbox');
-    //checkbox.setAttribute('id', aList.guid);
 
     newToggle.appendChild(checkbox);
     newToggle.appendChild(mySpan);
@@ -313,7 +311,6 @@ SL.Items = {
     if (!name || !qty) {
       var l10n = "";
       if (!name) {
-        //l10n += "You must enter a name";
         l10n += "msg-name";
         if (!qty)
           l10n += "msg-name-qty"
