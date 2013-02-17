@@ -615,13 +615,14 @@ function addEventListeners() {
         SL.id("taxes").setAttribute("disabled", "");
       }
 
-      if(SL.Settings.obj["prices-enable"].value != this.checked) {
-        var save = {guid:"prices-enable",value:this.checked};
-        DB.deleteFromDB("prices-enable", SL.Settings);
-        DB.store(save, SL.Settings);
-        DB.getSetting();
+      if (typeof SL.Settings.obj["prices-enable"] != "undefined") {
+        if (SL.Settings.obj["prices-enable"].value != this.checked) {
+          var save = {guid:"prices-enable",value:this.checked};
+          DB.deleteFromDB("prices-enable", SL.Settings);
+          DB.store(save, SL.Settings);
+          DB.getSetting();
+        }
       }
-      
     });
 
   /*
