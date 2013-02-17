@@ -1,0 +1,26 @@
+﻿CACHE MANIFEST
+# 2013-02-17:v3
+
+# Main files
+CACHE:
+manifest.webapp
+favicon.ico
+index.html
+css/app.css
+css/lists.css
+js/app.js
+js/db.js
+locales/data
+locales/fr.properties
+locales/en-US.properties
+webL10n/l10n.js
+css/building_blocks/headers.css
+css/building_blocks/buttons.css
+css/building_blocks/lists.css
+css/building_blocks/switches.css
+css/building_blocks/toolbars.css
+css/building_blocks/edit_mode.css
+css/building_blocks/input_areas.css
+css/building_blocks/action_menu.css
+css/building_blocks/confirm.css
+css/building_blocks/progress_activity.css

@@ -221,7 +221,7 @@
   border-radius: 3rem;
   transition: border 0.15s ease;
   -moz-box-sizing: border-box;
-  background: url(images/range_thumb.png) no-repeat 50% 50%;
+
 }
 
 .settings ul li > label.bug344618_polyfill div span:last-child:active {
