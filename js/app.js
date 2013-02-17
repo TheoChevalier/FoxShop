@@ -250,7 +250,14 @@ SL.editLists = {
     var nodes = this.elm.getElementsByClassName("list")[0].childNodes;
     for(var i=0; i<nodes.length; i++) {
       if(nodes[i].getElementsByTagName("input")[0].checked) {
-        DB.deleteFromDB(nodes[i].dataset.listkey, SL.editLists);
+        var guid = nodes[i].dataset.listkey;
+
+        // Remove from DB
+        DB.deleteFromDB(guid, SL.editLists);
+
+        // Hide nodes
+        var li = SL.Lists.elm.querySelector('li[data-listkey="'+guid+'"]');
+        li.style.display = "none";
         nodes[i].style.display = "none";
       }
     }
