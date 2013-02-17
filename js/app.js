@@ -20,6 +20,12 @@ SL = {
   removeElement: function(node) {
     node.parentNode.removeChild(node);
   },
+  clear: function() {
+    var node = SL[this.view].elm.getElementsByClassName("list")[0];
+    while (node.hasChildNodes()) {
+        node.removeChild(node.lastChild);
+    }
+  },
   id: function(target) {
     return document.getElementById(target);
   },
@@ -39,6 +45,7 @@ SL = {
  ******************************************************************************/
 SL.Settings = {
   elm: SL.id("settingsPanel"),
+  name: "Settings",
   store: DB_STORE_SETTINGS,
   loaded: false,
   obj: {},
@@ -66,10 +73,11 @@ SL.Settings = {
  ******************************************************************************/
 SL.Lists = {
   elm : SL.id("lists"),
+  name: "Lists",
   arrayList : {},
   store: DB_STORE_LISTS,
   init: function() {
-    SL.view = "Lists";
+    SL.view = this.name;
     SL.show("lists");
   },
   close: function() {
@@ -95,7 +103,7 @@ SL.Lists = {
     });
     SL.id('listName').value ="";
   },
-  edit: function (aItem, elm) {
+  edit: function (aList, elm) {
     aList.done = elm.getElementsByTagName("input")[0].checked;
     aList.name = elm.getElementsByTagName("a")[0].innerHTML;
 
@@ -176,18 +184,9 @@ SL.Lists = {
     SL.Lists.elm.getElementsByClassName("list")[0].appendChild(newLi);
     this.arrayList[aList.guid] = aList;
   },
-  clear: function() {
-    var lists = SL.id("lists");
-    var list = document.getElementsByClassName("list")[0];
-    lists.removeChild(list);
-    var ul = document.createElement('ul');
-    ul.className =  'list';
-    lists.appendChild(ul);
-  },
   completeall: function() {
-    
     var nodes = SL.Lists.elm.getElementsByClassName("list")[0].childNodes;
-    for(var i=1; i<nodes.length; i++) {
+    for(var i=0; i<nodes.length; i++) {
         nodes[i].getElementsByTagName('input')[0].setAttribute("checked", true);
         nodes[i].className.replace ( /(?:^|\s)done(?!\S)/g , '' );
         nodes[i].className += " done";
@@ -196,23 +195,26 @@ SL.Lists = {
 };
 
 /*******************************************************************************
- * editLists
+ * editMode
  ******************************************************************************/
-SL.editLists = {
-  elm: SL.id("editLists"),
-  store: DB_STORE_LISTS,
-  init: function() {
-    SL.Lists.close();
-    SL.view = "editLists";
-
-    SL.show("editLists");
+SL.editMode = {
+  elm: SL.id("editMode"),
+  name: "editMode",
+  init: function(aView) {
+    SL.view = this.name;
+    SL.show("editMode");
+    this.store = aView.store;
 
     var node = this.elm.getElementsByClassName("list")[0];
     while (node.hasChildNodes()) {
-        node.removeChild(node.lastChild);
+      node.removeChild(node.lastChild);
     }
-
-    DB.displayList(null, SL.editLists);
+    if (aView.guid != null) {
+      this.guid = aView.guid;
+      DB.displayItems(this);
+    } else {
+      DB.displayList(null, this);
+    }
   },
   display: function(aList) {
     var newLi = document.createElement('li');
@@ -253,10 +255,10 @@ SL.editLists = {
         var guid = nodes[i].dataset.listkey;
 
         // Remove from DB
-        DB.deleteFromDB(guid, SL.editLists);
+        DB.deleteFromDB(guid, SL.editMode);
 
         // Hide nodes
-        var li = SL.Lists.elm.querySelector('li[data-listkey="'+guid+'"]');
+        var li = this.elm.querySelector('li[data-listkey="'+guid+'"]');
         li.style.display = "none";
         nodes[i].style.display = "none";
       }
@@ -281,17 +283,19 @@ SL.editLists = {
  ******************************************************************************/
 SL.Items = {
   elm: SL.id("items"),
+  name: "Items",
   store: DB_STORE_ITEMS,
   init: function(aList) {
     SL.Lists.close();
-    SL.view = "Items";
+    SL.view = this.name;
 
     this.list = aList;
+    this.guid = aList.guid;
     // Set title of the displayed Items list
     this.elm.getElementsByClassName("title")[0].innerHTML=aList.name;
 
-    SL.Items.clear();
-    DB.displayItems(aList);
+    SL.clear(this);
+    DB.displayItems(this);
     SL.hide("lists");
     SL.show("items");
   },
@@ -399,12 +403,6 @@ SL.Items = {
     newLi.appendChild(newDelete);
 
     SL.Items.elm.getElementsByClassName("list")[0].appendChild(newLi);
-  },
-  clear: function() {
-    var node = SL.Items.elm.getElementsByClassName("list")[0];
-    while (node.hasChildNodes()) {
-        node.removeChild(node.lastChild);
-    }
   }
 }
 
@@ -472,7 +470,7 @@ function addEventListeners() {
   // Init event for edit view
   SL.Lists.elm.getElementsByClassName('edit')[0].addEventListener("click",
   function() {
-    SL.editLists.init();
+    SL.editMode.init(SL.Lists);
   });
 
   var install = SL.id('install');
@@ -481,30 +479,30 @@ function addEventListeners() {
   });
 
   /*****************************************************************************
-   * editLists
+   * editMode
    ****************************************************************************/
-  var header = SL.editLists.elm.getElementsByTagName("header")[0];
+  var header = SL.editMode.elm.getElementsByTagName("header")[0];
 
   // Close
   header.getElementsByTagName("button")[0].addEventListener("click", function() {
-    SL.hide("editLists");
+    SL.hide("editMode");
     SL.show("lists");
   });
 
   // Delete Selected
   header.getElementsByTagName("button")[1].addEventListener("click", function() {
-    SL.editLists.deleteSelected();
+    SL.editMode.deleteSelected();
   });
 
-  var menu = SL.editLists.elm.getElementsByTagName("menu")[1];
+  var menu = SL.editMode.elm.getElementsByTagName("menu")[1];
 
   // Select All
   menu.getElementsByTagName("button")[0].addEventListener("click", function() {
-    SL.editLists.selectAll();
+    SL.editMode.selectAll();
   });
   // Deselect All
   menu.getElementsByTagName("button")[1].addEventListener("click", function() {
-    SL.editLists.deselectAll();
+    SL.editMode.deselectAll();
   });
 
   /*****************************************************************************
@@ -545,6 +543,13 @@ function addEventListeners() {
   var send = SL.Items.elm.getElementsByClassName("send")[0];
   send.addEventListener("click", function() {
     SL.show("enterEmail");
+  });
+
+    // Init event for edit view
+  SL.Items.elm.getElementsByClassName('edit')[0].addEventListener("click",
+  function() {
+    SL.hide("items");
+    SL.editMode.init(SL.Items);
   });
 
   /*****************************************************************************

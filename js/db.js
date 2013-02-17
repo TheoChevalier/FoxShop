@@ -173,7 +173,7 @@ var DB = {
   },
 
   displayItems: function(aList) {
-    var store = DB.getObjectStore(DB_STORE_ITEMS, 'readonly');
+    var store = DB.getObjectStore(aList.store, 'readonly');
     var req = store.index('list');
     req.get(aList.guid).onsuccess = function(evt) {
       if (typeof evt.target.result == 'undefined') {
@@ -189,8 +189,8 @@ var DB = {
           displayActionFailure("No matching record found");
           return;
         }
-          SL.Items.clear();
-          DB.displayList(store, SL.Items);
+          SL.clear();
+          DB.displayList(store, aList);
         };
       req.onerror = function (evt) {
         console.error("deletePublication:", evt.target.errorCode);

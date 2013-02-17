@@ -64,7 +64,7 @@ html, body {
   color: red;
 }
 
-#items, #lists, #settingsPanel, #editLists, #editItems, #enterEmail, #sendEmail,
+#items, #lists, #settingsPanel, #editMode, #editItems, #enterEmail, #sendEmail,
 #editCurrency, #editPosition, #aboutPanel {
   z-index: 1;
   position: absolute;
