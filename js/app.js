@@ -239,9 +239,6 @@ SL.editMode = {
     newToggle.className +="danger";
 
     var mySpan = document.createElement('span');
-    mySpan.addEventListener("click", function(e) {
-      newLi.dataset.select = "true";
-    });
     var checkbox = document.createElement('input');
     checkbox.setAttribute('type', 'checkbox');
 
@@ -255,6 +252,13 @@ SL.editMode = {
     p1.innerHTML = aList.name;
     newTitle.className = "liTitle";
     newTitle.appendChild(p1);
+    newTitle.addEventListener("click", function(e) {
+      if(checkbox.checked) {
+        checkbox.removeAttribute("checked");
+      } else {
+        checkbox.setAttribute("checked", "true");
+      }
+    })
 
     newLi.appendChild(newToggle);
     newLi.appendChild(newTitle);
