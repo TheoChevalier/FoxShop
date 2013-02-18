@@ -40,9 +40,6 @@
       <header>
         <h1 id="title" data-l10n-id="app-name">Shopping List</h1>
       </header>
-      <header>
-        <h2 id="msg">Subheader text</h2>
-      </header>
       <div class="scroll">
         <form role="search" id="form-list" onsubmit="return false;">
           <button type="submit" id="add-list" data-l10n-id="add-list">Add</button>
@@ -90,15 +87,12 @@
         <button class="back"><span class="icon icon-back"></span></button>
         <h1 class="title" data-l10n-id="items">Items</h1>
       </header>
-      <header>
-        <h2 id="msg">Subheader text</h2>
-      </header>
       <div class="scroll">
         <form role="search" id="form-item" onsubmit="return false;">
         <button type="submit" id="add-item" data-l10n-id="add-item">Add</button>
         <p>
         <textarea id="itemName" data-l10n-id="item-name"placeholder="New item" required=""></textarea>
-        <!--<button type="reset">reset</button>-->
+        <button type="reset">reset</button>
         <textarea id="itemQty" data-l10n-id="item-qty"required="">1</textarea>
         </p>
         </form>
@@ -143,14 +137,14 @@
       <p>
         <span data-l10n-id="send-desc">To send this list to another person, please provide his email:</span>
         <p style="text-align: center">
-          <input type="email" id="email" data-l10n-id="email"placeholder="Email" required=""/>
+          <input type="email" id="email" data-l10n-id="email"placeholder="Email"/>
           <button type="reset">reset</button>
         </p>
-        <button role="button" class="recommend send" data-l10n-id="send">Send</button>
       </p>
     </section>
     <menu>
-      <button class="full cancel" data-l10n-id="cancel">Cancel</button>
+      <button class="cancel" data-l10n-id="cancel">Cancel</button>
+      <button role="button" class="recommend send" data-l10n-id="send">Send</button>
     </menu>
     </form>
 

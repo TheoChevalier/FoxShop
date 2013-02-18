@@ -385,13 +385,13 @@ SL.enterEmail = {
 
   // Messages handlers
   function displayActionSuccess(id) {
-    SL.id('msg').innerHTML = '<span class="action-success" data-l10n-id="' + id + '"></span>';
+    //SL.id('msg').innerHTML = '<span class="action-success" data-l10n-id="' + id + '"></span>';
   }
   function displayActionFailure(id) {
-    SL.id('msg').innerHTML = '<span class="action-failure" data-l10n-id="' + id + '"></span>';
+    //SL.id('msg').innerHTML = '<span class="action-failure" data-l10n-id="' + id + '"></span>';
   }
   function resetActionStatus() {
-    SL.id('msg').innerHTML = '';
+   // SL.id('msg').innerHTML = '';
   }
 
 // Generate four random hex digits.
@@ -431,7 +431,13 @@ function addEventListeners() {
     if (e.keyCode == 13) {
       SL.Lists.new();
     }
-  }
+  };
+
+  // Button to clear the form
+  SL.Lists.elm.querySelector('button[type="reset"]').addEventListener("click",
+  function() {
+      SL.id("listName").innerHTML = "";
+  });
 
   SL.id("completeall").addEventListener("click",  function() {
     SL.Lists.completeall()
@@ -503,6 +509,13 @@ function addEventListeners() {
     SL.id('listName').value ="";
   }
 
+  // Button to clear the form
+  SL.Items.elm.querySelector('button[type="reset"]').addEventListener("click",
+  function() {
+      SL.id("itemName").innerHTML = "";
+      SL.id("itemQty").innerHTML = "1";
+  });
+
   // Display buttons
   SL.Items.elm.getElementsByClassName("back")[0].addEventListener("click",
   function() {
@@ -550,6 +563,12 @@ function addEventListeners() {
     function() {
       SL.hide("enterEmail");
     });
+
+  // Button to clear the form
+  SL.enterEmail.elm.querySelector('button[type="reset"]').addEventListener("click",
+  function() {
+      SL.id("email").innerHTML = "";
+  });
 
   // Send
   SL.enterEmail.elm.getElementsByClassName("send")[0].addEventListener("click",

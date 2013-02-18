@@ -243,6 +243,11 @@ animation: fadeOut 0.2s forwards;
  *   Building blocks overrides
  */
 
+/* Allow events on clear button*/
+form p input + button[type="reset"], form p textarea + button[type="reset"] {
+  pointer-events: auto;
+}
+
 form[role="dialog"][data-type="confirm"] > section {
   font-size: 1.5rem;
 }
