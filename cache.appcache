@@ -1,5 +1,5 @@
 ﻿CACHE MANIFEST
-# 2013-02-17:v42
+# 2013-02-17:v44
 
 CACHE:
 
@@ -104,3 +104,4 @@ css/building_blocks/switches/images/radio/danger.png
 css/building_blocks/switches/images/radio/default.png
 css/building_blocks/switches/images/switch/handler.png
 css/building_blocks/switches/images/switch/icon.png
+css/building_blocks/switches/images/switch/background.png

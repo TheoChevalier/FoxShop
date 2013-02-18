@@ -1,15 +1,15 @@
-  //'use strict';
+//  'use strict';
         // DB init
-  const DB_NAME = 'ShoppingList';
-  const DB_VERSION = 3; // Use a long long for this value (don't use a float)
-  const DB_STORE_LISTS = 'lists2';
-  const DB_STORE_ITEMS = 'items1';
-  const DB_STORE_SETTINGS = 'settings1';
+  var DB_NAME = 'ShoppingList';
+  var DB_VERSION = 3; // Use a long long for this value (don't use a float)
+  var DB_STORE_LISTS = 'lists2';
+  var DB_STORE_ITEMS = 'items1';
+  var DB_STORE_SETTINGS = 'settings1';
 
   // Alias to get localized strings
   var _ = document.webL10n.get;
 
-SL = {
+var SL = {
   hide: function(target) {
     target = SL.id(target).style;
     target.display = "none";
@@ -19,8 +19,9 @@ SL = {
     target.display = "block";
   },
   removeElement: function(node) {
-    if(node != null)
+    if(node !== null) {
       node.parentNode.removeChild(node);
+    }
   },
   clear: function() {
     var node = SL[this.view].elm.getElementsByClassName("list")[0];
@@ -34,8 +35,9 @@ SL = {
 
   //Unused for now
   class: function(target, n) {
-    if (typeof n === "undefined")
+    if (typeof n === "undefined") {
       n = 0;
+    }
 
     return document.getElementByClassName(target)[n];
   },
@@ -124,14 +126,14 @@ SL.Settings = {
   // Function called after populating this.names in DB.getSetting()
   updateUI: function() {
     this.loaded = true;
-    var pref = this.obj["language"];
-    if (typeof pref != "undefined") {
-      if (pref.value != document.webL10n.getLanguage) {
+    var pref = this.obj.language;
+    if (typeof pref !== "undefined") {
+      if (pref.value !== document.webL10n.getLanguage) {
         document.webL10n.setLanguage(pref.value);
       }
     }
 
-    if (typeof this.obj["prices-enable"] != "undefined") {
+    if (typeof this.obj["prices-enable"] !== "undefined") {
       if (this.obj["prices-enable"].value) {
         SL.id("prices-enable").setAttribute("checked", "");
         SL.id("currency").removeAttribute("disabled");
@@ -139,9 +141,9 @@ SL.Settings = {
       }
     }
 
-    if (typeof this.obj["userCurrency"] != "undefined") {
-      if (this.obj["userCurrency"].value) {
-        SL.id("userCurrency").value = this.obj["userCurrency"].value;
+    if (typeof this.obj.userCurrency !== "undefined") {
+      if (this.obj.userCurrency.value) {
+        SL.id("userCurrency").value = this.obj.userCurrency.value;
       }
     }
   },
@@ -175,7 +177,6 @@ SL.Lists = {
   new: function() {
     var name = SL.id('listName').value;
     var date = new Date();
-
     if (!name || name === undefined) {
       displayActionFailure("msg-name");
       return;
@@ -447,7 +448,7 @@ function addEventListeners() {
   SL.id("completeall").addEventListener("click",  function() {
     SL.Lists.completeall()
   });
-  
+   
   // Init event for edit view
   SL.Lists.elm.getElementsByClassName('edit')[0].addEventListener("click",
   function() {
@@ -456,7 +457,7 @@ function addEventListeners() {
   });
 
   SL.id('install').addEventListener('click', function(e){
-    navigator.mozApps.install("manifest.webapp");
+    navigator.mozApps.install("http://theochevalier.fr/app/manifest.webapp");
   });
 
   /*****************************************************************************
@@ -594,7 +595,7 @@ function addEventListeners() {
       SL.hide("enterEmail");
       SL.show("sendEmail");
       createXHR();
-      var url = "http://app.theochevalier.fr/php/email.php";
+      var url = "http://theochevalier.fr/app/php/email.php";
       request.open('POST', url, true);
       request.onreadystatechange = function() {
         if (request.readyState == 4) {
@@ -716,41 +717,6 @@ function addEventListeners() {
       SL.show("settingsPanel");
     });
 }
-
-
-    function update() {
-        var btn = SL.id('install');
-        if(install.state == 'uninstalled') {
-            btn.style.display = 'block';
-        }
-        else if(install.state == 'installed' || install.state == 'unsupported') {
-            btn.style.display = 'none';
-        }
-    }
-
-    function init() {
-        var btn = SL.id('install');
-        btn.addEventListener('click', function() {
-            install();
-        });
-
-        install.on('change', update);
-
-        install.on('error', function(e, err) {
-            // Feel free to customize this
-            alert('There was an error during installation.');
-        });
-
-        install.on('showiOSInstall', function() {
-            // Feel free to customize this
-            alert('To install, press the forward arrow in Safari ' +
-                  'and touch "Add to Home Screen"');
-        });
-    }
-
-
-       
-
  
 // Actions that needs the DB to be ready
 function finishInit() {
@@ -772,9 +738,7 @@ window.addEventListener("load", function() {
 window.addEventListener("localized", function() {
   SL.hide("loader");
   SL.id("language").innerHTML = document.webL10n.get(SL.Settings.obj["language"].value);
-  console.log(document.webL10n.get(SL.Settings.obj["language"].value));
 });
-
 // Manage App Cache updates
 window.applicationCache.addEventListener('updateready', function(e) {
   if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
@@ -785,3 +749,4 @@ window.applicationCache.addEventListener('updateready', function(e) {
     window.location.reload();
   }
 }, false);
+

@@ -38,6 +38,9 @@
 
     <section role="region" id="lists">
       <header>
+        <menu type="toolbar">
+          <button id="install" data-l10n-id="install">Install</button>
+        </menu>
         <h1 id="title" data-l10n-id="app-name">Shopping List</h1>
       </header>
         <form role="search" id="form-list" onsubmit="return false;">
@@ -49,9 +52,6 @@
         </form>
         <ul data-type="list" class="list"></ul>
       <div role="toolbar">
-        <ul>
-          <li><button id="install" class="icon icon-install"></button></li>
-        </ul>
         <ul>
           <li><button class="edit icon-edit">Edit</button></li>
           <li><button id="completeall" class="icon-complete">Complete all</button></li>
@@ -83,21 +83,18 @@
         <button class="back"><span class="icon icon-back"></span></button>
         <h1 class="title" data-l10n-id="items">Items</h1>
       </header>
-        <form role="search" id="form-item" onsubmit="return false;">
+      <form role="search" id="form-item" onsubmit="return false;">
         <button type="submit" id="add-item" data-l10n-id="add-item">Add</button>
         <p>
-        <textarea id="itemName" data-l10n-id="item-name" placeholder="New item" required=""></textarea>
-        <button type="reset" id="resetItems">reset</button>
-        <textarea id="itemQty" data-l10n-id="item-qty" required="">1</textarea>
+          <textarea id="itemName" data-l10n-id="item-name" placeholder="New item" required=""></textarea>
+          <button type="reset" id="resetItems">reset</button>
+          <textarea id="itemQty" data-l10n-id="item-qty" required="">1</textarea>
         </p>
-        </form>
-        <ul class="list" data-type="list">
-        </ul>
+      </form>
+      <ul class="list" data-type="list">
+      </ul>
 
       <div role="toolbar">
-        <ul>
-          <li><button id="install" class="icon icon-install"></button></li>
-        </ul>
         <ul>
           <li><button class="send pack-icon-send">Send</button></li>
           <li><button class="edit icon-edit">Edit</button></li>
@@ -118,8 +115,8 @@
       </header>
         <button type="submit" id="item-name" data-l10n-id="add-item">Add</button>
         <p>
-        <textarea id="itemName" data-l10n-id="item-name" placeholder="New item" required=""></textarea>
-        <textarea id="itemQty" data-l10n-id="item-qty" required="">1</textarea>
+          <textarea id="itemName" data-l10n-id="item-name" placeholder="New item" required=""></textarea>
+          <textarea id="itemQty" data-l10n-id="item-qty" required="">1</textarea>
         </p>
     </section>
 
@@ -190,10 +187,10 @@
           <button id="currency" disabled="" data-l10n-id="choose-currency">Choose your currency</button>
         </li>
         <li>
-          <button id="taxes"disabled="" data-l10n-id="taxes">Taxes</button>
+          <button id="taxes" disabled="" data-l10n-id="taxes">Taxes</button>
         </li>
         <li>
-          <button id="about">About</button>
+          <button id="about" data-l10n-id="about">About</button>
         </li>
       </ul>
     </section>
@@ -224,7 +221,7 @@
     <section role="region" class="skin-organic settings" id="aboutPanel">
     <header>
       <a href="#"><span id="aboutBack" class="icon icon-back">back</span></a>
-      <h1>About</h1>
+      <h1 data-l10n-id="about">About</h1>
     </header>
     <header>
       <h2 data-l10n-id="about">About</h2>
@@ -235,9 +232,8 @@
         </li>
       </ul>
     </section>
-
-    <script src="js/db.js"></script>
-    <script src="js/app.js"></script>
   </div>
+  <script type="text/javascript" src="js/db.js"></script>
+  <script type="text/javascript" src="js/app.js"></script>
   </body>
 </html>

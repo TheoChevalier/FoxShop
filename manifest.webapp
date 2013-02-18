@@ -1,8 +1,8 @@
 {
-  "version": "0.1.9",
+  "version": "0.1.14",
   "name": "Shopping List",
   "description": "Your new awesome Open Web App",
-  "launch_path": "/app/",
+  "launch_path": "app/",
   "icons": {
     "60": "http://theochevalier.fr/app/img/icons/icon.png"
   },
