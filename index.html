@@ -47,7 +47,7 @@
         <form role="search" id="form-list" onsubmit="return false;">
           <button type="submit" id="add-list" data-l10n-id="add-list">Add</button>
           <p>
-            <textarea id="listName" data-l10n-id="listName"placeholder="New list name" required=""></textarea>
+            <textarea id="listName" data-l10n-id="listName"placeholder="New list name"></textarea>
             <button type="reset">reset</button>
           </p>
         </form>
@@ -172,7 +172,7 @@
     <section role="region" class="skin-organic settings" id="settingsPanel">
     <header>
       <a href="#"><span class="icon icon-back">back</span></a>
-      <h1>Settings</h1>
+      <h1 data-l10n-id="settings-title">Settings</h1>
     </header>
     <header>
       <h2 data-l10n-id="language">Language</h2>
@@ -180,26 +180,12 @@
     <div class="scroll">
       <ul>
         <li>
-          <p data-l10n-id="language">Language</p>
+          <p>Language</p>
           <p class="fake-select">
-            <button class="icon icon-dialog">Language</button>
-            <select name="language.current"></select>
-          </p>
-        </li>
-        <li>
-          <p data-l10n-id="region">Region</p>
-          <p class="fake-select">
-            <button class="icon icon-dialog">empty</button>
-            <select name="region.current">
-              <option value="BR">Brasil</option>
-              <option value="CO">Columbia</option>
-              <option value="ES">España</option>
-              <option value="FR">France</option>
-              <option value="PT">Portugal</option>
-              <option value="TW">Taiwan</option>
-              <option value="UK">United Kingdom</option>
-              <option value="US">United States</option>
-              <option value="VZ">Venezuela</option>
+            <button id="language" class="icon icon-dialog">Language</button>
+            <select name="language">
+              <option value="fr" data-l10n-id="fr">French</option>
+              <option value="en-US" data-l10n-id="en-US">English</option>
             </select>
           </p>
         </li>

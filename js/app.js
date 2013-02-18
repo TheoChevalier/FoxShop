@@ -6,6 +6,9 @@
   const DB_STORE_ITEMS = 'items1';
   const DB_STORE_SETTINGS = 'settings1';
 
+  // Alias to get localized strings
+  var _ = document.webL10n.get;
+
 SL = {
   hide: function(target) {
     target = SL.id(target).style;
@@ -107,9 +110,28 @@ SL.Settings = {
   loaded: false,
   obj: {},
 
+  // Save (or update) a setting, then updateUI
+  save: function(guid, value) {
+    var setting = {
+      guid:  guid,
+      value: value
+    };
+
+    DB.deleteFromDB(guid, this);
+    DB.store(setting, this);
+    DB.getSetting();
+  },
+
   // Function called after populating this.names in DB.getSetting()
   updateUI: function() {
     this.loaded = true;
+    var pref = this.obj["language"];
+    if (typeof pref != "undefined") {
+      if (pref.value != document.webL10n.getLanguage) {
+        document.webL10n.setLanguage(pref.value);
+      }
+    }
+
     if (typeof this.obj["prices-enable"] != "undefined") {
       if (this.obj["prices-enable"].value) {
         SL.id("prices-enable").setAttribute("checked", "");
@@ -148,8 +170,8 @@ SL.Lists = {
     SL.hide("lists");
   },
   add: function(aList) {
-    DB.store(aList, SL.Lists);
-    SL.Lists.display(aList, SL.Lists);
+    DB.store(aList, this);
+    SL.display(aList, this);
   },
   new: function() {
     var name = SL.id('listName').value;
@@ -171,8 +193,8 @@ SL.Lists = {
     aList.name = elm.getElementsByTagName("a")[0].innerHTML;
 
     // Delete the list, add the updated one
-    DB.deleteFromDB(aList.guid, SL.Lists);
-    DB.store(aList, SL.Lists);
+    DB.deleteFromDB(aList.guid, this);
+    DB.store(aList, this);
   },
   display: function(aList) {
     SL.display(aList, this);
@@ -589,6 +611,20 @@ function addEventListeners() {
     });
 
   /*
+   * Language
+   */
+  document.querySelector('select[name="language"]').addEventListener("change", function() {
+    var selected = this.options[this.selectedIndex];
+    // Save setting
+    SL.Settings.save("language", selected.value);
+
+    // Change language
+    document.webL10n.setLanguage(selected.value);
+  });
+
+
+
+  /*
    * Currency settings
    */
   // Show position & currency panels
@@ -605,10 +641,9 @@ function addEventListeners() {
   SL.id("setEditCurrency").addEventListener("click",
     function() {
       SL.hide("editCurrency");
-      var save = {guid:"userCurrency",value:SL.id("userCurrency").value};
-      DB.deleteFromDB("userCurrency", SL.Settings);
-      DB.store(save, SL.Settings);
-      DB.getSetting();
+
+      // Save setting
+      SL.Settings.save("userCurrency", SL.id("userCurrency").value);
     });
 
   // Switches
@@ -624,10 +659,8 @@ function addEventListeners() {
 
       if (typeof SL.Settings.obj["prices-enable"] != "undefined") {
         if (SL.Settings.obj["prices-enable"].value != this.checked) {
-          var save = {guid:"prices-enable",value:this.checked};
-          DB.deleteFromDB("prices-enable", SL.Settings);
-          DB.store(save, SL.Settings);
-          DB.getSetting();
+          // Save setting
+          SL.Settings.save("prices-enable", this.checked);
         }
       }
     });
@@ -711,6 +744,8 @@ window.addEventListener("load", function() {
 });
 window.addEventListener("localized", function() {
   SL.hide("loader");
+  SL.id("language").innerHTML = document.webL10n.get(SL.Settings.obj["language"].value);
+  console.log(document.webL10n.get(SL.Settings.obj["language"].value));
 });
 
 // Manage App Cache updates

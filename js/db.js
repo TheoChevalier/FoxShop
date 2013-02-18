@@ -52,7 +52,6 @@ var DB = {
    * Insert a new object in the view's DB
    */
   store: function(aList, view) {
-
     var store = this.getObjectStore(view.store, 'readwrite');
     var req;
     try {
@@ -61,7 +60,7 @@ var DB = {
       throw e;
     }
     req.onsuccess = function (evt) {
-      //console.log("Inserted");
+      console.log("Inserted");
     };
     req.onerror = function() {
       console.error(this.error);
