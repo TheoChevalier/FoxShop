@@ -12,16 +12,15 @@
 SL = {
   hide: function(target) {
     target = SL.id(target).style;
-    target.zIndex = "1";
-    target.opacity = "0";
+    target.display = "none";
   },
   show: function(target) {
     target = SL.id(target).style;
-    target.zIndex = "6";
-    target.opacity = "1";
+    target.display = "block";
   },
   removeElement: function(node) {
-    node.parentNode.removeChild(node);
+    if(node != null)
+      node.parentNode.removeChild(node);
   },
   clear: function() {
     var node = SL[this.view].elm.getElementsByClassName("list")[0];
@@ -83,7 +82,7 @@ SL = {
     var nb = 0;
     p1.innerHTML = aList.name;
     DB.getItems(aList.guid);
-    p2.innerHTML = nb + " items";
+    p2.innerHTML = _("nb-items", {"n": nb});
     newTitle.className = "liTitle";
     newTitle.addEventListener("click", function(e) {
       SL[aView.nextView].init(aList);
@@ -416,6 +415,8 @@ function addEventListeners() {
   elsArray.forEach(function(el) {
     el.addEventListener("click", function() {
       SL.show("settingsPanel");
+      SL.hide("lists");
+      SL.hide("items");
     });
   });
 
@@ -447,6 +448,7 @@ function addEventListeners() {
   SL.Lists.elm.getElementsByClassName('edit')[0].addEventListener("click",
   function() {
     SL.editMode.init(SL.Lists);
+    SL.hide("lists");
   });
 
   var install = SL.id('install');
@@ -525,6 +527,7 @@ function addEventListeners() {
 
   var send = SL.Items.elm.getElementsByClassName("send")[0];
   send.addEventListener("click", function() {
+    SL.hide("items");
     SL.show("enterEmail");
   });
 
@@ -562,6 +565,7 @@ function addEventListeners() {
   SL.enterEmail.elm.getElementsByClassName("cancel")[0].addEventListener("click",
     function() {
       SL.hide("enterEmail");
+      SL.show("items");
     });
 
   // Button to clear the form
@@ -593,6 +597,7 @@ function addEventListeners() {
         if (request.readyState == 4) {
           console.log(request.responseText);
           SL.hide("sendEmail");
+          SL.show("items");
         }
       };
       request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -627,6 +632,8 @@ function addEventListeners() {
   SL.Settings.elm.getElementsByClassName("icon-back")[0].parentNode.addEventListener("click",
     function() {
       SL.hide("settingsPanel");
+      // FIXME: determine the previous view
+      SL.show("lists");
     });
 
   /*
@@ -649,6 +656,7 @@ function addEventListeners() {
   // Show position & currency panels
   SL.id("currency").addEventListener("click",
     function() {
+      SL.hide("settingsPanel");
       SL.show("editCurrency");
     });
 
@@ -656,10 +664,12 @@ function addEventListeners() {
   SL.id("cEditCurrency").addEventListener("click",
     function() {
       SL.hide("editCurrency");
+      SL.show("settingsPanel");
     });
   SL.id("setEditCurrency").addEventListener("click",
     function() {
       SL.hide("editCurrency");
+      SL.show("settingsPanel");
 
       // Save setting
       SL.Settings.save("userCurrency", SL.id("userCurrency").value);
@@ -689,15 +699,18 @@ function addEventListeners() {
    */
   SL.id("about").addEventListener("click",
     function() {
+      SL.hide("settingsPanel");
       SL.show("aboutPanel");
     });
   SL.id("aboutBack").addEventListener("click",
     function() {
       SL.hide("aboutPanel");
+      SL.show("settingsPanel");
     });
   SL.id("aboutClose").addEventListener("click",
     function() {
       SL.hide("aboutPanel");
+      SL.show("settingsPanel");
     });
 }
 
@@ -742,14 +755,6 @@ function finishInit() {
   SL.Lists.init();
   DB.displayList(null, SL.Lists);
 
-  // Dynamically calculate height of content
-  var height = document.body.clientHeight;
-  SL.id("content").style.height = height+"px";
-  var els = document.getElementsByClassName("scroll");
-  var elsArray = Array.prototype.slice.call(els, 0);
-  elsArray.forEach(function(el) {
-    el.style.maxHeight = height-120+"px";
-  });
   //init();
 
   // Put user’s values in settings

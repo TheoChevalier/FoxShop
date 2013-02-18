@@ -23,7 +23,6 @@ html, body {
   height: 100%;
   font-family: "MozTTLight", "Helvetica Neue", Helvetica, Arial, sans-serif;
   background: white;
-  overflow: hidden;
   color: #333333;
   width: 100%;
   margin: 0 auto;
@@ -50,12 +49,6 @@ html, body {
 }
 
 
-#content {
-  padding: 50px 0;
-  padding-bottom: 70px;
-  height: 100%;
-}
-
 .action-success {
   color: green;
 }
@@ -66,12 +59,10 @@ html, body {
 
 #items, #lists, #settingsPanel, #editMode, #editItems, #enterEmail, #sendEmail,
 #editCurrency, #editPosition, #aboutPanel, #itemView {
-  z-index: 1;
-  position: absolute;
-  opacity: 0;
   background-color: #fff;
   min-width: 100%;
   min-height: 100%;
+  display: none;
 }
 
 #lists {
@@ -143,12 +134,8 @@ html, body {
 .scroll {
   width: 100%;
   display: block;
-  overflow-y: scroll;
-  position: relative;
-  padding-bottom: 40px;
+  padding: 50px 0;
 }
-
-menu {z-index: 5;}
 
 #add-item {
   display: inline-block;
@@ -156,10 +143,6 @@ menu {z-index: 5;}
 
 #todo-count span {
   font-weight: bold;
-}
-
-section[role="region"] > header:first-child {
-   position: fixed!important;
 }
 
 .pack-end {
@@ -242,6 +225,22 @@ animation: fadeOut 0.2s forwards;
 /**
  *   Building blocks overrides
  */
+
+/* Scroll on panels*/
+
+section[role="region"] > header:first-child,
+form[role="dialog"] > header:first-child,
+form[role="dialog"] > menu {
+   position: fixed!important;
+}
+
+menu {z-index: 5;}
+
+form[role="dialog"][data-type="edit"] {
+    position: static!important;
+}
+
+
 
 /* Allow events on clear button*/
 form p input + button[type="reset"], form p textarea + button[type="reset"] {
