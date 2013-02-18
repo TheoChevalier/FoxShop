@@ -111,29 +111,21 @@ html, body {
   text-decoration: line-through;
 }
 
-.delete {
-  /*position: absolute;*/
-  display: block;
-  float:right;
-  right: 5px;
-  cursor: pointer;
-  width: 20px;
-  height: 20px;
-  margin-top: 2rem;
-  background: url(../img/delete.png) no-repeat;
-  pointer-events: auto;
-}
-
-#itemQty {width: 15% ;}
-#itemName {width: calc(84% - 10px);}
+#itemQty {width: 20% ;padding-right: 0;}
+#itemName {width: calc(79% - 10px);}
 
 #itemQty, #itemName {
   display: inline-block;
 }
 
-.scroll {
-  width: 100%;
-  display: block;
+#resetItems {
+  right: calc(20% + 20px);
+}
+#resetEmail {
+  top: 1rem;
+}
+
+*[role="region"], *[role="dialog"] {
   padding: 50px 0;
 }
 

@@ -455,9 +455,8 @@ function addEventListeners() {
     SL.hide("lists");
   });
 
-  var install = SL.id('install');
-  install.addEventListener('click', function(e){
-    navigator.mozApps.install("http://theochevalier.fr/app/manifest.webapp");
+  SL.id('install').addEventListener('click', function(e){
+    navigator.mozApps.install("manifest.webapp");
   });
 
   /*****************************************************************************
