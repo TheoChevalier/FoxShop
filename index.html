@@ -20,6 +20,7 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/app.css"/>
   <link rel="stylesheet" href="css/lists.css"/>
+  <link rel="stylesheet" href="css/alarm.css"/>
 
   <!-- l10n resources -->
   <link rel="resource" type="application/l10n" href="locales/data" />
@@ -105,19 +106,33 @@
     </section>
 
 
-    <section id="itemView" role="region">
+    <section id="itemView" role="region" class="skin-organic">
       <header>
         <button class="back"><span class="icon icon-back"></span></button>
         <menu type="toolbar">
-          <a href="#"><span class="icon icon-delete">delete</span></a>
+          <a href="#"><span data-l10n-id="done">Done</span></a>
         </menu>
         <h1 class="title" data-l10n-id="item">Item</h1>
       </header>
-        <button type="submit" id="item-name" data-l10n-id="add-item">Add</button>
-        <p>
-          <textarea id="itemName" data-l10n-id="item-name" placeholder="New item" required=""></textarea>
-          <textarea id="itemQty" data-l10n-id="item-qty" required="">1</textarea>
-        </p>
+      <ul id="edit-alarm" class="tableView">
+        <li class="singleline field">
+          <span class="view-alarm-lbl" data-l10n-id="item">Item</span>
+          <input type="text" class="right" data-l10n-id="new-iem"  placeholder="New item name"/>
+        </li>
+        <li class="singleline field">
+          <span class="view-alarm-lbl" data-l10n-id="quantity">Quantity</span>
+          <input type="text" class="right" data-l10n-id="new-qty"  placeholder="Number of items to buy"/>
+        </li>
+        <li class="singleline">
+          <a>+</a>
+        </li>
+        <li class="singleline">
+          <a>-</a>
+        </li>
+        <li id="alarm-delete-button" class="singleline">
+          <a id="alarm-delete" data-l10n-id="delete">Delete</a>
+        </li>
+      </ul>
     </section>
 
     <form role="dialog" data-type="confirm" id="enterEmail" onsubmit="return false;">

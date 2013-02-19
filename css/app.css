@@ -22,10 +22,13 @@ html, body {
   font-size: 10px;
   height: 100%;
   font-family: "MozTTLight", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background: white;
   color: #333333;
   width: 100%;
   margin: 0 auto;
+}
+#content, body {
+    background: url(images/edit_background.png) no-repeat center center;
+  background-size: 100% 100%;
 }
 
 #loader {
@@ -59,7 +62,6 @@ html, body {
 
 #items, #lists, #settingsPanel, #editMode, #editItems, #enterEmail, #sendEmail,
 #editCurrency, #editPosition, #aboutPanel, #itemView {
-  background-color: #fff;
   min-width: 100%;
   min-height: 100%;
   display: none;

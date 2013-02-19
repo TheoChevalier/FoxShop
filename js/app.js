@@ -84,6 +84,8 @@ var SL = {
     var nb = 0;
     p1.innerHTML = aList.name;
     DB.getItems(aList.guid);
+    p2.setAttribute("data-l10n-id", "nb-items");
+    p2.setAttribute("data-l10n-args", '{"n": "'+nb+'"}');
     p2.innerHTML = _("nb-items", {"n": nb});
     newTitle.className = "liTitle";
     newTitle.addEventListener("click", function(e) {
@@ -551,7 +553,7 @@ function addEventListeners() {
       SL.show("items");
     });
 
-  SL.ItemView.elm.getElementsByClassName("icon-delete")[0].parentNode.addEventListener("click",
+  SL.id("alarm-delete").addEventListener("click",
     function() {
       var guid = SL.ItemView.item.guid;
       SL.hide("itemView");
