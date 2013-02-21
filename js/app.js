@@ -81,12 +81,21 @@ var SL = {
     var newTitle = document.createElement('a');
     var p1 = document.createElement('p');
     var p2 = document.createElement('p');
-    var nb = 0;
     p1.innerHTML = aList.name;
-    DB.getItems(aList.guid);
-    p2.setAttribute("data-l10n-id", "nb-items");
-    p2.setAttribute("data-l10n-args", '{"n": "'+nb+'"}');
-    p2.innerHTML = _("nb-items", {"n": nb});
+
+    // Special cases
+    switch (aView.name) {
+      case "Lists":
+        DB.getItems(aList.guid);
+      break;
+      case "Items":
+      var nb = aList.nb;
+        p2.setAttribute("data-l10n-id", "item-quantity");
+        p2.setAttribute("data-l10n-args", {"quantity": nb});
+        p2.innerHTML = _("item-quantity", {"quantity": nb});
+      break;
+    }
+
     newTitle.className = "liTitle";
     newTitle.addEventListener("click", function(e) {
       SL[aView.nextView].init(aList);

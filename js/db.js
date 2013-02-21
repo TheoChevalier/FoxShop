@@ -238,8 +238,7 @@ var DB = {
             cursor ? ++i && cursor.continue() : console.log(i);
           }
           var li = document.querySelector('li[data-listkey="'+guid+'"]');
-          inner = li.getElementsByTagName("p")[1].innerHTML;
-          li.getElementsByTagName("p")[1].innerHTML = i+ inner;
+          li.getElementsByTagName("p")[1].innerHTML = _("nb-items", {"n":i});
         };
 
       }
