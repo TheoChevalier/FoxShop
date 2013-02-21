@@ -61,7 +61,7 @@ html, body {
 }
 
 #items, #lists, #settingsPanel, #editMode, #editItems, #enterEmail, #sendEmail,
-#editCurrency, #editPosition, #aboutPanel, #itemView {
+#editCurrency, #editPosition, #aboutPanel, #itemView, #deleteItem {
   min-width: 100%;
   min-height: 100%;
   display: none;

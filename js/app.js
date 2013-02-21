@@ -507,6 +507,7 @@ function addEventListeners() {
     SL.editMode.deselectAll();
   });
 
+
   /*****************************************************************************
    * Items
    ****************************************************************************/
@@ -562,6 +563,7 @@ function addEventListeners() {
     SL.editMode.init(SL.Items);
   });
 
+
   /*****************************************************************************
    * itemView
    ****************************************************************************/
@@ -573,11 +575,8 @@ function addEventListeners() {
 
   SL.id("alarm-delete").addEventListener("click",
     function() {
-      var guid = SL.ItemView.item.guid;
       SL.hide("itemView");
-      SL.removeElement(SL.Items.elm.querySelector('li[data-listkey="'+guid+'"]'));
-      SL.show("items");
-      DB.deleteFromDB(guid, SL.Items);
+      SL.show("deleteItem");
     });
 
   SL.id("plusOne").addEventListener("click", function() {
@@ -586,6 +585,27 @@ function addEventListeners() {
   SL.id("lessOne").addEventListener("click", function() {
     SL.ItemView.lessOne();
   });
+
+
+  /*****************************************************************************
+   * deleteItem
+   ****************************************************************************/
+
+    SL.id("deleteItem").getElementsByTagName("button")[1].addEventListener("click",
+    function() {
+      var guid = SL.ItemView.item.guid;
+      SL.hide("deleteItem");
+      SL.removeElement(SL.Items.elm.querySelector('li[data-listkey="'+guid+'"]'));
+      SL.show("items");
+      DB.deleteFromDB(guid, SL.Items);
+    });
+
+    SL.id("deleteItem").getElementsByTagName("button")[0].addEventListener("click",
+    function() {
+      SL.hide("deleteItem");
+      SL.show("itemView");
+    });
+
 
   /*****************************************************************************
    * send e-mail views
@@ -657,6 +677,7 @@ function addEventListeners() {
     }
   }
 
+
   /*****************************************************************************
    * Settings
    ****************************************************************************/
@@ -678,8 +699,6 @@ function addEventListeners() {
     // Change language
     document.webL10n.setLanguage(selected.value);
   });
-
-
 
   /*
    * Currency settings
@@ -766,6 +785,7 @@ window.addEventListener("localized", function() {
   SL.hide("loader");
   SL.id("language").innerHTML = document.webL10n.get(SL.Settings.obj["language"].value);
 });
+
 // Manage App Cache updates
 window.applicationCache.addEventListener('updateready', function(e) {
   if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
