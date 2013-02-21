@@ -380,7 +380,25 @@ SL.ItemView = {
     SL.show("itemView");
     SL.view = this.name;
     this.item = aItem;
+    this.elm.getElementsByClassName("title")[0].innerHTML = this.item.name;
+    SL.id("newItemName").value = this.item.name;
+    SL.id("newItemQty").value = this.item.nb;
+
+    if (typeof SL.Settings.obj["prices-enable"] !== "undefined") {
+      if (SL.Settings.obj["prices-enable"].value) {
+        SL.id("newPrice").removeAttribute("hidden");
+      }
+    }
   },
+  plusOne: function() {
+    SL.id("newItemQty").value = eval(SL.id("newItemQty").value) + 1;
+  },
+  lessOne: function() {
+    var current = eval(SL.id("newItemQty").value);
+    if (current > 0) {
+      SL.id("newItemQty").value = current - 1;
+    }
+  }
 }
 /*******************************************************************************
  * enterEmail
@@ -561,6 +579,13 @@ function addEventListeners() {
       SL.show("items");
       DB.deleteFromDB(guid, SL.Items);
     });
+
+  SL.id("plusOne").addEventListener("click", function() {
+    SL.ItemView.plusOne();
+  });
+  SL.id("lessOne").addEventListener("click", function() {
+    SL.ItemView.lessOne();
+  });
 
   /*****************************************************************************
    * send e-mail views
