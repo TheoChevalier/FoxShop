@@ -573,6 +573,20 @@ function addEventListeners() {
       SL.show("items");
     });
 
+  SL.id("saveItem").addEventListener("click", function() {
+      //Switch views
+      SL.hide("itemView");
+      SL.show("items");
+
+      //Save datas
+      var item = SL.ItemView.item;
+      item.name = SL.id("newItemName").value;
+      item.nb = eval(SL.id("newItemQty").value);
+      item.price = eval(SL.id("newItemPrice").value);
+      DB.deleteFromDB(item.guid, SL.Items);
+      DB.store(item, SL.Items);
+  });
+
   SL.id("alarm-delete").addEventListener("click",
     function() {
       SL.hide("itemView");
