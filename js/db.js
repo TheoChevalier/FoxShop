@@ -237,8 +237,10 @@ var DB = {
             // Move on to the next object in store
             cursor ? ++i && cursor.continue() : console.log(i);
           }
-          var li = document.querySelector('li[data-listkey="'+guid+'"]');
-          li.getElementsByTagName("p")[1].innerHTML = _("nb-items", {"n":i});
+          var p = document.querySelector('li[data-listkey="'+guid+'"]').getElementsByTagName("p")[1];
+          p.setAttribute("data-l10n-id", "nb-items");
+          p.setAttribute("data-l10n-args", '{"n":'+i+'}');
+          p.innerHTML = _("nb-items", {"n":i});
         };
 
       }
