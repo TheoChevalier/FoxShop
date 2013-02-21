@@ -398,6 +398,11 @@ SL.ItemView = {
     if (current > 0) {
       SL.id("newItemQty").value = current - 1;
     }
+  },
+  refreshItem: function() {
+    var node = SL.Items.elm.querySelector('li[data-listkey="'+this.item.guid+'"]');
+    node.getElementsByTagName("p")[0].innerHTML = this.item.name;
+    node.getElementsByTagName("p")[1].innerHTML = _("item-quantity", { "quantity" : this.item.nb});
   }
 }
 /*******************************************************************************
@@ -585,6 +590,7 @@ function addEventListeners() {
       item.price = eval(SL.id("newItemPrice").value);
       DB.deleteFromDB(item.guid, SL.Items);
       DB.store(item, SL.Items);
+      SL.ItemView.refreshItem();
   });
 
   SL.id("alarm-delete").addEventListener("click",
