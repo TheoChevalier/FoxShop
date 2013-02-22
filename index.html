@@ -234,18 +234,28 @@
 
     <form role="dialog" data-type="confirm" id="editCurrency" onsubmit="return false;" class="settings">
       <section>
-      <h1 data-l10n-id="currency-title">Edit currency</h1>
-        <p style="text-align: center">
-          <input type="text" id="userCurrency" data-l10n-id="user-currency" placeholder="Your currency">
-          <button type="reset">reset</button>
-          <p class="fake-select">
-            <button id="position" class="icon icon-dialog" data-l10n-id="position">Position</button>
-            <select id="selectPosition">
-              <option id="positionLeft" value="left">Left</option>
-              <option id="positionRight" value="right">Right</option>
-            </select>
-          </p>
-        </p>
+      <h1 data-l10n-id="choose-currency">Edit currency</h1>
+      <p style="text-align: center">
+        <input type="text" id="userCurrency" data-l10n-id="user-currency" placeholder="Your currency">
+        <button type="reset">reset</button>
+      </p>
+      <h1 data-l10n-id="position">Position</h1>
+      <ul>
+        <li>
+          <label>
+            <input type="radio" id="positionLeft" name="position" value="left"/>
+            <span></span>
+          </label>
+          <a data-l10n-id="left">Left</a>
+        </li>
+        <li>
+          <label>
+            <input type="radio" id="positionRight" name="position" value="right"/>
+            <span></span>
+          </label>
+          <a data-l10n-id="right">Right</a>
+        </li>
+      </ul>
       </section>
       <menu>
         <button id="cEditCurrency" class="cancel" data-l10n-id="cancel">Cancel</button>

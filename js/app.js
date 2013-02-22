@@ -41,6 +41,12 @@ var SL = {
 
     return document.getElementByClassName(target)[n];
   },
+  getCheckedRadioId: function(name) {
+    var elements = document.getElementsByName(name);
+
+    for (var i=0, len=elements.length; i<len; ++i)
+        if (elements[i].checked) return elements[i].value;
+  },
   display: function(aList, aView) {
     var newLi = document.createElement('li');
     newLi.dataset.listkey = aList.guid;
@@ -162,10 +168,12 @@ SL.Settings = {
 
     if (typeof this.obj.currencyPosition !== "undefined") {
       if(this.obj.currencyPosition.value == "left") {
-        SL.id("positionLeft").setAttribute("selected", "");
+        SL.id("positionLeft").setAttribute("checked", "");
       } else {
-        SL.id("positionRight").setAttribute("selected", "");
+        SL.id("positionRight").setAttribute("checked", "");
       }
+    } else {
+      SL.id("positionRight").setAttribute("checked", "");
     }
   },
   close: function() {
@@ -762,8 +770,8 @@ function addEventListeners() {
     // Save settings
     SL.Settings.save("userCurrency", SL.id("userCurrency").value);
 
-    var selected = SL.id("selectPosition").options[SL.id("selectPosition").selectedIndex];
-    SL.Settings.save("currencyPosition", selected.value);
+    var selected = SL.getCheckedRadioId("position");
+    SL.Settings.save("currencyPosition", selected);
   });
 
   // Switches
