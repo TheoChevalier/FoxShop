@@ -514,6 +514,13 @@ function addEventListeners() {
     navigator.mozApps.install("http://theochevalier.fr/app/manifest.webapp");
   });
 
+  // MoreItems
+  SL.Lists.elm.getElementsByClassName("icon-more")[0].addEventListener("click",
+  function() {
+    SL.hide("lists");
+    SL.show("moreLists");
+  });
+
   /*****************************************************************************
    * editMode
    ****************************************************************************/
@@ -595,6 +602,13 @@ function addEventListeners() {
   function() {
     SL.hide("items");
     SL.editMode.init(SL.Items);
+  });
+
+  // MoreItems
+  SL.Items.elm.getElementsByClassName("icon-more")[0].addEventListener("click",
+  function() {
+    SL.hide("items");
+    SL.show("moreItems");
   });
 
 
@@ -728,14 +742,31 @@ function addEventListeners() {
 
 
   /*****************************************************************************
-   * Settings
+   * More List
    ****************************************************************************/
-  SL.Settings.elm.getElementsByClassName("icon-back")[0].parentNode.addEventListener("click",
+  SL.id("moreLists").getElementsByClassName("cancel")[0].addEventListener("click",
     function() {
-      SL.hide("settingsPanel");
-      // FIXME: determine the previous view
+      SL.hide("moreLists");
       SL.show("lists");
     });
+
+  /*****************************************************************************
+   * More Items
+   ****************************************************************************/
+  SL.id("moreItems").getElementsByClassName("cancel")[0].addEventListener("click",
+    function() {
+      SL.hide("moreItems");
+      SL.show("items");
+    });
+
+  /*****************************************************************************
+   * Settings
+   ****************************************************************************/
+  SL.Settings.elm.getElementsByClassName("icon-back")[0].parentNode.addEventListener("click", function() {
+    SL.hide("settingsPanel");
+    // FIXME: determine the previous view
+    SL.show("lists");
+  });
 
   /*
    * Language
