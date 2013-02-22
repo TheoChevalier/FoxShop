@@ -269,7 +269,14 @@ form[role="dialog"][data-type="confirm"] > section {
 }
 
 
+/* fix radio buttons in editCurrency*/
+form a {
+  color: white!important;
+}
 
+form ul li:last-child {
+  border-bottom: none;
+}
 /******************************************************************************
  * Fake select boxes
  * Hum. Fix later :)

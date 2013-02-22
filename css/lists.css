@@ -18,6 +18,7 @@
   min-height: 6rem;
 }
 
+
 .settings ul li.active,
 .settings ul li a:active {
   background-color: #b2f2ff;
