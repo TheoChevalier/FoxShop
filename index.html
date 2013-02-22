@@ -125,7 +125,7 @@
           <input id="newItemQty" type="text" class="right" data-l10n-id="new-qty" value="0" placeholder="Number of items to buy"/>
           <!--<button type="reset" id="resetNewItemQty">reset</button>-->
         </li>
-        <li class="singleline field" hidden>
+        <li id="newPrice" class="singleline field" hidden>
           <span class="view-alarm-lbl" data-l10n-id="price">Price</span>
           <input id="newItemPrice" type="text" class="right" data-l10n-id="new-price" placeholder="How much does it costs?"/>
           <!--<button type="reset" id="resetNewItemPrice">reset</button>-->
@@ -198,7 +198,7 @@
     </header>
       <ul>
         <li>
-          <p>Language</p>
+          <p data-l10n-id="language">Language</p>
           <p class="fake-select">
             <button id="language" class="icon icon-dialog">Language</button>
             <select name="language">
@@ -239,10 +239,10 @@
           <input type="text" id="userCurrency" data-l10n-id="user-currency" placeholder="Your currency">
           <button type="reset">reset</button>
           <p class="fake-select">
-            <button id="position" class="icon icon-dialog">empty</button>
-            <select>
-              <option value="left">Left</option>
-              <option value="right">Right</option>
+            <button id="position" class="icon icon-dialog" data-l10n-id="position">Position</button>
+            <select id="selectPosition">
+              <option id="positionLeft" value="left">Left</option>
+              <option id="positionRight" value="right">Right</option>
             </select>
           </p>
         </p>

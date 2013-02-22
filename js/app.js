@@ -157,6 +157,14 @@ SL.Settings = {
         SL.id("userCurrency").value = this.obj.userCurrency.value;
       }
     }
+
+    if (typeof this.obj.currencyPosition !== "undefined") {
+      if(this.obj.currencyPosition.value == "left") {
+        SL.id("positionLeft").setAttribute("selected", "");
+      } else {
+        SL.id("positionRight").setAttribute("selected", "");
+      }
+    }
   },
   close: function() {
     SL.hide("settingsPanel");
@@ -397,6 +405,8 @@ SL.ItemView = {
       if (SL.Settings.obj["prices-enable"].value) {
         SL.id("newPrice").removeAttribute("hidden");
       }
+    } else {
+      SL.id("newPrice").setAttribute("hidden", "");
     }
   },
   plusOne: function() {
@@ -732,65 +742,55 @@ function addEventListeners() {
   /*
    * Currency settings
    */
-  // Show position & currency panels
-  SL.id("currency").addEventListener("click",
-    function() {
-      SL.hide("settingsPanel");
-      SL.show("editCurrency");
-    });
+  // Show position & currency panel
+  SL.id("currency").addEventListener("click", function() {
+    SL.hide("settingsPanel");
+    SL.show("editCurrency");
+  });
 
   // Hide currency panel
-  SL.id("cEditCurrency").addEventListener("click",
-    function() {
-      SL.hide("editCurrency");
-      SL.show("settingsPanel");
-    });
-  SL.id("setEditCurrency").addEventListener("click",
-    function() {
-      SL.hide("editCurrency");
-      SL.show("settingsPanel");
+  SL.id("cEditCurrency").addEventListener("click", function() {
+    SL.hide("editCurrency");
+    SL.show("settingsPanel");
+  });
+  SL.id("setEditCurrency").addEventListener("click", function() {
+    SL.hide("editCurrency");
+    SL.show("settingsPanel");
 
-      // Save setting
-      SL.Settings.save("userCurrency", SL.id("userCurrency").value);
-    });
+    // Save settings
+    SL.Settings.save("userCurrency", SL.id("userCurrency").value);
+
+    var selected = SL.id("selectPosition").options[SL.id("selectPosition").selectedIndex];
+    SL.Settings.save("currencyPosition", selected.value);
+  });
 
   // Switches
-  SL.id("prices-enable").addEventListener("click",
-    function() {
-      if(this.checked) {
-        SL.id("currency").removeAttribute("disabled");
-        SL.id("taxes").removeAttribute("disabled");
-      } else {
-        SL.id("currency").setAttribute("disabled", "");
-        SL.id("taxes").setAttribute("disabled", "");
-      }
-
-      if (typeof SL.Settings.obj["prices-enable"] != "undefined") {
-        if (SL.Settings.obj["prices-enable"].value != this.checked) {
-          // Save setting
-          SL.Settings.save("prices-enable", this.checked);
-        }
-      }
-    });
+  SL.id("prices-enable").addEventListener("click", function() {
+    if(this.checked) {
+      SL.id("currency").removeAttribute("disabled");
+      SL.id("taxes").removeAttribute("disabled");
+    } else {
+      SL.id("currency").setAttribute("disabled", "");
+      SL.id("taxes").setAttribute("disabled", "");
+    }
+    SL.Settings.save("prices-enable", this.checked);
+  });
 
   /*
    * About panel
    */
-  SL.id("about").addEventListener("click",
-    function() {
-      SL.hide("settingsPanel");
-      SL.show("aboutPanel");
-    });
-  SL.id("aboutBack").addEventListener("click",
-    function() {
-      SL.hide("aboutPanel");
-      SL.show("settingsPanel");
-    });
-  SL.id("aboutClose").addEventListener("click",
-    function() {
-      SL.hide("aboutPanel");
-      SL.show("settingsPanel");
-    });
+  SL.id("about").addEventListener("click", function() {
+    SL.hide("settingsPanel");
+    SL.show("aboutPanel");
+  });
+  SL.id("aboutBack").addEventListener("click", function() {
+    SL.hide("aboutPanel");
+    SL.show("settingsPanel");
+  });
+  SL.id("aboutClose").addEventListener("click", function() {
+    SL.hide("aboutPanel");
+    SL.show("settingsPanel");
+  });
 }
  
 // Actions that needs the DB to be ready
