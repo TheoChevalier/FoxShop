@@ -89,10 +89,12 @@ var SL = {
         DB.getItems(aList.guid);
       break;
       case "Items":
-      var nb = aList.nb;
-        p2.setAttribute("data-l10n-id", "item-quantity");
-        p2.setAttribute("data-l10n-args", {"quantity": nb});
-        p2.innerHTML = _("item-quantity", {"quantity": nb});
+        var nb = aList.nb;
+        if (nb > 1) {
+          p2.setAttribute("data-l10n-id", "item-quantity");
+          p2.setAttribute("data-l10n-args", {"quantity": nb});
+          p2.innerHTML = _("item-quantity", {"quantity": nb});
+        }
       break;
     }
 
