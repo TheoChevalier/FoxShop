@@ -59,6 +59,7 @@ var DB = {
     } catch (e) {
       throw e;
     }
+    view.obj[aList.guid] = aList;
     req.onsuccess = function (evt) {
       console.log("Inserted");
     };

@@ -66,12 +66,11 @@ var SL = {
 
     mySpan.addEventListener("click", function(e) {
 
-      if (!aList.done) {
+      if (!aView.obj[aList.guid].done) {
         newLi.className += " done";
       } else {
         newLi.className = newLi.className.replace ( /(?:^|\s)done(?!\S)/g , '' );
       }
-      aList.done = !aList.done;
 
       // Delete the item, add the updated one
       DB.deleteFromDB(aList.guid, aView);
@@ -107,7 +106,7 @@ var SL = {
 
     newTitle.className = "liTitle";
     newTitle.addEventListener("click", function(e) {
-      SL[aView.nextView].init(aList);
+      SL[aView.nextView].init(SL[aView.name].obj[aList.guid]);
     });
     newTitle.appendChild(p1);
     newTitle.appendChild(p2);
@@ -237,9 +236,12 @@ SL.Lists = {
     this.loaded = true;
 
     // For each list, count items and calculate total
-    for(var aList in SL.Lists.obj) {
+    for(var aList in this.obj) {
       var total = 0;
       var i = 0;
+
+      // Display it
+      SL.display(this.obj[aList], this);
       for(var aItem in SL.Items.obj) {
         if (SL.Items.obj[aItem].list == aList) {
           console.log(SL.Items.obj[aItem]);
@@ -266,7 +268,7 @@ SL.Lists = {
         position = SL.Settings.obj.position.value;
       }
       var currency = "$";
-      var currency = _("default-currency");
+      //var currency = _("default-currency");
       if (typeof SL.Settings.obj.currency != "undefined") {
         currency = SL.Settings.obj.currency.value;
       }
@@ -392,16 +394,21 @@ SL.Items = {
   init: function(aList) {
     SL.Lists.close();
     SL.view = this.name;
-
     this.list = aList;
     this.guid = aList.guid;
+    SL.clear(this);
+    SL.hide("lists");
+    SL.show("items");
+
     // Set title of the displayed Items list
     this.elm.getElementsByClassName("title")[0].innerHTML=aList.name;
 
-    SL.clear(this);
-    DB.displayItems(this);
-    SL.hide("lists");
-    SL.show("items");
+    // Display each item
+    for (aGuid in this.obj) {
+      if (this.obj[aGuid].list == aList.guid) {
+        SL.display(this.obj[aGuid], this);
+      }
+    }
   },
 
   // Go back to Lists view
@@ -904,13 +911,10 @@ function addEventListeners() {
  
 // Actions that needs the DB to be ready
 function finishInit() {
-  // Populate the list
+  // Display the view
   SL.Lists.init();
-  DB.displayList(null, SL.Lists);
 
-  //init();
-
-  // Put user’s values in settings
+  // Load all the DB in obj
   DB.updateObj("Settings");
   DB.updateObj("Items");
 }
