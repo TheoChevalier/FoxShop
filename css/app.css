@@ -67,6 +67,7 @@ html, body {
   min-height: 100%;
   display: none;
 }
+#status {display: none;z-index: 6;}
 
 #lists {
   z-index: 6;

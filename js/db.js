@@ -86,7 +86,7 @@ var DB = {
     };
     req.onerror = function(evt) {
       console.error("add error", this.error);
-      displayActionFailure(this.error);
+      displayStatus(this.error);
     };
 
     var i = 0;
@@ -123,7 +123,7 @@ var DB = {
     var req = store.index('guid');
     req.get(guid).onsuccess = function(evt) {
       if (typeof this.result == 'undefined') {
-        displayActionFailure("No matching record found");
+        displayStatus("No matching record found");
         return;
       }
       DB.deleteList(this.result.id, store, view);
@@ -152,7 +152,7 @@ var DB = {
     req.onsuccess = function(evt) {
       var record = this.result;
       if (typeof record == 'undefined') {
-        displayActionFailure("No matching record found");
+        displayStatus("No matching record found");
         return;
       }
       // Warning: The exact same key used for creation needs to be passed for
@@ -160,7 +160,7 @@ var DB = {
       // be a Number for deletion.
       req = store.delete(key);
       req.onsuccess = function(evt) {
-        displayActionSuccess("Item succesfully deleted");
+        displayStatus("Item succesfully deleted");
       };
       req.onerror = function (evt) {
         console.error("deletePublication:", this.errorCode);
@@ -182,7 +182,7 @@ var DB = {
     var req = store.index('list');
     req.get(aList.guid).onsuccess = function(evt) {
       if (typeof this.result == 'undefined') {
-        displayActionFailure("No matching record found");
+        displayStatus("No matching record found");
         return;
       }
       var key = this.result.id;  
@@ -191,7 +191,7 @@ var DB = {
       req.onsuccess = function(evt) {
         var record = this.result;
         if (typeof record == 'undefined') {
-          displayActionFailure("No matching record found");
+          displayStatus("No matching record found");
           return;
         }
           SL.clear();
@@ -213,7 +213,7 @@ var DB = {
     var req = store.index('list');
     req.get(guid).onsuccess = function(evt) {
       if (typeof this.result == 'undefined') {
-        displayActionFailure("No matching record found");
+        displayStatus("No matching record found");
         return;
       }
       var key = this.result.id;  
@@ -222,13 +222,13 @@ var DB = {
       req.onsuccess = function(evt) {
         var record = this.result;
         if (typeof record == 'undefined') {
-          displayActionFailure("No matching record found");
+          displayStatus("No matching record found");
           return;
         }
         var req = store.count();
         req.onerror = function(evt) {
           console.error("add error", this.error);
-          displayActionFailure(this.error);
+          displayStatus(this.error);
         };
 
         var i = 0;

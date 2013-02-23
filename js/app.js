@@ -147,6 +147,8 @@ SL.Settings = {
     this.loaded = true;
     var pref = this.obj.language;
     if (typeof pref !== "undefined") {
+      var select = document.querySelector('select[name="language"]');
+      select.options[select.selectedIndex].setAttribute("selected","");
       if (pref.value !== document.webL10n.getLanguage) {
         document.webL10n.setLanguage(pref.value);
       }
@@ -207,9 +209,13 @@ SL.Lists = {
   },
   new: function() {
     var name = SL.id('listName').value;
+    SL.id('listName').value = "";
     var date = new Date();
+
+    // Remove line-endings
+    name = name.replace(/(\r\n|\n|\r)/gm,"");
     if (!name || name === undefined) {
-      displayActionFailure("msg-name");
+      displayStatus("msg-name");
       return;
     }
     SL.Lists.add({ guid: guid(),
@@ -217,7 +223,6 @@ SL.Lists = {
                    date: date.getTime(),
                    items:{}
     });
-    SL.id('listName').value ="";
   },
   edit: function (aList, elm) {
     aList.done = elm.getElementsByTagName("input")[0].checked;
@@ -370,7 +375,7 @@ SL.editMode = {
 
         // Remove nodes
         SL.removeElement(nodes[i]);
-        SL.removeElement(this.elm.querySelector('li[data-listkey="'+guid+'"]'));
+        SL.removeElement(document.querySelector('li[data-listkey="'+guid+'"]'));
       }
     }
   },
@@ -430,20 +435,28 @@ SL.Items = {
   new: function() {
     var name = SL.id('itemName').value;
     var qty = SL.id('itemQty').value;
+    SL.id('itemName').value = "";
+    SL.id('itemQty').value = "1";
     var date = new Date();
+
+    // Remove line-endings
+    name = name.replace(/(\r\n|\n|\r)/gm,"");
 
     // Handle empty form
     if (!name || !qty) {
       var l10n = "";
       if (!name) {
-        l10n += "msg-name";
-        if (!qty)
-          l10n += "msg-name-qty"
+        l10n = "msg-name";
+        if (!qty) {
+          l10n = "msg-name-qty";
+        }
+      } else {
+        if (!qty) {
+          l10n = "msg-qty";
+        }
       }
-      if (!qty)
-        l10n += "msg-qty"
 
-      displayActionFailure(l10n);
+      displayStatus(l10n);
       return;
     }
 
@@ -454,8 +467,7 @@ SL.Items = {
               date: date.getTime(),
               done: false
     };
-    name = "";
-    qty = "1";
+
     DB.store(aItem, this);
     SL.display(aItem, this);
   },
@@ -531,16 +543,14 @@ SL.enterEmail = {
   elm: SL.id("enterEmail"),
 }
 
-  // Messages handlers
-  function displayActionSuccess(id) {
-    //SL.id('msg').innerHTML = '<span class="action-success" data-l10n-id="' + id + '"></span>';
-  }
-  function displayActionFailure(id) {
-    //SL.id('msg').innerHTML = '<span class="action-failure" data-l10n-id="' + id + '"></span>';
-  }
-  function resetActionStatus() {
-   // SL.id('msg').innerHTML = '';
-  }
+// Display a notification to the user during 3s
+function displayStatus(id) {
+  var status = SL.id("status");
+  SL.show("status");
+  status.innerHTML = "<p>"+_(id)+"</p>";
+  status.style.zIndex = 100;
+  setTimeout(function() {SL.hide("status")}, 3000);
+}
 
 // Generate four random hex digits.
 function S4() {
@@ -649,22 +659,6 @@ function addEventListeners() {
     if (e.keyCode == 13) {
       SL.Items.new();
     }
-  }
-
-  function addItem() {
-    var name = SL.id('listName').value;
-    var date = new Date();
-
-    if (!name || name === undefined) {
-      displayActionFailure("msg-name");
-      return;
-    }
-    SL.Lists.add({ guid: guid(),
-                   name: name,
-                   date: date.getTime(),
-                   items:{}
-    });
-    SL.id('listName').value ="";
   }
 
   // Button to clear the form
