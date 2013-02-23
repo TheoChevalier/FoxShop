@@ -98,6 +98,9 @@ var DB = {
         req.onsuccess = function (evt) {
           var aList = evt.target.result;
           view.display(aList);
+          if (typeof SL[view.name].obj != "undefined") {
+            SL[view.name].obj[aList.guid] = aList;
+          }
           i++;
         };
         view.count = i;
@@ -202,6 +205,7 @@ var DB = {
   },
 
   getItems: function(guid) {
+    console.log("LIST: "+guid);
     var store = DB.getObjectStore(DB_STORE_ITEMS, 'readonly');
     var req = store.index('list');
     req.get(guid).onsuccess = function(evt) {
@@ -233,22 +237,29 @@ var DB = {
             req = store.get(cursor.key);
             req.onsuccess = function (evt) {
               var aList = evt.target.result;
-            };
+              SL.Items.obj[aList.guid] = aList;
+              console.log("Item "+aList.list + " liste "+guid);
+             };
             // Move on to the next object in store
             cursor ? ++i && cursor.continue() : console.log(i);
+          } else {
+            SL.Lists.updateUI(guid);
+            console.log(i);
           }
-          var p = document.querySelector('li[data-listkey="'+guid+'"]').getElementsByTagName("p")[1];
-          p.setAttribute("data-l10n-id", "nb-items");
-          p.setAttribute("data-l10n-args", '{"n":'+i+'}');
-          p.innerHTML = _("nb-items", {"n":i});
+          var span = document.querySelector('li[data-listkey="'+guid+'"]');
+          span.getElementsByTagName("p")[1];
+          span.getElementsByTagName("span")[0];
+          span.setAttribute("data-l10n-id", "nb-items");
+          span.setAttribute("data-l10n-args", '{"n":'+i+'}');
+          span.innerHTML = _("nb-items", {"n":i}) + " - ";
         };
 
       }
     }
   },
 
-  getSetting: function() {
-    var store = DB.getObjectStore(DB_STORE_SETTINGS, 'readonly');
+  updateObj: function(aView) {
+    var store = DB.getObjectStore(SL[aView].store, 'readonly');
     var req = store.count();
     req = store.openCursor();
     req.onsuccess = function(evt) {
@@ -257,14 +268,20 @@ var DB = {
       if (cursor) {
         req = store.get(cursor.key);
         req.onsuccess = function (evt) {
-          var setting = evt.target.result;
-          SL.Settings.obj[setting.guid] = setting;
+          var result = evt.target.result;
+          SL[aView].obj[result.guid] = result;
         };
         // Move on to the next object in store
         cursor.continue();
       } else {
-        if(!SL.Settings.loaded)
-          SL.Settings.updateUI();
+        if (typeof SL[aView].loaded != "undefined") {
+          if(!SL[aView].loaded) {
+            SL[aView].updateUI();
+          }
+        }
+        if (!SL.Lists.loaded) {
+          DB.updateObj("Lists");
+        }
       }
     }
   },

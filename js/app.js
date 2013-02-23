@@ -87,22 +87,23 @@ var SL = {
     var newTitle = document.createElement('a');
     var p1 = document.createElement('p');
     var p2 = document.createElement('p');
+    var count = document.createElement('a');
+    var total = document.createElement('a');
     p1.innerHTML = aList.name;
 
     // Special cases
     switch (aView.name) {
-      case "Lists":
-        DB.getItems(aList.guid);
-      break;
       case "Items":
         var nb = aList.nb;
         if (nb > 1) {
-          p2.setAttribute("data-l10n-id", "item-quantity");
-          p2.setAttribute("data-l10n-args", {"quantity": nb});
-          p2.innerHTML = _("item-quantity", {"quantity": nb});
+          count.setAttribute("data-l10n-id", "item-quantity");
+          count.setAttribute("data-l10n-args", {"quantity": nb});
+          count.innerHTML = _("item-quantity", {"quantity": nb});
         }
       break;
     }
+    p2.appendChild(count);
+    p2.appendChild(total);
 
     newTitle.className = "liTitle";
     newTitle.addEventListener("click", function(e) {
@@ -139,10 +140,10 @@ SL.Settings = {
 
     DB.deleteFromDB(guid, this);
     DB.store(setting, this);
-    DB.getSetting();
+    DB.updateObj("Settings");
   },
 
-  // Function called after populating this.names in DB.getSetting()
+  // Function called after populating this.names in DB.updateObj()
   updateUI: function() {
     this.loaded = true;
     var pref = this.obj.language;
@@ -191,6 +192,8 @@ SL.Lists = {
   nextView: "Items",
   arrayList : {},
   store: DB_STORE_LISTS,
+  obj: {},
+  loaded: false,
   init: function() {
     SL.view = this.name;
     SL.show("lists");
@@ -228,6 +231,58 @@ SL.Lists = {
   display: function(aList) {
     SL.display(aList, this);
   },
+
+  // Update displayed list after all view.obj were populated
+  updateUI: function() {
+    this.loaded = true;
+
+    // For each list, count items and calculate total
+    for(var aList in SL.Lists.obj) {
+      var total = 0;
+      var i = 0;
+      for(var aItem in SL.Items.obj) {
+        if (SL.Items.obj[aItem].list == aList) {
+          console.log(SL.Items.obj[aItem]);
+          i++;
+          if (typeof SL.Items.obj[aItem].price != "undefined") {
+            total += SL.Items.obj[aItem].price
+          }
+        }
+      }
+      // Get nodes
+      var elm = this.elm.querySelector('li[data-listkey="'+aList+'"]');
+      elm = elm.getElementsByTagName("p")[1];
+      var elmCount = elm.getElementsByTagName("a")[0];
+      var elmTotal = elm.getElementsByTagName("a")[1];
+
+      // Set items count
+      elmCount.setAttribute("data-l10n-id", "nb-items");
+      elmCount.setAttribute("data-l10n-args", '{"n":'+i+'}');
+      elmCount.innerHTML = _("nb-items", {"n":i});
+
+      // Prepare settings
+      var position = "right";
+      if (typeof SL.Settings.obj.position != "undefined") {
+        position = SL.Settings.obj.position.value;
+      }
+      var currency = "$";
+      var currency = _("default-currency");
+      if (typeof SL.Settings.obj.currency != "undefined") {
+        currency = SL.Settings.obj.currency.value;
+      }
+
+      elmTotal.setAttribute("data-l10n-id", "total");
+      if (position == "right") {
+        elmTotal.setAttribute("data-l10n-args", "{'a':"+total+", 'b':"+currency+"}");
+        elmTotal.innerHTML = _("total", {"a":total, "b":currency});
+      } else {
+        elmTotal.setAttribute("data-l10n-args", "{'a':"+currency+", 'b':"+total+"}");
+        elmTotal.innerHTML = _("total", {"a":currency, "b":total});
+      }
+    }
+  },
+
+  // Cross out all item
   completeall: function() {
     var nodes = SL.Lists.elm.getElementsByClassName("list")[0].childNodes;
     for(var i=0; i<nodes.length; i++) {
@@ -332,6 +387,8 @@ SL.Items = {
   name: "Items",
   nextView: "ItemView",
   store: DB_STORE_ITEMS,
+  obj: {},
+  loaded: false,
   init: function(aList) {
     SL.Lists.close();
     SL.view = this.name;
@@ -392,6 +449,9 @@ SL.Items = {
   // Use SL.display function to populate the list
   display: function(aList) {
     SL.display(aList, this);
+  },
+  updateUI: function() {
+    this.loaded = true;
   }
 }
 
@@ -414,6 +474,11 @@ SL.ItemView = {
     if (typeof SL.Settings.obj["prices-enable"] !== "undefined") {
       if (SL.Settings.obj["prices-enable"].value) {
         SL.id("newPrice").removeAttribute("hidden");
+        if (typeof this.item.price != "undefined") {
+          SL.id("newItemPrice").value = this.item.price;
+        } else {
+          SL.id("newItemPrice").value = "";
+        }
       }
     } else {
       SL.id("newPrice").setAttribute("hidden", "");
@@ -427,6 +492,17 @@ SL.ItemView = {
     if (current > 0) {
       SL.id("newItemQty").value = current - 1;
     }
+  },
+
+  //Save current item into DB
+  save: function() {
+    var item = this.item;
+    item.name = SL.id("newItemName").value;
+    item.nb = eval(SL.id("newItemQty").value);
+    item.price = eval(SL.id("newItemPrice").value);
+    DB.deleteFromDB(item.guid, SL.Items);
+    DB.store(item, SL.Items);
+    this.refreshItem();
   },
   refreshItem: function() {
     var node = SL.Items.elm.querySelector('li[data-listkey="'+this.item.guid+'"]');
@@ -625,15 +701,7 @@ function addEventListeners() {
       //Switch views
       SL.hide("itemView");
       SL.show("items");
-
-      //Save datas
-      var item = SL.ItemView.item;
-      item.name = SL.id("newItemName").value;
-      item.nb = eval(SL.id("newItemQty").value);
-      item.price = eval(SL.id("newItemPrice").value);
-      DB.deleteFromDB(item.guid, SL.Items);
-      DB.store(item, SL.Items);
-      SL.ItemView.refreshItem();
+      SL.ItemView.save();
   });
 
   SL.id("alarm-delete").addEventListener("click",
@@ -843,7 +911,8 @@ function finishInit() {
   //init();
 
   // Put user’s values in settings
-  DB.getSetting();
+  DB.updateObj("Settings");
+  DB.updateObj("Items");
 }
 
 var db;
