@@ -239,6 +239,9 @@ SL.Lists = {
   // Update displayed list after all view.obj were populated
   updateUI: function() {
     this.loaded = true;
+    // FIXME: find something else, we can be in another view
+    SL.view = this.name;
+    SL.clear();
 
     // For each list, count items and calculate total
     for(var aList in this.obj) {
@@ -249,7 +252,6 @@ SL.Lists = {
       SL.display(this.obj[aList], this);
       for(var aItem in SL.Items.obj) {
         if (SL.Items.obj[aItem].list == aList) {
-          console.log(SL.Items.obj[aItem]);
           i++;
           if (typeof SL.Items.obj[aItem].price != "undefined") {
             total += SL.Items.obj[aItem].price
@@ -268,23 +270,31 @@ SL.Lists = {
       elmCount.innerHTML = _("nb-items", {"n":i});
 
       // Prepare settings
-      var position = "right";
-      if (typeof SL.Settings.obj.position != "undefined") {
-        position = SL.Settings.obj.position.value;
-      }
-      var currency = "$";
-      //var currency = _("default-currency");
-      if (typeof SL.Settings.obj.currency != "undefined") {
-        currency = SL.Settings.obj.currency.value;
+      var pricesEnabled = false;
+      if (typeof SL.Settings.obj["prices-enable"] != "undefined") {
+        pricesEnabled = SL.Settings.obj["prices-enable"].value;
       }
 
-      elmTotal.setAttribute("data-l10n-id", "total");
-      if (position == "right") {
-        elmTotal.setAttribute("data-l10n-args", "{'a':"+total+", 'b':"+currency+"}");
-        elmTotal.innerHTML = _("total", {"a":total, "b":currency});
-      } else {
-        elmTotal.setAttribute("data-l10n-args", "{'a':"+currency+", 'b':"+total+"}");
-        elmTotal.innerHTML = _("total", {"a":currency, "b":total});
+      // Continue only if we handle prices
+      if (pricesEnabled) {
+        var position = "right";
+        if (typeof SL.Settings.obj.position != "undefined") {
+          position = SL.Settings.obj.position.value;
+        }
+
+        var currency = _("default-currency");
+        if (typeof SL.Settings.obj.currency != "undefined") {
+          currency = SL.Settings.obj.currency.value;
+        }
+
+        elmTotal.setAttribute("data-l10n-id", "total");
+        if (position == "right") {
+          elmTotal.setAttribute("data-l10n-args", "{'a':"+total+", 'b':"+currency+"}");
+          elmTotal.innerHTML = _("total", {"a":total, "b":currency});
+        } else {
+          elmTotal.setAttribute("data-l10n-args", "{'a':"+currency+", 'b':"+total+"}");
+          elmTotal.innerHTML = _("total", {"a":currency, "b":total});
+        }
       }
     }
   },
@@ -891,6 +901,10 @@ function addEventListeners() {
       SL.id("currency").setAttribute("disabled", "");
       SL.id("taxes").setAttribute("disabled", "");
     }
+    // Update the obj before refreshing Lists view
+    SL.Settings.obj["prices-enable"].value = this.checked;
+    SL.Lists.updateUI();
+
     SL.Settings.save("prices-enable", this.checked);
   });
 
