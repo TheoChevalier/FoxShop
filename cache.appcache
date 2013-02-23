@@ -100,6 +100,8 @@ css/building_blocks/input_areas/images/ui/shadow-search.png
 css/building_blocks/input_areas/images/ui/shadow.png
 css/building_blocks/progress_activity/images/ui/activity.png
 css/building_blocks/progress_activity/images/ui/default.png
+css/building_blocks/status/images/ui/gradient.png
+css/building_blocks/status/images/ui/pattern.png
 css/building_blocks/switches/images/check/danger.png
 css/building_blocks/switches/images/check/default.png
 css/building_blocks/switches/images/radio/danger.png
