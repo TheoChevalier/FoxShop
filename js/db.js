@@ -55,8 +55,6 @@ var DB = {
     var store = this.getObjectStore(view.store, 'readwrite');
     var req;
     try {
-      aList.name.replace(r /(?:^|\s)\n(?!\S)/g , '' );
-      console.log(aList.name);
       req = store.add(aList);
     } catch (e) {
       throw e;

@@ -857,6 +857,7 @@ function addEventListeners() {
     var selected = this.options[this.selectedIndex];
     // Save setting
     SL.Settings.save("language", selected.value);
+    SL.id("language").setAttribute("data-l10n-id", selected.value);
 
     // Change language
     document.webL10n.setLanguage(selected.value);
@@ -933,9 +934,6 @@ window.addEventListener("load", function() {
 });
 window.addEventListener("localized", function() {
   SL.hide("loader");
-  if (typeof SL.Settings.obj.language != "undefined") {
-    SL.id("language").innerHTML = _(SL.Settings.obj.language.value);
-  }
 });
 
 // Manage App Cache updates
