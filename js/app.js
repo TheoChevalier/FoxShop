@@ -312,9 +312,16 @@ SL.editMode = {
     }
     if (aView.guid != null) {
       this.guid = aView.guid;
-      DB.displayItems(this);
+      // Display each item
+      for (aGuid in SL.Items.obj) {
+        if (SL.Items.obj[aGuid].list == this.guid) {
+          this.display(SL.Items.obj[aGuid]);
+        }
+      }
     } else {
-      DB.displayList(null, this);
+      for (aGuid in SL.Lists.obj) {
+        this.display(SL.Lists.obj[aGuid]);
+      }
     }
   },
   display: function(aList) {
@@ -345,7 +352,7 @@ SL.editMode = {
       } else {
         checkbox.setAttribute("checked", "true");
       }
-    })
+    });
 
     newLi.appendChild(newToggle);
     newLi.appendChild(newTitle);
@@ -926,7 +933,9 @@ window.addEventListener("load", function() {
 });
 window.addEventListener("localized", function() {
   SL.hide("loader");
-  SL.id("language").innerHTML = document.webL10n.get(SL.Settings.obj["language"].value);
+  if (typeof SL.Settings.obj.language != "undefined") {
+    SL.id("language").innerHTML = _(SL.Settings.obj.language.value);
+  }
 });
 
 // Manage App Cache updates

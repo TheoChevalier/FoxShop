@@ -2,7 +2,7 @@
 
 var DB = {
   openDb: function() {
-    var req = indexedDB.open(DB_NAME, DB_VERSION);
+    var req = window.indexedDB.open(DB_NAME, DB_VERSION);
     req.onsuccess = function (evt) {
       // Better use "this" than "req" to get the result to avoid problems with
       // garbage collection.
@@ -11,12 +11,12 @@ var DB = {
       finishInit();
     };
     req.onerror = function (evt) {
-      console.error("openDb:", evt.target.errorCode);
+      console.error("openDb:", this.errorCode);
       // FIXME: Show a message stating that the app couldn't start
     };
 
     req.onupgradeneeded = function (evt) {
-      var store = evt.currentTarget.result.createObjectStore(
+      var store = this.result.createObjectStore(
         DB_STORE_LISTS, { keyPath: 'id', autoIncrement: true });
 
       store.createIndex('guid', 'guid', { unique: true });
@@ -26,7 +26,7 @@ var DB = {
       store.createIndex('position', 'position', { unique: false });
 
       // Store items
-      var storeItems = evt.currentTarget.result.createObjectStore(
+      var storeItems = this.result.createObjectStore(
         DB_STORE_ITEMS, { keyPath: 'id', autoIncrement: true });
 
       storeItems.createIndex('guid', 'guid', { unique: true });
@@ -38,7 +38,7 @@ var DB = {
       storeItems.createIndex('nb', 'nb', { unique: false });
 
       // Store items
-      var storeSettings = evt.currentTarget.result.createObjectStore(
+      var storeSettings = this.result.createObjectStore(
         DB_STORE_SETTINGS, { keyPath: 'id', autoIncrement: true });
 
       storeSettings.createIndex('guid', 'guid', { unique: true });
@@ -55,6 +55,8 @@ var DB = {
     var store = this.getObjectStore(view.store, 'readwrite');
     var req;
     try {
+      aList.name.replace(r /(?:^|\s)\n(?!\S)/g , '' );
+      console.log(aList.name);
       req = store.add(aList);
     } catch (e) {
       throw e;
@@ -92,12 +94,12 @@ var DB = {
     var i = 0;
     req = store.openCursor();
     req.onsuccess = function(evt) {
-      var cursor = evt.target.result;
+      var cursor = this.result;
       // If the cursor is pointing at something, ask for the data
       if (cursor) {
         req = store.get(cursor.key);
         req.onsuccess = function (evt) {
-          var aList = evt.target.result;
+          var aList = this.result;
           view.display(aList);
           if (typeof SL[view.name].obj != "undefined") {
             SL[view.name].obj[aList.guid] = aList;
@@ -122,14 +124,16 @@ var DB = {
     var store = DB.getObjectStore(view.store, 'readwrite');
     var req = store.index('guid');
     req.get(guid).onsuccess = function(evt) {
-      if (typeof evt.target.result == 'undefined') {
+      if (typeof this.result == 'undefined') {
         displayActionFailure("No matching record found");
         return;
       }
-      DB.deleteList(evt.target.result.id, store, view);
+      DB.deleteList(this.result.id, store, view);
+      // Delete from obj
+      delete SL[view.name].obj[guid];
     };
     req.onerror = function (evt) {
-      console.error("deletePublicationFromBib:", evt.target.errorCode);
+      console.error("deletePublicationFromBib:", this.errorCode);
     };
   },
 
@@ -148,7 +152,7 @@ var DB = {
     // deleted by looking at the request result.
     var req = store.get(key);
     req.onsuccess = function(evt) {
-      var record = evt.target.result;
+      var record = this.result;
       if (typeof record == 'undefined') {
         displayActionFailure("No matching record found");
         return;
@@ -161,11 +165,11 @@ var DB = {
         displayActionSuccess("Item succesfully deleted");
       };
       req.onerror = function (evt) {
-        console.error("deletePublication:", evt.target.errorCode);
+        console.error("deletePublication:", this.errorCode);
       };
     };
     req.onerror = function (evt) {
-      console.error("deletePublication:", evt.target.errorCode);
+      console.error("deletePublication:", this.errorCode);
       };
   },
 
@@ -179,15 +183,15 @@ var DB = {
     var store = DB.getObjectStore(aList.store, 'readonly');
     var req = store.index('list');
     req.get(aList.guid).onsuccess = function(evt) {
-      if (typeof evt.target.result == 'undefined') {
+      if (typeof this.result == 'undefined') {
         displayActionFailure("No matching record found");
         return;
       }
-      var key = evt.target.result.id;  
+      var key = this.result.id;  
       var req = store.get(key);
 
       req.onsuccess = function(evt) {
-        var record = evt.target.result;
+        var record = this.result;
         if (typeof record == 'undefined') {
           displayActionFailure("No matching record found");
           return;
@@ -196,12 +200,12 @@ var DB = {
           DB.displayList(store, aList);
         };
       req.onerror = function (evt) {
-        console.error("deletePublication:", evt.target.errorCode);
+        console.error("deletePublication:", this.errorCode);
       };
 
     };
     req.onerror = function (evt) {
-      console.error("deletePublicationFromBib:", evt.target.errorCode);
+      console.error("deletePublicationFromBib:", this.errorCode);
     };
   },
 
@@ -210,15 +214,15 @@ var DB = {
     var store = DB.getObjectStore(DB_STORE_ITEMS, 'readonly');
     var req = store.index('list');
     req.get(guid).onsuccess = function(evt) {
-      if (typeof evt.target.result == 'undefined') {
+      if (typeof this.result == 'undefined') {
         displayActionFailure("No matching record found");
         return;
       }
-      var key = evt.target.result.id;  
+      var key = this.result.id;  
       var req = store.get(key);
 
       req.onsuccess = function(evt) {
-        var record = evt.target.result;
+        var record = this.result;
         if (typeof record == 'undefined') {
           displayActionFailure("No matching record found");
           return;
@@ -232,12 +236,12 @@ var DB = {
         var i = 0;
         req = store.openCursor();
         req.onsuccess = function(evt) {
-          var cursor = evt.target.result;
+          var cursor = this.result;
           // If the cursor is pointing at something, ask for the data
           if (cursor) {
             req = store.get(cursor.key);
             req.onsuccess = function (evt) {
-              var aList = evt.target.result;
+              var aList = this.result;
               SL.Items.obj[aList.guid] = aList;
               console.log("Item "+aList.list + " liste "+guid);
              };
@@ -264,12 +268,12 @@ var DB = {
     var req = store.count();
     req = store.openCursor();
     req.onsuccess = function(evt) {
-      var cursor = evt.target.result;
+      var cursor = this.result;
       // If the cursor is pointing at something, ask for the data
       if (cursor) {
         req = store.get(cursor.key);
         req.onsuccess = function (evt) {
-          var result = evt.target.result;
+          var result = this.result;
           SL[aView].obj[result.guid] = result;
         };
         // Move on to the next object in store
