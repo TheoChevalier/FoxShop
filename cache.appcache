@@ -11,6 +11,7 @@ favicon.ico
 # JS
 js/app.js
 js/db.js
+js/IndexedDBShim.min.js
 
 # L10N
 webL10n/l10n.js
@@ -21,6 +22,7 @@ locales/en-US.properties
 # Custom CSS
 css/app.css
 css/lists.css
+css/alarm.css
 
 # CSS Building Blocks
 css/building_blocks/headers.css
@@ -33,13 +35,14 @@ css/building_blocks/input_areas.css
 css/building_blocks/action_menu.css
 css/building_blocks/confirm.css
 css/building_blocks/progress_activity.css
+css/building_blocks/status.css
 
 img/delete.png
 img/icons/complete.png
 img/icons/edit.png
 img/icons/ellipsis.png
 img/icons/go.png
-img/icons/install.png
+img/icons/gear.png
 
 css/building_blocks/action_menu/images/ui/alpha.png
 css/building_blocks/action_menu/images/ui/pattern.png
