@@ -66,11 +66,12 @@ var SL = {
 
     mySpan.addEventListener("click", function(e) {
 
-      if (!aView.obj[aList.guid].done) {
+      if (!aList.done) {
         newLi.className += " done";
       } else {
         newLi.className = newLi.className.replace ( /(?:^|\s)done(?!\S)/g , '' );
       }
+      aList.done = !aList.done;
 
       // Delete the item, add the updated one
       DB.deleteFromDB(aList.guid, aView);

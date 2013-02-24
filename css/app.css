@@ -67,6 +67,7 @@ html, body {
   min-height: 100%;
   display: none;
 }
+
 #status {display: none;z-index: 6;}
 
 #lists {
@@ -111,8 +112,7 @@ html, body {
 .listElmTitle {display: inline-block;position: relative;}
 
 .done {
-  color: #777777;
-  text-decoration: line-through;
+  opacity: 0.5;
 }
 
 #itemQty {width: 20% ;padding-right: 0;}
@@ -318,4 +318,3 @@ section[role="region"] > ul > li > p + .fake-select {
   padding-top: 1.1rem!important;
   margin-top: -0.8rem!important;
 }
-
