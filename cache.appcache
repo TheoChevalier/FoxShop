@@ -1,11 +1,10 @@
 ﻿CACHE MANIFEST
-# 2013-02-17:v44
+# 2013-02-24:v1
 
 CACHE:
 
 # Main files
 index.html
-manifest.webapp
 favicon.ico
 
 # JS
