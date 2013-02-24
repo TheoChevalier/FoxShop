@@ -116,6 +116,24 @@ var SL = {
     newLi.appendChild(newTitle);
 
     aView.elm.getElementsByClassName("list")[0].appendChild(newLi);
+  },
+
+  // Cross out all item
+  completeall: function() {
+    // Update UI
+    var nodes = SL[this.view].elm.getElementsByClassName("list")[0].childNodes;
+    for(var i=0; i<nodes.length; i++) {
+        nodes[i].getElementsByTagName('input')[0].setAttribute("checked", true);
+        nodes[i].className.replace ( /(?:^|\s)done(?!\S)/g , '' );
+        nodes[i].className += " done";
+    }
+    // Update obj & DB
+    for (aGuid in SL[this.view].obj) {
+      var aItem = SL[this.view].obj[aGuid];
+      aItem.done = true;
+      DB.deleteFromDB(aItem.guid, SL[this.view]);
+      DB.store(aItem, SL[this.view]);
+    }
   }
 };
 
@@ -296,16 +314,6 @@ SL.Lists = {
           elmTotal.innerHTML = _("total", {"a":currency, "b":total});
         }
       }
-    }
-  },
-
-  // Cross out all item
-  completeall: function() {
-    var nodes = SL.Lists.elm.getElementsByClassName("list")[0].childNodes;
-    for(var i=0; i<nodes.length; i++) {
-        nodes[i].getElementsByTagName('input')[0].setAttribute("checked", true);
-        nodes[i].className.replace ( /(?:^|\s)done(?!\S)/g , '' );
-        nodes[i].className += " done";
     }
   }
 };
@@ -609,8 +617,9 @@ function addEventListeners() {
       SL.id("listName").innerHTML = "";
   });
 
-  SL.id("completeall").addEventListener("click",  function() {
-    SL.Lists.completeall()
+  // Button to cross out all the lists
+  SL.Lists.elm.getElementsByClassName("icon-complete")[0].addEventListener("click",  function() {
+    SL.completeall();
   });
    
   // Init event for edit view
@@ -676,6 +685,11 @@ function addEventListeners() {
   function() {
       SL.id("itemName").innerHTML = "";
       SL.id("itemQty").innerHTML = "1";
+  });
+
+  // Button to cross out all the items
+  SL.Items.elm.getElementsByClassName("icon-complete")[0].addEventListener("click",  function() {
+    SL.completeall();
   });
 
   // Display buttons
