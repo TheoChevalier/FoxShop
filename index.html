@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html manifest="cache.appcache">
+<!--<html manifest="cache.appcache">-->
+<html>
 <head>
   <meta charset="utf-8">
   <title>Shopping List</title>
@@ -41,7 +42,7 @@
     <section role="region" id="lists">
       <header>
         <menu type="toolbar">
-          <button id="install" data-l10n-id="install">Install</button>
+          <button id="install" style="display:none;" data-l10n-id="install">Install</button>
         </menu>
         <h1 id="title" data-l10n-id="app-name">Shopping List</h1>
       </header>
@@ -314,7 +315,7 @@
 
     <section role="status" id="status"></section>
   </div>
-  <script type="text/javascript" src="js/IndexedDBShim.min.js"></script> 
+  <!--<script type="text/javascript" src="js/IndexedDBShim.min.js"></script>-->
   <script type="text/javascript" src="js/db.js"></script>
   <script type="text/javascript" src="js/app.js"></script>
   </body>

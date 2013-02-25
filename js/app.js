@@ -164,15 +164,22 @@ SL.Settings = {
   // Function called after populating this.names in DB.updateObj()
   updateUI: function() {
     this.loaded = true;
+
+    // Lang pref
     var pref = this.obj.language;
+    var lang = document.webL10n.getLanguage();
     if (typeof pref !== "undefined") {
-      var select = document.querySelector('select[name="language"]');
-      select.options[select.selectedIndex].setAttribute("selected","");
-      if (pref.value !== document.webL10n.getLanguage) {
+      if (pref.value !== lang) {
         document.webL10n.setLanguage(pref.value);
       }
     }
+    lang = document.webL10n.getLanguage();
+    SL.id("language").innerHTML = _(lang);
+    var select = document.querySelector('select[name="language"]');
+    select = select.querySelector('option[value="'+lang+'"]');
+    select.setAttribute("selected","");
 
+    // Prices bool
     if (typeof this.obj["prices-enable"] !== "undefined") {
       if (this.obj["prices-enable"].value) {
         SL.id("prices-enable").setAttribute("checked", "");
@@ -181,12 +188,14 @@ SL.Settings = {
       }
     }
 
+    // Currency
     if (typeof this.obj.userCurrency !== "undefined") {
       if (this.obj.userCurrency.value) {
         SL.id("userCurrency").value = this.obj.userCurrency.value;
       }
     }
 
+    // Currency’s position
     if (typeof this.obj.currencyPosition !== "undefined") {
       if(this.obj.currencyPosition.value == "left") {
         SL.id("positionLeft").setAttribute("checked", "");
@@ -217,6 +226,16 @@ SL.Lists = {
   init: function() {
     SL.view = this.name;
     SL.show("lists");
+
+    //Check install button
+    if (typeof navigator.mozApps != "undefined") {
+      var request = navigator.mozApps.getSelf();
+      request.onsuccess = function() {
+        if (!request.result) {
+          SL.id("install").style.display = "block";
+        }
+      }
+    }
   },
   close: function() {
     SL.view = "";
@@ -951,12 +970,11 @@ function finishInit() {
 }
 
 var db;
-window.addEventListener("load", function() {
-  DB.openDb();
-  addEventListeners();
-});
+
 window.addEventListener("localized", function() {
   SL.hide("loader");
+  DB.openDb();
+  addEventListeners();
 });
 
 // Manage App Cache updates
