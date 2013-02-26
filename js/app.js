@@ -692,7 +692,9 @@ function addEventListeners() {
    * Items
    ****************************************************************************/
   // Add item when the user click the button…
-  SL.id("add-item").addEventListener("click", SL.Items.new());
+  SL.id("add-item").addEventListener("click", function() {
+    SL.Items.new();
+  });
   // …or if he hit enter key
   SL.id("itemName").onkeyup = function (e) {
     if (e.keyCode == 13) {
