@@ -832,13 +832,21 @@ function addEventListeners() {
       request.onreadystatechange = function() {
         if (request.readyState == 4) {
           console.log(request.responseText);
+          SL.id("email").value = "";
           SL.hide("sendEmail");
           SL.show("items");
         }
       };
       request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       var email = SL.id("email").value;
-      var data = "email=" + email + "&data=" + encodeURIComponent(SL.Items.list);
+
+      // Adding items of the opened list to SL.Items.list
+      for(aGuid in SL.Items.obj) {
+        if (SL.Items.obj[aGuid].list == SL.Items.list.guid) {
+          SL.Items.list.items[aGuid] = SL.Items.obj[aGuid];
+        }
+      }
+      var data = "email=" + email + "&data=" + JSON.stringify(SL.Items.list);
       request.send(data);
     }
   }
