@@ -1,5 +1,6 @@
 <?php
 header('Content-type: text/html; charset=utf-8');
+header("Access-Control-Allow-Origin: *");
 $tab = json_decode($_POST["data"], true);
 $items = json_decode($tab["items"], true);
 print_r($tab);

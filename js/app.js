@@ -826,18 +826,13 @@ function addEventListeners() {
     if (SL.id("email").value != "") {
       SL.hide("enterEmail");
       SL.show("sendEmail");
-      createXHR();
-      var url = "http://theochevalier.fr/app/php/email.php";
-      request.open('POST', url, true);
-      request.onreadystatechange = function() {
-        if (request.readyState == 4) {
-          console.log(request.responseText);
-          SL.id("email").value = "";
-          SL.hide("sendEmail");
-          SL.show("items");
-        }
-      };
-      request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      var xdr = getXDR();
+      xdr.onload = function() {
+        console.log(xdr.responseText);
+        SL.id("email").value = "";
+        SL.hide("sendEmail");
+        SL.show("items");
+      }
       var email = SL.id("email").value;
 
       // Adding items of the opened list to SL.Items.list
@@ -847,27 +842,23 @@ function addEventListeners() {
         }
       }
       var data = "email=" + email + "&data=" + JSON.stringify(SL.Items.list);
-      request.send(data);
+      xdr.open("POST", "http://theochevalier.fr/app/php/email.php");
+      xdr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xdr.send(data);
     }
   }
 
-  function createXHR() {
-    try {
-      request = new XMLHttpRequest();
-    } catch (microsoft) {
-      try {
-        request = new ActiveXObject('Msxml2.XMLHTTP');
-      } catch(autremicrosoft) {
-        try {
-          request = new ActiveXObject('Microsoft.XMLHTTP');
-        } catch(echec) {
-          request = null;
-        }
-      }
+  function getXDR() {
+    var xdr = null;
+
+    if (window.XDomainRequest) {
+      xdr = new XDomainRequest();
+    } else if (window.XMLHttpRequest) {
+      xdr = new XMLHttpRequest();
+    } else {
+      console.error("Can't create cross-domain AJAX");
     }
-    if(request == null) {
-    console.error("Can't create XHR");
-    }
+    return xdr;
   }
 
 
