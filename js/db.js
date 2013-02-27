@@ -86,7 +86,6 @@ var DB = {
     };
     req.onerror = function(evt) {
       console.error("add error", this.error);
-      displayStatus(this.error);
     };
 
     var i = 0;
@@ -123,7 +122,7 @@ var DB = {
     var req = store.index('guid');
     req.get(guid).onsuccess = function(evt) {
       if (typeof this.result == 'undefined') {
-        displayStatus("No matching record found");
+        console.error("No matching record found");
         return;
       }
       DB.deleteList(this.result.id, store, view);
@@ -152,7 +151,7 @@ var DB = {
     req.onsuccess = function(evt) {
       var record = this.result;
       if (typeof record == 'undefined') {
-        displayStatus("No matching record found");
+        console.error("No matching record found");
         return;
       }
       // Warning: The exact same key used for creation needs to be passed for
@@ -160,7 +159,7 @@ var DB = {
       // be a Number for deletion.
       req = store.delete(key);
       req.onsuccess = function(evt) {
-        displayStatus("Item succesfully deleted");
+        console.log("Item succesfully deleted");
       };
       req.onerror = function (evt) {
         console.error("deletePublication:", this.errorCode);

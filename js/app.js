@@ -937,6 +937,9 @@ function addEventListeners() {
       SL.id("taxes").setAttribute("disabled", "");
     }
     // Update the obj before refreshing Lists view
+    if (typeof SL.Settings.obj["prices-enable"] == "undefined") {
+      SL.Settings.obj["prices-enable"] = {value:""};
+    }
     SL.Settings.obj["prices-enable"].value = this.checked;
     SL.Lists.updateUI();
 
@@ -974,8 +977,10 @@ var db;
 
 window.addEventListener("localized", function() {
   SL.hide("loader");
-  DB.openDb();
-  addEventListeners();
+  if(typeof db == "undefined") {
+    DB.openDb();
+    addEventListeners();
+  }
 });
 
 // Manage App Cache updates
