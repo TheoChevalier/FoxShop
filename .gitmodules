@@ -1,3 +1,6 @@
 [submodule "webL10n"]
 	path = webL10n
 	url = git://github.com/fabi1cazenave/webL10n.git
+[submodule "lazyload"]
+	path = lazyload
+	url = git@github.com:rgrove/lazyload.git
