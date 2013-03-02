@@ -114,7 +114,7 @@ var SL = {
 
     newTitle.className = "liTitle";
     newTitle.addEventListener("click", function(e) {
-      SL[aView.nextView].init(SL[aView.name].obj[aList.guid]);
+      SL[aView.nextView].init(SL[aView.name].obj[newLi.dataset.listkey]);
     });
     newTitle.appendChild(p1);
     newTitle.appendChild(p2);
