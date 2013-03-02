@@ -192,20 +192,16 @@
 
 
     <form id="moreLists" role="dialog" data-type="action" onsubmit="return false;">
-      <header>Settings</header>
+      <header data-l10n-id="more-actions">More actions</header>
       <menu>
-        <button> Action 1 </button>
-        <button> Action 2 </button>
         <button data-l10n-id="delete-completed-lists"> Delete completed lists</button>
         <button class="cancel" data-l10n-id="cancel"> Cancel </button>
       </menu>
     </form>
 
     <form id="moreItems" role="dialog" data-type="action" onsubmit="return false;">
-      <header>Settings</header>
+      <header data-l10n-id="more-actions">More actions</header>
       <menu>
-        <button> Action 1 </button>
-        <button> Action 2 </button>
         <button data-l10n-id="delete-completed-items">Delete completed items</button>
         <button class="cancel" data-l10n-id="cancel"> Cancel </button>
       </menu>
@@ -244,9 +240,6 @@
         </li>
         <li>
           <button id="currency" disabled="" data-l10n-id="choose-currency">Choose your currency</button>
-        </li>
-        <li>
-          <button id="taxes" disabled="" data-l10n-id="taxes">Taxes</button>
         </li>
         <li>
           <button id="about" data-l10n-id="about">About</button>
@@ -310,8 +303,19 @@
 
     <section role="status" id="status"></section>
   </div>
-  <!--<script type="text/javascript" src="js/IndexedDBShim.min.js"></script>-->
-  <script type="text/javascript" src="js/db.js"></script>
-  <script type="text/javascript" src="js/app.js"></script>
+  <script src="lazyload/lazyload-min.js"></script>
+  <script type="text/JavaScript">
+    LazyLoad.js([
+      'js/db.js',
+      'js/sl.js',
+      'js/sl.settings.js',
+      'js/sl.lists.js',
+      'js/sl.editmode.js',
+      'js/sl.items.js',
+      'js/sl.itemview.js',
+      'js/sl.enteremail.js',
+      'js/events.js',
+      'js/app.js']);
+  </script>
   </body>
 </html>

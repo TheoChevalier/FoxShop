@@ -1,5 +1,3 @@
-
-
 var DB = {
   openDb: function() {
     var req = window.indexedDB.open(DB_NAME, DB_VERSION);
