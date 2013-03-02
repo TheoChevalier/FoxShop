@@ -50,7 +50,9 @@ function addEventListeners() {
   });
 
   SL.id('install').addEventListener('click', function(e){
-    navigator.mozApps.install("http://theochevalier.fr/app/manifest.webapp");
+    navigator.mozApps.install(MANIFEST).onsuccess = function () {
+      SL.id("install").style.display = "none";
+    };
   });
 
   // MoreItems

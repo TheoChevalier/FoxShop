@@ -9,6 +9,13 @@
   // Alias to get localized strings
   var _ = document.webL10n.get;
 
+  // Define manifest URL
+  if (location.host === "localhost") {
+    var MANIFEST = "http://localhost/ShoppingList/manifest.webapp";
+  } else {
+    var MANIFEST = location.protocol + "//" + location.host + "/manifest.webapp";
+  }
+
 var SL = {
   hide: function(target) {
     target = SL.id(target).style;
