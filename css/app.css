@@ -125,13 +125,25 @@ html, body {
 #newItemQty {
   width:  8rem!important;
   clear: none!important;
+  display: inline-block!important;
 }
 
 #plusOne, #lessOne {
-  position: relative!important;
+  position: static!important;
   display: inline-block!important;
-  margin: 0!important;
+  margin-top: 0!important;
+  margin-bottom: -1rem!important;
   padding: 0!important;
+  height: 29px!important;
+  width: 29px!important;
+}
+
+#plusOne {
+  background-image: url('../img/icons/plus.png');
+}
+
+#lessOne {
+  background-image: url('../img/icons/less.png');
 }
 
 #resetItems {
