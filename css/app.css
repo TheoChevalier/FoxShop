@@ -122,6 +122,18 @@ html, body {
   display: inline-block;
 }
 
+#newItemQty {
+  width:  8rem!important;
+  clear: none!important;
+}
+
+#plusOne, #lessOne {
+  position: relative!important;
+  display: inline-block!important;
+  margin: 0!important;
+  padding: 0!important;
+}
+
 #resetItems {
   right: calc(20% + 20px);
 }
