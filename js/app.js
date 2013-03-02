@@ -1,4 +1,968 @@
+//  'use strict';
+        // DB init
+  var DB_NAME = 'ShoppingList';
+  var DB_VERSION = 3; // Use a long long for this value (don't use a float)
+  var DB_STORE_LISTS = 'lists2';
+  var DB_STORE_ITEMS = 'items1';
+  var DB_STORE_SETTINGS = 'settings1';
 
+  // Alias to get localized strings
+  var _ = document.webL10n.get;
+
+var SL = {
+  hide: function(target) {
+    target = SL.id(target).style;
+    target.display = "none";
+  },
+  show: function(target) {
+    target = SL.id(target).style;
+    target.display = "block";
+  },
+  removeElement: function(node) {
+    if(node !== null) {
+      node.parentNode.removeChild(node);
+    }
+  },
+  clear: function() {
+    var node = SL[this.view].elm.getElementsByClassName("list")[0];
+    while (node.hasChildNodes()) {
+      node.removeChild(node.lastChild);
+    }
+  },
+  id: function(target) {
+    return document.getElementById(target);
+  },
+
+  //Unused for now
+  class: function(target, n) {
+    if (typeof n === "undefined") {
+      n = 0;
+    }
+
+    return document.getElementByClassName(target)[n];
+  },
+  getCheckedRadioId: function(name) {
+    var elements = document.getElementsByName(name);
+
+    for (var i=0, len=elements.length; i<len; ++i)
+        if (elements[i].checked) return elements[i].value;
+  },
+  display: function(aList, aView) {
+    var newLi = document.createElement('li');
+    newLi.dataset.listkey = aList.guid;
+
+    // Part 1 toggle
+    var newToggle = document.createElement('label');
+    var mySpan = document.createElement('span');
+    var checkbox = document.createElement('input');
+    checkbox.setAttribute('type', 'checkbox');
+    if (aList.done) {
+      newLi.className += " done";
+      checkbox.setAttribute('checked', true);
+    }
+
+    newToggle.appendChild(checkbox);
+    newToggle.appendChild(mySpan);
+
+    mySpan.addEventListener("click", function(e) {
+
+      if (!aList.done) {
+        newLi.className += " done";
+      } else {
+        newLi.className = newLi.className.replace ( /(?:^|\s)done(?!\S)/g , '' );
+      }
+      aList.done = !aList.done;
+
+      // Delete the item, add the updated one
+      DB.deleteFromDB(aList.guid, aView);
+      DB.store(aList, aView);
+    });
+
+
+    // Part 2 pack-end
+    var packEnd  = document.createElement('aside');
+    packEnd.className = "pack-end";
+
+    // part 3 title
+    var newTitle = document.createElement('a');
+    var p1 = document.createElement('p');
+    var p2 = document.createElement('p');
+    var count = document.createElement('a');
+    var total = document.createElement('a');
+    p1.innerHTML = aList.name;
+
+    // Special cases
+    switch (aView.name) {
+      case "Items":
+        var nb = aList.nb;
+        if (nb > 1) {
+          count.setAttribute("data-l10n-id", "item-quantity");
+          count.setAttribute("data-l10n-args", {"quantity": nb});
+          count.innerHTML = _("item-quantity", {"quantity": nb});
+        }
+      break;
+    }
+    p2.appendChild(count);
+    p2.appendChild(total);
+
+    newTitle.className = "liTitle";
+    newTitle.addEventListener("click", function(e) {
+      SL[aView.nextView].init(SL[aView.name].obj[aList.guid]);
+    });
+    newTitle.appendChild(p1);
+    newTitle.appendChild(p2);
+
+    newLi.appendChild(newToggle);
+    newLi.appendChild(packEnd);
+    newLi.appendChild(newTitle);
+
+    aView.elm.getElementsByClassName("list")[0].appendChild(newLi);
+  },
+
+  // Cross out all item
+  completeall: function() {
+    // Update UI
+    var nodes = SL[this.view].elm.getElementsByClassName("list")[0].childNodes;
+    for(var i=0; i<nodes.length; i++) {
+        nodes[i].getElementsByTagName('input')[0].setAttribute("checked", true);
+        nodes[i].className.replace ( /(?:^|\s)done(?!\S)/g , '' );
+        nodes[i].className += " done";
+    }
+    // Update obj & DB
+    for (aGuid in SL[this.view].obj) {
+      var aItem = SL[this.view].obj[aGuid];
+      aItem.done = true;
+      DB.deleteFromDB(aItem.guid, SL[this.view]);
+      DB.store(aItem, SL[this.view]);
+    }
+  }
+};
+
+
+/*******************************************************************************
+ * Settings
+ ******************************************************************************/
+SL.Settings = {
+  elm: SL.id("settingsPanel"),
+  name: "Settings",
+  store: DB_STORE_SETTINGS,
+  loaded: false,
+  obj: {},
+
+  // Save (or update) a setting, then updateUI
+  save: function(guid, value) {
+    var setting = {
+      guid:  guid,
+      value: value
+    };
+
+    DB.deleteFromDB(guid, this);
+    DB.store(setting, this);
+    DB.updateObj("Settings");
+  },
+
+  // Function called after populating this.names in DB.updateObj()
+  updateUI: function() {
+    this.loaded = true;
+
+    // Lang pref
+    var pref = this.obj.language;
+    var lang = document.webL10n.getLanguage();
+    if (typeof pref !== "undefined") {
+      if (pref.value !== lang) {
+        document.webL10n.setLanguage(pref.value);
+      }
+    }
+    lang = document.webL10n.getLanguage();
+    SL.id("language").innerHTML = _(lang);
+    var select = document.querySelector('select[name="language"]');
+    select = select.querySelector('option[value="'+lang+'"]');
+    select.setAttribute("selected","");
+
+    // Prices bool
+    if (typeof this.obj["prices-enable"] !== "undefined") {
+      if (this.obj["prices-enable"].value) {
+        SL.id("prices-enable").setAttribute("checked", "");
+        SL.id("currency").removeAttribute("disabled");
+        SL.id("taxes").removeAttribute("disabled");
+      }
+    }
+
+    // Currency
+    if (typeof this.obj.userCurrency !== "undefined") {
+      if (this.obj.userCurrency.value) {
+        SL.id("userCurrency").value = this.obj.userCurrency.value;
+      }
+    }
+
+    // Currency’s position
+    if (typeof this.obj.currencyPosition !== "undefined") {
+      if(this.obj.currencyPosition.value == "left") {
+        SL.id("positionLeft").setAttribute("checked", "");
+      } else {
+        SL.id("positionRight").setAttribute("checked", "");
+      }
+    } else {
+      SL.id("positionRight").setAttribute("checked", "");
+    }
+  },
+  close: function() {
+    SL.hide("settingsPanel");
+  }
+};
+
+
+/*******************************************************************************
+ * Lists
+ ******************************************************************************/
+SL.Lists = {
+  elm : SL.id("lists"),
+  name: "Lists",
+  nextView: "Items",
+  arrayList : {},
+  store: DB_STORE_LISTS,
+  obj: {},
+  loaded: false,
+  init: function() {
+    SL.view = this.name;
+    SL.show("lists");
+
+    //Check install button
+    if (typeof navigator.mozApps != "undefined") {
+      var request = navigator.mozApps.getSelf();
+      request.onsuccess = function() {
+        if (!request.result) {
+          SL.id("install").style.display = "block";
+        }
+      }
+    }
+  },
+  close: function() {
+    SL.view = "";
+    SL.hide("lists");
+  },
+  add: function(aList) {
+    DB.store(aList, this);
+    SL.display(aList, this);
+  },
+  new: function() {
+    var name = SL.id('listName').value;
+    SL.id('listName').value = "";
+    var date = new Date();
+
+    // Remove line-endings
+    name = name.replace(/(\r\n|\n|\r)/gm,"");
+    if (!name || name === undefined) {
+      displayStatus("msg-name");
+      return;
+    }
+    SL.Lists.add({ guid: guid(),
+                   name: name,
+                   date: date.getTime(),
+                   items:{}
+    });
+  },
+  edit: function (aList, elm) {
+    aList.done = elm.getElementsByTagName("input")[0].checked;
+    aList.name = elm.getElementsByTagName("a")[0].innerHTML;
+
+    // Delete the list, add the updated one
+    DB.deleteFromDB(aList.guid, this);
+    DB.store(aList, this);
+  },
+  display: function(aList) {
+    SL.display(aList, this);
+  },
+
+  // Update displayed list after all view.obj were populated
+  updateUI: function() {
+    this.loaded = true;
+    // FIXME: find something else, we can be in another view
+    SL.view = this.name;
+    SL.clear();
+
+    // For each list, count items and calculate total
+    for(var aList in this.obj) {
+      var total = 0;
+      var i = 0;
+
+      // Display it
+      SL.display(this.obj[aList], this);
+      for(var aItem in SL.Items.obj) {
+        if (SL.Items.obj[aItem].list == aList) {
+          i++;
+          if (typeof SL.Items.obj[aItem].price != "undefined") {
+            total += SL.Items.obj[aItem].price
+          }
+        }
+      }
+      // Get nodes
+      var elm = this.elm.querySelector('li[data-listkey="'+aList+'"]');
+      elm = elm.getElementsByTagName("p")[1];
+      var elmCount = elm.getElementsByTagName("a")[0];
+      var elmTotal = elm.getElementsByTagName("a")[1];
+
+      // Set items count
+      elmCount.setAttribute("data-l10n-id", "nb-items");
+      elmCount.setAttribute("data-l10n-args", '{"n":'+i+'}');
+      elmCount.innerHTML = _("nb-items", {"n":i});
+
+      // Prepare settings
+      var pricesEnabled = false;
+      if (typeof SL.Settings.obj["prices-enable"] != "undefined") {
+        pricesEnabled = SL.Settings.obj["prices-enable"].value;
+      }
+
+      // Continue only if we handle prices
+      if (pricesEnabled) {
+        var position = "right";
+        if (typeof SL.Settings.obj.position != "undefined") {
+          position = SL.Settings.obj.position.value;
+        }
+
+        var currency = _("default-currency");
+        if (typeof SL.Settings.obj.currency != "undefined") {
+          currency = SL.Settings.obj.currency.value;
+        }
+
+        elmTotal.setAttribute("data-l10n-id", "total");
+        if (position == "right") {
+          elmTotal.setAttribute("data-l10n-args", "{'a':"+total+", 'b':"+currency+"}");
+          elmTotal.innerHTML = _("total", {"a":total, "b":currency});
+        } else {
+          elmTotal.setAttribute("data-l10n-args", "{'a':"+currency+", 'b':"+total+"}");
+          elmTotal.innerHTML = _("total", {"a":currency, "b":total});
+        }
+      }
+    }
+  }
+};
+
+/*******************************************************************************
+ * editMode
+ ******************************************************************************/
+SL.editMode = {
+  elm: SL.id("editMode"),
+  name: "editMode",
+  init: function(aView) {
+    SL.view = this.name;
+    SL.show("editMode");
+    this.store = aView.store;
+
+    var node = this.elm.getElementsByClassName("list")[0];
+    while (node.hasChildNodes()) {
+      node.removeChild(node.lastChild);
+    }
+    if (aView.guid != null) {
+      this.guid = aView.guid;
+      // Display each item
+      for (aGuid in SL.Items.obj) {
+        if (SL.Items.obj[aGuid].list == this.guid) {
+          this.display(SL.Items.obj[aGuid]);
+        }
+      }
+    } else {
+      for (aGuid in SL.Lists.obj) {
+        this.display(SL.Lists.obj[aGuid]);
+      }
+    }
+  },
+  display: function(aList) {
+    var newLi = document.createElement('li');
+    newLi.dataset.listkey = aList.guid;
+
+    // Part 1 toggle
+    var newToggle = document.createElement('label');
+    newToggle.className +="danger";
+
+    var mySpan = document.createElement('span');
+    var checkbox = document.createElement('input');
+    checkbox.setAttribute('type', 'checkbox');
+
+    newToggle.appendChild(checkbox);
+    newToggle.appendChild(mySpan);
+
+    // part 3 title
+    var newTitle = document.createElement('a');
+    var p1 = document.createElement('p');
+
+    p1.innerHTML = aList.name;
+    newTitle.className = "liTitle";
+    newTitle.appendChild(p1);
+    newTitle.addEventListener("click", function(e) {
+      if(checkbox.checked) {
+        checkbox.removeAttribute("checked");
+      } else {
+        checkbox.setAttribute("checked", "true");
+      }
+    });
+
+    newLi.appendChild(newToggle);
+    newLi.appendChild(newTitle);
+
+    this.elm.getElementsByClassName("list")[0].appendChild(newLi);
+  },
+  deleteSelected: function() {
+    var nodes = this.elm.getElementsByClassName("list")[0].childNodes;
+    for(var i=0; i<nodes.length; i++) {
+      if(nodes[i].getElementsByTagName("input")[0].checked) {
+        var guid = nodes[i].dataset.listkey;
+
+        // Remove from DB
+        DB.deleteFromDB(guid, SL.editMode);
+
+        // Remove nodes
+        SL.removeElement(nodes[i]);
+        SL.removeElement(document.querySelector('li[data-listkey="'+guid+'"]'));
+      }
+    }
+  },
+  selectAll: function() {
+    var nodes = this.elm.getElementsByClassName("list")[0].childNodes;
+    for(var i=0; i<nodes.length; i++) {
+      nodes[i].getElementsByTagName("input")[0].setAttribute("checked", "true");
+    }
+  },
+  deselectAll: function() {
+    var nodes = this.elm.getElementsByClassName("list")[0].childNodes;
+    for(var i=0; i<nodes.length; i++) {
+      nodes[i].getElementsByTagName("input")[0].removeAttribute("checked");
+    }
+  }
+}
+
+/*******************************************************************************
+ * Items
+ ******************************************************************************/
+SL.Items = {
+  elm: SL.id("items"),
+  name: "Items",
+  nextView: "ItemView",
+  store: DB_STORE_ITEMS,
+  obj: {},
+  loaded: false,
+  init: function(aList) {
+    SL.Lists.close();
+    SL.view = this.name;
+    this.list = aList;
+    this.guid = aList.guid;
+    SL.clear(this);
+    SL.hide("lists");
+    SL.show("items");
+
+    // Set title of the displayed Items list
+    this.elm.getElementsByClassName("title")[0].innerHTML=aList.name;
+
+    // Display each item
+    for (aGuid in this.obj) {
+      if (this.obj[aGuid].list == aList.guid) {
+        SL.display(this.obj[aGuid], this);
+      }
+    }
+  },
+
+  // Go back to Lists view
+  back: function() {
+    // Hide Items list
+    SL.hide("items");
+    // Display Lists list
+    SL.Lists.init();
+  },
+
+  // Add an item to the current list
+  new: function() {
+    var name = SL.id('itemName').value;
+    var qty = SL.id('itemQty').value;
+    SL.id('itemName').value = "";
+    SL.id('itemQty').value = "1";
+    var date = new Date();
+
+    // Remove line-endings
+    name = name.replace(/(\r\n|\n|\r)/gm,"");
+
+    // Handle empty form
+    if (!name || !qty) {
+      var l10n = "";
+      if (!name) {
+        l10n = "msg-name";
+        if (!qty) {
+          l10n = "msg-name-qty";
+        }
+      } else {
+        if (!qty) {
+          l10n = "msg-qty";
+        }
+      }
+
+      displayStatus(l10n);
+      return;
+    }
+
+    aItem = { guid: guid(),
+              name: name,
+              list: this.guid,
+              nb: qty,
+              date: date.getTime(),
+              done: false
+    };
+
+    DB.store(aItem, this);
+    SL.display(aItem, this);
+  },
+
+  // Use SL.display function to populate the list
+  display: function(aList) {
+    SL.display(aList, this);
+  },
+  updateUI: function() {
+    this.loaded = true;
+  }
+}
+
+
+/*******************************************************************************
+ * ItemView
+ ******************************************************************************/
+SL.ItemView = {
+  elm: SL.id("itemView"),
+  name: "ItemView",
+  init: function(aItem) {
+    SL.hide("items");
+    SL.show("itemView");
+    SL.view = this.name;
+    this.item = aItem;
+    this.elm.getElementsByClassName("title")[0].innerHTML = this.item.name;
+    SL.id("newItemName").value = this.item.name;
+    SL.id("newItemQty").value = this.item.nb;
+
+    if (typeof SL.Settings.obj["prices-enable"] !== "undefined") {
+      if (SL.Settings.obj["prices-enable"].value) {
+        SL.id("newPrice").removeAttribute("hidden");
+        if (typeof this.item.price != "undefined") {
+          SL.id("newItemPrice").value = this.item.price;
+        } else {
+          SL.id("newItemPrice").value = "";
+        }
+      }
+    } else {
+      SL.id("newPrice").setAttribute("hidden", "");
+    }
+  },
+  plusOne: function() {
+    SL.id("newItemQty").value = eval(SL.id("newItemQty").value) + 1;
+  },
+  lessOne: function() {
+    var current = eval(SL.id("newItemQty").value);
+    if (current > 0) {
+      SL.id("newItemQty").value = current - 1;
+    }
+  },
+
+  //Save current item into DB
+  save: function() {
+    var item = this.item;
+    item.name = SL.id("newItemName").value;
+    item.nb = eval(SL.id("newItemQty").value);
+    item.price = eval(SL.id("newItemPrice").value);
+    DB.deleteFromDB(item.guid, SL.Items);
+    DB.store(item, SL.Items);
+    this.refreshItem();
+  },
+  refreshItem: function() {
+    var node = SL.Items.elm.querySelector('li[data-listkey="'+this.item.guid+'"]');
+    node.getElementsByTagName("p")[0].innerHTML = this.item.name;
+    node.getElementsByTagName("p")[1].innerHTML = _("item-quantity", { "quantity" : this.item.nb});
+  }
+}
+/*******************************************************************************
+ * enterEmail
+ ******************************************************************************/
+SL.enterEmail = {
+  elm: SL.id("enterEmail"),
+}
+
+// Display a notification to the user during 3s
+function displayStatus(id) {
+  var status = SL.id("status");
+  SL.show("status");
+  status.innerHTML = "<p>"+_(id)+"</p>";
+  status.style.zIndex = 100;
+  setTimeout(function() {SL.hide("status")}, 3000);
+}
+
+// Generate four random hex digits.
+function S4() {
+   return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+}
+
+// Generate a pseudo-GUID by concatenating random hexadecimal.
+function guid() {
+   return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+}
+
+// Add the eventListeners to buttons, etc.
+function addEventListeners() {
+
+  /*****************************************************************************
+   * Shared
+   ****************************************************************************/
+    // Add event listener on every Settings button
+  var els = document.getElementsByClassName("icon-settings");
+  var elsArray = Array.prototype.slice.call(els, 0);
+  elsArray.forEach(function(el) {
+    el.addEventListener("click", function() {
+      SL.show("settingsPanel");
+      SL.hide("lists");
+      SL.hide("items");
+    });
+  });
+
+  /*****************************************************************************
+   * Lists
+   ****************************************************************************/
+  // Add list when the user click the button…
+  SL.id("add-list").addEventListener("click", function() {
+    SL.Lists.new();
+  });
+  // …or if he hit enter key
+  SL.id("listName").onkeyup = function (e) {
+    if (e.keyCode == 13) {
+      SL.Lists.new();
+    }
+  };
+
+  // Button to clear the form
+  SL.Lists.elm.querySelector('button[type="reset"]').addEventListener("click",
+  function() {
+      SL.id("listName").innerHTML = "";
+  });
+
+  // Button to cross out all the lists
+  SL.Lists.elm.getElementsByClassName("icon-complete")[0].addEventListener("click",  function() {
+    SL.completeall();
+  });
+   
+  // Init event for edit view
+  SL.Lists.elm.getElementsByClassName('edit')[0].addEventListener("click",
+  function() {
+    SL.editMode.init(SL.Lists);
+    SL.hide("lists");
+  });
+
+  SL.id('install').addEventListener('click', function(e){
+    navigator.mozApps.install("http://theochevalier.fr/app/manifest.webapp");
+  });
+
+  // MoreItems
+  SL.Lists.elm.getElementsByClassName("icon-more")[0].addEventListener("click",
+  function() {
+    SL.hide("lists");
+    SL.show("moreLists");
+  });
+
+  /*****************************************************************************
+   * editMode
+   ****************************************************************************/
+  var header = SL.editMode.elm.getElementsByTagName("header")[0];
+
+  // Close
+  header.getElementsByTagName("button")[0].addEventListener("click", function() {
+    SL.hide("editMode");
+    SL.show("lists");
+  });
+
+  // Delete Selected
+  header.getElementsByTagName("button")[1].addEventListener("click", function() {
+    SL.editMode.deleteSelected();
+  });
+
+  var menu = SL.editMode.elm.getElementsByTagName("menu")[1];
+
+  // Select All
+  menu.getElementsByTagName("button")[0].addEventListener("click", function() {
+    SL.editMode.selectAll();
+  });
+  // Deselect All
+  menu.getElementsByTagName("button")[1].addEventListener("click", function() {
+    SL.editMode.deselectAll();
+  });
+
+
+  /*****************************************************************************
+   * Items
+   ****************************************************************************/
+  // Add item when the user click the button…
+  SL.id("add-item").addEventListener("click", function() {
+    SL.Items.new();
+  });
+  // …or if he hit enter key
+  SL.id("itemName").onkeyup = function (e) {
+    if (e.keyCode == 13) {
+      SL.Items.new();
+    }
+  }
+
+  // Button to clear the form
+  SL.Items.elm.querySelector('button[type="reset"]').addEventListener("click",
+  function() {
+      SL.id("itemName").innerHTML = "";
+      SL.id("itemQty").innerHTML = "1";
+  });
+
+  // Button to cross out all the items
+  SL.Items.elm.getElementsByClassName("icon-complete")[0].addEventListener("click",  function() {
+    SL.completeall();
+  });
+
+  // Display buttons
+  SL.Items.elm.getElementsByClassName("back")[0].addEventListener("click",
+  function() {
+    SL.hide("items");
+    SL.show("lists");
+  });
+
+  var send = SL.Items.elm.getElementsByClassName("send")[0];
+  send.addEventListener("click", function() {
+    SL.hide("items");
+    SL.show("enterEmail");
+  });
+
+    // Init event for edit view
+  SL.Items.elm.getElementsByClassName('edit')[0].addEventListener("click",
+  function() {
+    SL.hide("items");
+    SL.editMode.init(SL.Items);
+  });
+
+  // MoreItems
+  SL.Items.elm.getElementsByClassName("icon-more")[0].addEventListener("click",
+  function() {
+    SL.hide("items");
+    SL.show("moreItems");
+  });
+
+
+  /*****************************************************************************
+   * itemView
+   ****************************************************************************/
+  SL.ItemView.elm.getElementsByClassName("icon-back")[0].parentNode.addEventListener("click",
+    function() {
+      SL.hide("itemView");
+      SL.show("items");
+    });
+
+  SL.id("saveItem").addEventListener("click", function() {
+      //Switch views
+      SL.hide("itemView");
+      SL.show("items");
+      SL.ItemView.save();
+  });
+
+  SL.id("alarm-delete").addEventListener("click",
+    function() {
+      SL.hide("itemView");
+      SL.show("deleteItem");
+    });
+
+  SL.id("plusOne").addEventListener("click", function() {
+    SL.ItemView.plusOne();
+  });
+  SL.id("lessOne").addEventListener("click", function() {
+    SL.ItemView.lessOne();
+  });
+
+
+  /*****************************************************************************
+   * deleteItem
+   ****************************************************************************/
+
+    SL.id("deleteItem").getElementsByTagName("button")[1].addEventListener("click",
+    function() {
+      var guid = SL.ItemView.item.guid;
+      SL.hide("deleteItem");
+      SL.removeElement(SL.Items.elm.querySelector('li[data-listkey="'+guid+'"]'));
+      SL.show("items");
+      DB.deleteFromDB(guid, SL.Items);
+    });
+
+    SL.id("deleteItem").getElementsByTagName("button")[0].addEventListener("click",
+    function() {
+      SL.hide("deleteItem");
+      SL.show("itemView");
+    });
+
+
+  /*****************************************************************************
+   * send e-mail views
+   ****************************************************************************/
+  // Add event listeners to buttons
+
+  //Cancel
+  SL.enterEmail.elm.getElementsByClassName("cancel")[0].addEventListener("click",
+    function() {
+      SL.hide("enterEmail");
+      SL.show("items");
+    });
+
+  // Button to clear the form
+  SL.enterEmail.elm.querySelector('button[type="reset"]').addEventListener("click",
+  function() {
+      SL.id("email").innerHTML = "";
+  });
+
+  // Send
+  SL.enterEmail.elm.getElementsByClassName("send")[0].addEventListener("click",
+    function() {
+      sendAddress();
+    });
+  // …or if he hit enter key
+  SL.id("email").onkeyup = function (e) {
+    if (e.keyCode == 13) {
+      sendAddress();
+    }
+  }
+
+  function sendAddress() {
+    if (SL.id("email").value != "") {
+      SL.hide("enterEmail");
+      SL.show("sendEmail");
+      var xdr = getXDR();
+      xdr.onload = function() {
+        console.log(xdr.responseText);
+        SL.id("email").value = "";
+        SL.hide("sendEmail");
+        SL.show("items");
+      }
+      var email = SL.id("email").value;
+
+      // Adding items of the opened list to SL.Items.list
+      for(aGuid in SL.Items.obj) {
+        if (SL.Items.obj[aGuid].list == SL.Items.list.guid) {
+          SL.Items.list.items[aGuid] = SL.Items.obj[aGuid];
+        }
+      }
+      var data = "email=" + email + "&data=" + JSON.stringify(SL.Items.list);
+      xdr.open("POST", "http://theochevalier.fr/app/php/email.php");
+      xdr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xdr.send(data);
+    }
+  }
+
+  function getXDR() {
+    var xdr = null;
+
+    if (window.XDomainRequest) {
+      xdr = new XDomainRequest();
+    } else if (window.XMLHttpRequest) {
+      xdr = new XMLHttpRequest();
+    } else {
+      console.error("Can't create cross-domain AJAX");
+    }
+    return xdr;
+  }
+
+
+  /*****************************************************************************
+   * More List
+   ****************************************************************************/
+  SL.id("moreLists").getElementsByClassName("cancel")[0].addEventListener("click",
+    function() {
+      SL.hide("moreLists");
+      SL.show("lists");
+    });
+
+  /*****************************************************************************
+   * More Items
+   ****************************************************************************/
+  SL.id("moreItems").getElementsByClassName("cancel")[0].addEventListener("click",
+    function() {
+      SL.hide("moreItems");
+      SL.show("items");
+    });
+
+  /*****************************************************************************
+   * Settings
+   ****************************************************************************/
+  SL.Settings.elm.getElementsByClassName("icon-back")[0].parentNode.addEventListener("click", function() {
+    SL.hide("settingsPanel");
+    // FIXME: determine the previous view
+    SL.show("lists");
+  });
+
+  /*
+   * Language
+   */
+  document.querySelector('select[name="language"]').addEventListener("change", function() {
+    var selected = this.options[this.selectedIndex];
+    // Save setting
+    SL.Settings.save("language", selected.value);
+    SL.id("language").setAttribute("data-l10n-id", selected.value);
+
+    // Change language
+    document.webL10n.setLanguage(selected.value);
+  });
+
+  /*
+   * Currency settings
+   */
+  // Show position & currency panel
+  SL.id("currency").addEventListener("click", function() {
+    SL.hide("settingsPanel");
+    SL.show("editCurrency");
+  });
+
+  // Hide currency panel
+  SL.id("cEditCurrency").addEventListener("click", function() {
+    SL.hide("editCurrency");
+    SL.show("settingsPanel");
+  });
+  SL.id("setEditCurrency").addEventListener("click", function() {
+    SL.hide("editCurrency");
+    SL.show("settingsPanel");
+
+    // Save settings
+    SL.Settings.save("userCurrency", SL.id("userCurrency").value);
+
+    var selected = SL.getCheckedRadioId("position");
+    SL.Settings.save("currencyPosition", selected);
+  });
+
+  // Switches
+  SL.id("prices-enable").addEventListener("click", function() {
+    if(this.checked) {
+      SL.id("currency").removeAttribute("disabled");
+      SL.id("taxes").removeAttribute("disabled");
+    } else {
+      SL.id("currency").setAttribute("disabled", "");
+      SL.id("taxes").setAttribute("disabled", "");
+    }
+    // Update the obj before refreshing Lists view
+    if (typeof SL.Settings.obj["prices-enable"] == "undefined") {
+      SL.Settings.obj["prices-enable"] = {value:""};
+    }
+    SL.Settings.obj["prices-enable"].value = this.checked;
+    SL.Lists.updateUI();
+
+    SL.Settings.save("prices-enable", this.checked);
+  });
+
+  /*
+   * About panel
+   */
+  SL.id("about").addEventListener("click", function() {
+    SL.hide("settingsPanel");
+    SL.show("aboutPanel");
+  });
+  SL.id("aboutBack").addEventListener("click", function() {
+    SL.hide("aboutPanel");
+    SL.show("settingsPanel");
+  });
+  SL.id("aboutClose").addEventListener("click", function() {
+    SL.hide("aboutPanel");
+    SL.show("settingsPanel");
+  });
+}
+ 
 // Actions that needs the DB to be ready
 function finishInit() {
   // Display the view
