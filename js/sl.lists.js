@@ -108,7 +108,7 @@ SL.Lists = {
           position = SL.Settings.obj.position.value;
         }
 
-        var currency = _("default-currency");
+        var currency = _("user-currency");
         if (typeof SL.Settings.obj.currency != "undefined") {
           currency = SL.Settings.obj.currency.value;
         }

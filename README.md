@@ -1,4 +1,6 @@
 
-# Shopping List
+# FoxShop
 
-Shopping Lists a Web app to manage multiple shopping lists.
+FoxShop a WebApp helping you manage and share multiple shopping lists.
+
+Try it out at http://theochevalier.github.com/FoxShop
