@@ -33,11 +33,11 @@ SL.Settings = {
         document.webL10n.setLanguage(pref.value);
       }
     }
-    lang = document.webL10n.getLanguage();
-    SL.id("language").innerHTML = _(lang);
+
     var select = document.querySelector('select[name="language"]');
     select = select.querySelector('option[value="'+lang+'"]');
     select.setAttribute("selected","");
+    SL.id("language").innerHTML = select.innerHTML;
 
     // Prices bool
     if (typeof this.obj["prices-enable"] !== "undefined") {

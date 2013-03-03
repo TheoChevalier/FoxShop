@@ -298,7 +298,7 @@ function addEventListeners() {
     var selected = this.options[this.selectedIndex];
     // Save setting
     SL.Settings.save("language", selected.value);
-    SL.id("language").setAttribute("data-l10n-id", selected.value);
+    SL.id("language").innerHTML = selected.innerHTML;
 
     // Change language
     document.webL10n.setLanguage(selected.value);
@@ -354,10 +354,6 @@ function addEventListeners() {
     SL.show("aboutPanel");
   });
   SL.id("aboutBack").addEventListener("click", function() {
-    SL.hide("aboutPanel");
-    SL.show("settingsPanel");
-  });
-  SL.id("aboutClose").addEventListener("click", function() {
     SL.hide("aboutPanel");
     SL.show("settingsPanel");
   });
