@@ -49,7 +49,7 @@ var DB = {
    * @param {string} date
    * Insert a new object in the view's DB
    */
-  store: function(aList, view) {
+  store: function(aList, view, bool) {
     var store = this.getObjectStore(view.store, 'readwrite');
     var req;
     try {
@@ -57,7 +57,9 @@ var DB = {
     } catch (e) {
       throw e;
     }
-    view.obj[aList.guid] = aList;
+    if (typeof bool === "undefined") {
+      view.obj[aList.guid] = aList;
+    }
     req.onsuccess = function (evt) {
       console.log("Inserted");
     };
@@ -115,7 +117,7 @@ var DB = {
   /**
    * @param {string} biblioid
    */
-  deleteFromDB: function(guid, view) {
+  deleteFromDB: function(guid, view, bool) {
     var store = DB.getObjectStore(view.store, 'readwrite');
     var req = store.index('guid');
     req.get(guid).onsuccess = function(evt) {
@@ -124,8 +126,10 @@ var DB = {
         return;
       }
       DB.deleteList(this.result.id, store, view);
-      // Delete from obj
-      delete SL[view.name].obj[guid];
+      if (typeof bool === "undefined") {
+        // Delete from obj
+        delete SL[view.name].obj[guid];
+      }
     };
     req.onerror = function (evt) {
       console.error("deletePublicationFromBib:", this.errorCode);

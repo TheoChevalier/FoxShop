@@ -78,8 +78,8 @@ var SL = {
       aList.done = !aList.done;
 
       // Delete the item, add the updated one
-      DB.deleteFromDB(aList.guid, aView);
-      DB.store(aList, aView);
+      DB.deleteFromDB(aList.guid, aView, true);
+      DB.store(aList, aView, true);
     });
 
 
@@ -136,8 +136,8 @@ var SL = {
     for (aGuid in SL[this.view].obj) {
       var aItem = SL[this.view].obj[aGuid];
       aItem.done = true;
-      DB.deleteFromDB(aItem.guid, SL[this.view]);
-      DB.store(aItem, SL[this.view]);
+      DB.deleteFromDB(aItem.guid, SL[this.view], true);
+      DB.store(aItem, SL[this.view], true);
     }
   },
 
