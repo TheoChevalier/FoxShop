@@ -103,6 +103,11 @@ function addEventListeners() {
       SL.Items.new();
     }
   }
+  SL.id("itemQty").onkeyup = function (e) {
+    if (e.keyCode == 13) {
+      SL.Items.new();
+    }
+  }
 
   // Button to clear the form
   SL.Items.elm.querySelector('button[type="reset"]').addEventListener("click",
