@@ -6,9 +6,6 @@
   var DB_STORE_ITEMS = 'items1';
   var DB_STORE_SETTINGS = 'settings1';
 
-  // Alias to get localized strings
-  var _ = document.webL10n.get;
-
   // Define manifest URL
   if (location.host === "localhost") {
     var MANIFEST = "http://localhost/ShoppingList/manifest.webapp";
