@@ -4,23 +4,43 @@
  ******************************************************************************/
 SL.enterEmail = {
   elm: SL.id("enterEmail"),
-}
 
-// Display a notification to the user during 3s
-function displayStatus(id) {
-  var status = SL.id("status");
-  SL.show("status");
-  status.innerHTML = "<p>"+_(id)+"</p>";
-  status.style.zIndex = 100;
-  setTimeout(function() {SL.hide("status")}, 3000);
-}
+  sendAddress: function() {
+    if (SL.id("email").value != "") {
+      SL.hide("enterEmail");
+      SL.show("sendEmail");
+      var xdr = this.getXDR();
+      xdr.onload = function() {
+        console.log(xdr.responseText);
+        SL.id("email").value = "";
+        SL.hide("sendEmail");
+        SL.show("items");
+      }
+      var email = SL.id("email").value;
 
-// Generate four random hex digits.
-function S4() {
-   return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-}
+      // Adding items of the opened list to SL.Items.list
+      for(aGuid in SL.Items.obj) {
+        if (SL.Items.obj[aGuid].list == SL.Items.list.guid) {
+          SL.Items.list.items[aGuid] = SL.Items.obj[aGuid];
+        }
+      }
+      var data = "email=" + email + "&data=" + JSON.stringify(SL.Items.list);
+      xdr.open("POST", "http://theochevalier.fr/app/php/email.php");
+      xdr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xdr.send(data);
+    }
+  },
 
-// Generate a pseudo-GUID by concatenating random hexadecimal.
-function guid() {
-   return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+  getXDR: function() {
+    var xdr = null;
+
+    if (window.XDomainRequest) {
+      xdr = new XDomainRequest();
+    } else if (window.XMLHttpRequest) {
+      xdr = new XMLHttpRequest();
+    } else {
+      console.error("Can't create cross-domain AJAX");
+    }
+    return xdr;
+  }
 }
