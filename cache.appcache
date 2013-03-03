@@ -8,9 +8,21 @@ index.html
 favicon.ico
 
 # JS
-js/app.js
 js/db.js
+js/sl.js
+js/sl.settings.js
+js/sl.lists.js
+js/sl.editmode.js
+js/sl.items.js
+js/sl.itemview.js
+js/sl.enteremail.js
+js/events.js
+js/app.js
 js/IndexedDBShim.min.js
+
+
+# Loader
+lazyload/lazyload-min.js
 
 # L10N
 webL10n/l10n.js
