@@ -278,11 +278,25 @@ function addEventListeners() {
       SL.show("lists");
     });
 
+    SL.id("removeDoneLists").addEventListener("click",
+    function() {
+      SL.removeDone("Lists");
+      SL.hide("moreLists");
+      SL.show("lists");
+    });
+
   /*****************************************************************************
    * More Items
    ****************************************************************************/
   SL.id("moreItems").getElementsByClassName("cancel")[0].addEventListener("click",
     function() {
+      SL.hide("moreItems");
+      SL.show("items");
+    });
+
+    SL.id("removeDoneItems").addEventListener("click",
+    function() {
+      SL.removeDone("Items");
       SL.hide("moreItems");
       SL.show("items");
     });

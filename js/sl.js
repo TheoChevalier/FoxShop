@@ -139,6 +139,19 @@ var SL = {
       DB.deleteFromDB(aItem.guid, SL[this.view]);
       DB.store(aItem, SL[this.view]);
     }
+  },
+
+  // Remove done items/lists
+  removeDone: function(aView) {
+    var nodes = SL[aView].elm.getElementsByClassName("list")[0].childNodes;
+    for(var i=0; i<nodes.length; i++) {
+      var guid = nodes[i].dataset["listkey"];
+      if (nodes[i].getElementsByTagName("input")[0].checked) {
+        DB.deleteFromDB(guid, SL[this.view]);
+        // FIXME: use removeElement()
+        nodes[i].style.display = "none";
+      }
+    }
   }
 };
 
