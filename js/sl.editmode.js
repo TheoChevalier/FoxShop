@@ -7,6 +7,7 @@ SL.editMode = {
   name: "editMode",
   init: function(aView) {
     SL.view = this.name;
+    this.openedFrom = aView.name;
     SL.show("editMode");
     this.store = aView.store;
 
@@ -68,13 +69,14 @@ SL.editMode = {
     for(var i=0; i<nodes.length; i++) {
       if(nodes[i].getElementsByTagName("input")[0].checked) {
         var guid = nodes[i].dataset.listkey;
-
+        console.log(guid);
         // Remove from DB
-        DB.deleteFromDB(guid, SL.editMode);
+        DB.deleteFromDB(guid, SL[this.openedFrom]);
 
-        // Remove nodes
-        SL.removeElement(nodes[i]);
-        SL.removeElement(document.querySelector('li[data-listkey="'+guid+'"]'));
+        // Remove nodes FIXME: broken, need to investigate
+        //SL.removeElement(nodes[i]);
+        //SL.removeElement(document.querySelector('li[data-listkey="'+guid+'"]'));
+        nodes[i].style.display = "none";
       }
     }
   },
