@@ -70,7 +70,7 @@ function addEventListeners() {
   // Close
   header.getElementsByTagName("button")[0].addEventListener("click", function() {
     SL.hide("editMode");
-    SL.show("lists");
+    SL.show(SL[SL.editMode.openedFrom].elm.id);
   });
 
   // Delete Selected
