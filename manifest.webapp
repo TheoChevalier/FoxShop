@@ -2,7 +2,7 @@
   "version": "1.0.0",
   "name": "FoxShop",
   "description": "FoxShop helps you manage and share several shopping lists.",
-  "launch_path": "app/index.html",
+  "launch_path": "index.html",
   "fullscreen": "true",
   "icons": {
     "60": "img/icons/60.png"
@@ -12,10 +12,13 @@
     "url": "http://theochevalier.fr"
   },
   "installs_allowed_from": ["*"],
-  "appcache_path": "app/manifest.appcache",
+  "appcache_path": "manifest.appcache",
   "locales": {
     "fr": {
       "description": "FoxShop vous permet de gérer et partager plusieurs listes de courses."
+    },
+    "es": {
+      "description": "FoxShop le permite gestionar y compartir múltiples listas de compras."
     }
   },
   "default_locale": "en"

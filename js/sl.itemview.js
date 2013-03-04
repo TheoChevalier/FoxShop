@@ -33,16 +33,38 @@ SL.ItemView = {
   },
   lessOne: function() {
     var current = eval(SL.id("newItemQty").value);
-    if (current > 0) {
+    if (current > 1) {
       SL.id("newItemQty").value = current - 1;
     }
   },
 
   //Save current item into DB
   save: function() {
+    var name = SL.id("newItemName").value;
+    var qty  = eval(SL.id("newItemQty").value);
+    var price  = eval(SL.id("newItemQty").value);
+
+    // Handle empty form
+    if (!name || !qty) {
+      var l10n = "";
+      if (!name) {
+        l10n = "msg-name";
+        if (!qty) {
+          l10n = "msg-name-qty";
+        }
+      } else {
+        if (!qty) {
+          l10n = "msg-qty";
+        }
+      }
+
+      displayStatus(l10n);
+      return;
+    }
+
     var item = this.item;
-    item.name = SL.id("newItemName").value;
-    item.nb = eval(SL.id("newItemQty").value);
+    item.name = name;
+    item.nb = qty;
     item.price = eval(SL.id("newItemPrice").value);
     DB.deleteFromDB(item.guid, SL.Items);
     DB.store(item, SL.Items);
