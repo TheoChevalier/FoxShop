@@ -2,7 +2,7 @@
   "version": "1.0.0",
   "name": "FoxShop",
   "description": "FoxShop helps you manage and share several shopping lists.",
-  "launch_path": "index.html",
+  "launch_path": "FoxShop/index.html",
   "fullscreen": "true",
   "icons": {
     "60": "img/icons/60.png"
