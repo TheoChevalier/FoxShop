@@ -13,7 +13,7 @@
     "url": "http://theochevalier.fr"
   },
   "installs_allowed_from": ["*"],
-  "appcache_path": "http://theochevalier.github.com/FoxShop/manifest.appcache",
+  "appcache_path": "http://theochevalier.github.com/FoxShop/cache.appcache",
   "locales": {
     "fr": {
       "description": "FoxShop vous permet de gérer et partager plusieurs listes de courses."
