@@ -10,7 +10,7 @@
   if (location.host === "localhost") {
     var MANIFEST = "http://localhost/ShoppingList/manifest.webapp";
   } else {
-    var MANIFEST = location.protocol + "//" + location.host + "/manifest.webapp";
+    var MANIFEST = location.protocol + "//" + location.host + "/FoxShop/manifest.webapp";
   }
 
 var SL = {
