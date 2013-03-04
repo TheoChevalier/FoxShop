@@ -210,6 +210,12 @@ function addEventListeners() {
       SL.hide("enterEmail");
       SL.show("items");
     });
+  SL.id("sendEmail").getElementsByClassName("cancel")[0].addEventListener("click",
+    function() {
+      SL.hide("sendEmail");
+      SL.show("enterEmail");
+    });
+
 
   // Button to clear the form
   SL.enterEmail.elm.querySelector('button[type="reset"]').addEventListener("click",
