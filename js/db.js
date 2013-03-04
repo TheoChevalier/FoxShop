@@ -18,29 +18,18 @@ var DB = {
         DB_STORE_LISTS, { keyPath: 'id', autoIncrement: true });
 
       store.createIndex('guid', 'guid', { unique: true });
-      store.createIndex('name', 'name', { unique: false });
-      store.createIndex('date', 'date', { unique: false });
-      store.createIndex('done', 'done', { unique: false });
-      store.createIndex('position', 'position', { unique: false });
 
       // Store items
       var storeItems = this.result.createObjectStore(
         DB_STORE_ITEMS, { keyPath: 'id', autoIncrement: true });
 
       storeItems.createIndex('guid', 'guid', { unique: true });
-      storeItems.createIndex('list', 'list', { unique: false });
-      storeItems.createIndex('name', 'name', { unique: false });
-      storeItems.createIndex('date', 'date', { unique: false });
-      storeItems.createIndex('done', 'done', { unique: false });
-      storeItems.createIndex('position', 'position', { unique: false });
-      storeItems.createIndex('nb', 'nb', { unique: false });
 
       // Store items
       var storeSettings = this.result.createObjectStore(
         DB_STORE_SETTINGS, { keyPath: 'id', autoIncrement: true });
 
       storeSettings.createIndex('guid', 'guid', { unique: true });
-      storeSettings.createIndex('value', 'value', { unique: false });
     };
   },
 
