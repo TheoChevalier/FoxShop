@@ -11,7 +11,6 @@ SL.enterEmail = {
       SL.show("sendEmail");
       var xdr = this.getXDR();
       xdr.onload = function() {
-        console.log(xdr.responseText);
         SL.id("email").value = "";
         SL.hide("sendEmail");
         SL.show("items");

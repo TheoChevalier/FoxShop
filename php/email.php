@@ -2,9 +2,6 @@
 header('Content-type: text/html; charset=utf-8');
 header("Access-Control-Allow-Origin: *");
 $tab = json_decode($_POST["data"], true);
-$items = json_decode($tab["items"], true);
-print_r($tab);
-print_r($items);
 
 if (!preg_match("#^[a-z0-9._-]+@(hotmail|live|msn).[a-z]{2,4}$#", $tab['email']))
   $passage_ligne = "\r\n";
@@ -17,16 +14,24 @@ foreach ($tab as $key => $value) {
   }
   if($key =="items") {
     foreach ($value as $keyItems => $items) {
-      foreach ($items as $keyItem => $item) {
-        if($keyItem =="name") {
-          $list .= $passage_ligne."<br>- ".$item;
-        }
-        if ($keyItem == "nb" && $item > 1) {
-          $list .= $passage_ligne." x".$item;
-        }
-        if ($keyItem == "done" && $item == "1") {
-          $list .= $passage_ligne." (Acheté &#10003;)";
-        }
+      if (isset($items["done"]) && $items["done"] == 1) {
+        $list .= "<del>";
+      }
+
+      $list .= $passage_ligne."<p>- ".$items["name"];
+
+      if (isset($items["nb"]) && $items["nb"] > 1) {
+        $list .= " x".$items["nb"];
+      }
+
+      if (isset($items["price"]) && $items["price"] != "0") {
+        $list .= " (".$items["price"]." €)";
+      }
+
+      $list .= "</p>";
+
+      if (isset($items["done"]) && $items["done"] == 1) {
+        $list .= "</del>";
       }
     }
   }
