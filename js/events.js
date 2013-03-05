@@ -34,7 +34,7 @@ function addEventListeners() {
   // Button to clear the form
   SL.Lists.elm.querySelector('button[type="reset"]').addEventListener("click",
   function() {
-      SL.id("listName").innerHTML = "";
+      SL.id("listName").textContent = "";
   });
 
   // Button to cross out all the lists
@@ -112,8 +112,8 @@ function addEventListeners() {
   // Button to clear the form
   SL.Items.elm.querySelector('button[type="reset"]').addEventListener("click",
   function() {
-      SL.id("itemName").innerHTML = "";
-      SL.id("itemQty").innerHTML = "1";
+      SL.id("itemName").textContent = "";
+      SL.id("itemQty").textContent = "1";
   });
 
   // Button to cross out all the items
@@ -220,7 +220,7 @@ function addEventListeners() {
   // Button to clear the form
   SL.enterEmail.elm.querySelector('button[type="reset"]').addEventListener("click",
   function() {
-      SL.id("email").innerHTML = "";
+      SL.id("email").textContent = "";
   });
 
   // Send
@@ -285,7 +285,7 @@ function addEventListeners() {
     var selected = this.options[this.selectedIndex];
     // Save setting
     SL.Settings.save("language", selected.value);
-    SL.id("language").innerHTML = selected.innerHTML;
+    SL.id("language").textContent = selected.textContent;
 
     // Change language
     document.webL10n.setLanguage(selected.value);

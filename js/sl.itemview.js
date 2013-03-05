@@ -12,7 +12,7 @@ SL.ItemView = {
     SL.show("itemView");
     SL.view = this.name;
     this.item = aItem;
-    this.elm.getElementsByClassName("title")[0].innerHTML = this.item.name;
+    this.elm.getElementsByClassName("title")[0].textContent = this.item.name;
     SL.id("newItemName").value = this.item.name;
     SL.id("newItemQty").value = this.item.nb;
 

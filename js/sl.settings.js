@@ -19,6 +19,8 @@ SL.Settings = {
     DB.deleteFromDB(guid, this);
     DB.store(setting, this);
     DB.updateObj("Settings");
+    SL.Lists.updateUI();
+    SL.Items.updateUI();
   },
 
   // Function called after populating this.names in DB.updateObj()
@@ -37,7 +39,7 @@ SL.Settings = {
     var select = document.querySelector('select[name="language"]');
     select = select.querySelector('option[value="'+lang+'"]');
     select.setAttribute("selected","");
-    SL.id("language").innerHTML = select.innerHTML;
+    SL.id("language").textContent = select.textContent;
 
     // Prices bool
     if (typeof this.obj["prices-enable"] !== "undefined") {

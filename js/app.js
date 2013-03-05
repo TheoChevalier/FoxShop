@@ -20,12 +20,11 @@ function guid() {
 
 // Actions that needs the DB to be ready
 function finishInit() {
-  // Display the view
-  SL.Lists.init();
-
   // Load all the DB in obj
   DB.updateObj("Settings");
   DB.updateObj("Items");
+  // Display the view
+  SL.Lists.init();
 }
 
 var db;

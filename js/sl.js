@@ -91,12 +91,12 @@ var SL = {
     var newTitle = document.createElement('a');
     var p1 = document.createElement('p');
     var p2 = document.createElement('p');
-    var count = document.createElement('a');
     var total = document.createElement('a');
-    p1.innerHTML = aList.name;
+    var count = document.createElement('a');
+    p1.textContent = aList.name;
 
-    p2.appendChild(count);
     p2.appendChild(total);
+    p2.appendChild(count);
 
     newTitle.className = "liTitle";
     newTitle.addEventListener("click", function(e) {
@@ -168,16 +168,16 @@ var SL = {
 
     var currency = _("user-currency");
     if (typeof SL.Settings.obj.currency != "undefined") {
-      //currency = SL.Settings.obj.currency.value;
+      currency = SL.Settings.obj.currency.value;
     }
 
     elm.setAttribute("data-l10n-id", string);
     if (position == "right") {
       elm.setAttribute("data-l10n-args", "{'a':"+value+", 'b':"+currency+"}");
-      elm.innerHTML = _(string, {"a":value, "b":currency});
+      elm.textContent = _(string, {"a":value, "b":currency});
     } else {
       elm.setAttribute("data-l10n-args", "{'a':"+currency+", 'b':"+value+"}");
-      elm.innerHTML = _(string, {"a":currency, "b":value});
+      elm.textContent = _(string, {"a":currency, "b":value});
     }
   }
 };

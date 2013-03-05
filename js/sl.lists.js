@@ -52,7 +52,7 @@ SL.Lists = {
   },
   edit: function (aList, elm) {
     aList.done = elm.getElementsByTagName("input")[0].checked;
-    aList.name = elm.getElementsByTagName("a")[0].innerHTML;
+    aList.name = elm.getElementsByTagName("a")[0].textContent;
 
     // Delete the list, add the updated one
     DB.deleteFromDB(aList.guid, this);
@@ -93,10 +93,10 @@ SL.Lists = {
       // Set items count
       elmCount.setAttribute("data-l10n-id", "nb-items");
       elmCount.setAttribute("data-l10n-args", '{"n":'+i+'}');
-      elmCount.innerHTML = _("nb-items", {"n":i});
+      elmCount.textContent = _("nb-items", {"n":i});
 
       // Display total with the right currency at the right position
-      SL.setPrice(elmTotal, "total", total);
+      SL.setPrice(elmTotal, "total-list", total);
     }
   }
 };

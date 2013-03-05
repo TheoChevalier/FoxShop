@@ -19,7 +19,7 @@ SL.Items = {
     SL.show("items");
 
     // Set title of the displayed Items list
-    this.elm.getElementsByClassName("title")[0].innerHTML=aList.name;
+    this.elm.getElementsByClassName("title")[0].textContent=aList.name;
 
     // Display each item
     for (aGuid in this.obj) {
@@ -93,7 +93,7 @@ SL.Items = {
 
         // Name (first p)
         node = node.getElementsByTagName("p");
-        node[0].innerHTML = item.name;
+        node[0].textContent = item.name;
 
         // Set prices w/ currency at the right position (second p, first a)
         node = node[1].getElementsByTagName("a");
@@ -101,7 +101,7 @@ SL.Items = {
 
         // Quantity (second p, second a)
         node[1].setAttribute("data-l10n-args", "{quantity: "+item.nb+"}");
-        node[1].innerHTML = _("item-quantity", {"quantity": item.nb});
+        node[1].textContent = _("item-quantity", {"quantity": item.nb});
       }
     }
   }

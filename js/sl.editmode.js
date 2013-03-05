@@ -48,7 +48,7 @@ SL.editMode = {
     var newTitle = document.createElement('a');
     var p1 = document.createElement('p');
 
-    p1.innerHTML = aList.name;
+    p1.textContent = aList.name;
     newTitle.className = "liTitle";
     newTitle.appendChild(p1);
     newTitle.addEventListener("click", function(e) {
