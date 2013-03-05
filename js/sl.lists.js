@@ -95,33 +95,8 @@ SL.Lists = {
       elmCount.setAttribute("data-l10n-args", '{"n":'+i+'}');
       elmCount.innerHTML = _("nb-items", {"n":i});
 
-      // Prepare settings
-      var pricesEnabled = false;
-      if (typeof SL.Settings.obj["prices-enable"] != "undefined") {
-        pricesEnabled = SL.Settings.obj["prices-enable"].value;
-      }
-
-      // Continue only if we handle prices
-      if (pricesEnabled) {
-        var position = "right";
-        if (typeof SL.Settings.obj.position != "undefined") {
-          position = SL.Settings.obj.position.value;
-        }
-
-        var currency = _("user-currency");
-        if (typeof SL.Settings.obj.currency != "undefined") {
-          currency = SL.Settings.obj.currency.value;
-        }
-
-        elmTotal.setAttribute("data-l10n-id", "total");
-        if (position == "right") {
-          elmTotal.setAttribute("data-l10n-args", "{'a':"+total+", 'b':"+currency+"}");
-          elmTotal.innerHTML = _("total", {"a":total, "b":currency});
-        } else {
-          elmTotal.setAttribute("data-l10n-args", "{'a':"+currency+", 'b':"+total+"}");
-          elmTotal.innerHTML = _("total", {"a":currency, "b":total});
-        }
-      }
+      // Display total with the right currency at the right position
+      SL.setPrice(elmTotal, "total", total);
     }
   }
 };

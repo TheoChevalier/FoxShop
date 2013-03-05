@@ -1,4 +1,4 @@
-
+'use strict';
 
 /*******************************************************************************
  * ItemView
@@ -6,6 +6,7 @@
 SL.ItemView = {
   elm: SL.id("itemView"),
   name: "ItemView",
+  item: {},
   init: function(aItem) {
     SL.hide("items");
     SL.show("itemView");
@@ -41,8 +42,8 @@ SL.ItemView = {
   //Save current item into DB
   save: function() {
     var name = SL.id("newItemName").value;
-    var qty  = eval(SL.id("newItemQty").value);
-    var price  = eval(SL.id("newItemQty").value);
+    var qty  = parseFloat(SL.id("newItemQty").value);
+    var price  = parseFloat(SL.id("newItemQty").value);
 
     // Handle empty form
     if (!name || !qty) {
@@ -65,14 +66,9 @@ SL.ItemView = {
     var item = this.item;
     item.name = name;
     item.nb = qty;
-    item.price = eval(SL.id("newItemPrice").value);
+    item.price = parseFloat(SL.id("newItemPrice").value);
     DB.deleteFromDB(item.guid, SL.Items);
     DB.store(item, SL.Items);
-    this.refreshItem();
-  },
-  refreshItem: function() {
-    var node = SL.Items.elm.querySelector('li[data-listkey="'+this.item.guid+'"]');
-    node.getElementsByTagName("p")[0].innerHTML = this.item.name;
-    node.getElementsByTagName("p")[1].innerHTML = _("item-quantity", { "quantity" : this.item.nb});
+    SL.Items.updateUI();
   }
 }

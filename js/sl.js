@@ -152,6 +152,37 @@ var SL = {
         nodes[i].style.display = "none";
       }
     }
+  },
+  // Used everywhere where prices are needed
+  setPrice: function(elm, string, value) {
+    // Prepare settings
+    var pricesEnabled = false;
+    if (typeof SL.Settings.obj["prices-enable"] != "undefined") {
+      pricesEnabled = SL.Settings.obj["prices-enable"].value;
+    }
+
+    // Continue only if we handle prices
+    if (!pricesEnabled)
+      return
+
+    var position = "right";
+    if (typeof SL.Settings.obj.position != "undefined") {
+      position = SL.Settings.obj.position.value;
+    }
+
+    var currency = _("user-currency");
+    if (typeof SL.Settings.obj.currency != "undefined") {
+      //currency = SL.Settings.obj.currency.value;
+    }
+
+    elm.setAttribute("data-l10n-id", string);
+    if (position == "right") {
+      elm.setAttribute("data-l10n-args", "{'a':"+value+", 'b':"+currency+"}");
+      elm.innerHTML = _(string, {"a":value, "b":currency});
+    } else {
+      elm.setAttribute("data-l10n-args", "{'a':"+currency+", 'b':"+value+"}");
+      elm.innerHTML = _(string, {"a":currency, "b":value});
+    }
   }
 };
 

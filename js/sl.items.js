@@ -84,6 +84,26 @@ SL.Items = {
   },
   updateUI: function() {
     this.loaded = true;
+
+    // For each list, count items and calculate total
+    for(var item in this.obj) {
+      item = this.obj[item];
+      if (this.elm.querySelector('li[data-listkey="'+item.guid+'"]') !== null) {
+        var node = this.elm.querySelector('li[data-listkey="'+item.guid+'"]');
+
+        // Name (first p)
+        node = node.getElementsByTagName("p");
+        node[0].innerHTML = item.name;
+
+        // Set prices w/ currency at the right position (second p, first a)
+        SL.setPrice(node[0], "item-price", item.price);
+
+        // Quantity (second p, second a)
+        node = node[1].getElementsByTagName("a");
+        node[1].setAttribute("data-l10n-args", "{quantity: "+item.nb+"}");
+        node[1].innerHTML = _("item-quantity", {"quantity": item.nb});
+      }
+    }
   }
 }
 
