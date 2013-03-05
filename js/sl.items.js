@@ -76,6 +76,7 @@ SL.Items = {
 
     DB.store(aItem, this);
     SL.display(aItem, this);
+    this.updateUI();
   },
 
   // Use SL.display function to populate the list

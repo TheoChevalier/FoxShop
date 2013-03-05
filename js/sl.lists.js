@@ -32,6 +32,7 @@ SL.Lists = {
   add: function(aList) {
     DB.store(aList, this);
     SL.display(aList, this);
+    this.updateUI();
   },
   new: function() {
     var name = SL.id('listName').value;

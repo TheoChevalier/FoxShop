@@ -146,7 +146,7 @@ var SL = {
   // Used everywhere where prices are needed
   setPrice: function(elm, string, value) {
     // Return if no price
-    if (typeof value == "undefined") {
+    if (typeof value == "undefined" || value == 0) {
       return;
     }
 
