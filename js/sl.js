@@ -95,17 +95,6 @@ var SL = {
     var total = document.createElement('a');
     p1.innerHTML = aList.name;
 
-    // Special cases
-    switch (aView.name) {
-      case "Items":
-        var nb = aList.nb;
-        if (nb > 1) {
-          count.setAttribute("data-l10n-id", "item-quantity");
-          count.setAttribute("data-l10n-args", {"quantity": nb});
-          count.innerHTML = _("item-quantity", {"quantity": nb});
-        }
-      break;
-    }
     p2.appendChild(count);
     p2.appendChild(total);
 
@@ -156,6 +145,11 @@ var SL = {
   },
   // Used everywhere where prices are needed
   setPrice: function(elm, string, value) {
+    // Return if no price
+    if (typeof value == "undefined") {
+      return;
+    }
+
     // Prepare settings
     var pricesEnabled = false;
     if (typeof SL.Settings.obj["prices-enable"] != "undefined") {
@@ -163,8 +157,9 @@ var SL = {
     }
 
     // Continue only if we handle prices
-    if (!pricesEnabled)
-      return
+    if (!pricesEnabled) {
+      return;
+    }
 
     var position = "right";
     if (typeof SL.Settings.obj.position != "undefined") {
