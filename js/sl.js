@@ -173,10 +173,10 @@ var SL = {
 
     elm.setAttribute("data-l10n-id", string);
     if (position == "right") {
-      elm.setAttribute("data-l10n-args", "{'a':"+value+", 'b':"+currency+"}");
+      elm.setAttribute("data-l10n-args", '{"a":"'+value+'", "b":"'+currency+'"}');
       elm.textContent = _(string, {"a":value, "b":currency});
     } else {
-      elm.setAttribute("data-l10n-args", "{'a':"+currency+", 'b':"+value+"}");
+      elm.setAttribute("data-l10n-args", '{"a":"'+currency+'", "b":"'+value+'"}');
       elm.textContent = _(string, {"a":currency, "b":value});
     }
   }
