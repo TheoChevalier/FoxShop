@@ -162,13 +162,13 @@ var SL = {
     }
 
     var position = "right";
-    if (typeof SL.Settings.obj.position != "undefined") {
-      position = SL.Settings.obj.position.value;
+    if (typeof SL.Settings.obj.currencyPosition != "undefined") {
+      position = SL.Settings.obj.currencyPosition.value;
     }
 
     var currency = _("user-currency");
-    if (typeof SL.Settings.obj.currency != "undefined") {
-      currency = SL.Settings.obj.currency.value;
+    if (typeof SL.Settings.obj.userCurrency != "undefined") {
+      currency = SL.Settings.obj.userCurrency.value;
     }
 
     elm.setAttribute("data-l10n-id", string);
