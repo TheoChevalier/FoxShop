@@ -69,6 +69,10 @@ SL.ItemView = {
     item.price = parseFloat(SL.id("newItemPrice").value);
     DB.deleteFromDB(item.guid, SL.Items);
     DB.store(item, SL.Items);
+
+    // Update items and lists UI
     SL.Items.updateUI();
-  }
+    SL.Lists.updateUI();
+  },
+  updateUI: function() {}
 }
