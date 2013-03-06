@@ -12,6 +12,7 @@ SL.ItemView = {
     SL.show("itemView");
     SL.view = this.name;
     this.item = aItem;
+    console.log(aItem);
     this.elm.getElementsByClassName("title")[0].textContent = this.item.name;
     SL.id("newItemName").value = this.item.name;
     SL.id("newItemQty").value = this.item.nb;
@@ -43,7 +44,7 @@ SL.ItemView = {
   save: function() {
     var name = SL.id("newItemName").value;
     var qty  = parseFloat(SL.id("newItemQty").value);
-    var price  = parseFloat(SL.id("newItemQty").value);
+    var price  = parseFloat(SL.id("newItemPrice").value);
 
     // Handle empty form
     if (!name || !qty) {
@@ -63,10 +64,16 @@ SL.ItemView = {
       return;
     }
 
-    var item = this.item;
+    var item = SL.Items.obj[this.item.guid];
     item.name = name;
     item.nb = qty;
-    item.price = parseFloat(SL.id("newItemPrice").value);
+    if (price >= 0) {
+      item.price = price;
+      SL.Items.obj[item.guid].price = price;
+    } else {
+      item.price ="";
+      SL.Items.obj[item.guid].price = "";
+    }
     DB.deleteFromDB(item.guid, SL.Items);
     DB.store(item, SL.Items);
 

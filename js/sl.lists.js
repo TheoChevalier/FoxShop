@@ -81,7 +81,7 @@ SL.Lists = {
         if (SL.Items.obj[aItem].list == aList) {
           i++;
           if (typeof SL.Items.obj[aItem].price != "undefined") {
-            total += SL.Items.obj[aItem].price
+            total += SL.Items.obj[aItem].price * SL.Items.obj[aItem].nb;
           }
         }
       }
