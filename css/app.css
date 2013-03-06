@@ -127,6 +127,9 @@ html, body {
 #itemQty, #itemName {
   display: inline-block;
 }
+#saveList, #newListName {
+  display: none;
+}
 
 #newItemQty {
   width:  8rem!important;

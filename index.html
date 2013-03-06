@@ -87,6 +87,14 @@
     <section id="items" role="region">
       <header>
         <button class="back"><span class="icon icon-back"></span></button>
+        <menu type="toolbar">
+          <button id="editList"><span class="icon icon-edit">Edit</span></button>
+          <button id="saveList"><span data-l10n-id="done">Done</span></button>
+        </menu>
+        <form action="#" id="newListName">
+          <input placeholder="New name" required="required" type="text" data-l10n-id="new-list-name">
+          <button type="reset"></button>
+        </form>
         <h1 class="title" data-l10n-id="items">Items</h1>
       </header>
       <form role="search" id="form-item" onsubmit="return false;">

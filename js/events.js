@@ -148,6 +148,14 @@ function addEventListeners() {
     SL.show("moreItems");
   });
 
+  // Edit List name
+  SL.id("editList").addEventListener("click", function() {
+    SL.Items.openEditListName();
+  });
+
+  SL.id("saveList").addEventListener("click", function() {
+    SL.Items.saveListName();
+  });
 
   /*****************************************************************************
    * itemView

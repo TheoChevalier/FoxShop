@@ -105,6 +105,32 @@ SL.Items = {
         node[1].textContent = _("item-quantity", {"quantity": item.nb});
       }
     }
+  },
+  openEditListName: function() {
+    this.elm.getElementsByClassName("title")[0].style.display = "none";
+    SL.id("editList").style.display = "none";
+    SL.id("newListName").style.display = "block";
+    SL.id("saveList").style.display = "block";
+  },
+  closeEditListName: function() {
+    var title = this.elm.getElementsByClassName("title")[0];
+    title.textContent = this.list.name;
+    title.style.display = "block";
+    SL.id("editList").style.display = "block";
+    SL.id("newListName").style.display = "none";
+    SL.id("saveList").style.display = "none";
+  },
+  saveListName: function() {
+    var newName = SL.id("newListName").getElementsByTagName("input")[0].value;
+    if (newName !== "") {
+      this.closeEditListName();
+      this.list.name = newName;
+      this.elm.getElementsByClassName("title")[0].textContent = newName;
+      DB.deleteFromDB(this.list.guid, SL.Lists, false);
+      DB.store(this.list, SL.Lists, false);
+    } else {
+      displayStatus("msg-name");
+    }
   }
 }
 

@@ -74,8 +74,8 @@ SL.ItemView = {
       item.price ="";
       SL.Items.obj[item.guid].price = "";
     }
-    DB.deleteFromDB(item.guid, SL.Items);
-    DB.store(item, SL.Items);
+    DB.deleteFromDB(item.guid, SL.Items, false);
+    DB.store(item, SL.Items, false);
 
     // Update items and lists UI
     SL.Items.updateUI();
