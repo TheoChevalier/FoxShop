@@ -107,6 +107,8 @@ SL.Items = {
     }
   },
   openEditListName: function() {
+    var input = SL.id("newListName").getElementsByTagName("input")[0];
+    input.value = this.list.name;
     this.elm.getElementsByClassName("title")[0].style.display = "none";
     SL.id("editList").style.display = "none";
     SL.id("newListName").style.display = "block";
