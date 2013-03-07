@@ -5,6 +5,7 @@
 SL.Settings = {
   elm: SL.id("settingsPanel"),
   name: "Settings",
+  openedFrom: "Lists",
   store: DB_STORE_SETTINGS,
   loaded: false,
   obj: {},

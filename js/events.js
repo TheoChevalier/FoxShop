@@ -4,20 +4,6 @@
 function addEventListeners() {
 
   /*****************************************************************************
-   * Shared
-   ****************************************************************************/
-    // Add event listener on every Settings button
-  var els = document.getElementsByClassName("icon-settings");
-  var elsArray = Array.prototype.slice.call(els, 0);
-  elsArray.forEach(function(el) {
-    el.addEventListener("click", function() {
-      SL.show("settingsPanel");
-      SL.hide("lists");
-      SL.hide("items");
-    });
-  });
-
-  /*****************************************************************************
    * Lists
    ****************************************************************************/
   // Add list when the user click the button…
@@ -49,6 +35,7 @@ function addEventListeners() {
     SL.hide("lists");
   });
 
+  // Install the Web App
   SL.id('install').addEventListener('click', function(e){
     navigator.mozApps.install(MANIFEST).onsuccess = function () {
       SL.id("install").style.display = "none";
@@ -61,6 +48,15 @@ function addEventListeners() {
     SL.hide("lists");
     SL.show("moreLists");
   });
+
+  // Settings
+  SL.Lists.elm.getElementsByClassName("icon-settings")[0].addEventListener("click",
+  function() {
+    SL.Settings.openedFrom = SL.Lists.name;
+    SL.hide("lists");
+    SL.show("settingsPanel");
+  });
+
 
   /*****************************************************************************
    * editMode
@@ -134,7 +130,7 @@ function addEventListeners() {
     SL.show("enterEmail");
   });
 
-    // Init event for edit view
+  // Init event for edit view
   SL.Items.elm.getElementsByClassName('edit')[0].addEventListener("click",
   function() {
     SL.hide("items");
@@ -146,6 +142,14 @@ function addEventListeners() {
   function() {
     SL.hide("items");
     SL.show("moreItems");
+  });
+
+  // Settings
+  SL.Items.elm.getElementsByClassName("icon-settings")[0].addEventListener("click",
+  function() {
+    SL.Settings.openedFrom = SL.Items.name;
+    SL.hide("items");
+    SL.show("settingsPanel");
   });
 
   // Edit List name
@@ -282,8 +286,7 @@ function addEventListeners() {
    ****************************************************************************/
   SL.Settings.elm.getElementsByClassName("icon-back")[0].parentNode.addEventListener("click", function() {
     SL.hide("settingsPanel");
-    // FIXME: determine the previous view
-    SL.show("lists");
+    SL.show(SL[SL.Settings.openedFrom].elm.id);
   });
 
   /*

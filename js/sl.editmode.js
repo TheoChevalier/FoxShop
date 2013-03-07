@@ -5,6 +5,7 @@
 SL.editMode = {
   elm: SL.id("editMode"),
   name: "editMode",
+  openedFrom: "Lists",
   init: function(aView) {
     SL.view = this.name;
     this.openedFrom = aView.name;
