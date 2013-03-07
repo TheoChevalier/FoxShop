@@ -117,8 +117,8 @@ html, body {
 }
 
 /* Margin for total*/
-.list p a:nth-child(2) {
-  margin-left: 2rem;
+.list p a:first-child {
+  margin-right: 2rem;
 }
 
 #itemQty {width: 20% ;padding-right: 0;}
