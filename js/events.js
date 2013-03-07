@@ -122,6 +122,7 @@ function addEventListeners() {
   function() {
     SL.hide("items");
     SL.show("lists");
+    SL.view = "Lists";
   });
 
   var send = SL.Items.elm.getElementsByClassName("send")[0];
@@ -168,12 +169,14 @@ function addEventListeners() {
     function() {
       SL.hide("itemView");
       SL.show("items");
+      SL.view = "Items";
     });
 
   SL.id("saveItem").addEventListener("click", function() {
       //Switch views
       SL.hide("itemView");
       SL.show("items");
+      SL.view = "Items";
       SL.ItemView.save();
   });
 
