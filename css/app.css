@@ -249,9 +249,33 @@ span {
 /**
  * CSS animations
  */
+ /* Animated translation for status box notification */
+ #status {z-index: 100;}
+.slideIn {
+  bottom: -50px;
+  animation: slideIn .4s ease-in-out 0s;
+}
+@keyframes slideIn {
+  from {
+    transform: translateY(50px);
+  }
+  to {
+    transform: translateY(0px);
+  }
+}
+.slideOut {
+  animation: slideOut .4s ease-in-out 0s;
+}
+@keyframes slideOut {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(50px);
+  }
+}
 
 /* Launch Value Selector */
-
 animation: fadeIn 0.2s forwards;
 @keyframes fadeIn {
 0% { opacity: 0; }

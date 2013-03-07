@@ -1,11 +1,21 @@
 
 // Display a notification to the user during 3s
+SL.id("status").addEventListener("animationend", hideStatus, false);
+
 function displayStatus(id) {
   var status = SL.id("status");
   SL.show("status");
   status.innerHTML = "<p>"+_(id)+"</p>";
-  status.style.zIndex = 100;
-  setTimeout(function() {SL.hide("status")}, 3000);
+  SL.id("status").className ="slideIn";
+  setTimeout(function() {
+    SL.id("status").className = "slideOut";
+  }, 3000);
+}
+
+function hideStatus() {
+  if (SL.id("status").className == "slideOut") {
+    SL.hide("status");
+  }
 }
 
 // Generate four random hex digits.
