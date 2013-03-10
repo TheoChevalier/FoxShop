@@ -2,6 +2,7 @@
 header('Content-type: text/html; charset=utf-8');
 header("Access-Control-Allow-Origin: *");
 $tab = json_decode($_POST["data"], true);
+$strings = json_decode($_POST["strings"], true);
 
 if (!preg_match("#^[a-z0-9._-]+@(hotmail|live|msn).[a-z]{2,4}$#", $tab['email']))
   $passage_ligne = "\r\n";
@@ -10,7 +11,7 @@ else
 
 foreach ($tab as $key => $value) {
   if($key =="name") {
-    $list.= $passage_ligne."<p>Liste de courses « ".$value." » envoyée depuis <a href='http://theochevalier.github.com/FoxShop'>l’application FoxShop</a>.</p>";
+    $list.= $passage_ligne."<p>".$strings["email-title-begin"].$value.$strings["email-title-end"]." ".$strings["email-intro-end"]."</p>";
   }
   if($key =="items") {
     foreach ($value as $keyItems => $items) {
@@ -37,15 +38,15 @@ foreach ($tab as $key => $value) {
   }
 }
 
-$subject = "Liste de courses « ".$tab["name"]." »".$passage_ligne;
+$subject = $strings["email-title-begin"].$tab["name"].$strings["email-title-end"].$passage_ligne;
 $mail_notif = '<html>
 <head>
-<title>Liste de courses « '.$tab["name"].' »</title>
+<title>'.$strings["email-title-begin"].$tab["name"].$strings["email-title-end"].'</title>
 </head>
 <body>'.$list.'</body>
 </html>';
 $headers  = 'MIME-Version: 1.0' . $passage_ligne;
 $headers .= 'Content-type: text/html; charset=utf-8' . $passage_ligne;
-$headers .= 'From: "FoxShop" <no-reply@theochevalier.fr>' . $passage_ligne;
+$headers .= 'From: "'.$strings["app-name"].'" <no-reply@theochevalier.fr>' . $passage_ligne;
 mail($_POST["email"], '=?UTF-8?B?'.base64_encode($subject).'?=', $mail_notif, $headers);
 ?>

@@ -23,7 +23,16 @@ SL.enterEmail = {
           SL.Items.list.items[aGuid] = SL.Items.obj[aGuid];
         }
       }
+
+      // Get localized strings
+      var s = {};
+      s["app-name"]            = _("app-name");
+      s["email-title-begin"]   = _("email-title-begin");
+      s["email-title-end"]     = _("email-title-end");
+      s["email-intro-end"]     = _("email-intro-end");
+
       var data = "email=" + email + "&data=" + JSON.stringify(SL.Items.list);
+      data += "&strings=" + JSON.stringify(s);
       xdr.open("POST", "http://theochevalier.fr/app/php/email.php");
       xdr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       xdr.send(data);
