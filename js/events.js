@@ -324,7 +324,9 @@ function addEventListeners() {
     SL.show("settingsPanel");
 
     // Save settings
-    SL.Settings.save("userCurrency", SL.id("userCurrency").value);
+    if (SL.id("userCurrency").value != "") {
+      SL.Settings.save("userCurrency", SL.id("userCurrency").value);
+    }
 
     var selected = SL.getCheckedRadioId("position");
     SL.Settings.save("currencyPosition", selected);

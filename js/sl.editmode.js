@@ -70,14 +70,14 @@ SL.editMode = {
     for(var i=0; i<nodes.length; i++) {
       if(nodes[i].getElementsByTagName("input")[0].checked) {
         var guid = nodes[i].dataset.listkey;
-        console.log(guid);
         // Remove from DB
         DB.deleteFromDB(guid, SL[this.openedFrom]);
 
-        // Remove nodes FIXME: broken, need to investigate
-        //SL.removeElement(nodes[i]);
-        //SL.removeElement(document.querySelector('li[data-listkey="'+guid+'"]'));
-        nodes[i].style.display = "none";
+        // Remove nodes
+        var els = document.querySelectorAll('li[data-listkey="'+guid+'"]');
+        [].forEach.call(els, function(v, i) {
+          v.style.display = "none";
+        });
       }
     }
   },
