@@ -30,8 +30,8 @@ html, body {
 #content, body {
   background: url(images/edit_background.png) no-repeat center center;
   background-size: 100% 100%;
-  z-index: -2;
-  position: relative;
+  /*z-index: -2;
+  position: relative;*/
 }
 
 #loader {
