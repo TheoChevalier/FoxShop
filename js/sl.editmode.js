@@ -78,6 +78,8 @@ SL.editMode = {
         [].forEach.call(els, function(v, i) {
           v.style.display = "none";
         });
+        // edit obj
+        delete SL[this.openedFrom].obj[guid];
       }
     }
   },
