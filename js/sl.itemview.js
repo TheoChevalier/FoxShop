@@ -59,7 +59,7 @@ SL.ItemView = {
         }
       }
 
-      displayStatus(l10n);
+      SL.displayStatus(l10n);
       return;
     }
 

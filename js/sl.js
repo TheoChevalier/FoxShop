@@ -1,10 +1,11 @@
 //  'use strict';
-        // DB init
+  // DB init
   var DB_NAME = 'ShoppingList';
   var DB_VERSION = 3; // Use a long long for this value (don't use a float)
   var DB_STORE_LISTS = 'lists2';
   var DB_STORE_ITEMS = 'items1';
   var DB_STORE_SETTINGS = 'settings1';
+  var db;
 
   // Define manifest URL
   if (location.host === "localhost") {
@@ -12,6 +13,30 @@
   } else {
     var MANIFEST = location.protocol + "//" + location.host + "/FoxShop/manifest.webapp";
   }
+
+  /*****************************************************************************
+  * App event listeners
+  ****************************************************************************/
+  // Init App after l10n init
+  window.addEventListener("localized", function() {
+    SL.hide("loader");
+    if(typeof db == "undefined") {
+      DB.openDb();
+      addEventListeners();
+    }
+  });
+
+  // Manage App Cache updates
+  window.applicationCache.addEventListener('updateready', function(e) {
+    if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
+      // Browser downloaded a new app cache.
+      // Swap it in and reload the page to get the new hotness.
+      console.log("update cache");
+      window.applicationCache.swapCache();
+      window.location.reload();
+    }
+  }, false);
+
 
 var SL = {
   hide: function(target) {
@@ -180,6 +205,12 @@ var SL = {
       elm.textContent = _(string, {"a":currency, "b":value});
     }
   },
+  // Actions that needs the DB to be ready
+  finishInit: function() {
+    // Load all the DB in obj
+    DB.updateObj("Settings");
+    DB.updateObj("Items");
+  },
   // Generate four random hex digits.
   S4: function() {
      return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
@@ -187,6 +218,20 @@ var SL = {
   // Generate a pseudo-GUID by concatenating random hexadecimal.
   guid: function() {
      return (this.S4()+this.S4()+"-"+this.S4()+"-"+this.S4()+"-"+this.S4()+"-"+this.S4()+this.S4()+this.S4());
+  },
+  displayStatus: function(id) {
+    var status = this.id("status");
+    this.show("status");
+    status.innerHTML = "<p>"+_(id)+"</p>";
+    this.id("status").className ="slideIn";
+    setTimeout(function() {
+      this.id("status").className = "slideOut";
+    }, 3000);
+  },
+  hideStatus: function() {
+  if (this.id("status").className == "slideOut") {
+    this.hide("status");
   }
+}
 };
 

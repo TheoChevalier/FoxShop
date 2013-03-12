@@ -42,7 +42,7 @@ SL.Lists = {
     // Remove line-endings
     name = name.replace(/(\r\n|\n|\r)/gm,"");
     if (!name || name === undefined) {
-      displayStatus("msg-name");
+      SL.displayStatus("msg-name");
       return;
     }
     SL.Lists.add({ guid: SL.guid(),

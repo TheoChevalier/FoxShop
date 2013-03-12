@@ -3,6 +3,14 @@
 // Add the eventListeners to buttons, etc.
 function addEventListeners() {
 
+
+  /*****************************************************************************
+   * Status
+   ****************************************************************************/
+  // Display a notification to the user during 3s
+  SL.id("status").addEventListener("animationend", SL.hideStatus, false);
+
+
   /*****************************************************************************
    * Lists
    ****************************************************************************/

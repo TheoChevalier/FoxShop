@@ -6,7 +6,7 @@ var DB = {
       // garbage collection.
       // db = req.result;
       db = this.result;
-      finishInit();
+      SL.finishInit();
     };
     req.onerror = function (evt) {
       console.error("openDb:", this.errorCode);

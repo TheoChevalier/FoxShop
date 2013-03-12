@@ -62,7 +62,7 @@ SL.Items = {
         }
       }
 
-      displayStatus(l10n);
+      SL.displayStatus(l10n);
       return;
     }
 
@@ -131,7 +131,7 @@ SL.Items = {
       DB.deleteFromDB(this.list.guid, SL.Lists, false);
       DB.store(this.list, SL.Lists, false);
     } else {
-      displayStatus("msg-name");
+      SL.displayStatus("msg-name");
     }
   },
   clone: function() {
