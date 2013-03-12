@@ -45,7 +45,7 @@ SL.Lists = {
       displayStatus("msg-name");
       return;
     }
-    SL.Lists.add({ guid: guid(),
+    SL.Lists.add({ guid: SL.guid(),
                    name: name,
                    date: date.getTime(),
                    items:{}
@@ -73,13 +73,13 @@ SL.Lists = {
     // For each list, count items and calculate total
     for(var aList in this.obj) {
       var total = 0;
-      var i = 0;
+      var nb = 0;
 
       // Display it
       SL.display(this.obj[aList], this);
       for(var aItem in SL.Items.obj) {
         if (SL.Items.obj[aItem].list == aList) {
-          i = i + SL.Items.obj[aItem].nb;
+          nb += SL.Items.obj[aItem].nb;
           if (typeof SL.Items.obj[aItem].price != "undefined") {
             total += SL.Items.obj[aItem].price * SL.Items.obj[aItem].nb;
           }
@@ -93,8 +93,8 @@ SL.Lists = {
 
       // Set items count
       elmCount.setAttribute("data-l10n-id", "nb-items");
-      elmCount.setAttribute("data-l10n-args", '{"n":'+i+'}');
-      elmCount.textContent = _("nb-items", {"n":i});
+      elmCount.setAttribute("data-l10n-args", '{"n":'+nb+'}');
+      elmCount.textContent = _("nb-items", {"n":nb});
 
       // Display total with the right currency at the right position
       SL.setPrice(elmTotal, "total-list", total);

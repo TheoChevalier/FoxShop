@@ -277,12 +277,20 @@ function addEventListeners() {
       SL.show("items");
     });
 
-    SL.id("removeDoneItems").addEventListener("click",
+  SL.id("removeDoneItems").addEventListener("click",
     function() {
       SL.removeDone("Items");
       SL.hide("moreItems");
       SL.show("items");
     });
+
+  SL.id("cloneList").addEventListener("click", function() {
+    SL.Items.clone();
+    SL.hide("items");
+    SL.hide("moreItems");
+    SL.show("lists");
+  })
+
 
   /*****************************************************************************
    * Settings

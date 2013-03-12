@@ -66,7 +66,7 @@ SL.Items = {
       return;
     }
 
-    aItem = { guid: guid(),
+    aItem = { guid: SL.guid(),
               name: name,
               list: this.guid,
               nb: qty,
@@ -133,6 +133,45 @@ SL.Items = {
     } else {
       displayStatus("msg-name");
     }
+  },
+  clone: function() {
+    var current = this.list;
+    var guid = SL.guid();
+    var date = new Date();
+
+    // Clone list obj
+    SL.Lists.obj[guid] = {};
+    SL.Lists.obj[guid].guid = guid;
+    SL.Lists.obj[guid].name = current.name + " ("+_("copy")+")";
+    SL.Lists.obj[guid].done = current.done;
+    SL.Lists.obj[guid].date = date.getTime();
+
+    // Clone items obj
+    for (aGuid in SL.Items.obj) {
+      var aItem = SL.Items.obj[aGuid];
+      if (aItem.list === current.guid) {
+        var guidItem = SL.guid();
+        var target = {};
+        target.name = aItem.name;
+        target.nb   = aItem.nb;
+        target.done = aItem.done;
+        target.date = date.getTime();
+        target.list = guid;
+        target.guid = guidItem;
+        if (typeof aItem.price !== "undefined") {
+          target.price = aItem.price;
+        }
+
+        SL.display(target, SL.Items);
+        DB.store(target, SL.Items);
+      }
+    }
+
+    // Display & save list then updateUI
+    SL.display(SL.Lists.obj[guid], SL.Lists);
+    DB.store(SL.Lists.obj[guid], SL.Lists, false);
+    SL.Lists.updateUI();
+    SL.Items.updateUI();
   }
 }
 
