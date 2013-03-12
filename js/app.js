@@ -23,8 +23,6 @@ function finishInit() {
   // Load all the DB in obj
   DB.updateObj("Settings");
   DB.updateObj("Items");
-  // Display the view
-  SL.Lists.init();
 }
 
 var db;

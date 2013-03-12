@@ -65,7 +65,10 @@ SL.Lists = {
 
   // Update displayed list after all view.obj were populated
   updateUI: function() {
-    this.loaded = true;
+    if (!SL.Lists.loaded) {
+      SL.Lists.loaded = true;
+      this.init();
+    }
     // FIXME: find something else, we can be in another view
     SL.view = this.name;
     SL.clear();
@@ -79,9 +82,9 @@ SL.Lists = {
       SL.display(this.obj[aList], this);
       for(var aItem in SL.Items.obj) {
         if (SL.Items.obj[aItem].list == aList) {
-          nb += SL.Items.obj[aItem].nb;
+          nb += parseInt(SL.Items.obj[aItem].nb);
           if (typeof SL.Items.obj[aItem].price != "undefined") {
-            total += SL.Items.obj[aItem].price * SL.Items.obj[aItem].nb;
+            total += parseFloat(SL.Items.obj[aItem].price * SL.Items.obj[aItem].nb);
           }
         }
       }

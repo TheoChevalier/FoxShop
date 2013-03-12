@@ -30,10 +30,10 @@ SL.ItemView = {
     }
   },
   plusOne: function() {
-    SL.id("newItemQty").value = eval(SL.id("newItemQty").value) + 1;
+    SL.id("newItemQty").value = parseInt(SL.id("newItemQty").value) + 1;
   },
   lessOne: function() {
-    var current = eval(SL.id("newItemQty").value);
+    var current = parseInt(SL.id("newItemQty").value);
     if (current > 1) {
       SL.id("newItemQty").value = current - 1;
     }
