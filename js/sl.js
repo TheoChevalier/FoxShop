@@ -219,17 +219,17 @@ var SL = {
      return (this.S4()+this.S4()+"-"+this.S4()+"-"+this.S4()+"-"+this.S4()+"-"+this.S4()+this.S4()+this.S4());
   },
   displayStatus: function(id) {
-    var status = this.id("status");
-    this.show("status");
+    var status = SL.id("status");
+    SL.show("status");
     status.innerHTML = "<p>"+_(id)+"</p>";
-    this.id("status").className ="slideIn";
+    SL.id("status").className ="slideIn";
     setTimeout(function() {
-      this.id("status").className = "slideOut";
+      SL.id("status").className = "slideOut";
     }, 3000);
   },
   hideStatus: function() {
-  if (this.id("status").className == "slideOut") {
-    this.hide("status");
+  if (SL.id("status").className == "slideOut") {
+    SL.hide("status");
   }
 }
 };
