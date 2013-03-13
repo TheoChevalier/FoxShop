@@ -43,9 +43,11 @@ SL.ItemView = {
   save: function() {
     var name = SL.id("newItemName").value;
     var qty  = parseFloat(SL.id("newItemQty").value);
-    var price  = parseFloat(SL.id("newItemPrice").value).toFixed(2);
+    var price = SL.id("newItemPrice").value;
+    price = price.replace(/,/gm,".");
+    price = parseFloat(price).toFixed(2);
 
-    // Handle empty form
+    // Check values, display error
     if (!name || !qty) {
       var l10n = "";
       if (!name) {
@@ -62,21 +64,21 @@ SL.ItemView = {
       SL.displayStatus(l10n);
       return;
     }
+    if (isNaN(price) && price != "") {
+      SL.displayStatus("msg-NaN");
+      return;
+    }
 
+    // Update obj & DB
     var item = SL.Items.obj[this.item.guid];
     item.name = name;
     item.nb = qty;
-    if (price >= 0) {
-      item.price = price;
-      SL.Items.obj[item.guid].price = price;
-    } else {
-      item.price ="";
-      SL.Items.obj[item.guid].price = "";
-    }
+    item.price = price;
+    SL.Items.obj[item.guid].price = price;
     DB.deleteFromDB(item.guid, SL.Items, false);
     DB.store(item, SL.Items, false);
 
-    // Update items and lists UI
+    // Update UI
     SL.Items.updateUI();
     SL.Lists.updateUI();
   },
