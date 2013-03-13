@@ -124,7 +124,10 @@ html, body {
 }
 
 #itemQty {width: 20% ;padding-right: 0;}
-#itemName {width: calc(79% - 10px);}
+#itemName {
+  width: -webkit-calc(79% - 10px);
+  width: calc(79% - 10px);
+}
 
 #itemQty, #itemName {
   display: inline-block;
@@ -158,6 +161,7 @@ html, body {
 }
 
 #resetItems {
+  right: -webkit-calc(20% + 20px);
   right: calc(20% + 20px);
 }
 #resetEmail {
@@ -205,6 +209,7 @@ span {
 }
 
 #aboutPanel p {
+  width: -webkit-calc(100% - 6rem);
   width: calc(100% - 6rem);
   margin: 2rem auto;
   font-size: 1.6rem;
@@ -328,19 +333,65 @@ form[role="dialog"][data-type="confirm"] {
   padding: 0;
 }
 
+
 /*switches.css*/
 label:not([for]) input + span {
   pointer-events: auto;
 }
 
-/*lists.css*/
+
+/* fix webkit in lists.css */
 [data-type="list"] li > label {
   left: 1rem;
 }
+.settings ul li button,
+.settings ul li a[role="button"] {
+  width: -webkit-calc(100% - 6rem);
+}
 
-/*confirm.css*/
+
+/* fix webkit in lists.css */
+form[role="dialog"][data-type="action"] > menu > button,
+form[role="dialog"][data-type="object"] > menu > button {
+  width: -webkit-calc(100% - 3rem);
+}
+
+
+/* fix webkit in confirm.css */
 form[role="dialog"][data-type="confirm"] > section {
   overflow-y: auto;
+  box-sizing: border-box;
+}
+form[role="dialog"][data-type="confirm"] menu button {
+  width: -webkit-calc((100% - 1rem) / 2);
+}
+
+
+/* fix webkit in input_form.css */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+input[type="search"],
+input[type="url"],
+input[type="number"],
+textarea {
+  box-sizing: border-box;
+}
+
+
+/* fix webkit in edit_mode.css */
+form[role="dialog"][data-type="edit"] menu button {
+  width: -webkit-calc((100% - 1rem) / 2);
+}
+
+
+/* fix webkit in alarm.css */
+#itemView a.abstract-menu {
+  width: -webkit-calc(100% - 7.50rem);
+}
+#alarm-delete-button {
+  background: -webkit-linear-gradient(bottom, #900010, #c90010)!important;
 }
 
 
@@ -352,6 +403,7 @@ form a {
 form ul li:last-child {
   border-bottom: none;
 }
+
 /******************************************************************************
  * Fake select boxes
  * Hum. Fix later :)
