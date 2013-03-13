@@ -15,9 +15,12 @@ SL.ItemView = {
     this.elm.getElementsByClassName("title")[0].textContent = this.item.name;
     SL.id("newItemName").value = this.item.name;
     SL.id("newItemQty").value = this.item.nb;
+    SL.id("newPrice").setAttribute("hidden", "");
 
     if (typeof SL.Settings.obj["prices-enable"] !== "undefined") {
+      console.log("defined");
       if (SL.Settings.obj["prices-enable"].value) {
+        console.log("vraie");
         SL.id("newPrice").removeAttribute("hidden");
         if (typeof this.item.price != "undefined") {
           SL.id("newItemPrice").value = this.item.price;
@@ -25,8 +28,6 @@ SL.ItemView = {
           SL.id("newItemPrice").value = "";
         }
       }
-    } else {
-      SL.id("newPrice").setAttribute("hidden", "");
     }
   },
   plusOne: function() {
