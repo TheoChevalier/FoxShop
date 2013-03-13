@@ -128,6 +128,7 @@ SL.Items = {
       this.closeEditListName();
       this.list.name = newName;
       this.elm.getElementsByClassName("title")[0].textContent = newName;
+      SL.Lists.updateUI();
       DB.deleteFromDB(this.list.guid, SL.Lists, false);
       DB.store(this.list, SL.Lists, false);
     } else {
