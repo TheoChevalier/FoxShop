@@ -170,12 +170,18 @@ var SL = {
   // Used everywhere where prices are needed
   setPrice: function(elm, string, value) {
     // Return if no price
-    if (typeof value == "undefined" || value == 0) {
+    if (typeof value === "undefined" || typeof value === "NaN" || value == 0) {
       return;
     }
+    // Limit numbers after decimal place
+    value = parseFloat(value).toFixed(2);
+
+    // Default values
+    var pricesEnabled = false;
+    var position = "right";
+    var currency = _("user-currency");
 
     // Prepare settings
-    var pricesEnabled = false;
     if (typeof SL.Settings.obj["prices-enable"] != "undefined") {
       pricesEnabled = SL.Settings.obj["prices-enable"].value;
     }
@@ -185,24 +191,23 @@ var SL = {
       return;
     }
 
-    var position = "right";
     if (typeof SL.Settings.obj.currencyPosition != "undefined") {
       position = SL.Settings.obj.currencyPosition.value;
     }
 
-    var currency = _("user-currency");
     if (typeof SL.Settings.obj.userCurrency != "undefined") {
       currency = SL.Settings.obj.userCurrency.value;
     }
 
-    elm.setAttribute("data-l10n-id", string);
+    var a = currency;
+    var b = value;
     if (position == "right") {
-      elm.setAttribute("data-l10n-args", '{"a":"'+value+'", "b":"'+currency+'"}');
-      elm.textContent = _(string, {"a":value, "b":currency});
-    } else {
-      elm.setAttribute("data-l10n-args", '{"a":"'+currency+'", "b":"'+value+'"}');
-      elm.textContent = _(string, {"a":currency, "b":value});
+      a = value;
+      b = currency;
     }
+    elm.setAttribute("data-l10n-id", string);
+    elm.setAttribute("data-l10n-args", '{"a":"'+a+'", "b":"'+b+'"}');
+    elm.textContent = _(string, {"a":a, "b":b});
   },
   // Actions that needs the DB to be ready
   finishInit: function() {

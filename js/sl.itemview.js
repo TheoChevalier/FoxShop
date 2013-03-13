@@ -43,7 +43,7 @@ SL.ItemView = {
   save: function() {
     var name = SL.id("newItemName").value;
     var qty  = parseFloat(SL.id("newItemQty").value);
-    var price  = parseFloat(SL.id("newItemPrice").value);
+    var price  = parseFloat(SL.id("newItemPrice").value).toFixed(2);
 
     // Handle empty form
     if (!name || !qty) {
