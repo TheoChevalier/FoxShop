@@ -22,7 +22,6 @@
     SL.hide("loader");
     if(typeof db == "undefined") {
       DB.openDb();
-      addEventListeners();
     }
   });
 

@@ -1,8 +1,4 @@
-
-
 // Add the eventListeners to buttons, etc.
-function addEventListeners() {
-
 
   /*****************************************************************************
    * Status
@@ -19,11 +15,11 @@ function addEventListeners() {
     SL.Lists.new();
   });
   // …or if he hit enter key
-  SL.id("listName").onkeyup = function (e) {
+  SL.id("listName").addEventListener("keyup", function (e) {
     if (e.keyCode == 13) {
       SL.Lists.new();
     }
-  };
+  });
 
   // Button to clear the form
   SL.Lists.elm.querySelector('button[type="reset"]').addEventListener("click",
@@ -102,16 +98,16 @@ function addEventListeners() {
     SL.Items.new();
   });
   // …or if he hit enter key
-  SL.id("itemName").onkeyup = function (e) {
+  SL.id("itemName").addEventListener("keyup", function (e) {
     if (e.keyCode == 13) {
       SL.Items.new();
     }
-  }
-  SL.id("itemQty").onkeyup = function (e) {
+  });
+  SL.id("itemQty").addEventListener("keyup", function (e) {
     if (e.keyCode == 13) {
       SL.Items.new();
     }
-  }
+  });
 
   // Button to clear the form
   SL.Items.elm.querySelector('button[type="reset"]').addEventListener("click",
@@ -252,11 +248,11 @@ function addEventListeners() {
       SL.enterEmail.sendAddress();
     });
   // …or if he hit enter key
-  SL.id("email").onkeyup = function (e) {
+  SL.id("email").addEventListener("keyup", function (e) {
     if (e.keyCode == 13) {
       SL.enterEmail.sendAddress();
     }
-  }
+  });
 
 
 
@@ -297,7 +293,7 @@ function addEventListeners() {
     SL.hide("items");
     SL.hide("moreItems");
     SL.show("lists");
-  })
+  });
 
 
   /*****************************************************************************
@@ -376,5 +372,4 @@ function addEventListeners() {
     SL.hide("aboutPanel");
     SL.show("settingsPanel");
   });
-}
  
