@@ -17,7 +17,6 @@ js/sl.items.js
 js/sl.itemview.js
 js/sl.enteremail.js
 js/events.js
-js/app.js
 js/IndexedDBShim.min.js
 
 
