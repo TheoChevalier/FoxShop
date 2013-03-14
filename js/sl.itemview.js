@@ -18,9 +18,7 @@ SL.ItemView = {
     SL.id("newPrice").setAttribute("hidden", "");
 
     if (typeof SL.Settings.obj["prices-enable"] !== "undefined") {
-      console.log("defined");
       if (SL.Settings.obj["prices-enable"].value) {
-        console.log("vraie");
         SL.id("newPrice").removeAttribute("hidden");
         if (typeof this.item.price != "undefined") {
           SL.id("newItemPrice").value = this.item.price;
