@@ -233,9 +233,14 @@ var SL = {
     }, 3000);
   },
   hideStatus: function() {
-  if (SL.id("status").className == "slideOut") {
-    SL.hide("status");
-  }
-}
+    if (SL.id("status").className == "slideOut") {
+      SL.hide("status");
+    }
+  },
+  // Init the deleteItem sction with a custom message
+  initConfirm: function(n) {
+    var span = SL.id("deleteItem").getElementsByTagName("span")[0];
+    span.textContent = _("delete-item-desc", {'n':n});
+  },
 };
 

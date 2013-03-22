@@ -82,10 +82,6 @@ SL.ItemView = {
     SL.Lists.updateUI();
   },
   updateUI: function() {},
-  initConfirm: function(n) {
-    var span = SL.id("deleteItem").getElementsByTagName("span")[0];
-    span.textContent = _("delete-item-desc", {'n':n});
-  },
   remove: function() {
     var guid = this.item.guid;
     SL.hide("deleteItem");

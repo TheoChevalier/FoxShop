@@ -75,7 +75,9 @@
 
   // Delete Selected
   header.getElementsByTagName("button")[1].addEventListener("click", function() {
-    SL.editMode.deleteSelected();
+    SL.initConfirm(SL.editMode.count());
+    SL.hide("editMode");
+    SL.show("deleteItem");
   });
 
   var menu = SL.editMode.elm.getElementsByTagName("menu")[1];
@@ -211,7 +213,12 @@
     SL.id("deleteItem").getElementsByTagName("button")[0].addEventListener("click",
     function() {
       SL.hide("deleteItem");
-      SL.show("itemView");
+
+      if (typeof SL[SL[SL.view].openedFrom] != "undefined") {
+        SL.show("editMode");
+      } else {
+        SL.show("itemView");
+      }
     });
 
 

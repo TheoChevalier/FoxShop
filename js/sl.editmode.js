@@ -65,7 +65,7 @@ SL.editMode = {
 
     this.elm.getElementsByClassName("list")[0].appendChild(newLi);
   },
-  deleteSelected: function() {
+  remove: function() {
     var nodes = this.elm.getElementsByClassName("list")[0].childNodes;
     for(var i=0; i<nodes.length; i++) {
       if(nodes[i].getElementsByTagName("input")[0].checked) {
@@ -94,5 +94,15 @@ SL.editMode = {
     for(var i=0; i<nodes.length; i++) {
       nodes[i].getElementsByTagName("input")[0].removeAttribute("checked");
     }
+  },
+  count: function() {
+    var n = 0;
+    var nodes = this.elm.getElementsByClassName("list")[0].childNodes;
+    for(var i=0; i<nodes.length; i++) {
+      if(nodes[i].getElementsByTagName("input")[0].checked) {
+        n += 1;
+      }
+    }
+    return n;
   }
 }
