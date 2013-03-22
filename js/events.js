@@ -188,6 +188,7 @@
     function() {
       SL.hide("itemView");
       SL.show("deleteItem");
+      SL.ItemView.initConfirm(1);
     });
 
   SL.id("plusOne").addEventListener("click", function() {
@@ -204,11 +205,7 @@
 
     SL.id("deleteItem").getElementsByTagName("button")[1].addEventListener("click",
     function() {
-      var guid = SL.ItemView.item.guid;
-      SL.hide("deleteItem");
-      SL.removeElement(SL.Items.elm.querySelector('li[data-listkey="'+guid+'"]'));
-      SL.show("items");
-      DB.deleteFromDB(guid, SL.Items);
+      SL[SL.view].remove();
     });
 
     SL.id("deleteItem").getElementsByTagName("button")[0].addEventListener("click",
