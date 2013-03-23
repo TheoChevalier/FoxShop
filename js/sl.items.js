@@ -3,7 +3,7 @@
  * Items
  ******************************************************************************/
 SL.Items = {
-  elm: SL.id("items"),
+  elm: $id("items"),
   name: "Items",
   nextView: "ItemView",
   store: DB_STORE_ITEMS,
@@ -39,10 +39,10 @@ SL.Items = {
 
   // Add an item to the current list
   new: function() {
-    var name = SL.id('itemName').value;
-    var qty = SL.id('itemQty').value;
-    SL.id('itemName').value = "";
-    SL.id('itemQty').value = "1";
+    var name = $id('itemName').value;
+    var qty = $id('itemQty').value;
+    $id('itemName').value = "";
+    $id('itemQty').value = "1";
     var date = new Date();
 
     // Remove line-endings
@@ -107,23 +107,23 @@ SL.Items = {
     }
   },
   openEditListName: function() {
-    var input = SL.id("newListName").getElementsByTagName("input")[0];
+    var input = $id("newListName").getElementsByTagName("input")[0];
     input.value = this.list.name;
     this.elm.getElementsByClassName("title")[0].style.display = "none";
-    SL.id("editList").style.display = "none";
-    SL.id("newListName").style.display = "block";
-    SL.id("saveList").style.display = "block";
+    $id("editList").style.display = "none";
+    $id("newListName").style.display = "block";
+    $id("saveList").style.display = "block";
   },
   closeEditListName: function() {
     var title = this.elm.getElementsByClassName("title")[0];
     title.textContent = this.list.name;
     title.style.display = "block";
-    SL.id("editList").style.display = "block";
-    SL.id("newListName").style.display = "none";
-    SL.id("saveList").style.display = "none";
+    $id("editList").style.display = "block";
+    $id("newListName").style.display = "none";
+    $id("saveList").style.display = "none";
   },
   saveListName: function() {
-    var newName = SL.id("newListName").getElementsByTagName("input")[0].value;
+    var newName = $id("newListName").getElementsByTagName("input")[0].value;
     if (newName !== "") {
       this.closeEditListName();
       this.list.name = newName;

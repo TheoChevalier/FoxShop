@@ -4,18 +4,18 @@
    * Status
    ****************************************************************************/
   // Display a notification to the user during 3s
-  SL.id("status").addEventListener("animationend", SL.hideStatus, false);
+  $id("status").addEventListener("animationend", SL.hideStatus, false);
 
 
   /*****************************************************************************
    * Lists
    ****************************************************************************/
   // Add list when the user click the button…
-  SL.id("add-list").addEventListener("click", function() {
+  $id("add-list").addEventListener("click", function() {
     SL.Lists.new();
   });
   // …or if he hit enter key
-  SL.id("listName").addEventListener("keyup", function (e) {
+  $id("listName").addEventListener("keyup", function (e) {
     if (e.keyCode == 13) {
       SL.Lists.new();
     }
@@ -24,7 +24,7 @@
   // Button to clear the form
   SL.Lists.elm.querySelector('button[type="reset"]').addEventListener("click",
   function() {
-      SL.id("listName").textContent = "";
+      $id("listName").textContent = "";
   });
 
   // Button to cross out all the lists
@@ -40,9 +40,9 @@
   });
 
   // Install the Web App
-  SL.id('install').addEventListener('click', function(e){
+  $id('install').addEventListener('click', function(e){
     navigator.mozApps.install(MANIFEST).onsuccess = function () {
-      SL.id("install").style.display = "none";
+      $id("install").style.display = "none";
     };
   });
 
@@ -96,16 +96,16 @@
    * Items
    ****************************************************************************/
   // Add item when the user click the button…
-  SL.id("add-item").addEventListener("click", function() {
+  $id("add-item").addEventListener("click", function() {
     SL.Items.new();
   });
   // …or if he hit enter key
-  SL.id("itemName").addEventListener("keyup", function (e) {
+  $id("itemName").addEventListener("keyup", function (e) {
     if (e.keyCode == 13) {
       SL.Items.new();
     }
   });
-  SL.id("itemQty").addEventListener("keyup", function (e) {
+  $id("itemQty").addEventListener("keyup", function (e) {
     if (e.keyCode == 13) {
       SL.Items.new();
     }
@@ -114,8 +114,8 @@
   // Button to clear the form
   SL.Items.elm.querySelector('button[type="reset"]').addEventListener("click",
   function() {
-      SL.id("itemName").textContent = "";
-      SL.id("itemQty").textContent = "1";
+      $id("itemName").textContent = "";
+      $id("itemQty").textContent = "1";
   });
 
   // Button to cross out all the items
@@ -160,11 +160,11 @@
   });
 
   // Edit List name
-  SL.id("editList").addEventListener("click", function() {
+  $id("editList").addEventListener("click", function() {
     SL.Items.openEditListName();
   });
 
-  SL.id("saveList").addEventListener("click", function() {
+  $id("saveList").addEventListener("click", function() {
     SL.Items.saveListName();
   });
 
@@ -178,7 +178,7 @@
       SL.view = "Items";
     });
 
-  SL.id("saveItem").addEventListener("click", function() {
+  $id("saveItem").addEventListener("click", function() {
       //Switch views
       SL.hide("itemView");
       SL.show("items");
@@ -186,17 +186,17 @@
       SL.ItemView.save();
   });
 
-  SL.id("alarm-delete").addEventListener("click",
+  $id("alarm-delete").addEventListener("click",
     function() {
       SL.hide("itemView");
       SL.show("deleteItem");
       SL.ItemView.initConfirm(1);
     });
 
-  SL.id("plusOne").addEventListener("click", function() {
+  $id("plusOne").addEventListener("click", function() {
     SL.ItemView.plusOne();
   });
-  SL.id("lessOne").addEventListener("click", function() {
+  $id("lessOne").addEventListener("click", function() {
     SL.ItemView.lessOne();
   });
 
@@ -205,12 +205,12 @@
    * deleteItem
    ****************************************************************************/
 
-    SL.id("deleteItem").getElementsByTagName("button")[1].addEventListener("click",
+    $id("deleteItem").getElementsByTagName("button")[1].addEventListener("click",
     function() {
       SL[SL.view].remove();
     });
 
-    SL.id("deleteItem").getElementsByTagName("button")[0].addEventListener("click",
+    $id("deleteItem").getElementsByTagName("button")[0].addEventListener("click",
     function() {
       SL.hide("deleteItem");
 
@@ -233,7 +233,7 @@
       SL.hide("enterEmail");
       SL.show("items");
     });
-  SL.id("sendEmail").getElementsByClassName("cancel")[0].addEventListener("click",
+  $id("sendEmail").getElementsByClassName("cancel")[0].addEventListener("click",
     function() {
       SL.hide("sendEmail");
       SL.show("enterEmail");
@@ -243,7 +243,7 @@
   // Button to clear the form
   SL.enterEmail.elm.querySelector('button[type="reset"]').addEventListener("click",
   function() {
-      SL.id("email").textContent = "";
+      $id("email").textContent = "";
   });
 
   // Send
@@ -252,7 +252,7 @@
       SL.enterEmail.sendAddress();
     });
   // …or if he hit enter key
-  SL.id("email").addEventListener("keyup", function (e) {
+  $id("email").addEventListener("keyup", function (e) {
     if (e.keyCode == 13) {
       SL.enterEmail.sendAddress();
     }
@@ -263,13 +263,13 @@
   /*****************************************************************************
    * More List
    ****************************************************************************/
-  SL.id("moreLists").getElementsByClassName("cancel")[0].addEventListener("click",
+  $id("moreLists").getElementsByClassName("cancel")[0].addEventListener("click",
     function() {
       SL.hide("moreLists");
       SL.show("lists");
     });
 
-    SL.id("removeDoneLists").addEventListener("click",
+    $id("removeDoneLists").addEventListener("click",
     function() {
       SL.removeDone("Lists");
       SL.hide("moreLists");
@@ -279,20 +279,20 @@
   /*****************************************************************************
    * More Items
    ****************************************************************************/
-  SL.id("moreItems").getElementsByClassName("cancel")[0].addEventListener("click",
+  $id("moreItems").getElementsByClassName("cancel")[0].addEventListener("click",
     function() {
       SL.hide("moreItems");
       SL.show("items");
     });
 
-  SL.id("removeDoneItems").addEventListener("click",
+  $id("removeDoneItems").addEventListener("click",
     function() {
       SL.removeDone("Items");
       SL.hide("moreItems");
       SL.show("items");
     });
 
-  SL.id("cloneList").addEventListener("click", function() {
+  $id("cloneList").addEventListener("click", function() {
     SL.Items.clone();
     SL.hide("items");
     SL.hide("moreItems");
@@ -315,7 +315,7 @@
     var selected = this.options[this.selectedIndex];
     // Save setting
     SL.Settings.save("language", selected.value);
-    SL.id("language").textContent = selected.textContent;
+    $id("language").textContent = selected.textContent;
 
     // Change language
     document.webL10n.setLanguage(selected.value);
@@ -325,23 +325,23 @@
    * Currency settings
    */
   // Show position & currency panel
-  SL.id("currency").addEventListener("click", function() {
+  $id("currency").addEventListener("click", function() {
     SL.hide("settingsPanel");
     SL.show("editCurrency");
   });
 
   // Hide currency panel
-  SL.id("cEditCurrency").addEventListener("click", function() {
+  $id("cEditCurrency").addEventListener("click", function() {
     SL.hide("editCurrency");
     SL.show("settingsPanel");
   });
-  SL.id("setEditCurrency").addEventListener("click", function() {
+  $id("setEditCurrency").addEventListener("click", function() {
     SL.hide("editCurrency");
     SL.show("settingsPanel");
 
     // Save settings
-    if (SL.id("userCurrency").value != "") {
-      SL.Settings.save("userCurrency", SL.id("userCurrency").value);
+    if ($id("userCurrency").value != "") {
+      SL.Settings.save("userCurrency", $id("userCurrency").value);
     }
 
     var selected = SL.getCheckedRadioId("position");
@@ -349,11 +349,11 @@
   });
 
   // Switches
-  SL.id("prices-enable").addEventListener("click", function() {
+  $id("prices-enable").addEventListener("click", function() {
     if(this.checked) {
-      SL.id("currency").removeAttribute("disabled");
+      $id("currency").removeAttribute("disabled");
     } else {
-      SL.id("currency").setAttribute("disabled", "");
+      $id("currency").setAttribute("disabled", "");
     }
     // Update the obj before refreshing Lists view
     if (typeof SL.Settings.obj["prices-enable"] == "undefined") {
@@ -368,11 +368,11 @@
   /*
    * About panel
    */
-  SL.id("about").addEventListener("click", function() {
+  $id("about").addEventListener("click", function() {
     SL.hide("settingsPanel");
     SL.show("aboutPanel");
   });
-  SL.id("aboutBack").addEventListener("click", function() {
+  $id("aboutBack").addEventListener("click", function() {
     SL.hide("aboutPanel");
     SL.show("settingsPanel");
   });

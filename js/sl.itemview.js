@@ -4,7 +4,7 @@
  * ItemView
  ******************************************************************************/
 SL.ItemView = {
-  elm: SL.id("itemView"),
+  elm: $id("itemView"),
   name: "ItemView",
   item: {},
   init: function(aItem) {
@@ -13,36 +13,36 @@ SL.ItemView = {
     SL.view = this.name;
     this.item = aItem;
     this.elm.getElementsByClassName("title")[0].textContent = this.item.name;
-    SL.id("newItemName").value = this.item.name;
-    SL.id("newItemQty").value = this.item.nb;
-    SL.id("newPrice").setAttribute("hidden", "");
+    $id("newItemName").value = this.item.name;
+    $id("newItemQty").value = this.item.nb;
+    $id("newPrice").setAttribute("hidden", "");
 
     if (typeof SL.Settings.obj["prices-enable"] !== "undefined") {
       if (SL.Settings.obj["prices-enable"].value) {
-        SL.id("newPrice").removeAttribute("hidden");
+        $id("newPrice").removeAttribute("hidden");
         if (typeof this.item.price != "undefined") {
-          SL.id("newItemPrice").value = this.item.price;
+          $id("newItemPrice").value = this.item.price;
         } else {
-          SL.id("newItemPrice").value = "";
+          $id("newItemPrice").value = "";
         }
       }
     }
   },
   plusOne: function() {
-    SL.id("newItemQty").value = parseInt(SL.id("newItemQty").value) + 1;
+    $id("newItemQty").value = parseInt($id("newItemQty").value) + 1;
   },
   lessOne: function() {
-    var current = parseInt(SL.id("newItemQty").value);
+    var current = parseInt($id("newItemQty").value);
     if (current > 1) {
-      SL.id("newItemQty").value = current - 1;
+      $id("newItemQty").value = current - 1;
     }
   },
 
   //Save current item into DB
   save: function() {
-    var name = SL.id("newItemName").value;
-    var qty  = parseFloat(SL.id("newItemQty").value);
-    var price = SL.id("newItemPrice").value;
+    var name = $id("newItemName").value;
+    var qty  = parseFloat($id("newItemQty").value);
+    var price = $id("newItemPrice").value;
     price = price.replace(/,/gm,".");
     price = parseFloat(price).toFixed(2);
 

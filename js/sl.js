@@ -7,9 +7,12 @@
   var DB_STORE_SETTINGS = 'settings1';
   var db;
 
+  // Alias for getElementById
+  var $id = document.getElementById.bind(document);
+
   // Define manifest URL
   if (location.host === "localhost") {
-    var MANIFEST = "http://localhost/ShoppingList/manifest.webapp";
+    var MANIFEST = "http://localhost/FoxShop/manifest.webapp";
   } else {
     var MANIFEST = location.protocol + "//" + location.host + "/FoxShop/manifest.webapp";
   }
@@ -38,43 +41,17 @@
 
 
 var SL = {
-  hide: function(target) {
-    target = SL.id(target).style;
-    target.display = "none";
-  },
-  show: function(target) {
-    target = SL.id(target).style;
-    target.display = "block";
-  },
-  removeElement: function(node) {
-    if(node !== null) {
-      node.parentNode.removeChild(node);
-    }
-  },
-  clear: function() {
-    var node = SL[this.view].elm.getElementsByClassName("list")[0];
-    while (node.hasChildNodes()) {
-      node.removeChild(node.lastChild);
-    }
-  },
-  id: function(target) {
-    return document.getElementById(target);
+  // Actions that needs the DB to be ready
+  finishInit: function() {
+    // Load all the data in <view>.obj
+    DB.updateObj("Settings");
+    DB.updateObj("Items");
   },
 
-  //Unused for now
-  class: function(target, n) {
-    if (typeof n === "undefined") {
-      n = 0;
-    }
-
-    return document.getElementByClassName(target)[n];
-  },
-  getCheckedRadioId: function(name) {
-    var elements = document.getElementsByName(name);
-
-    for (var i=0, len=elements.length; i<len; ++i)
-        if (elements[i].checked) return elements[i].value;
-  },
+  /*****************************************************************************
+  * functions shared between views
+  ****************************************************************************/
+  // Display an element of a list in a view
   display: function(aList, aView) {
     var newLi = document.createElement('li');
     newLi.dataset.listkey = aList.guid;
@@ -209,12 +186,29 @@ var SL = {
     elm.setAttribute("data-l10n-args", '{"a":"'+a+'", "b":"'+b+'"}');
     elm.textContent = _(string, {"a":a, "b":b});
   },
-  // Actions that needs the DB to be ready
-  finishInit: function() {
-    // Load all the DB in obj
-    DB.updateObj("Settings");
-    DB.updateObj("Items");
+  displayStatus: function(id) {
+    var status = $id("status");
+    SL.show("status");
+    status.innerHTML = "<p>"+_(id)+"</p>";
+    $id("status").className ="slideIn";
+    setTimeout(function() {
+      $id("status").className = "slideOut";
+    }, 3000);
   },
+  hideStatus: function() {
+    if ($id("status").className == "slideOut") {
+      SL.hide("status");
+    }
+  },
+  // Init the deleteItem section with a custom message
+  initConfirm: function(n) {
+    var span = $id("deleteItem").getElementsByTagName("span")[0];
+    span.textContent = _("delete-item-desc", {'n':n});
+  },
+
+  /*****************************************************************************
+  * Generic functions, used everywhere
+  ****************************************************************************/ 
   // Generate four random hex digits.
   S4: function() {
      return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
@@ -223,24 +217,39 @@ var SL = {
   guid: function() {
      return (this.S4()+this.S4()+"-"+this.S4()+"-"+this.S4()+"-"+this.S4()+"-"+this.S4()+this.S4()+this.S4());
   },
-  displayStatus: function(id) {
-    var status = SL.id("status");
-    SL.show("status");
-    status.innerHTML = "<p>"+_(id)+"</p>";
-    SL.id("status").className ="slideIn";
-    setTimeout(function() {
-      SL.id("status").className = "slideOut";
-    }, 3000);
+  hide: function(target) {
+    target = $id(target).style;
+    target.display = "none";
   },
-  hideStatus: function() {
-    if (SL.id("status").className == "slideOut") {
-      SL.hide("status");
+  show: function(target) {
+    target = $id(target).style;
+    target.display = "block";
+  },
+  removeElement: function(node) {
+    if(node !== null) {
+      node.parentNode.removeChild(node);
     }
   },
-  // Init the deleteItem sction with a custom message
-  initConfirm: function(n) {
-    var span = SL.id("deleteItem").getElementsByTagName("span")[0];
-    span.textContent = _("delete-item-desc", {'n':n});
+  clear: function() {
+    var node = SL[this.view].elm.getElementsByClassName("list")[0];
+    while (node.hasChildNodes()) {
+      node.removeChild(node.lastChild);
+    }
+  },
+
+  //Unused for now
+  class: function(target, n) {
+    if (typeof n === "undefined") {
+      n = 0;
+    }
+
+    return document.getElementByClassName(target)[n];
+  },
+  getCheckedRadioId: function(name) {
+    var elements = document.getElementsByName(name);
+
+    for (var i=0, len=elements.length; i<len; ++i)
+        if (elements[i].checked) return elements[i].value;
   },
 };
 

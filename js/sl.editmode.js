@@ -3,13 +3,13 @@
  * editMode
  ******************************************************************************/
 SL.editMode = {
-  elm: SL.id("editMode"),
+  elm: $id("editMode"),
   name: "editMode",
   openedFrom: "Lists",
   init: function(aView) {
     SL.view = this.name;
-    this.openedFrom = aView.name;
     SL.show("editMode");
+    this.openedFrom = aView.name;
     this.store = aView.store;
 
     var node = this.elm.getElementsByClassName("list")[0];

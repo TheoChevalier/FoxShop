@@ -3,19 +3,19 @@
  * enterEmail
  ******************************************************************************/
 SL.enterEmail = {
-  elm: SL.id("enterEmail"),
+  elm: $id("enterEmail"),
 
   sendAddress: function() {
-    if (SL.id("email").value != "") {
+    if ($id("email").value != "") {
       SL.hide("enterEmail");
       SL.show("sendEmail");
       var xdr = this.getXDR();
       xdr.onload = function() {
-        SL.id("email").value = "";
+        $id("email").value = "";
         SL.hide("sendEmail");
         SL.show("items");
       }
-      var email = SL.id("email").value;
+      var email = $id("email").value;
 
       // Adding items of the opened list to SL.Items.list
       for(aGuid in SL.Items.obj) {

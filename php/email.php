@@ -1,6 +1,10 @@
 <?php
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+header('Access-Control-Max-Age: 1001');
+header('Access-Control-Allow-Headers: Content-Type');
 header('Content-type: text/html; charset=utf-8');
-header("Access-Control-Allow-Origin: *");
+
 $tab = json_decode($_POST["data"], true);
 $strings = json_decode($_POST["strings"], true);
 

@@ -3,10 +3,9 @@
  * Lists
  ******************************************************************************/
 SL.Lists = {
-  elm : SL.id("lists"),
+  elm : $id("lists"),
   name: "Lists",
   nextView: "Items",
-  arrayList : {},
   store: DB_STORE_LISTS,
   obj: {},
   loaded: false,
@@ -20,7 +19,7 @@ SL.Lists = {
       request.onsuccess = function() {
         // If the App is not installed
         if (request.result == null) {
-          SL.id("install").style.display = "block";
+          $id("install").style.display = "block";
         }
       }
     }
@@ -35,8 +34,8 @@ SL.Lists = {
     this.updateUI();
   },
   new: function() {
-    var name = SL.id('listName').value;
-    SL.id('listName').value = "";
+    var name = $id('listName').value;
+    $id('listName').value = "";
     var date = new Date();
 
     // Remove line-endings
