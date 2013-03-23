@@ -75,9 +75,13 @@
 
   // Delete Selected
   header.getElementsByTagName("button")[1].addEventListener("click", function() {
-    SL.initConfirm(SL.editMode.count());
-    SL.hide("editMode");
-    SL.show("deleteItem");
+    var n = SL.editMode.count();
+    if(n>0) {
+      SL.initConfirm(SL.editMode.count());
+      SL.hide("editMode");
+      SL.show("deleteItem");
+    }
+
   });
 
   var menu = SL.editMode.elm.getElementsByTagName("menu")[1];
@@ -190,7 +194,7 @@
     function() {
       SL.hide("itemView");
       SL.show("deleteItem");
-      SL.ItemView.initConfirm(1);
+      SL.initConfirm(1);
     });
 
   $id("plusOne").addEventListener("click", function() {
