@@ -21,7 +21,7 @@ js/IndexedDBShim.min.js
 
 
 # Loader
-lazyload/lazyload-min.js
+lazyload-min/lazyload-min.js
 
 # L10N
 webL10n/l10n.js
