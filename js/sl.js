@@ -30,12 +30,13 @@
 
   // Manage App Cache updates
   window.applicationCache.addEventListener('updateready', function(e) {
-    if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
-      // Browser downloaded a new app cache.
-      // Swap it in and reload the page to get the new hotness.
-      console.log("update cache");
-      window.applicationCache.swapCache();
-      window.location.reload();
+  var appCache = window.applicationCache;
+    if (appCache) {
+      appCache.onupdateready = function () {
+        if (confirm("The app has been updated. Do you want to download the latest files? \nOtherwise they will be updated at the next reload.")) {
+          location.reload(true);
+        }
+      };
     }
   }, false);
 
