@@ -34,6 +34,9 @@ css/app.css
 css/lists.css
 css/alarm.css
 
+# Fonts
+css/fonts/MozTT%20Light.ttf
+
 # CSS Building Blocks
 css/building_blocks/headers.css
 css/building_blocks/buttons.css
