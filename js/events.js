@@ -365,7 +365,6 @@
     }
     SL.Settings.obj["prices-enable"].value = this.checked;
     SL.Lists.updateUI();
-
     SL.Settings.save("prices-enable", this.checked);
   });
 

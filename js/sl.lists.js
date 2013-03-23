@@ -68,8 +68,11 @@ SL.Lists = {
       SL.Lists.loaded = true;
       this.init();
     }
-    // FIXME: find something else, we can be in another view
-    SL.view = this.name;
+
+    // Set the view only if it is currently open
+    if (this.elm.style.display == "block") {
+      SL.view = this.name;
+    }
     SL.clear();
 
     // For each list, count items and calculate total
