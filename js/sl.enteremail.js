@@ -33,7 +33,7 @@ SL.enterEmail = {
 
       var data = "email=" + email + "&data=" + JSON.stringify(SL.Items.list);
       data += "&strings=" + JSON.stringify(s);
-      xdr.open("POST", "http://theochevalier.fr/app/php/email.php");
+      xdr.open("POST", "http://www.theochevalier.fr/app/php/email.php");
       xdr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       xdr.send(data);
     }
