@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
+  <meta content="yes" name="apple-mobile-web-app-capable" />
+  <link rel="apple-touch-icon" href="homescreen.png"/>
+
     <!-- Building blocks -->
   <link rel="stylesheet" type="text/css" href="css/building_blocks/headers.css"/>
   <link rel="stylesheet" type="text/css" href="css/building_blocks/buttons.css">
@@ -318,6 +321,7 @@
   <script src="lazyload-min/lazyload-min.js"></script>
   <script type="text/JavaScript">
     LazyLoad.js([
+      'js/IndexedDBShim.min.js',
       'js/db.js',
       'js/sl.js',
       'js/sl.settings.js',
