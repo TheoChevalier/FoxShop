@@ -40,15 +40,14 @@ SL.ItemView = {
 
   //Save current item into DB
   save: function() {
+    var l10n = "";
+    var item;
+    var price = "";
     var name = $id("newItemName").value;
     var qty  = parseFloat($id("newItemQty").value);
-    var price = $id("newItemPrice").value;
-    price = price.replace(/,/gm,".");
-    price = parseFloat(price).toFixed(2);
 
     // Check values, display error
     if (!name || !qty) {
-      var l10n = "";
       if (!name) {
         l10n = "msg-name";
         if (!qty) {
@@ -63,23 +62,35 @@ SL.ItemView = {
       SL.displayStatus(l10n);
       return;
     }
-    if (isNaN(price) && price != "") {
-      SL.displayStatus("msg-NaN");
-      return;
-    }
 
     // Update obj & DB
-    var item = SL.Items.obj[this.item.guid];
+    item = SL.Items.obj[this.item.guid];
     item.name = name;
     item.nb = qty;
-    item.price = price;
-    SL.Items.obj[item.guid].price = price;
+
+    if (typeof SL.Settings.obj["prices-enable"] !== "undefined") {
+      if (SL.Settings.obj["prices-enable"]) {
+        if ($id("newItemPrice").value !== "") {
+          price = $id("newItemPrice").value;
+          price = price.replace(/,/gm,".");
+          price = parseFloat(price).toFixed(2);
+          if (isNaN(price)) {
+            SL.displayStatus("msg-NaN");
+            return;
+          }
+        } else {
+          item.price = price;
+          SL.Items.obj[item.guid].price = price;
+        }
+      }
+    }
+
     DB.deleteFromDB(item.guid, SL.Items, false);
     DB.store(item, SL.Items, false);
 
     // Update UI
-    SL.Items.updateUI();
     SL.Lists.updateUI();
+    SL.Items.updateUI();
   },
   updateUI: function() {},
   remove: function() {

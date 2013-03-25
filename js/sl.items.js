@@ -77,6 +77,7 @@ SL.Items = {
     DB.store(aItem, this);
     SL.display(aItem, this);
     this.updateUI();
+    SL.Lists.updateUI();
   },
 
   // Use SL.display function to populate the list
@@ -100,9 +101,11 @@ SL.Items = {
         node = node[1].getElementsByTagName("a");
         SL.setPrice(node[0], "item-price", item.price);
 
-        // Quantity (second p, second a)
-        node[1].setAttribute("data-l10n-args", "{quantity: "+item.nb+"}");
-        node[1].textContent = _("item-quantity", {"quantity": item.nb});
+        if (item.nb > 1) {
+          // Quantity (second p, second a)
+          node[1].setAttribute("data-l10n-args", "{quantity: "+item.nb+"}");
+          node[1].textContent = _("item-quantity", {"quantity": item.nb});
+        }
       }
     }
   },
