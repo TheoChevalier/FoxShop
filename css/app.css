@@ -54,22 +54,13 @@ html, body {
   color: #fff;
 }
 
-
-.action-success {
-  color: green;
-}
-
-.action-failure {
-  color: red;
-}
-
-#items, #lists, #settingsPanel, #editMode, #editItems, #enterEmail, #sendEmail,
-#editCurrency, #editPosition, #aboutPanel, #itemView, #deleteItem, #moreLists,
-#moreItems {
+section[role="region"], form[role="dialog"] {
   min-width: 100%;
   min-height: 100%;
   display: none;
 }
+
+#lists {display: block;}
 
 :target {
   display: block!important;

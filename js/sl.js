@@ -47,6 +47,7 @@ window.onhashchange = function() {
   }
   SL.oldHash = SL.currentHash;
   SL.currentHash = location.hash;
+  if (SL.currentHash == "#" || SL.currentHash == "") location.hash = "#lists";
 };
 
 var SL = {
