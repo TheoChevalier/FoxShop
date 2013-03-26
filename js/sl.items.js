@@ -8,15 +8,14 @@ SL.Items = {
   nextView: "ItemView",
   store: DB_STORE_ITEMS,
   obj: {},
+  list: {},
   loaded: false,
   init: function(aList) {
-    SL.Lists.close();
     SL.view = this.name;
     this.list = aList;
     this.guid = aList.guid;
-    SL.clear(this);
-    SL.hide("lists");
-    SL.show("items");
+    SL.clear(this.name);
+    location.hash = "#items";
 
     // Set title of the displayed Items list
     this.elm.getElementsByClassName("title")[0].textContent=aList.name;
@@ -27,14 +26,6 @@ SL.Items = {
         SL.display(this.obj[aGuid], this);
       }
     }
-  },
-
-  // Go back to Lists view
-  back: function() {
-    // Hide Items list
-    SL.hide("items");
-    // Display Lists list
-    SL.Lists.init();
   },
 
   // Add an item to the current list

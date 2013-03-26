@@ -1,47 +1,58 @@
 //  'use strict';
-  // DB init
-  var DB_NAME = 'ShoppingList';
-  var DB_VERSION = 3; // Use a long long for this value (don't use a float)
-  var DB_STORE_LISTS = 'lists2';
-  var DB_STORE_ITEMS = 'items1';
-  var DB_STORE_SETTINGS = 'settings1';
-  var db;
+// DB init
+var DB_NAME = 'ShoppingList';
+var DB_VERSION = 3; // Use a long long for this value (don't use a float)
+var DB_STORE_LISTS = 'lists2';
+var DB_STORE_ITEMS = 'items1';
+var DB_STORE_SETTINGS = 'settings1';
+var db;
 
-  // Alias for getElementById
-  var $id = document.getElementById.bind(document);
+// Alias for getElementById
+var $id = document.getElementById.bind(document);
 
-  // Define manifest URL
-  if (location.host === "localhost") {
-    var MANIFEST = "http://localhost/FoxShop/manifest.webapp";
-  } else {
-    var MANIFEST = location.protocol + "//" + location.host + "/FoxShop/manifest.webapp";
+// Define manifest URL
+if (location.host === "localhost") {
+  var MANIFEST = "http://localhost/FoxShop/manifest.webapp";
+} else {
+  var MANIFEST = location.protocol + "//" + location.host + "/FoxShop/manifest.webapp";
+}
+
+/*****************************************************************************
+* App event listeners
+****************************************************************************/
+// Init App after l10n init
+window.addEventListener("localized", function() {
+  SL.hide("loader");
+  if(typeof db == "undefined") {
+    DB.openDb();
   }
+});
 
-  /*****************************************************************************
-  * App event listeners
-  ****************************************************************************/
-  // Init App after l10n init
-  window.addEventListener("localized", function() {
-    SL.hide("loader");
-    if(typeof db == "undefined") {
-      DB.openDb();
-    }
-  });
+// Manage App Cache updates
+window.applicationCache.addEventListener('updateready', function(e) {
+var appCache = window.applicationCache;
+  if (appCache) {
+    appCache.onupdateready = function () {
+      if (confirm(_("update-ready"))) {
+        location.reload(true);
+      }
+    };
+  }
+}, false);
 
-  // Manage App Cache updates
-  window.applicationCache.addEventListener('updateready', function(e) {
-  var appCache = window.applicationCache;
-    if (appCache) {
-      appCache.onupdateready = function () {
-        if (confirm(_("update-ready"))) {
-          location.reload(true);
-        }
-      };
-    }
-  }, false);
-
+window.onhashchange = function() {
+  var oldHash = SL.oldHash;
+  if (oldHash != "" && oldHash != location.hash) {
+    SL.hide(SL.removeSharp(oldHash));
+  }
+  SL.oldHash = SL.currentHash;
+  SL.currentHash = location.hash;
+};
 
 var SL = {
+  currentHash: "#lists",
+  oldHash: "#lists",
+  view: "Lists",
   // Actions that needs the DB to be ready
   finishInit: function() {
     // Load all the data in <view>.obj
@@ -226,13 +237,17 @@ var SL = {
     target = $id(target).style;
     target.display = "block";
   },
+  removeSharp: function(hash) {
+    hash = hash.replace(/(#)/gm,"");
+    return hash;
+  },
   removeElement: function(node) {
     if(node !== null) {
       node.parentNode.removeChild(node);
     }
   },
-  clear: function() {
-    var node = SL[this.view].elm.getElementsByClassName("list")[0];
+  clear: function(aView) {
+    var node = SL[aView].elm.getElementsByClassName("list")[0];
     while (node.hasChildNodes()) {
       node.removeChild(node.lastChild);
     }

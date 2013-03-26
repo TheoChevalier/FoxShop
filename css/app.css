@@ -71,6 +71,10 @@ html, body {
   display: none;
 }
 
+:target {
+  display: block!important;
+}
+
 #status {display: none;z-index: 6;}
 
 #lists {

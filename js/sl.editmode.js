@@ -5,13 +5,12 @@
 SL.editMode = {
   elm: $id("editMode"),
   name: "editMode",
-  openedFrom: "Lists",
+  openedFrom: "",
   init: function(aView) {
-    SL.view = this.name;
-    SL.show("editMode");
-    this.openedFrom = aView.name;
     this.store = aView.store;
-
+    this.openedFrom = location.hash;
+    location.hash = "#editMode";
+    SL.view = this.name;
     var node = this.elm.getElementsByClassName("list")[0];
     while (node.hasChildNodes()) {
       node.removeChild(node.lastChild);
@@ -71,7 +70,7 @@ SL.editMode = {
       if(nodes[i].getElementsByTagName("input")[0].checked) {
         var guid = nodes[i].dataset.listkey;
         // Remove from DB
-        DB.deleteFromDB(guid, SL[this.openedFrom]);
+        DB.deleteFromDB(guid, SL[SL.oldHash]);
 
         // Remove nodes
         var els = document.querySelectorAll('li[data-listkey="'+guid+'"]');

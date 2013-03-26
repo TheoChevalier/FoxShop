@@ -7,13 +7,11 @@ SL.enterEmail = {
 
   sendAddress: function() {
     if ($id("email").value != "") {
-      SL.hide("enterEmail");
-      SL.show("sendEmail");
+      location.hash = "#sendEmail";
       var xdr = this.getXDR();
       xdr.onload = function() {
         $id("email").value = "";
-        SL.hide("sendEmail");
-        SL.show("items");
+        location.hash= "#items";
       }
       var email = $id("email").value;
 

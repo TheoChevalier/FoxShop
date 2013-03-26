@@ -9,7 +9,11 @@ SL.Settings = {
   store: DB_STORE_SETTINGS,
   obj: {},
   loaded: false,
-
+  // Init the view
+  init: function() {
+    this.openedFrom = location.hash;
+    location.hash = "#settingsPanel";
+  },
   // Save (or update) a setting, then updateUI
   save: function(guid, value) {
     var setting = {

@@ -8,8 +8,7 @@ SL.ItemView = {
   name: "ItemView",
   item: {},
   init: function(aItem) {
-    SL.hide("items");
-    SL.show("itemView");
+    location.hash = this.elm.id;
     SL.view = this.name;
     this.item = aItem;
     this.elm.getElementsByClassName("title")[0].textContent = this.item.name;
@@ -20,11 +19,7 @@ SL.ItemView = {
     if (typeof SL.Settings.obj["prices-enable"] !== "undefined") {
       if (SL.Settings.obj["prices-enable"].value) {
         $id("newPrice").removeAttribute("hidden");
-        if (typeof this.item.price != "undefined") {
-          $id("newItemPrice").value = this.item.price;
-        } else {
-          $id("newItemPrice").value = "";
-        }
+        $id("newItemPrice").value = (typeof this.item.price != "undefined") ? this.item.price : "";
       }
     }
   },
@@ -78,10 +73,9 @@ SL.ItemView = {
             SL.displayStatus("msg-NaN");
             return;
           }
-        } else {
-          item.price = price;
-          SL.Items.obj[item.guid].price = price;
         }
+        item.price = price;
+        SL.Items.obj[item.guid].price = price;
       }
     }
 
@@ -95,9 +89,8 @@ SL.ItemView = {
   updateUI: function() {},
   remove: function() {
     var guid = this.item.guid;
-    SL.hide("deleteItem");
     SL.removeElement(SL.Items.elm.querySelector('li[data-listkey="'+guid+'"]'));
-    SL.show("items");
+    location.hash = "#items";
     DB.deleteFromDB(guid, SL.Items);
   }
 }

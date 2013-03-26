@@ -11,7 +11,6 @@ SL.Lists = {
   loaded: false,
   init: function() {
     SL.view = this.name;
-    SL.show("lists");
 
     //Check install button
     if (typeof navigator.mozApps != "undefined") {
@@ -23,10 +22,6 @@ SL.Lists = {
         }
       }
     }
-  },
-  close: function() {
-    SL.view = "";
-    SL.hide("lists");
   },
   add: function(aList) {
     DB.store(aList, this);
@@ -66,6 +61,7 @@ SL.Lists = {
   updateUI: function() {
     if (!SL.Lists.loaded) {
       SL.Lists.loaded = true;
+      location.hash ="#lists";
       this.init();
     }
 
@@ -73,7 +69,7 @@ SL.Lists = {
     if (this.elm.style.display == "block") {
       SL.view = this.name;
     }
-    SL.clear();
+    SL.clear(this.name);
 
     // For each list, count items and calculate total
     for(var aList in this.obj) {

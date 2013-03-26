@@ -36,7 +36,6 @@
   SL.Lists.elm.getElementsByClassName('edit')[0].addEventListener("click",
   function() {
     SL.editMode.init(SL.Lists);
-    SL.hide("lists");
   });
 
   // Install the Web App
@@ -49,16 +48,13 @@
   // MoreItems
   SL.Lists.elm.getElementsByClassName("icon-more")[0].addEventListener("click",
   function() {
-    SL.hide("lists");
-    SL.show("moreLists");
+    location.hash = "#moreLists";
   });
 
   // Settings
   SL.Lists.elm.getElementsByClassName("icon-settings")[0].addEventListener("click",
   function() {
-    SL.Settings.openedFrom = SL.Lists.name;
-    SL.hide("lists");
-    SL.show("settingsPanel");
+    SL.Settings.init();
   });
 
 
@@ -69,8 +65,7 @@
 
   // Close
   header.getElementsByTagName("button")[0].addEventListener("click", function() {
-    SL.hide("editMode");
-    SL.show(SL[SL.editMode.openedFrom].elm.id);
+    location.hash = SL.editMode.openedFrom;
   });
 
   // Delete Selected
@@ -78,8 +73,7 @@
     var n = SL.editMode.count();
     if(n>0) {
       SL.initConfirm(SL.editMode.count());
-      SL.hide("editMode");
-      SL.show("deleteItem");
+      location.hash = "#deleteItem";
     }
 
   });
@@ -130,37 +124,31 @@
   // Display buttons
   SL.Items.elm.getElementsByClassName("back")[0].addEventListener("click",
   function() {
-    SL.hide("items");
-    SL.show("lists");
+    location.hash = "#lists";
     SL.view = "Lists";
   });
 
   var send = SL.Items.elm.getElementsByClassName("send")[0];
   send.addEventListener("click", function() {
-    SL.hide("items");
-    SL.show("enterEmail");
+    location.hash = "#enterEmail";
   });
 
   // Init event for edit view
   SL.Items.elm.getElementsByClassName('edit')[0].addEventListener("click",
   function() {
-    SL.hide("items");
     SL.editMode.init(SL.Items);
   });
 
   // MoreItems
   SL.Items.elm.getElementsByClassName("icon-more")[0].addEventListener("click",
   function() {
-    SL.hide("items");
-    SL.show("moreItems");
+    location.hash = "#moreItems";
   });
 
   // Settings
   SL.Items.elm.getElementsByClassName("icon-settings")[0].addEventListener("click",
   function() {
-    SL.Settings.openedFrom = SL.Items.name;
-    SL.hide("items");
-    SL.show("settingsPanel");
+    SL.Settings.init();
   });
 
   // Edit List name
@@ -177,23 +165,19 @@
    ****************************************************************************/
   SL.ItemView.elm.getElementsByClassName("icon-back")[0].parentNode.addEventListener("click",
     function() {
-      SL.hide("itemView");
-      SL.show("items");
+      location.hash = "#items";
       SL.view = "Items";
     });
 
   $id("saveItem").addEventListener("click", function() {
       //Switch views
-      SL.hide("itemView");
-      SL.show("items");
       SL.view = "Items";
       SL.ItemView.save();
   });
 
   $id("alarm-delete").addEventListener("click",
     function() {
-      SL.hide("itemView");
-      SL.show("deleteItem");
+      location.hash = "#deleteItem";
       SL.initConfirm(1);
     });
 
@@ -216,13 +200,7 @@
 
     $id("deleteItem").getElementsByTagName("button")[0].addEventListener("click",
     function() {
-      SL.hide("deleteItem");
-
-      if (typeof SL[SL[SL.view].openedFrom] != "undefined") {
-        SL.show("editMode");
-      } else {
-        SL.show("itemView");
-      }
+      location.hash = SL.oldHash;
     });
 
 
@@ -234,13 +212,11 @@
   //Cancel
   SL.enterEmail.elm.getElementsByClassName("cancel")[0].addEventListener("click",
     function() {
-      SL.hide("enterEmail");
-      SL.show("items");
+    location.hash = "#items";
     });
   $id("sendEmail").getElementsByClassName("cancel")[0].addEventListener("click",
     function() {
-      SL.hide("sendEmail");
-      SL.show("enterEmail");
+    location.hash = "#enterEmail";
     });
 
 
@@ -269,15 +245,13 @@
    ****************************************************************************/
   $id("moreLists").getElementsByClassName("cancel")[0].addEventListener("click",
     function() {
-      SL.hide("moreLists");
-      SL.show("lists");
+      location.hash = "#lists";
     });
 
     $id("removeDoneLists").addEventListener("click",
     function() {
       SL.removeDone("Lists");
-      SL.hide("moreLists");
-      SL.show("lists");
+      location.hash = "#lists";
     });
 
   /*****************************************************************************
@@ -285,22 +259,18 @@
    ****************************************************************************/
   $id("moreItems").getElementsByClassName("cancel")[0].addEventListener("click",
     function() {
-      SL.hide("moreItems");
-      SL.show("items");
+      location.hash = "#items";
     });
 
   $id("removeDoneItems").addEventListener("click",
     function() {
       SL.removeDone("Items");
-      SL.hide("moreItems");
-      SL.show("items");
+      location.hash = "#items";
     });
 
   $id("cloneList").addEventListener("click", function() {
     SL.Items.clone();
-    SL.hide("items");
-    SL.hide("moreItems");
-    SL.show("lists");
+    location.hash = "#lists";
   });
 
 
@@ -308,8 +278,7 @@
    * Settings
    ****************************************************************************/
   SL.Settings.elm.getElementsByClassName("icon-back")[0].parentNode.addEventListener("click", function() {
-    SL.hide("settingsPanel");
-    SL.show(SL[SL.Settings.openedFrom].elm.id);
+    location.hash = SL.Settings.openedFrom;
   });
 
   /*
@@ -330,18 +299,15 @@
    */
   // Show position & currency panel
   $id("currency").addEventListener("click", function() {
-    SL.hide("settingsPanel");
-    SL.show("editCurrency");
+    location.hash = "#editCurrency";
   });
 
   // Hide currency panel
   $id("cEditCurrency").addEventListener("click", function() {
-    SL.hide("editCurrency");
-    SL.show("settingsPanel");
+    location.hash = "#settingsPanel";
   });
   $id("setEditCurrency").addEventListener("click", function() {
-    SL.hide("editCurrency");
-    SL.show("settingsPanel");
+    location.hash = "#settingsPanel";
 
     // Save settings
     if ($id("userCurrency").value != "") {
@@ -372,11 +338,5 @@
    * About panel
    */
   $id("about").addEventListener("click", function() {
-    SL.hide("settingsPanel");
-    SL.show("aboutPanel");
+    location.hash = "#aboutPanel";
   });
-  $id("aboutBack").addEventListener("click", function() {
-    SL.hide("aboutPanel");
-    SL.show("settingsPanel");
-  });
- 

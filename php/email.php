@@ -26,10 +26,10 @@ foreach ($tab as $key => $value) {
       $list .= $passage_ligne."<p>- ".$items["name"];
 
       if (isset($items["nb"]) && $items["nb"] > 1) {
-        $list .= " x".$items["nb"];
+        $list .= " ×".$items["nb"];
       }
 
-      if (isset($items["price"]) && $items["price"] != "0") {
+      if (isset($items["price"]) && $items["price"] != "0" && $items["price"] != "") {
         $list .= " (".$items["price"]." €)";
       }
 
