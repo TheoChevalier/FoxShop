@@ -117,7 +117,7 @@ var DB = {
       DB.deleteList(this.result.id, store, view);
       if (typeof bool === "undefined") {
         // Delete from obj
-        delete SL[view.name].obj[guid];
+        delete view.obj[guid];
       }
     };
     req.onerror = function (evt) {

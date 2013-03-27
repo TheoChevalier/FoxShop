@@ -65,20 +65,31 @@ SL.editMode = {
     this.elm.getElementsByClassName("list")[0].appendChild(newLi);
   },
   remove: function() {
+    var from = SL.capitalise(SL.removeSharp(this.openedFrom));
     var nodes = this.elm.getElementsByClassName("list")[0].childNodes;
+    location.hash = SL.oldHash;
+
     for(var i=0; i<nodes.length; i++) {
       if(nodes[i].getElementsByTagName("input")[0].checked) {
         var guid = nodes[i].dataset.listkey;
+        if (from == SL.Lists.name) {
+          var items = SL.Items.obj;
+          for (var j=0;j<items.length; j++) {
+            console.log(items[j]);
+            if (items[j].list == guid) {
+              console.log(SL.Items.obj[items[j].guid].name);
+              DB.deleteFromDB(items[j].guid, SL.Items);
+            }
+          }
+        }
         // Remove from DB
-        DB.deleteFromDB(guid, SL[SL.oldHash]);
+        DB.deleteFromDB(guid, SL[from]);
 
         // Remove nodes
         var els = document.querySelectorAll('li[data-listkey="'+guid+'"]');
         [].forEach.call(els, function(v, i) {
           v.style.display = "none";
         });
-        // edit obj
-        delete SL[this.openedFrom].obj[guid];
       }
     }
   },
