@@ -72,17 +72,17 @@ SL.editMode = {
     for(var i=0; i<nodes.length; i++) {
       if(nodes[i].getElementsByTagName("input")[0].checked) {
         var guid = nodes[i].dataset.listkey;
+        // If the element being removed is a list, first remove its items
         if (from == SL.Lists.name) {
-          var items = SL.Items.obj;
-          for (var j=0;j<items.length; j++) {
-            console.log(items[j]);
-            if (items[j].list == guid) {
-              console.log(SL.Items.obj[items[j].guid].name);
-              DB.deleteFromDB(items[j].guid, SL.Items);
+          for(var aItem in SL.Items.obj) {
+            if (SL.Items.obj[aItem].list == guid) {
+              // Remove list items
+              DB.deleteFromDB(SL.Items.obj[aItem].guid, SL.Items);
             }
           }
         }
-        // Remove from DB
+
+        // Remove element from DB
         DB.deleteFromDB(guid, SL[from]);
 
         // Remove nodes
