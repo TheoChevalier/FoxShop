@@ -20,6 +20,9 @@
     },
     "es": {
       "description": "FoxShop le permite gestionar y compartir múltiples listas de compras."
+    },
+    "pt-BR": {
+      "description": "FoxShop permite gerenciar e compartilhar várias listas de compras."
     }
   },
   "default_locale": "en"

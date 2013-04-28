@@ -3,3 +3,7 @@
 
 [fr]
 @import url(fr.properties)
+
+
+[pt-BR]
+@import url(pt-BR.properties)
