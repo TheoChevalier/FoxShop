@@ -176,13 +176,13 @@ SL.Items = {
     if (currency === "")
       currency = _("currency");
 
-    var content = title + _("email-intro-end") + "\n";
+    var content = title + _("email-intro-end");
 
     for(var item in this.obj) {
       item = this.obj[item];
         if (item.done) {
-          content += "✔ ";
-        } else {
+          //content += "✔ ";
+        //} else {
           content += "- ";
         }
         content += item.name;
@@ -195,7 +195,8 @@ SL.Items = {
           else
             content += " (" + currency + " " + item.price + ")";
         }
-        content += "\n";
+        content += "\n" + "coucou";
+
     }
     var a = new MozActivity({
       name: 'new',
