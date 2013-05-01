@@ -195,8 +195,7 @@ SL.Items = {
           else
             content += " (" + currency + " " + item.price + ")";
         }
-        content += "\n\r
-        ";
+        content += "\n\r";
 
     }
     var a = new MozActivity({
