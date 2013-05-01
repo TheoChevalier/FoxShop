@@ -181,13 +181,13 @@ SL.Items = {
     for(var item in this.obj) {
       item = this.obj[item];
         if (item.done) {
-          //content += "✔ ";
-        //} else {
+          content += "["+_("done")+"] ";
+        } else {
           content += "- ";
         }
         content += item.name;
         if (item.qty > 1) {
-          content += " ×" + item.qty;
+          content += " x" + item.qty;
         }
         if (prices && item.price > 0) {
           if (position === "right")
@@ -195,7 +195,8 @@ SL.Items = {
           else
             content += " (" + currency + " " + item.price + ")";
         }
-        content += "\n" + "coucou";
+        content += "\n\r
+        ";
 
     }
     var a = new MozActivity({
