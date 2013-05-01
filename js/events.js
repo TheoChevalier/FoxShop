@@ -131,7 +131,7 @@
   var send = SL.Items.elm.getElementsByClassName("send")[0];
   send.addEventListener("click", function() {
     //location.hash = "#enterEmail";
-    SL.Items.activityEmail();
+    SL.Items.mozActivity();
   });
 
   // Init event for edit view
@@ -320,19 +320,16 @@
   });
 
   // Switches
-  $id("prices-enable").addEventListener("click", function() {
+  $id("prices").addEventListener("click", function() {
     if(this.checked) {
       $id("currency").removeAttribute("disabled");
     } else {
       $id("currency").setAttribute("disabled", "");
     }
     // Update the obj before refreshing Lists view
-    if (typeof SL.Settings.obj["prices-enable"] == "undefined") {
-      SL.Settings.obj["prices-enable"] = {value:""};
-    }
-    SL.Settings.obj["prices-enable"].value = this.checked;
+    SL.Settings.obj["prices"].value = this.checked;
     SL.Lists.updateUI();
-    SL.Settings.save("prices-enable", this.checked);
+    SL.Settings.save("prices", this.checked);
   });
 
   /*

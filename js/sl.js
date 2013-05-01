@@ -167,26 +167,15 @@ var SL = {
     value = parseFloat(value).toFixed(2);
 
     // Default values
-    var pricesEnabled = false;
-    var position = "right";
-    var currency = _("user-currency");
-
-    // Prepare settings
-    if (typeof SL.Settings.obj["prices-enable"] != "undefined") {
-      pricesEnabled = SL.Settings.obj["prices-enable"].value;
-    }
+    var pricesEnabled = SL.Settings.obj["prices"].value;
+    var position = SL.Settings.obj.currencyPosition.value;
+    var currency = SL.Settings.obj.userCurrency.value;
+    if (currency === "")
+      currency = _("user-currency");
 
     // Continue only if we handle prices
     if (!pricesEnabled) {
       return;
-    }
-
-    if (typeof SL.Settings.obj.currencyPosition != "undefined") {
-      position = SL.Settings.obj.currencyPosition.value;
-    }
-
-    if (typeof SL.Settings.obj.userCurrency != "undefined") {
-      currency = SL.Settings.obj.userCurrency.value;
     }
 
     var a = currency;

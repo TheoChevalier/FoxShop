@@ -16,11 +16,9 @@ SL.ItemView = {
     $id("newItemQty").value = this.item.nb;
     $id("newPrice").setAttribute("hidden", "");
 
-    if (typeof SL.Settings.obj["prices-enable"] !== "undefined") {
-      if (SL.Settings.obj["prices-enable"].value) {
-        $id("newPrice").removeAttribute("hidden");
-        $id("newItemPrice").value = (typeof this.item.price != "undefined") ? this.item.price : "";
-      }
+    if (SL.Settings.obj["prices"].value) {
+      $id("newPrice").removeAttribute("hidden");
+      $id("newItemPrice").value = (typeof this.item.price != "undefined") ? this.item.price : "";
     }
   },
   plusOne: function() {
@@ -63,8 +61,7 @@ SL.ItemView = {
     item.name = name;
     item.nb = qty;
 
-    if (typeof SL.Settings.obj["prices-enable"] !== "undefined") {
-      if (SL.Settings.obj["prices-enable"]) {
+      if (SL.Settings.obj["prices"].value) {
         if ($id("newItemPrice").value !== "") {
           price = $id("newItemPrice").value;
           price = price.replace(/,/gm,".");

@@ -168,15 +168,42 @@ SL.Items = {
     SL.Lists.updateUI();
     SL.Items.updateUI();
   },
-  activityEmail: function() {
-    content = "THIS. IS. SPARTA.";
+  mozActivity: function() {
+    var title = _("email-title-begin") + this.list.name + _("email-title-end");
+    var prices = SL.Settings.obj["prices"].value;
+    var position = SL.Settings.obj.currencyPosition.value;
+    var currency = SL.Settings.obj.userCurrency.value;
+    if (currency === "")
+      currency = _("currency");
+
+    var content = title + _("email-intro-end") + "\n";
+
+    for(var item in this.obj) {
+      item = this.obj[item];
+        if (item.done) {
+          content += "✔ ";
+        } else {
+          content += "- ";
+        }
+        content += item.name;
+        if (item.qty > 1) {
+          content += " ×" + item.qty;
+        }
+        if (prices && item.price > 0) {
+          if (position === "right")
+            content += " (" + item.price + " " + currency + ")";
+          else
+            content += " (" + currency + " " + item.price + ")";
+        }
+        content += "\n";
+    }
     var a = new MozActivity({
-  name: 'new',
-  data: {
-  url: "mailto:?subject=Trajet Fil Bleu&body=" + content, // for emails,
-  body: content // for SMS
-  }
-  });
+      name: 'new',
+      data: {
+        url: "mailto:?subject=" + title +"&body=" + content, // for emails,
+        body: content // for SMS
+      }
+    });
   }
 }
 

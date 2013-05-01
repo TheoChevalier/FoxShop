@@ -7,7 +7,12 @@ SL.Settings = {
   name: "Settings",
   openedFrom: "Lists",
   store: DB_STORE_SETTINGS,
-  obj: {},
+  obj: {
+    language:{value:"en-US"},
+    prices:{value:false},
+    userCurrency:{value:"$"},
+    currencyPosition:{value:"right"}
+  },
   loaded: false,
   // Init the view
   init: function() {
@@ -48,27 +53,19 @@ SL.Settings = {
     $id("language").textContent = select.textContent;
 
     // Prices bool
-    if (typeof this.obj["prices-enable"] !== "undefined") {
-      if (this.obj["prices-enable"].value) {
-        $id("prices-enable").setAttribute("checked", "");
-        $id("currency").removeAttribute("disabled");
-      }
+    if (this.obj["prices"].value) {
+      $id("prices").setAttribute("checked", "");
+      $id("currency").removeAttribute("disabled");
     }
 
     // Currency
-    if (typeof this.obj.userCurrency !== "undefined") {
-      if (this.obj.userCurrency.value) {
-        $id("userCurrency").value = this.obj.userCurrency.value;
-      }
+    if (this.obj.userCurrency.value) {
+      $id("userCurrency").value = this.obj.userCurrency.value;
     }
 
     // Currency’s position
-    if (typeof this.obj.currencyPosition !== "undefined") {
-      if(this.obj.currencyPosition.value == "left") {
-        $id("positionLeft").setAttribute("checked", "");
-      } else {
-        $id("positionRight").setAttribute("checked", "");
-      }
+    if(this.obj.currencyPosition.value == "left") {
+      $id("positionLeft").setAttribute("checked", "");
     } else {
       $id("positionRight").setAttribute("checked", "");
     }
