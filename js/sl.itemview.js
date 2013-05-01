@@ -61,19 +61,18 @@ SL.ItemView = {
     item.name = name;
     item.nb = qty;
 
-      if (SL.Settings.obj["prices"].value) {
-        if ($id("newItemPrice").value !== "") {
-          price = $id("newItemPrice").value;
-          price = price.replace(/,/gm,".");
-          price = parseFloat(price).toFixed(2);
-          if (isNaN(price)) {
-            SL.displayStatus("msg-NaN");
-            return;
-          }
+    if (SL.Settings.obj["prices"].value) {
+      if ($id("newItemPrice").value !== "") {
+        price = $id("newItemPrice").value;
+        price = price.replace(/,/gm,".");
+        price = parseFloat(price).toFixed(2);
+        if (isNaN(price)) {
+          SL.displayStatus("msg-NaN");
+          return;
         }
-        item.price = price;
-        SL.Items.obj[item.guid].price = price;
       }
+      item.price = price;
+      SL.Items.obj[item.guid].price = price;
     }
 
     DB.deleteFromDB(item.guid, SL.Items, false);
