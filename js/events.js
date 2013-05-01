@@ -130,7 +130,8 @@
 
   var send = SL.Items.elm.getElementsByClassName("send")[0];
   send.addEventListener("click", function() {
-    location.hash = "#enterEmail";
+    //location.hash = "#enterEmail";
+    SL.Items.activityEmail();
   });
 
   // Init event for edit view

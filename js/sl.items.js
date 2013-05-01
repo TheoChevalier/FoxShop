@@ -167,6 +167,16 @@ SL.Items = {
     DB.store(SL.Lists.obj[guid], SL.Lists, false);
     SL.Lists.updateUI();
     SL.Items.updateUI();
+  },
+  activityEmail: function() {
+    content = "THIS. IS. SPARTA.";
+    var a = new MozActivity({
+  name: 'new',
+  data: {
+  url: "mailto:?subject=Trajet Fil Bleu&body=" + content, // for emails,
+  body: content // for SMS
+  }
+  });
   }
 }
 

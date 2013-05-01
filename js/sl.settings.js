@@ -43,6 +43,7 @@ SL.Settings = {
 
     var select = document.querySelector('select[name="language"]');
     select = select.querySelector('option[value="'+lang+'"]');
+
     select.setAttribute("selected","");
     $id("language").textContent = select.textContent;
 
