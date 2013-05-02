@@ -181,30 +181,30 @@ SL.Items = {
 
     var Email = title + " " + _("email-intro-end-sms");
     var SMS = title + " " + _("email-intro-end-sms");
-    var content ="%0A";
+    var content;
 
     for(var item in this.obj) {
+      content = "";
       item = this.obj[item];
-        if (item.done) {
-          content += "["+_("done")+"] ";
-        } else {
-          content += "- ";
-        }
-        content += item.name;
-        if (item.qty > 1) {
-          content += " x" + item.qty;
-        }
-        if (prices && item.price > 0) {
-          if (position === "right")
-            content += " (" + item.price + " " + currency + ")";
-          else
-            content += " (" + currency + " " + item.price + ")";
-        }
-        content += "%0A";
-
+      if (item.done) {
+        content += "["+_("done")+"] ";
+      } else {
+        content += "- ";
+      }
+      content += item.name;
+      if (item.qty > 1) {
+        content += " x" + item.qty;
+      }
+      if (prices && item.price > 0) {
+        if (position === "right")
+          content += " (" + item.price + " " + currency + ")";
+        else
+          content += " (" + currency + " " + item.price + ")";
+      }
+      Email += content + "%0A";
+      SMS += content + "\n";
     }
-    Email += content;
-    SMS += content;
+
     var a = new MozActivity({
       name: 'new',
       data: {
