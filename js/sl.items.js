@@ -171,6 +171,7 @@ SL.Items = {
   mozActivity: function() {
     if (typeof MozActivity == "undefined")
       location.hash = "#enterEmail";
+
     var title = _("email-title-begin") + this.list.name + _("email-title-end");
     var prices = SL.Settings.obj["prices"].value;
     var position = SL.Settings.obj.currencyPosition.value;
@@ -178,9 +179,9 @@ SL.Items = {
     if (currency === "")
       currency = _("currency");
 
-    var Email = title + " " + _("email-intro-end");
+    var Email = title + " " + _("email-intro-end-sms");
     var SMS = title + " " + _("email-intro-end-sms");
-    var content;
+    var content ="%0A";
 
     for(var item in this.obj) {
       item = this.obj[item];
@@ -199,7 +200,7 @@ SL.Items = {
           else
             content += " (" + currency + " " + item.price + ")";
         }
-        content += " | ";
+        content += "%0A";
 
     }
     Email += content;
