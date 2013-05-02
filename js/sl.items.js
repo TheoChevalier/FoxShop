@@ -169,8 +169,10 @@ SL.Items = {
     SL.Items.updateUI();
   },
   mozActivity: function() {
-    if (typeof MozActivity == "undefined")
+    if (typeof MozActivity == "undefined") {
       location.hash = "#enterEmail";
+      return;
+    }
 
     var title = _("email-title-begin") + this.list.name + _("email-title-end");
     var prices = SL.Settings.obj["prices"].value;
@@ -179,15 +181,15 @@ SL.Items = {
     if (currency === "")
       currency = _("currency");
 
-    var Email = title + " " + _("email-intro-end-sms");
-    var SMS = title + " " + _("email-intro-end-sms");
+    var Email = title + " " + _("email-intro-end-sms") + " EMAIL %0A%0A";
+    var SMS = title + " " + _("email-intro-end-sms") + "\n";
     var content;
 
     for(var item in this.obj) {
       content = "";
       item = this.obj[item];
       if (item.done) {
-        content += "["+_("done")+"] ";
+        content += "["+_("bought")+"] ";
       } else {
         content += "- ";
       }
