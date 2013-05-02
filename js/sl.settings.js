@@ -10,7 +10,7 @@ SL.Settings = {
   obj: {
     language:{value:"en-US"},
     prices:{value:false},
-    userCurrency:{value:"$"},
+    userCurrency:{value:""},
     currencyPosition:{value:"right"}
   },
   loaded: false,
