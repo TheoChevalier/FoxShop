@@ -130,7 +130,6 @@
 
   var send = SL.Items.elm.getElementsByClassName("send")[0];
   send.addEventListener("click", function() {
-    //location.hash = "#enterEmail";
     SL.Items.mozActivity();
   });
 

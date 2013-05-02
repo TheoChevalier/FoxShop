@@ -169,6 +169,8 @@ SL.Items = {
     SL.Items.updateUI();
   },
   mozActivity: function() {
+    if (typeof MozActivity == "undefined")
+      location.hash = "#enterEmail";
     var title = _("email-title-begin") + this.list.name + _("email-title-end");
     var prices = SL.Settings.obj["prices"].value;
     var position = SL.Settings.obj.currencyPosition.value;
@@ -176,7 +178,9 @@ SL.Items = {
     if (currency === "")
       currency = _("currency");
 
-    var content = title + _("email-intro-end");
+    var Email = title + " " + _("email-intro-end");
+    var SMS = title + " " + _("email-intro-end-sms");
+    var content;
 
     for(var item in this.obj) {
       item = this.obj[item];
@@ -195,14 +199,16 @@ SL.Items = {
           else
             content += " (" + currency + " " + item.price + ")";
         }
-        content += "\n\r";
+        content += " | ";
 
     }
+    Email += content;
+    SMS += content;
     var a = new MozActivity({
       name: 'new',
       data: {
-        url: "mailto:?subject=" + title +"&body=" + content, // for emails,
-        body: content // for SMS
+        url: "mailto:?subject=" + title +"&body=" + Email, // for emails,
+        body: SMS // for SMS
       }
     });
   }
