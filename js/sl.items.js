@@ -174,22 +174,22 @@ SL.Items = {
       return;
     }
 
-    var title = _("email-title-begin") + this.list.name + _("email-title-end");
+    var title = _("email-title-begin") + this.list.name + " " +_("email-title-end");
     var prices = SL.Settings.obj["prices"].value;
     var position = SL.Settings.obj.currencyPosition.value;
     var currency = SL.Settings.obj.userCurrency.value;
     if (currency === "")
       currency = _("currency");
 
-    var Email = title + " " + _("email-intro-end-sms") + " EMAIL %0A%0A";
-    var SMS = title + " " + _("email-intro-end-sms") + "\n";
+    var Email = title + " " + _("email-intro-end-sms") + "%0A%0A";
+    var SMS = title + " " + _("email-intro-end-sms") + "\n\n";
     var content;
 
     for(var item in this.obj) {
       content = "";
       item = this.obj[item];
       if (item.done) {
-        content += "["+_("bought")+"] ";
+        content += "- ["+_("bought")+"] ";
       } else {
         content += "- ";
       }
