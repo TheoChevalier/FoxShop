@@ -88,5 +88,8 @@ SL.ItemView = {
     SL.removeElement(SL.Items.elm.querySelector('li[data-listkey="'+guid+'"]'));
     location.hash = "#items";
     DB.deleteFromDB(guid, SL.Items);
+    // Update UI
+    SL.Lists.updateUI();
+    SL.Items.updateUI();
   }
 }

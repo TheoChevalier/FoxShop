@@ -107,6 +107,10 @@ var DB = {
    * @param {string} biblioid
    */
   deleteFromDB: function(guid, view, bool) {
+    if (typeof bool === "undefined") {
+      // Delete from obj
+      delete view.obj[guid];
+    }
     var store = DB.getObjectStore(view.store, 'readwrite');
     var req = store.index('guid');
     req.get(guid).onsuccess = function(evt) {
@@ -115,10 +119,6 @@ var DB = {
         return;
       }
       DB.deleteList(this.result.id, store, view);
-      if (typeof bool === "undefined") {
-        // Delete from obj
-        delete view.obj[guid];
-      }
     };
     req.onerror = function (evt) {
       console.error("deletePublicationFromBib:", this.errorCode);

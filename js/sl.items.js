@@ -16,6 +16,8 @@ SL.Items = {
     this.guid = aList.guid;
     SL.clear(this.name);
     location.hash = "#items";
+    SL.Lists.updateUI();
+    this.updateUI();
 
     // Set title of the displayed Items list
     this.elm.getElementsByClassName("title")[0].textContent=aList.name;
@@ -77,6 +79,7 @@ SL.Items = {
   },
   updateUI: function() {
     this.loaded = true;
+    this.updateListStatus();
 
     // For each list, count items and calculate total
     for(var item in this.obj) {
@@ -98,6 +101,16 @@ SL.Items = {
           node[1].textContent = _("item-quantity", {"quantity": item.nb});
         }
       }
+    }
+  },
+  updateListStatus: function() {
+    // Update total/remaining
+    if (this.list.total > 0) {
+      $id("list-status").style.display = "block";
+      SL.setPrice($id("list-total"), "total-list", this.list.total);
+      SL.setPrice($id("list-remaining"), "remaining-list", this.list.remaining);
+    } else {
+      $id("list-status").style.display = "none";
     }
   },
   openEditListName: function() {

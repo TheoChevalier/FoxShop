@@ -75,7 +75,7 @@ var SL = {
     var checkbox = document.createElement('input');
     checkbox.setAttribute('type', 'checkbox');
     if (aList.done) {
-      newLi.className += " done";
+      newLi.className = "done";
       checkbox.setAttribute('checked', true);
     }
 
@@ -83,13 +83,14 @@ var SL = {
     newToggle.appendChild(mySpan);
 
     mySpan.addEventListener("click", function(e) {
-
-      if (!aList.done) {
-        newLi.className += " done";
-      } else {
-        newLi.className = newLi.className.replace ( /(?:^|\s)done(?!\S)/g , '' );
-      }
       aList.done = !aList.done;
+      if (aList.done) {
+        newLi.className = "done";
+        checkbox.setAttribute('checked', true);
+      } else {
+        newLi.className = "";
+        checkbox.removeAttribute('checked');
+      }
 
       // Delete the item, add the updated one
       DB.deleteFromDB(aList.guid, aView, true);
@@ -134,7 +135,7 @@ var SL = {
     for(var i=0; i<nodes.length; i++) {
         nodes[i].getElementsByTagName('input')[0].setAttribute("checked", true);
         nodes[i].className.replace ( /(?:^|\s)done(?!\S)/g , '' );
-        nodes[i].className += " done";
+        nodes[i].className.replace ( /(?:^|\s)done(?!\S)/g , 'done' );
     }
     // Update obj & DB
     for (aGuid in SL[this.view].obj) {
@@ -142,6 +143,9 @@ var SL = {
       aItem.done = true;
       DB.deleteFromDB(aItem.guid, SL[this.view], true);
       DB.store(aItem, SL[this.view], true);
+      SL.Items.updateUI();
+      SL.Lists.updateUI();
+
     }
   },
 
@@ -156,6 +160,8 @@ var SL = {
         nodes[i].style.display = "none";
       }
     }
+    SL.Items.updateUI();
+    SL.Lists.updateUI();
   },
   // Used everywhere where prices are needed
   setPrice: function(elm, string, value) {

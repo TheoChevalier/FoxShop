@@ -74,6 +74,7 @@ SL.Lists = {
     // For each list, count items and calculate total
     for(var aList in this.obj) {
       var total = 0;
+      var remaining = 0;
       var nb = 0;
 
       // Display it
@@ -82,7 +83,12 @@ SL.Lists = {
         if (SL.Items.obj[aItem].list == aList) {
           nb += parseInt(SL.Items.obj[aItem].nb);
           if (typeof SL.Items.obj[aItem].price != "undefined") {
-            total += parseFloat(SL.Items.obj[aItem].price * SL.Items.obj[aItem].nb);
+            tmp = parseFloat(SL.Items.obj[aItem].price * SL.Items.obj[aItem].nb);
+            total += tmp;
+            if (!SL.Items.obj[aItem].done) {
+              remaining += tmp;
+
+            }
           }
         }
       }
@@ -99,6 +105,11 @@ SL.Lists = {
 
       // Display total with the right currency at the right position
       SL.setPrice(elmTotal, "total-list", total);
+
+      // Save values
+      this.obj[aList].total = total;
+      this.obj[aList].remaining = remaining;
+      this.obj[aList].nb = nb;
     }
   }
 };

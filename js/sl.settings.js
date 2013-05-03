@@ -38,16 +38,14 @@ SL.Settings = {
     this.loaded = true;
 
     // Lang pref
-    var pref = this.obj.language;
+    var pref = this.obj.language.value;
     var lang = document.webL10n.getLanguage();
-    if (typeof pref !== "undefined") {
-      if (pref.value !== lang) {
-        document.webL10n.setLanguage(pref.value);
-      }
+    if (pref !== lang) {
+      document.webL10n.setLanguage(pref);
     }
 
     var select = document.querySelector('select[name="language"]');
-    select = select.querySelector('option[value="'+lang+'"]');
+    select = select.querySelector('option[value="'+pref+'"]');
 
     select.setAttribute("selected","");
     $id("language").textContent = select.textContent;

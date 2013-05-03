@@ -90,6 +90,10 @@ SL.editMode = {
         [].forEach.call(els, function(v, i) {
           v.style.display = "none";
         });
+
+        // Update UI (count, total…)
+        SL.Items.updateUI();
+        SL.Lists.updateUI();
       }
     }
   },
