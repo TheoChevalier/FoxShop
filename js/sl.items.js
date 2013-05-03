@@ -106,7 +106,7 @@ SL.Items = {
   updateListStatus: function() {
     // Update total/remaining
     if (this.list.total > 0) {
-      if (typeof this.list.remaining === "undefined")
+      if (typeof this.list.remaining === "undefined" || this.list.remaining == "")
         this.list.remaining  = 0;
       $id("list-status").style.display = "block";
       SL.setPrice($id("list-total"), "total-list", this.list.total);
