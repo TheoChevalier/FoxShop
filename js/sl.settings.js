@@ -10,6 +10,7 @@ SL.Settings = {
   obj: {
     language:{value:"en-US"},
     prices:{value:false},
+    signature:{value:true},
     userCurrency:{value:""},
     currencyPosition:{value:"right"}
   },
@@ -51,9 +52,14 @@ SL.Settings = {
     $id("language").textContent = select.textContent;
 
     // Prices bool
-    if (this.obj["prices"].value) {
+    if (this.obj.prices.value) {
       $id("prices").setAttribute("checked", "");
       $id("currency").removeAttribute("disabled");
+    }
+
+    // Signature bool
+    if (this.obj.signature.value) {
+      $id("signature").setAttribute("checked", "");
     }
 
     // Currency

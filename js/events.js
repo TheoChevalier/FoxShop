@@ -331,6 +331,10 @@
     SL.Settings.save("prices", this.checked);
   });
 
+  $id("signature").addEventListener("click", function() {
+    SL.Settings.save("signature", this.checked);
+  });
+
   /*
    * About panel
    */

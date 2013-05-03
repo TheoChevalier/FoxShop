@@ -184,21 +184,27 @@ SL.Items = {
     SL.Items.updateUI();
   },
   mozActivity: function() {
+    var title = _("email-title-begin") + this.list.name + " " +_("email-title-end");
+    var prices = SL.Settings.obj.prices.value;
+    var position = SL.Settings.obj.currencyPosition.value;
+    var currency = SL.Settings.obj.userCurrency.value;
+    var signature = SL.Settings.obj.signature.value;
+    var content;
+    var Email;
+    var SMS;
+
     if (typeof MozActivity == "undefined") {
       location.hash = "#enterEmail";
       return;
     }
 
-    var title = _("email-title-begin") + this.list.name + " " +_("email-title-end");
-    var prices = SL.Settings.obj["prices"].value;
-    var position = SL.Settings.obj.currencyPosition.value;
-    var currency = SL.Settings.obj.userCurrency.value;
     if (currency === "")
       currency = _("currency");
 
-    var Email = title + " " + _("email-intro-end-sms") + "%0A%0A";
-    var SMS = title + " " + _("email-intro-end-sms") + "\n\n";
-    var content;
+    if (signature) {
+      Email = title + " " + _("email-intro-end-sms") + "%0A%0A";
+      SMS = title + " " + _("email-intro-end-sms") + "\n\n";
+    }
 
     for(var item in this.obj) {
       content = "";
