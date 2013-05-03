@@ -95,6 +95,8 @@ var SL = {
       // Delete the item, add the updated one
       DB.deleteFromDB(aList.guid, aView, true);
       DB.store(aList, aView, true);
+      SL.Items.updateUI();
+      SL.Lists.updateUI();
     });
 
 
