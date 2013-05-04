@@ -10,7 +10,7 @@ var DB = {
     };
     req.onerror = function (evt) {
       console.error("openDb:", this.errorCode);
-      // FIXME: Show a message stating that the app couldn't start
+      alert(_("msg-indexedDB"));
     };
 
     req.onupgradeneeded = function (evt) {

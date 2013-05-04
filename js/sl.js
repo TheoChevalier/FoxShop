@@ -24,8 +24,6 @@ if (location.host === "localhost") {
 window.addEventListener("localized", function() {
   if(typeof db == "undefined") {
     DB.openDb();
-  } else {
-    alert(_("msg-indexedDB"));
   }
 });
 
