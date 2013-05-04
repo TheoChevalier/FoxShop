@@ -22,9 +22,10 @@ if (location.host === "localhost") {
 ****************************************************************************/
 // Init App after l10n init
 window.addEventListener("localized", function() {
-  SL.hide("loader");
   if(typeof db == "undefined") {
     DB.openDb();
+  } else {
+    alert(_("msg-indexedDB"));
   }
 });
 
