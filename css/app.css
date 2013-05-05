@@ -184,6 +184,12 @@ span {
   margin-left: -3.5rem;
 }
 
+#list-status h2 {
+  font-size: 1.3rem;
+  border-bottom: none;
+  border-top: 0.1rem solid rgb(230, 230, 230);
+}
+
 #aboutPanel p {
   width: -webkit-calc(100% - 6rem);
   width: calc(100% - 6rem);

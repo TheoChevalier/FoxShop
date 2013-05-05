@@ -99,7 +99,7 @@
         <p>
           <textarea id="itemName" data-l10n-id="item-name" placeholder="New item"></textarea>
           <button type="reset" id="resetItems">reset</button>
-          <textarea id="itemQty" data-l10n-id="item-qty">1</textarea>
+          <input type="number" id="itemQty" data-l10n-id="item-qty" value="1" />
         </p>
       </form>
       <ul class="list" data-type="list">
@@ -140,13 +140,13 @@
         </li>
         <li class="singleline field">
           <span class="view-alarm-lbl" data-l10n-id="quantity">Quantity</span>
-          <input id="newItemQty" type="text" class="right" data-l10n-id="new-qty" value="0" placeholder="Number to buy"/>
+          <input id="newItemQty" type="number" class="right" data-l10n-id="new-qty" value="0" placeholder="Number to buy"/>
           <span id="plusOne"></span><span id="lessOne"></span>
           <!--<button type="reset" id="resetNewItemQty">reset</button>-->
         </li>
         <li id="newPrice" class="singleline field" hidden>
           <span class="view-alarm-lbl" data-l10n-id="price">Price</span>
-          <input id="newItemPrice" type="text" class="right" data-l10n-id="new-price" placeholder="New price"/>
+          <input id="newItemPrice" type="number" class="right" data-l10n-id="new-price" placeholder="New price"/>
           <!--<button type="reset" id="resetNewItemPrice">reset</button>-->
         </li>
         <li id="alarm-delete-button" class="singleline">
