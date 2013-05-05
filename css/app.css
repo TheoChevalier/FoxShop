@@ -1,7 +1,12 @@
-@font-face {  
-  font-family: 'MozTTLight';  
-  src: url(fonts/MozTT%20Light.ttf) format("truetype");  
-}  
+@font-face {
+  font-family: 'MozTTLight';
+  src: url(fonts/MozTT%20Light.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: 'MozTT';
+  src: url(fonts/MozTT%20Regular.ttf) format("truetype");
+}
 
 header,footer {
   width: 100%;
@@ -185,7 +190,7 @@ span {
 }
 
 #list-status h2 {
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   border-bottom: none;
   border-top: 0.1rem solid rgb(230, 230, 230);
 }
