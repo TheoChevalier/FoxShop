@@ -49,6 +49,7 @@ css/building_blocks/input_areas.css
 css/building_blocks/action_menu.css
 css/building_blocks/confirm.css
 css/building_blocks/progress_activity.css
+css/building_blocks/responsive.css
 css/building_blocks/status.css
 
 img/icons/complete.png
