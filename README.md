@@ -14,3 +14,4 @@ You can even localize it in your language at http://beta.babelzilla.org/projects
 # Licence
 
 FoxShop is distributed under the MPL2.0 licence (http://www.mozilla.org/MPL/2.0/).
+Test
