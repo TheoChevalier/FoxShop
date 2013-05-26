@@ -18,6 +18,7 @@
   62.5% * 1.5 (dppx) = ~94% (93.75%)
 */
 /*Portrait*/
+
 @media all and (min-device-width: 480px) and (max-device-width: 540px) and (max-device-aspect-ratio: 1/1) {
   html { font-size: 94%!important; }
 }
@@ -50,10 +51,6 @@
   html { font-size: 105%!important; }
 }
 
-@media all and (min-device-width : 480px) and (max-device-width : 800px) and (orientation : landscape) {
-  html { font-size: 94%!important; }
-}
-
-@media all and (min-device-width : 480px) and (max-device-width : 800px) and (orientation : portrait) {
-  html { font-size: 94%!important; }
+@media all and (min-device-width: 480px) and (max-device-width: 540px) and (max-device-aspect-ratio: 1/1) and (min-resolution: 1.5dppx) {
+  html { font-size: 62.5%!important; }
 }
