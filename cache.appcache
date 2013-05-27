@@ -37,6 +37,7 @@ css/alarm.css
 
 # Fonts
 css/fonts/MozTT%20Light.ttf
+css/fonts/MozTT%20Regular.ttf
 
 # CSS Building Blocks
 css/building_blocks/headers.css
@@ -53,6 +54,7 @@ css/building_blocks/responsive.css
 css/building_blocks/status.css
 
 img/icons/complete.png
+img/icons/delete.png
 img/icons/edit.png
 img/icons/ellipsis.png
 img/icons/go.png
