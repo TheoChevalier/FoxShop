@@ -8,7 +8,7 @@ SL.Settings = {
   openedFrom: "Lists",
   store: DB_STORE_SETTINGS,
   obj: {
-    language:{value:"en-US"},
+    language:{value:""},
     prices:{value:false},
     signature:{value:true},
     userCurrency:{value:""},
@@ -41,7 +41,7 @@ SL.Settings = {
     // Lang pref
     var pref = this.obj.language.value;
     var lang = document.webL10n.getLanguage();
-    if (pref !== lang) {
+    if (pref !== lang && pref !== "") {
       document.webL10n.setLanguage(pref);
     }
 
