@@ -106,19 +106,25 @@ section[role="region"], form[role="dialog"] {
 #itemQty {
   width: 20%;
   padding-right: 0;
+  margin-top: 0!important;
 }
 #itemName {
-  width: -webkit-calc(79% - 10px);
-  width: calc(79% - 10px);
+  width: 80%;
   border-right: 1px solid #ddd;
 }
 
 #itemQty, #itemName {
+  float: left;
+}
+
+#add-item {
   display: inline-block;
 }
-form[role="search"] p textarea {
-  height: 2rem!important;
+
+#items form[role="search"] p {
+  padding-right: 0px!important;
 }
+
 #saveList, #newListName {
   display: none;
 }
@@ -159,9 +165,6 @@ form[role="search"] p textarea {
   padding: 5rem 0;
 }
 
-#add-item {
-  display: inline-block;
-}
 
 #todo-count span {
   font-weight: bold;
