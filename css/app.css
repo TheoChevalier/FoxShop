@@ -105,12 +105,14 @@ section[role="region"], form[role="dialog"] {
 
 #itemQty {
   width: 20%;
+  padding-left: 5px;
   padding-right: 0;
   margin-top: 0!important;
+  background: url("building_blocks/input_areas/images/ui/separator.png") no-repeat scroll 0px 50% / auto 100% transparent;
+  border-radius: 0;
 }
 #itemName {
   width: 80%;
-  border-right: 1px solid #ddd;
 }
 
 #itemQty, #itemName {
@@ -154,8 +156,7 @@ section[role="region"], form[role="dialog"] {
 }
 
 #resetItems {
-  right: -webkit-calc(20% + 20px);
-  right: calc(20% + 20px);
+  right: 20%;
 }
 #resetEmail {
   top: 1rem;
@@ -333,7 +334,7 @@ form[role="dialog"][data-type="confirm"] {
 /* input_form.css */
 form[role="search"] p input, form[role="search"] p textarea {
   padding : 0;
-  margin-top: .5rem;
+  padding-top: .5rem;
 }
 
 /*switches.css*/
