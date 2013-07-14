@@ -327,6 +327,11 @@ form[role="dialog"][data-type="confirm"] {
   padding: 0;
 }
 
+/* input_form.css */
+form[role="search"] p input, form[role="search"] p textarea {
+  padding : 0;
+  margin-top: .5rem;
+}
 
 /*switches.css*/
 label:not([for]) input + span {
