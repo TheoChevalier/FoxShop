@@ -21,7 +21,6 @@
   <link rel="stylesheet" type="text/css" href="css/building_blocks/confirm.css">
   <link rel="stylesheet" type="text/css" href="css/building_blocks/progress_activity.css">
   <link rel="stylesheet" type="text/css" href="css/building_blocks/status.css">
-  <link rel="stylesheet" type="text/css" href="css/building_blocks/responsive.css" />
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/app.css"/>
@@ -76,8 +75,8 @@
         <ul data-type="list" class="list">
         </ul>
       <menu>
-        <button data-l10n-id="select-all">Select all</button>
         <button data-l10n-id="deselect-all">Deselect all</button>
+        <button data-l10n-id="select-all">Select all</button>
       </menu>
     </form>
 
@@ -101,8 +100,10 @@
           <textarea id="itemName" data-l10n-id="item-name" placeholder="New item"></textarea>
           <button type="reset" id="resetItems">reset</button>
           <input type="number" id="itemQty" data-l10n-id="item-qty" value="1" />
+          <button type="submit" id="scan"></button>
         </p>
       </form>
+      <img src="" id="image" />
       <ul class="list" data-type="list">
       </ul>
       <header id="list-status">
@@ -235,6 +236,7 @@
             <select name="language">
               <option value="en-US">English</option>
               <option value="fr">Français</option>
+              <option value="pl">Polski</option>
               <option value="pt-BR">Português do Brasil</option>
             </select>
           </p>

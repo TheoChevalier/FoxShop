@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "name": "FoxShop",
   "description": "FoxShop helps you manage and share several shopping lists.",
   "launch_path": "/FoxShop/index.html",
@@ -20,6 +20,9 @@
     },
     "es": {
       "description": "FoxShop le permite gestionar y compartir múltiples listas de compras."
+    },
+    "pl": {
+      "description": "FoxShop pomaga zarządzać i udostępniać listy zakupów."
     },
     "pt-BR": {
       "description": "FoxShop permite gerenciar e compartilhar várias listas de compras."

@@ -105,20 +105,40 @@ section[role="region"], form[role="dialog"] {
 
 #itemQty {
   width: 20%;
+  padding-left: 5px;
   padding-right: 0;
-}
-#itemName {
-  width: -webkit-calc(79% - 10px);
-  width: calc(79% - 10px);
-  border-right: 1px solid #ddd;
+  margin-top: 0!important;
+  background: url("building_blocks/input_areas/images/ui/separator.png") no-repeat scroll 0px 50% / auto 100% transparent;
+  border-radius: 0;
 }
 
-#itemQty, #itemName {
+#scan {
+  width: 40px!important;
+  min-width: 40px;
+  padding: 0;
+  margin-top: 0!important;
+  background: url(../img/icons/scan.png)  no-repeat 50% 50% / 3rem auto, url("building_blocks/input_areas/images/ui/separator.png") no-repeat scroll 0px 50% / auto 100% transparent;
+  border-radius: 0;
+}
+#itemName {
+  width: -webkit-calc(80% - 40px);
+  width: calc(80% - 40px);
+}
+
+#itemQty, #itemName, #scan {
+  float: left;
+}
+
+#add-item {
   display: inline-block;
 }
-form[role="search"] p textarea {
-  height: 2rem!important;
+
+form[role="search"] p {
+  padding: 0 0 0 5px;
 }
+
+#image {display: none;}
+
 #saveList, #newListName {
   display: none;
 }
@@ -148,8 +168,8 @@ form[role="search"] p textarea {
 }
 
 #resetItems {
-  right: -webkit-calc(20% + 20px);
-  right: calc(20% + 20px);
+  right: -webkit-calc(20% + 40px);
+  right: calc(20% + 40px);
 }
 #resetEmail {
   top: 1rem;
@@ -159,9 +179,6 @@ form[role="search"] p textarea {
   padding: 5rem 0;
 }
 
-#add-item {
-  display: inline-block;
-}
 
 #todo-count span {
   font-weight: bold;
@@ -326,6 +343,16 @@ form[role="dialog"][data-type="confirm"] {
   padding: 0;
 }
 
+/* input_form.css */
+form[role="search"] p input, form[role="search"] p textarea {
+  height: 3.5rem!important;
+  padding : 0;
+  padding-top: .5rem;
+}
+
+form[role="search"]:after, form[role="search"]:before {
+  background: none!important;
+}
 
 /*switches.css*/
 label:not([for]) input + span {

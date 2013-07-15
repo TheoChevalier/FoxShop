@@ -1,4 +1,3 @@
-
 /*******************************************************************************
  * Items
  ******************************************************************************/
@@ -235,6 +234,26 @@ SL.Items = {
         body: SMS // for SMS
       }
     });
+  },
+  pickImage: function() {
+    if (typeof MozActivity == "undefined") {
+      return;
+    }
+    var pick = new MozActivity({
+      name: "pick",
+      data: {
+        type: ["image/png", "image/jpg", "image/jpeg"]
+      }
+    });
+
+    pick.onsuccess = function () {
+      $id("image").src = window.URL.createObjectURL(this.result.blob);
+      alert("We are analysing the picture…");
+      var barcode = SL.getBarcodeFromImage("image");
+      barcode = barcode.toString();
+      var url = 'http://theochevalier.fr/app/php/barcode/index.php?barcode=' + barcode;
+      SL.callOtherDomain(url);
+    };
   }
 }
 
