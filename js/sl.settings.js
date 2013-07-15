@@ -43,6 +43,8 @@ SL.Settings = {
     var lang = document.webL10n.getLanguage();
     if (pref !== lang && pref !== "") {
       document.webL10n.setLanguage(pref);
+    } else {
+      pref = lang;
     }
 
     var select = document.querySelector('select[name="language"]');

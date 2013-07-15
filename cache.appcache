@@ -19,7 +19,6 @@ js/sl.enteremail.js
 js/events.js
 js/IndexedDBShim.min.js
 
-
 # Loader
 lazyload-min/lazyload-min.js
 
@@ -59,6 +58,7 @@ img/icons/go.png
 img/icons/gear.png
 img/icons/plus.png
 img/icons/less.png
+img/icons/scan.png
 img/icons/share.png
 css/images/edit_background.png
 

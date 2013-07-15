@@ -8,7 +8,7 @@ SL.enterEmail = {
   sendAddress: function() {
     if ($id("email").value != "") {
       location.hash = "#sendEmail";
-      var xdr = this.getXDR();
+      var xdr = SL.getXHR();
       xdr.onload = function() {
         $id("email").value = "";
         location.hash= "#items";
@@ -35,18 +35,5 @@ SL.enterEmail = {
       xdr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       xdr.send(data);
     }
-  },
-
-  getXDR: function() {
-    var xdr = null;
-
-    if (window.XDomainRequest) {
-      xdr = new XDomainRequest();
-    } else if (window.XMLHttpRequest) {
-      xdr = new XMLHttpRequest();
-    } else {
-      console.error("Can't create cross-domain AJAX");
-    }
-    return xdr;
   }
 }

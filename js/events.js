@@ -160,6 +160,11 @@
     SL.Items.saveListName();
   });
 
+  // Pick barcode image
+  $id("scan").addEventListener("click", function() {
+    SL.Items.pickImage();
+  });
+
   /*****************************************************************************
    * itemView
    ****************************************************************************/
