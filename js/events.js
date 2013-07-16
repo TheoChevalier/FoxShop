@@ -80,13 +80,14 @@
 
   var menu = SL.editMode.elm.getElementsByTagName("menu")[1];
 
-  // Select All
-  menu.getElementsByTagName("button")[0].addEventListener("click", function() {
-    SL.editMode.selectAll();
-  });
   // Deselect All
-  menu.getElementsByTagName("button")[1].addEventListener("click", function() {
+  menu.getElementsByTagName("button")[0].addEventListener("click", function() {
     SL.editMode.deselectAll();
+  });
+
+  // Select All
+  menu.getElementsByTagName("button")[1].addEventListener("click", function() {
+    SL.editMode.selectAll();
   });
 
 
