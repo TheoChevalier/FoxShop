@@ -207,7 +207,7 @@ span {
 
 .liTitle {
   pointer-events: auto;
-  margin-left: 2rem;
+  margin-left: 3rem;
 }
 .labelItem {
   margin-left: -3.5rem;
@@ -362,8 +362,18 @@ label:not([for]) input + span {
 
 /* fix webkit in lists.css */
 [data-type="list"] li > label {
-  left: 1rem;
+  left: 0;
+  width: 5rem;
+  height: 5rem;
+  pointer-events: auto;
 }
+
+[data-type="list"] li > label input + span {
+  left: 50%;
+  margin-left: -1.1rem;
+  pointer-events: none;
+}
+
 .settings ul li button,
 .settings ul li a[role="button"] {
   width: -webkit-calc(100% - 6rem);
