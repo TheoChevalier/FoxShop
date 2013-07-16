@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# 2013-05-05
+# 2013-07-17
 
 CACHE:
 
@@ -27,6 +27,7 @@ webL10n/l10n.js
 locales/data
 locales/fr.properties
 locales/en-US.properties
+locales/pl.properties
 locales/pt-BR.properties
 
 # Custom CSS
