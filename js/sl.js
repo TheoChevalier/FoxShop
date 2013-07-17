@@ -81,7 +81,7 @@ var SL = {
     newToggle.appendChild(checkbox);
     newToggle.appendChild(mySpan);
 
-    mySpan.addEventListener("click", function(e) {
+    newToggle.addEventListener("click", function(e) {
       aList.done = !aList.done;
       if (aList.done) {
         newLi.className = "done";
