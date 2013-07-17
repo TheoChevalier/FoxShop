@@ -32,7 +32,7 @@ window.applicationCache.addEventListener('updateready', function(e) {
 var appCache = window.applicationCache;
   if (appCache) {
     appCache.onupdateready = function () {
-      if (confirm(_("update-ready"))) {
+      if (window.confirm("update-ready: Apply update now?")) {
         location.reload(true);
       }
     };

@@ -34,28 +34,20 @@ SL.Items = {
     var name = $id('itemName').value;
     var qty = $id('itemQty').value;
     $id('itemName').value = "";
-    $id('itemQty').value = "1";
+    $id('itemQty').value = "";
     var date = new Date();
 
     // Remove line-endings
     name = name.replace(/(\r\n|\n|\r)/gm,"");
 
     // Handle empty form
-    if (!name || !qty) {
-      var l10n = "";
-      if (!name) {
-        l10n = "msg-name";
-        if (!qty) {
-          l10n = "msg-name-qty";
-        }
-      } else {
-        if (!qty) {
-          l10n = "msg-qty";
-        }
-      }
-
-      SL.displayStatus(l10n);
+    if (!name) {
+      SL.displayStatus("msg-name");
       return;
+    }
+
+    if (!qty) {
+      qty = 1;
     }
 
     aItem = { guid: SL.guid(),

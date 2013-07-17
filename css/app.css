@@ -60,7 +60,7 @@ section[role="region"], form[role="dialog"] {
 }
 
 .list {
-  margin: 10px 0;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
@@ -364,8 +364,12 @@ label:not([for]) input + span {
 [data-type="list"] li > label {
   left: 0;
   width: 5rem;
-  height: 5rem;
+  height: 6rem;
   pointer-events: auto;
+}
+
+[data-type="list"] li > label:active {
+  background-color: #b2f2ff;
 }
 
 [data-type="list"] li > label input + span {
