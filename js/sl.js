@@ -10,7 +10,7 @@ var DEFAULT_CONF = {language:{value:""},
                     prices:{value:true},
                     signature:{value:true},
                     userCurrency:{value:""},
-                    currencyPosition:{value:"right"}
+                    currencyPosition:{value:""}
                    };
 
 // Alias for getElementById

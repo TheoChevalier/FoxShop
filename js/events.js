@@ -305,6 +305,7 @@
    */
   // Show position & currency panel
   $id("currency").addEventListener("click", function() {
+    SL.Settings.updateUI();
     location.hash = "#editCurrency";
   });
 

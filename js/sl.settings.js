@@ -30,11 +30,13 @@ SL.Settings = {
 
   // Function called after populating this.names in DB.updateObj()
   updateUI: function() {
+    var pref = this.obj.language.value;
+    var lang = document.webL10n.getLanguage();
+    var position = true;
     this.loaded = true;
 
     // Lang pref
-    var pref = this.obj.language.value;
-    var lang = document.webL10n.getLanguage();
+
     if (pref !== lang && pref !== "") {
       document.webL10n.setLanguage(pref);
     } else {
@@ -61,10 +63,30 @@ SL.Settings = {
     // Currency
     if (this.obj.userCurrency.value) {
       $id("userCurrency").value = this.obj.userCurrency.value;
+    } else {
+      $id("userCurrency").value = _("user-currency");
     }
 
     // Currency’s position
-    if(this.obj.currencyPosition.value == "left") {
+    if(this.obj.currencyPosition.value) {
+      if (this.obj.currencyPosition.value == "right") {
+        position = false;
+        console.log("pref right");
+      } else {
+        position = true;
+        console.log("pref left");
+      }
+    } else {
+      if( _("user-currency-position") == "right") {
+        position = false;
+        console.log("l10n right");
+      } else {
+        position = true;
+        console.log("l10n left");
+      }
+    }
+
+    if(position) {
       $id("positionLeft").setAttribute("checked", "");
     } else {
       $id("positionRight").setAttribute("checked", "");
