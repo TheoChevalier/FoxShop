@@ -6,6 +6,12 @@ var DB_STORE_LISTS = 'lists2';
 var DB_STORE_ITEMS = 'items1';
 var DB_STORE_SETTINGS = 'settings1';
 var db;
+var DEFAULT_CONF = {language:{value:""},
+                    prices:{value:true},
+                    signature:{value:true},
+                    userCurrency:{value:""},
+                    currencyPosition:{value:"right"}
+                   };
 
 // Alias for getElementById
 var $id = document.getElementById.bind(document);
@@ -55,6 +61,7 @@ var SL = {
   view: "Lists",
   // Actions that needs the DB to be ready
   finishInit: function() {
+
     // Load all the data in <view>.obj
     DB.updateObj("Settings");
     DB.updateObj("Items");

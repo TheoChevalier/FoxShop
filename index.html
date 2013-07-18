@@ -243,7 +243,7 @@
         </li>
       </ul>
     <header>
-      <h2 data-l10n-id="prices">Prices</h2>
+      <h2 data-l10n-id="customize">Customize</h2>
     </header>
       <ul>
         <li>
@@ -267,6 +267,14 @@
             <span></span>
           </label>
           <a data-l10n-id="signature">Add FoxShop signature</a>
+        </li>
+      </ul>
+    <header>
+      <h2 data-l10n-id="advanced">Advanced settings</h2>
+    </header>
+      <ul>
+        <li>
+          <button id="clear-data" data-l10n-id="clear-data">Reset FoxShop</button>
         </li>
       </ul>
     <header>
@@ -312,6 +320,20 @@
         <button id="cEditCurrency" class="cancel" data-l10n-id="cancel">Cancel</button>
         <button id="setEditCurrency" class="recommend" data-l10n-id="set">Set</button>
       </menu>
+    </form>
+
+
+    <form role="dialog" data-type="confirm" id="clearPrompt" onsubmit="return false;">
+    <section>
+      <h1 data-l10n-id="confirmation">Confirmation</h1>
+      <p>
+        <span data-l10n-id="clear-data-desc">Resetting FoxShop will clear all your data, including lists, items and settings. Are you sure you want to reset FoxShop?</span>
+      </p>
+    </section>
+    <menu>
+      <button id="clearPromptCancel" class="cancel" data-l10n-id="cancel">Cancel</button>
+      <button id="clearPromptReset" role="button" class="danger" data-l10n-id="reset">Reset</button>
+    </menu>
     </form>
 
 

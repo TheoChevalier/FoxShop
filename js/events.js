@@ -337,8 +337,21 @@
     SL.Settings.save("prices", this.checked);
   });
 
+  $id("clear-data").addEventListener("click", function() {
+    location.hash = "#clearPrompt";
+  });
+
   $id("signature").addEventListener("click", function() {
     SL.Settings.save("signature", this.checked);
+  });
+
+  // Clear prompt buttons
+  $id("clearPromptCancel").addEventListener("click", function() {
+    location.hash = "#settingsPanel";
+  });
+  $id("clearPromptReset").addEventListener("click", function() {
+    location.hash = "#settingsPanel";
+    DB.resetApp();
   });
 
   /*

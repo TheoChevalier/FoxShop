@@ -7,13 +7,7 @@ SL.Settings = {
   name: "Settings",
   openedFrom: "Lists",
   store: DB_STORE_SETTINGS,
-  obj: {
-    language:{value:""},
-    prices:{value:true},
-    signature:{value:true},
-    userCurrency:{value:""},
-    currencyPosition:{value:"right"}
-  },
+  obj: DEFAULT_CONF,
   loaded: false,
   // Init the view
   init: function() {

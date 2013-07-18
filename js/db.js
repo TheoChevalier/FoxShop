@@ -9,8 +9,8 @@ var DB = {
       SL.finishInit();
     };
     req.onerror = function (evt) {
+      DB.resetApp();
       console.error("openDb:", this.errorCode);
-      alert(_("msg-indexedDB"));
     };
 
     req.onupgradeneeded = function (evt) {
@@ -196,6 +196,39 @@ var DB = {
   getObjectStore: function(storename, mode) {
     var tx = db.transaction(storename, mode);
     return tx.objectStore(storename);
-  }
+  },
+
+  /**
+   * Resert the App when DB is corrupted or when user wants to erase its data
+   */
+  resetApp: function() {
+    db.close();
+
+    var request = window.indexedDB.deleteDatabase(DB_NAME);
+
+    request.onerror = function(event) {
+      alert("clear-error");
+    };
+
+    request.onsuccess = function(event) {
+      // Erase data in obj
+      SL.Settings.obj = DEFAULT_CONF;
+      SL.Lists.obj = {};
+      SL.Items.obj = {};
+
+      // Refresh list view
+      SL.Lists.updateUI();
+
+      // Warn user
+      SL.displayStatus("clear-ok");
+
+      // Create new DB
+      DB.openDb();
+
+      // Go to list view
+      location.hash = "#lists";
+      SL.Lists.init();
+    };
+  },
 
 };
