@@ -22,7 +22,6 @@ js/events.js
 lib/IndexedDBShim/IndexedDBShim.min.js
 lib/IndexedDBShim/IndexedDBShim.min.map
 
-
 # Loader
 lazyload-min/lazyload-min.js
 
