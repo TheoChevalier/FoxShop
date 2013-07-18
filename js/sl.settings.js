@@ -9,7 +9,7 @@ SL.Settings = {
   store: DB_STORE_SETTINGS,
   obj: {
     language:{value:""},
-    prices:{value:false},
+    prices:{value:true},
     signature:{value:true},
     userCurrency:{value:""},
     currencyPosition:{value:"right"}
