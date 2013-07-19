@@ -365,6 +365,7 @@ label:not([for]) input + span {
   left: 0;
   width: 5rem;
   height: 6rem;
+  border-top: none;
   pointer-events: auto;
 }
 

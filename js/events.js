@@ -326,6 +326,12 @@
   });
 
   // Switches
+  $id("scanEnable").addEventListener("click", function() {
+    // Update the obj before refreshing Lists view
+    SL.Settings.obj["scanEnable"].value = this.checked;
+    SL.Settings.save("scanEnable", this.checked);
+  });
+
   $id("prices").addEventListener("click", function() {
     if(this.checked) {
       $id("currency").removeAttribute("disabled");

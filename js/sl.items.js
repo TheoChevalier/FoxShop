@@ -72,6 +72,13 @@ SL.Items = {
     this.loaded = true;
     this.updateListStatus();
 
+    // Check scanner
+    if (SL.Settings.obj.scanEnable.value) {
+      SL.show("scan");
+    } else {
+      SL.hide("scan");
+    }
+
     // For each list, count items and calculate total
     for(var item in this.obj) {
       item = this.obj[item];

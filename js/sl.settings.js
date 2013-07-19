@@ -49,6 +49,11 @@ SL.Settings = {
     select.setAttribute("selected","");
     $id("language").textContent = select.textContent;
 
+    // Scan bool
+    if (this.obj.scanEnable.value) {
+      $id("scanEnable").setAttribute("checked", "");
+    }
+
     // Prices bool
     if (this.obj.prices.value) {
       $id("prices").setAttribute("checked", "");

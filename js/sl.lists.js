@@ -15,9 +15,10 @@ SL.Lists = {
     //Check install button
     if (typeof navigator.mozApps != "undefined") {
       var request = navigator.mozApps.checkInstalled(MANIFEST);
-      request.onsuccess = function() {
-        // If the App is not installed
-        if (request.result == null) {
+      request.onsuccess = function(e) {
+        if (request.result) {
+        }
+        else {
           $id("install").style.display = "block";
         }
       }

@@ -7,6 +7,7 @@ var DB_STORE_ITEMS = 'items1';
 var DB_STORE_SETTINGS = 'settings1';
 var db;
 var DEFAULT_CONF = {language:{value:""},
+                    scanEnable:{value:true},
                     prices:{value:true},
                     signature:{value:true},
                     userCurrency:{value:""},
