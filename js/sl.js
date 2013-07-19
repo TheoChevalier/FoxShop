@@ -6,6 +6,8 @@ var DB_STORE_LISTS = 'lists2';
 var DB_STORE_ITEMS = 'items1';
 var DB_STORE_SETTINGS = 'settings1';
 var db;
+var SCANNER = false;
+var SHARE = false;
 var DEFAULT_CONF = {language:{value:""},
                     scanEnable:{value:true},
                     prices:{value:true},
@@ -55,6 +57,15 @@ window.onhashchange = function() {
   SL.currentHash = location.hash;
   if (SL.currentHash == "#" || SL.currentHash == "") location.hash = "#lists";
 };
+
+  /*****************************************************************************
+  * feature detection
+  ****************************************************************************/
+  if (typeof MozActivity !== "undefined") {
+    SCANNER = true;
+    SHARE = true;
+  }
+
 
 var SL = {
   currentHash: "#lists",
@@ -175,7 +186,7 @@ var SL = {
   // Used everywhere where prices are needed
   setPrice: function(elm, string, value) {
     // Return if no price
-    if (typeof value === "undefined" || typeof value === "NaN" || value == 0) {
+    if (typeof value === "undefined" || typeof value === "NaN") {
       return;
     }
     // Limit numbers after decimal place

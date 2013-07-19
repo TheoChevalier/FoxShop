@@ -384,6 +384,10 @@ label:not([for]) input + span {
   width: -webkit-calc(100% - 6rem);
 }
 
+.settings ul li > small {
+  padding-top: 1rem!important;
+}
+
 
 /* fix webkit in lists.css */
 form[role="dialog"][data-type="action"] > menu > button,

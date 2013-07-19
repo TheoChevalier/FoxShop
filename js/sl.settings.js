@@ -13,6 +13,11 @@ SL.Settings = {
   init: function() {
     this.openedFrom = location.hash;
     location.hash = "#settingsPanel";
+
+    // Check MozActivity support for scanner
+    if (!SCANNER) {
+      $id("scanEnable").parentNode.parentNode.style.display = "none";
+    }
   },
   // Save (or update) a setting, then updateUI
   save: function(guid, value) {
@@ -23,7 +28,7 @@ SL.Settings = {
 
     DB.deleteFromDB(guid, this);
     DB.store(setting, this);
-    DB.updateObj("Settings");
+    SL.Settings.obj[guid].value = value;
     SL.Lists.updateUI();
     SL.Items.updateUI();
   },
@@ -49,7 +54,7 @@ SL.Settings = {
     select.setAttribute("selected","");
     $id("language").textContent = select.textContent;
 
-    // Scan bool
+    // Check Scan
     if (this.obj.scanEnable.value) {
       $id("scanEnable").setAttribute("checked", "");
     }

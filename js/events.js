@@ -328,7 +328,6 @@
   // Switches
   $id("scanEnable").addEventListener("click", function() {
     // Update the obj before refreshing Lists view
-    SL.Settings.obj["scanEnable"].value = this.checked;
     SL.Settings.save("scanEnable", this.checked);
   });
 
@@ -338,9 +337,6 @@
     } else {
       $id("currency").setAttribute("disabled", "");
     }
-    // Update the obj before refreshing Lists view
-    SL.Settings.obj["prices"].value = this.checked;
-    SL.Lists.updateUI();
     SL.Settings.save("prices", this.checked);
   });
 
@@ -357,7 +353,6 @@
     location.hash = "#settingsPanel";
   });
   $id("clearPromptReset").addEventListener("click", function() {
-    location.hash = "#settingsPanel";
     DB.resetApp();
   });
 

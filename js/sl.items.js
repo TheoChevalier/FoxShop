@@ -73,7 +73,7 @@ SL.Items = {
     this.updateListStatus();
 
     // Check scanner
-    if (SL.Settings.obj.scanEnable.value) {
+    if (SL.Settings.obj.scanEnable.value && SCANNER) {
       SL.show("scan");
     } else {
       SL.hide("scan");
@@ -90,8 +90,10 @@ SL.Items = {
         node[0].textContent = item.name;
 
         // Set prices w/ currency at the right position (second p, first a)
-        node = node[1].getElementsByTagName("a");
-        SL.setPrice(node[0], "item-price", item.price);
+        if (SL.Settings.obj.prices.value) {
+          node = node[1].getElementsByTagName("a");
+          SL.setPrice(node[0], "item-price", item.price);
+        }
 
         if (item.nb > 1) {
           // Quantity (second p, second a)
@@ -103,14 +105,15 @@ SL.Items = {
   },
   updateListStatus: function() {
     // Update total/remaining
-    if (this.list.total > 0) {
-      if (typeof this.list.remaining === "undefined" || this.list.remaining == "")
+    if (this.list.total > 0 && SL.Settings.obj.prices.value) {
+      if (typeof this.list.remaining == "undefined" || this.list.remaining == "") {
         this.list.remaining  = 0;
-      $id("list-status").style.display = "block";
+      }
+      SL.show("list-status");
       SL.setPrice($id("list-total"), "total-list", this.list.total);
       SL.setPrice($id("list-remaining"), "remaining-list", this.list.remaining);
     } else {
-      $id("list-status").style.display = "none";
+      SL.hide("list-status");
     }
   },
   openEditListName: function() {
@@ -191,7 +194,7 @@ SL.Items = {
     var Email;
     var SMS;
 
-    if (typeof MozActivity == "undefined") {
+    if (!SHARE) {
       location.hash = "#enterEmail";
       return;
     }
@@ -235,7 +238,7 @@ SL.Items = {
     });
   },
   pickImage: function() {
-    if (typeof MozActivity == "undefined") {
+    if (!SCANNER) {
       return;
     }
     var pick = new MozActivity({
