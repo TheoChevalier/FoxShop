@@ -77,13 +77,15 @@ SL.editMode = {
           for(var aItem in SL.Items.obj) {
             if (SL.Items.obj[aItem].list == guid) {
               // Remove list items
-              DB.deleteFromDB(SL.Items.obj[aItem].guid, SL.Items);
+              DB.deleteFromDB(SL.Items.obj[aItem].guid, SL.Items, false);
+              delete SL.Items.obj[aItem];
             }
           }
         }
 
         // Remove element from DB
-        DB.deleteFromDB(guid, SL[from]);
+        DB.deleteFromDB(guid, SL[from], false);
+        delete SL[from].obj[guid];
 
         // Remove nodes
         var els = document.querySelectorAll('li[data-listkey="'+guid+'"]');
@@ -92,8 +94,8 @@ SL.editMode = {
         });
 
         // Update UI (count, total…)
-        SL.Items.updateUI();
         SL.Lists.updateUI();
+        SL.Items.updateUI();
       }
     }
   },

@@ -195,7 +195,11 @@ var SL = {
       return;
     }
     // Limit numbers after decimal place
-    value = parseFloat(value).toFixed(2);
+    if(value > 0) {
+      value = parseFloat(value).toFixed(2);
+    } else {
+      value = 0;
+    }
 
     // Default values
     var pricesEnabled = SL.Settings.obj["prices"].value;

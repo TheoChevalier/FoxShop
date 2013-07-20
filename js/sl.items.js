@@ -92,7 +92,11 @@ SL.Items = {
         // Set prices w/ currency at the right position (second p, first a)
         if (SL.Settings.obj.prices.value) {
           node = node[1].getElementsByTagName("a");
-          SL.setPrice(node[0], "item-price", item.price);
+          if(item.price != "") {
+            SL.setPrice(node[0], "item-price", item.price);
+          } else {
+            node[0].textContent = "";
+          }
         }
 
         if (item.nb > 1) {
