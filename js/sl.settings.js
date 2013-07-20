@@ -19,11 +19,13 @@ SL.Settings = {
       $id("scanEnable").parentNode.parentNode.style.display = "none";
     }
 
-    var request = window.navigator.mozApps.getSelf();
-    request.onsuccess = function(e) {
-      if (request.result) {
-        // Get the current version number
-        $id("version").textContent = "FoxShop v" + request.result.manifest.version;
+    // Display current version number
+    if (typeof window.navigator.mozApps !== "undefined") {
+      var request = window.navigator.mozApps.getSelf();
+      request.onsuccess = function(e) {
+        if (request.result) {
+          $id("version").textContent = "FoxShop v" + request.result.manifest.version;
+        }
       }
     }
   },
