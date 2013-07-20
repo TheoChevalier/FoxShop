@@ -91,25 +91,29 @@ SL.Settings = {
     if(this.obj.currencyPosition.value) {
       if (this.obj.currencyPosition.value == "right") {
         position = false;
-        console.log("pref right");
       } else {
         position = true;
-        console.log("pref left");
       }
     } else {
       if( _("user-currency-position") == "right") {
         position = false;
-        console.log("l10n right");
       } else {
         position = true;
-        console.log("l10n left");
       }
     }
 
     if(position) {
       $id("positionLeft").setAttribute("checked", "");
+      if (!SL.Settings.obj.currencyPosition.value) {
+        SL.Settings.obj.currencyPosition.value = "left";
+        SL.Settings.save("currencyPosition", "left");
+      }
     } else {
       $id("positionRight").setAttribute("checked", "");
+      if (!SL.Settings.obj.currencyPosition.value) {
+        SL.Settings.obj.currencyPosition.value = "right";
+        SL.Settings.save("currencyPosition", "right");
+      }
     }
   },
 };
