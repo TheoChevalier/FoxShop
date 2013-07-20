@@ -1,7 +1,11 @@
 {
-  "version": "1.1.1",
+  "version": "1.1.2",
   "name": "FoxShop",
-  "description": "FoxShop help you manage and share several shopping lists.",
+  "description": "With FoxShop, you easily create, edit and share <b>multiple shopping lists</b> directly from your device, in your language.
+
+  FoxShop is <b>time-saving</b>, you can manage quantities and prices in your currency to optimize your purchases and add items by <b>scanning</b> them. It lets you always keep an eye on the total amount of your list!
+
+  Now, you don't have to keep everything in mind, and you can even <b>clone a list</b> to reuse it. Be organized, try FoxShop!",
   "launch_path": "/FoxShop/index.html",
   "fullscreen": "true",
   "icons": {
@@ -16,13 +20,16 @@
   "appcache_path": "/FoxShop/cache.appcache",
   "locales": {
     "fr": {
-      "description": "FoxShop vous permet de gérer et partager plusieurs listes de courses."
-    },
-    "es": {
-      "description": "FoxShop le permite gestionar y compartir múltiples listas de compras."
+      "description": "FoxShop vous permet de créer, modifier et partager en toute simplicité <b>plusieurs listes de courses</b>, directement depuis votre apareil, dans votre langue.
+
+FoxShop vous fait <b>gagner du temps</b>, vous pouvez gérer les quantités prix des produits que vous pouvez ajouter en <b>scannant</b> directement leur code barre.
+
+Vous n’avez plus à vous souvenir de tout, vous pouvez même <b>cloner une liste</b> pour la réutiliser. Soyez organisés, essayez FoxShop !"
     },
     "pl": {
-      "description": "FoxShop pomaga zarządzać i udostępniać listy zakupów."
+      "description": "Za pomocą FoxShop możesz łatwo tworzyć, edytować i udostępniać <b>listy zakupów</b> bezpośrednio na Twoim urządzeniu i w Twoim języku.
+      FoxShop <b>oszczędza czas</b>, możesz zarządzać ilością i cenami i dodawać zakupy, <b>skanując</b> kod paskowy. Dzięki kontroli kosztów możesz zoptymalizować zakupy, widząc cały czas koszt zakupów.
+      Teraz nie musisz wszystkiego pamiętać, czy robić notatki na karteczce. Możesz także powielać listy, by użyć je ponownie. Bądź zorganizowany/zorganizowana, wypróbuj FoxShop!"
     },
     "pt-BR": {
       "description": "FoxShop permite gerenciar e compartilhar várias listas de compras."
