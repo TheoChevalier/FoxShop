@@ -53,6 +53,8 @@ section[role="region"], form[role="dialog"] {
 
 #status {display: none;z-index: 6;}
 
+#install {display: none!important;}
+
 #lists {
   z-index: 6;
   min-width: 100%;
