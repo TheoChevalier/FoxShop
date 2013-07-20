@@ -18,6 +18,14 @@ SL.Settings = {
     if (!SCANNER) {
       $id("scanEnable").parentNode.parentNode.style.display = "none";
     }
+
+    var request = window.navigator.mozApps.getSelf();
+    request.onsuccess = function(e) {
+      if (request.result) {
+        // Get the current version number
+        $id("version").textContent = "FoxShop v" + request.result.manifest.version;
+      }
+    }
   },
   // Save (or update) a setting, then updateUI
   save: function(guid, value) {

@@ -263,7 +263,7 @@ span {
     background-color: rgb(0, 138, 170)!important;
 }
 
-/**
+/******************************************************************************
  * CSS animations
  */
  /* Animated translation for status box notification */
@@ -306,7 +306,36 @@ animation: fadeOut 0.2s forwards;
 100% { opacity: 0; }
 }
 
-/**
+
+/******************************************************************************
+ * Setting icons
+ */
+
+.menu-item {
+  padding-left: 5.5rem!important;
+  background-repeat: no-repeat;
+  background-position: 1.4rem center;
+}
+
+.menu-item-desc {
+  left: 5.5rem;
+}
+
+.menu-item::before {
+  position: absolute;
+  top: calc((6.2rem - 3.2rem) / 2);
+  top: -webkit-calc((6.2rem - 3.2rem) / 2);
+  left: calc((5.5rem - 2.8rem) / 2);
+  left: -webkit-calc((5.5rem - 2.8rem) / 2);
+  width: 3rem;
+  height: 3rem;
+  content: '';
+  background-image: url(../img/icons/60.png);
+  background-size: 3rem;
+}
+
+
+/******************************************************************************
  *   Building blocks overrides
  */
 
