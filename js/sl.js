@@ -102,6 +102,7 @@ var SL = {
 
     newToggle.addEventListener("click", function(e) {
       aList.done = !aList.done;
+
       if (aList.done) {
         newLi.className = "done";
         checkbox.setAttribute('checked', true);
@@ -109,12 +110,16 @@ var SL = {
         newLi.className = "";
         checkbox.removeAttribute('checked');
       }
+      // Update local objet to get the value when refreshing the UI
+      aView.obj[aList.guid].done = aList.done;
+      SL.Lists.updateUI();
+      SL.Items.updateUI();
 
       // Delete the item, add the updated one
       DB.deleteFromDB(aList.guid, aView, true);
       DB.store(aList, aView, true);
-      SL.Items.updateUI();
-      SL.Lists.updateUI();
+
+      e.preventDefault();
     });
 
 

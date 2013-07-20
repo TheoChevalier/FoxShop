@@ -98,6 +98,10 @@ section[role="region"], form[role="dialog"] {
   opacity: 0.5;
 }
 
+.done a p:first-child {
+  text-decoration: line-through;
+}
+
 /* Margin for total*/
 .list p a:first-child {
   margin-right: 2rem;
