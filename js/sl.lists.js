@@ -82,7 +82,7 @@ SL.Lists = {
       SL.display(this.obj[aList], this);
       for(var aItem in SL.Items.obj) {
         if (SL.Items.obj[aItem].list == aList) {
-          nb += parseInt(SL.Items.obj[aItem].nb);
+          nb++;
           if (typeof SL.Items.obj[aItem].price != "undefined") {
             tmp = parseFloat(SL.Items.obj[aItem].price * SL.Items.obj[aItem].nb);
             total += tmp;
