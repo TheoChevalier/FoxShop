@@ -147,6 +147,7 @@ SL.Items = {
   },
   openNIF: function() {
     location.hash = "#newItemForm";
+    $id("NIF-name").value = $id("itemName").value;
   },
   saveNIF: function() {
     var name = $id('NIF-name').value;
