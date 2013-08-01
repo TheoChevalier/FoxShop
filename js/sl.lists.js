@@ -77,24 +77,31 @@ SL.Lists = {
       var total = 0;
       var remaining = 0;
       var nb = 0;
+      var complete = true;
 
       // Display it
       SL.display(this.obj[aList], this);
       for(var aItem in SL.Items.obj) {
         if (SL.Items.obj[aItem].list == aList) {
           nb++;
+          if (!SL.Items.obj[aItem].done) {
+            complete = false;
+          }
           if (typeof SL.Items.obj[aItem].price != "undefined") {
             tmp = parseFloat(SL.Items.obj[aItem].price * SL.Items.obj[aItem].nb);
             total += tmp;
             if (!SL.Items.obj[aItem].done) {
               remaining += tmp;
-
             }
           }
         }
       }
       // Get nodes
       var elm = this.elm.querySelector('li[data-listkey="'+aList+'"]');
+      if (complete) {
+        elm.className = "done";
+        elm.getElementsByTagName("input")[0].setAttribute('checked', true);
+      }
       elm = elm.getElementsByTagName("p")[1];
       var elmCount = elm.getElementsByTagName("a")[0];
       var elmTotal = elm.getElementsByTagName("a")[1];

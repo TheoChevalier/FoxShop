@@ -32,9 +32,7 @@ SL.Items = {
   // Add an item to the current list
   new: function() {
     var name = $id('itemName').value;
-    var qty = $id('itemQty').value;
     $id('itemName').value = "";
-    $id('itemQty').value = "";
     var date = new Date();
 
     // Remove line-endings
@@ -46,14 +44,10 @@ SL.Items = {
       return;
     }
 
-    if (!qty) {
-      qty = 1;
-    }
-
     aItem = { guid: SL.guid(),
               name: name,
               list: this.guid,
-              nb: qty,
+              nb: 1,
               date: date.getTime(),
               done: false
     };

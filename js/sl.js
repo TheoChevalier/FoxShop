@@ -159,18 +159,18 @@ var SL = {
     var nodes = SL[this.view].elm.getElementsByClassName("list")[0].childNodes;
     for(var i=0; i<nodes.length; i++) {
         nodes[i].getElementsByTagName('input')[0].setAttribute("checked", true);
-        nodes[i].className.replace ( /(?:^|\s)done(?!\S)/g , '' );
-        nodes[i].className.replace ( /(?:^|\s)done(?!\S)/g , 'done' );
+        nodes[i].className = 'done';
     }
-    // Update obj & DB
+    // Update local obj, then UI, then DB
     for (aGuid in SL[this.view].obj) {
       var aItem = SL[this.view].obj[aGuid];
       aItem.done = true;
+
+      SL.Lists.updateUI();
+      SL.Items.updateUI();
+
       DB.deleteFromDB(aItem.guid, SL[this.view], true);
       DB.store(aItem, SL[this.view], true);
-      SL.Items.updateUI();
-      SL.Lists.updateUI();
-
     }
   },
 
