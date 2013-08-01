@@ -37,6 +37,7 @@ locales/pt-BR.properties
 css/app.css
 css/lists.css
 css/alarm.css
+css/newItem.css
 
 # Fonts
 css/fonts/MozTT%20Light.ttf
