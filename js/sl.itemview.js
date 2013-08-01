@@ -21,15 +21,6 @@ SL.ItemView = {
       $id("newItemPrice").value = (typeof this.item.price != "undefined") ? this.item.price : "";
     }
   },
-  plusOne: function() {
-    $id("newItemQty").value = parseInt($id("newItemQty").value) + 1;
-  },
-  lessOne: function() {
-    var current = parseInt($id("newItemQty").value);
-    if (current > 1) {
-      $id("newItemQty").value = current - 1;
-    }
-  },
 
   //Save current item into DB
   save: function() {

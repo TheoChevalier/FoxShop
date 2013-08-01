@@ -97,10 +97,10 @@
       <form role="search" id="form-item" onsubmit="return false;">
         <button type="submit" id="add-item" data-l10n-id="add-item">Add</button>
         <p>
-          <textarea id="itemName" data-l10n-id="item-name" placeholder="New item"></textarea>
-          <button type="reset" id="resetItems">reset</button>
-          <input type="number" id="itemQty" data-l10n-id="item-qty" placeholder="1" />
           <button type="submit" id="scan"></button>
+          <textarea id="itemName" data-l10n-id="item-name" placeholder="Name"></textarea>
+          <button type="reset" id="resetItems">reset</button>
+          <button id="NIF-open">+</button>
         </p>
       </form>
       <img src="" id="image" />
@@ -125,6 +125,79 @@
       </div>
     </section>
 
+
+    <section id="newItemForm" class="view-edit-contact" role="region">
+      <header>
+        <button id="NIF-close"><span class="icon icon-close">close</span></button>
+        <menu type="toolbar"><button id="NIF-done"><span data-l10n-id="done">Done</span></button></menu>
+        <h1>New item</h1>
+      </header>
+      <form id="NIF-container" onsubmit="return false;">
+      <li>
+      <section class="item first ">
+        <a id="thumbnail-action" class="item-media fillflow-media pull-right" style="display:none">
+          <p>
+            <span role="button" class="icon-addimage"></span>
+            <em data-l10n-id="add-picture">Add picture</em>
+          </p>
+          <p class="edit-photo">
+            <em data-l10n-id="edit-picture">Edit</em>
+          </p>
+          <img id="NIF-photo" alt="" style="background-image: url(#photo#); background-color: transparent;">
+        </a>
+        <div class="item-body-exp">
+          <p class="fillflow-row">
+            <input id="NIF-name" class="textfield" data-l10n-id="NIF-name" placeholder="Name" type="text">
+            <button type="reset">Clear</button>
+          </p>
+          <p class="fillflow-row">
+            <select id="NIF-category" name="NIF-category" class="action textfield">
+              <option value="other"      data-l10n-id="NIF-other">Other</option>
+              <option value="fruits"     data-l10n-id="NIF-fruits">Fruits</option>
+              <option value="vegetables" data-l10n-id="NIF-vegetables">Vegetables</option>
+              <option value="fishery"    data-l10n-id="NIF-fishery">Fishery</option>
+              <option value="butchery"   data-l10n-id="NIF-butchery">Butchery</option>
+              <option value="grocery"    data-l10n-id="NIF-grocery">Grocery</option>
+              <option value="frozen"     data-l10n-id="NIF-frozen">Frozen</option>
+              <option value="hygiene"    data-l10n-id="NIF-hygiene">Hygiene</option>
+              <option value="textile"    data-l10n-id="NIF-textile">Textile</option>
+              <option value="house"      data-l10n-id="NIF-house">House</option>
+              <option value="garden"     data-l10n-id="NIF-garden">Gardening</option>
+              <option value="animal"     data-l10n-id="NIF-animal">Animal</option>
+              <option value="multimedia" data-l10n-id="NIF-multimedia">Multimedia</option>
+            </select>
+          </p>
+        </div>
+
+          <fieldset class="fillflow-row">
+            <select id="NIF-unit" name="NIF-unit" class="action">
+              <option value="piece"  data-l10n-id="NIF-piece">piece</option>
+              <option value="bag"    data-l10n-id="NIF-bag">bag</option>
+              <option value="bottle" data-l10n-id="NIF-bottle">bottle</option>
+              <option value="box"    data-l10n-id="NIF-box">box</option>
+              <option value="case"   data-l10n-id="NIF-case">case</option>
+              <option value="gallon" data-l10n-id="NIF-gallon">gallon</option>
+              <option value="g"      data-l10n-id="NIF-g">g</option>
+              <option value="kg"     data-l10n-id="NIF-kg">kg</option>
+            </select>
+            <section>
+              <p class="setbox-item">
+                <button id="NIF-less" class="button">-</button><input id="NIF-qty" type="number" class="textfield" value="1" /><button type="reset">Clear</button><button id="NIF-plus" class="button">+</button>
+              </p>
+              <p class="setbox-item">
+                <input id="NIF-price" type="number" class="textfield" data-l10n-id="NIF-price" placeholder="$ by…"/>
+                <button type="reset">Clear</button>
+              </p>
+            </section>
+          </fieldset>
+          <p class="fillflow-row">
+          <input id="NIF-note" data-l10n-id="NIF-note" placeholder="Note" class="textfield" type="text">
+          <button type="reset">Clear</button>
+          </p>
+          </section>
+        </li>
+      </form>
+    </section>
 
     <section id="itemView" role="region" class="skin-organic">
       <header>

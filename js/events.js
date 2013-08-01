@@ -104,17 +104,11 @@
       SL.Items.new();
     }
   });
-  $id("itemQty").addEventListener("keyup", function (e) {
-    if (e.keyCode == 13) {
-      SL.Items.new();
-    }
-  });
 
   // Button to clear the form
   SL.Items.elm.querySelector('button[type="reset"]').addEventListener("click",
   function() {
       $id("itemName").textContent = "";
-      $id("itemQty").textContent = "1";
   });
 
   // Button to cross out all the items
@@ -166,6 +160,26 @@
     SL.Items.pickImage();
   });
 
+  //New Item Form
+  $id("NIF-open").addEventListener("click", function() {
+    SL.Items.openNIF();
+  });
+
+  $id("NIF-close").addEventListener("click", function() {
+    location.hash = "#items";
+  });
+
+  $id("NIF-done").addEventListener("click", function() {
+    SL.Items.saveNIF();
+  });
+
+  $id("NIF-plus").addEventListener("click", function() {
+    SL.Items.plusOne("NIF-qty");
+  });
+  $id("NIF-less").addEventListener("click", function() {
+    SL.Items.lessOne("NIF-qty");
+  });
+
   /*****************************************************************************
    * itemView
    ****************************************************************************/
@@ -188,10 +202,10 @@
     });
 
   $id("plusOne").addEventListener("click", function() {
-    SL.ItemView.plusOne();
+    SL.Items.plusOne("newItemQty");
   });
   $id("lessOne").addEventListener("click", function() {
-    SL.ItemView.lessOne();
+    SL.Items.lessOne("newItemQty");
   });
 
 

@@ -75,8 +75,10 @@ SL.Items = {
     // Check scanner
     if (SL.Settings.obj.scanEnable.value && SCANNER) {
       SL.show("scan");
+      $id("itemName").className = "";
     } else {
       SL.hide("scan");
+      $id("itemName").className = "noScan";
     }
 
     // For each list, count items and calculate total
@@ -147,6 +149,70 @@ SL.Items = {
       DB.store(this.list, SL.Lists, false);
     } else {
       SL.displayStatus("msg-name");
+    }
+  },
+  openNIF: function() {
+    location.hash = "#newItemForm";
+  },
+  saveNIF: function() {
+    var name = $id('NIF-name').value;
+    var qty = $id('NIF-qty').value;
+    var price = $id('NIF-price').value;
+    var category = $id('NIF-category').value;
+    var unit = $id('NIF-unit').value;
+    var note = $id('NIF-note').value;
+    var date = new Date();
+
+    // Remove line-endings
+    name = name.replace(/(\r\n|\n|\r)/gm,"");
+
+    var categoryForm = document.querySelector('select[name="NIF-category"]');
+    var category = categoryForm.options[categoryForm.selectedIndex].value;
+
+    var unitForm = document.querySelector('select[name="NIF-unit"]');
+    var unit = unitForm.options[unitForm.selectedIndex].value;
+
+    // Handle empty form
+    if (!name) {
+      SL.displayStatus("msg-name");
+      return;
+    }
+
+    if (!qty) {
+      qty = 1;
+    }
+
+    aItem = { guid: SL.guid(),
+              name: name,
+              list: this.guid,
+              nb: qty,
+              price: price,
+              category: category,
+              note: note,
+              date: date.getTime(),
+              done: false
+    };
+
+    DB.store(aItem, this);
+    SL.display(aItem, this);
+    this.updateUI();
+    SL.Lists.updateUI();
+
+    // Reset form
+    $id('NIF-container').reset();
+    location.hash = "#items";
+  },
+  plusOne: function(id) {
+    var current = parseInt($id(id).value);
+    if(!current > 0) {
+      current = 0;
+    }
+    $id(id).value = current + 1;
+  },
+  lessOne: function(id) {
+    var current = parseInt($id(id).value);
+    if (current > 1) {
+      $id(id).value = current - 1;
     }
   },
   clone: function() {

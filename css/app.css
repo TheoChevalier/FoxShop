@@ -1,3 +1,286 @@
+
+
+hr {
+  background-color: #BCBCBC;
+  border: 0;
+  height: 0.1rem;
+}
+
+/* Overriding Input areas BB */
+form p input + button[type="reset"].hide,
+form p textarea + button[type="reset"].hide {
+  display: block!important;
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+
+
+/* APP */
+/* view */
+
+.view {
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: translate(0, 0);
+}
+
+.view:not(.view-noscroll) {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.view-right {
+  transform: translateX(100%);
+}
+
+.view-bottom {
+  transform: translateY(100%);
+}
+/* Input areas customization*/
+form p + p {
+  margin-top: 0.5rem;
+}
+
+/* Body */
+.view-body {
+  position: relative;
+  height: calc(100% - 5rem);
+}
+
+#view-screenshot.contact-list > header:first-child:after {
+  background-image: none;
+}
+
+#view-screenshot.contact-list > #view-screenshot-body {
+  position: relative;
+  height: calc(100% - 5rem);
+  background: -moz-element(#view-contacts-list);
+  background-position: 0 -5rem;
+}
+
+.view-body-inner {
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 5;
+  width: 100%;
+  -moz-box-sizing: border-box;
+  padding: 1.4rem 2rem;
+  background: #f4f4f4;
+  color: #333;
+  text-align: left;
+}
+
+/* Removes scroll from the view body inner */
+.view-noscroll .view-body-inner {
+  width: -moz-calc(100% + 0.8rem);
+}
+
+
+/* LAYOUT */
+/* ITEM: The smallest complete structure; */
+.item {
+  display: block;
+  overflow: hidden;
+}
+
+.item-media {
+  float: left;
+  margin-right: 1rem;
+}
+
+.item-media.pull-right {
+  margin-left: .7rem;
+  margin-right: 0;
+}
+
+.item-body {
+  display: table;
+}
+
+.item-body-exp {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* PULLS: Float an element to the desired position; */
+.pull-right {
+  float: right;
+}
+
+.pull-left {
+  float: left;
+}
+
+/* FILL FLOW: general components for helping in defining basic flows in forms; */
+.fill-flow {
+  padding-right: 0;
+}
+
+/* ROW: horizontal separation for elements; */
+.fillflow-row {
+  margin: 0 0 0.5rem;
+  position: relative;
+}
+
+.fillflow-left {
+  margin-right: 0.7rem;
+}
+
+.fillflow-twocols {
+  overflow: hidden;
+}
+
+.fillflow-twocols button {
+  width: calc(50% - 0.5rem);
+  float: left;
+}
+
+.fillflow-twocols button:last-child {
+  float: right;
+}
+
+/* ROW ACTION */
+.fillflow-row-action {
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  margin: -1rem 0 0 0.5rem;
+  background: none;
+  border: none;
+  width: auto;
+  height: auto;
+}
+
+.fillflow-row-action span[role="button"] {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0;
+}
+
+/* MEDIA: specific ratio used in forms; */
+.fillflow-media {
+  margin: 0 0.5rem 0.5rem 0;
+  width: 8.3rem;
+  height: 8.3rem;
+  position: relative;
+  z-index: 0;
+  border: 0.1rem solid rgb(204, 204, 204);
+  border-radius: 0.3rem 0.3rem 0.3rem 0.3rem;
+  background: #fff url("/contacts/style/gphx/bitmap/default/forms/shadow.png") repeat-x;
+}
+.fillflow-media p {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  z-index: -1;
+}
+
+.fillflow-media p em {
+  display: block;
+  color: #858585;
+  font-size: 1.3rem;
+  font-weight: normal;
+  font-style: normal;
+  margin-top: 0.5rem;
+}
+
+.fillflow-media .edit-photo {
+  background: rgba(255, 255, 255, 0.4);
+  top: 0;
+  right: 5rem;
+  z-index: 1;
+  margin: 0;
+  display: none;
+  pointer-events: none;
+}
+
+.fillflow-media .edit-photo em {
+  color: #fff;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.9);
+  margin-top: 6rem;
+}
+
+.with-photo .edit-photo {
+  display: block;
+}
+
+
+.fillflow-media img {
+  width: 100%;
+  height: 100%;
+  background: #fff no-repeat center center;
+  background-size: cover;
+}
+
+/* JUMPER */
+
+nav[data-type="scrollbar"] {
+  z-index: 6;
+}
+
+nav[data-type="scrollbar"] ol > li > * {
+  pointer-events: none;
+}
+
+nav[data-type="scrollbar"] p img {
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  width: 4.8rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @font-face {
   font-family: 'MozTTLight';
   src: url(fonts/MozTT%20Light.ttf) format("truetype");
@@ -109,29 +392,30 @@ section[role="region"], form[role="dialog"] {
   margin-right: 2rem;
 }
 
-#itemQty {
-  width: 20%;
-  padding-left: 5px;
-  padding-right: 0;
-  margin-top: 0!important;
-  background: url("building_blocks/input_areas/images/ui/separator.png") no-repeat scroll 0px 50% / auto 100% transparent;
-  border-radius: 0;
-}
-
 #scan {
   width: 40px!important;
   min-width: 40px;
   padding: 0;
   margin-top: 0!important;
-  background: url(../img/icons/scan.png)  no-repeat 50% 50% / 3rem auto, url("building_blocks/input_areas/images/ui/separator.png") no-repeat scroll 0px 50% / auto 100% transparent;
+  background: url(../img/icons/scan.png)  no-repeat 50% 50% / 3rem auto;
   border-radius: 0;
 }
 #itemName {
-  width: -webkit-calc(80% - 40px);
-  width: calc(80% - 40px);
+  width: -webkit-calc(100% - 85px);
+  width: calc(100% - 85px);
+  background: url("building_blocks/input_areas/images/ui/separator.png") no-repeat scroll 0px 50% / auto 100% transparent;
 }
 
-#itemQty, #itemName, #scan {
+#itemName.noScan {
+  width: -webkit-calc(100% - 45px);
+  width: calc(100% - 45px);
+}
+
+#form-item p {
+  padding-left: 0;
+}
+
+#itemName, #scan, #NIF-open {
   float: left;
 }
 
@@ -174,9 +458,9 @@ form[role="search"] p {
 }
 
 #resetItems {
-  right: -webkit-calc(20% + 40px);
-  right: calc(20% + 40px);
+  right: 40px;
 }
+
 #resetEmail {
   top: 1rem;
 }
@@ -338,6 +622,77 @@ animation: fadeOut 0.2s forwards;
   content: '';
   background-image: url(../img/icons/60.png);
   background-size: 3rem;
+}
+
+/******************************************************************************
+ *   New Item Form overrides
+ */
+
+#newItemForm fieldset section {
+  margin-left: 0;
+  margin-right: 9.2rem;
+  border-left: none;
+  border-right: 0.1rem solid rgb(221, 221, 221);
+  border-radius: 0px 0.3rem 0.3rem 0px;
+}
+
+#newItemForm fieldset select {
+  right: 0;
+  background: url("building_blocks/input_areas/images/icons/arrow.png") no-repeat scroll 100% 100% / 1.2rem auto transparent;
+  -moz-box-sizing: border-box;
+  position: absolute;
+  width: 9.2rem;
+  height: 100%;
+  padding: 3.2rem 0.5rem 0px 0rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  color: rgb(51, 51, 51);
+  line-height: 4rem;
+  text-transform: uppercase;
+  border: none;
+}
+
+#newItemForm .button {
+  width: 20%;
+  margin: 0;
+  display: inline-block;
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+#newItemForm .button:active {
+  background-color: rgb(0, 138, 170);
+}
+
+#NIF-qty {
+  width: 60%;
+  display: inline-block;
+  text-align: center;
+}
+
+fieldset {
+  font-size: 1.8rem;
+}
+
+#NIF-container {
+  padding: .5rem 2rem;
+  list-style: none;
+}
+
+#NIF-category {
+  -moz-box-sizing: border-box;
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  height: 4rem;
+  resize: none;
+  padding: 0px 1.2rem;
+  font-size: 1.8rem;
+  line-height: 4rem;
+  border: 0.1rem solid rgb(204, 204, 204);
+  border-radius: 0.3rem;
+  box-shadow: none;
 }
 
 
@@ -512,3 +867,4 @@ section[role="region"] > ul > li > p + .fake-select {
   padding-top: 1.1rem!important;
   margin-top: -0.8rem!important;
 }
+
