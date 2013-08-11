@@ -355,23 +355,6 @@ animation: fadeOut 0.2s forwards;
   border-radius: 0px 0.3rem 0.3rem 0px;
 }
 
-#newItemForm fieldset select {
-  right: 0;
-  background: url("building_blocks/input_areas/images/icons/arrow.png") no-repeat scroll 100% 100% / 1.2rem auto transparent;
-  -moz-box-sizing: border-box;
-  position: absolute;
-  width: 9.2rem;
-  height: 100%;
-  padding: 3.2rem 0.5rem 0px 0rem;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  color: rgb(51, 51, 51);
-  line-height: 4rem;
-  text-transform: uppercase;
-  border: none;
-}
-
 #newItemForm .button {
   width: 20%;
   margin: 0;
@@ -399,20 +382,55 @@ fieldset {
   list-style: none;
 }
 
-#NIF-category {
+/* Selects */
+#newItemForm .fake-select {
+  padding-left: 0!important;
+  padding-right: 0!important;
+}
+
+#newItemForm select {
+  left: 0;
+  background: url("building_blocks/input_areas/images/icons/arrow.png") no-repeat scroll 100% 100% / 1.2rem auto transparent;
   -moz-box-sizing: border-box;
-  display: block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   overflow: hidden;
+  color: rgb(51, 51, 51);
+  line-height: 4rem;
+  text-transform: uppercase;
+  outline: 0!important;
+}
+
+#NIF-unit-p {
+  position: absolute!important;
+  width: 9.2rem!important;
+  right: 0!important;
+  height: 100%!important;
+  border: none;
+  padding: 0!important;
+}
+
+#NIF-unit-button {
+  height:  100%;
+}
+
+#NIF-unit {
+  width: 100%!important;
+  height: 100%!important;
+  top: 0!important;
+}
+
+#NIF-category {
+  display: block;
   width: 100%;
   height: 4rem;
   resize: none;
-  padding: 0px 1.2rem;
-  font-size: 1.8rem;
-  line-height: 4rem;
+  padding: 1rem  1.2rem 0px 1.2rem;
   border: 0.1rem solid rgb(204, 204, 204);
   border-radius: 0.3rem;
   box-shadow: none;
 }
+
 
 
 /******************************************************************************

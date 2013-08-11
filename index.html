@@ -150,7 +150,8 @@
             <input id="NIF-name" class="textfield" data-l10n-id="NIF-name" placeholder="Name" type="text">
             <button type="reset">Clear</button>
           </p>
-          <p class="fillflow-row">
+          <p class="fillflow-row fake-select">
+            <button id="NIF-category-button" class="icon icon-dialog" data-l10n-id="NIF-category-button">Category</button>
             <select id="NIF-category" name="NIF-category" class="action textfield">
               <option value="other"      data-l10n-id="NIF-other">Other</option>
               <option value="fruits"     data-l10n-id="NIF-fruits">Fruits</option>
@@ -170,16 +171,19 @@
         </div>
 
           <fieldset class="fillflow-row">
-            <select id="NIF-unit" name="NIF-unit" class="action">
-              <option value="piece"  data-l10n-id="NIF-piece">Piece</option>
-              <option value="bag"    data-l10n-id="NIF-bag">Bag</option>
-              <option value="bottle" data-l10n-id="NIF-bottle">Bottle</option>
-              <option value="box"    data-l10n-id="NIF-box">Box</option>
-              <option value="case"   data-l10n-id="NIF-case">Case</option>
-              <option value="gallon" data-l10n-id="NIF-gallon">Gallon</option>
-              <option value="g"      data-l10n-id="NIF-g">g</option>
-              <option value="kg"     data-l10n-id="NIF-kg">Kg</option>
-            </select>
+            <p id="NIF-unit-p" class="fake-select">
+              <button id="NIF-unit-button" class="icon icon-dialog" data-l10n-id="NIF-unit-button">Unit</button>
+              <select id="NIF-unit" name="NIF-unit" class="action">
+                <option value="piece"  data-l10n-id="NIF-piece">Piece</option>
+                <option value="bag"    data-l10n-id="NIF-bag">Bag</option>
+                <option value="bottle" data-l10n-id="NIF-bottle">Bottle</option>
+                <option value="box"    data-l10n-id="NIF-box">Box</option>
+                <option value="case"   data-l10n-id="NIF-case">Case</option>
+                <option value="gallon" data-l10n-id="NIF-gallon">Gallon</option>
+                <option value="g"      data-l10n-id="NIF-g">g</option>
+                <option value="kg"     data-l10n-id="NIF-kg">Kg</option>
+              </select>
+            </p>
             <section>
               <p class="setbox-item">
                 <button id="NIF-less" class="button">-</button><input id="NIF-qty" type="number" class="textfield" value="1" /><button type="reset">Clear</button><button id="NIF-plus" class="button">+</button>
