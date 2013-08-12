@@ -36,7 +36,6 @@ locales/pt-BR.properties
 # Custom CSS
 css/app.css
 css/lists.css
-css/alarm.css
 css/newItem.css
 
 # Fonts
@@ -63,8 +62,6 @@ img/icons/edit.png
 img/icons/ellipsis.png
 img/icons/go.png
 img/icons/gear.png
-img/icons/plus.png
-img/icons/less.png
 img/icons/scan.png
 img/icons/share.png
 css/images/edit_background.png

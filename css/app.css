@@ -38,13 +38,6 @@ html, body {
   margin: 0 auto;
 }
 
-#content, body {
-  /*background: url("images/edit_background.png");
-  background-size: 100% 100%;*/
-  /*z-index: -2;
-  position: relative;*/
-}
-
 section[role="region"], form[role="dialog"] {
   min-width: 100%;
   min-height: 100%;
@@ -157,30 +150,6 @@ form[role="search"] p {
 
 #saveList, #newListName {
   display: none;
-}
-
-#newItemQty {
-  width:  8rem!important;
-  clear: none!important;
-  display: inline-block!important;
-}
-
-#plusOne, #lessOne {
-  position: static!important;
-  display: inline-block!important;
-  margin-top: 0!important;
-  margin-bottom: -1rem!important;
-  padding: 0!important;
-  height: 29px!important;
-  width: 29px!important;
-}
-
-#plusOne {
-  background-image: url('../img/icons/plus.png');
-}
-
-#lessOne {
-  background-image: url('../img/icons/less.png');
 }
 
 #resetItems {
@@ -557,15 +526,6 @@ textarea {
 /* fix webkit in edit_mode.css */
 form[role="dialog"][data-type="edit"] menu button {
   width: -webkit-calc((100% - 1rem) / 2);
-}
-
-
-/* fix webkit in alarm.css */
-#itemView a.abstract-menu {
-  width: -webkit-calc(100% - 7.50rem);
-}
-#alarm-delete-button {
-  background: -webkit-linear-gradient(bottom, #900010, #c90010)!important;
 }
 
 
