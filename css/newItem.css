@@ -178,7 +178,6 @@ form p + p {
   z-index: 0;
   border: 0.1rem solid rgb(204, 204, 204);
   border-radius: 0.3rem 0.3rem 0.3rem 0.3rem;
-  background: #fff url("/contacts/style/gphx/bitmap/default/forms/shadow.png") repeat-x;
 }
 .fillflow-media p {
   position: absolute;
