@@ -97,6 +97,7 @@ section[role="region"], form[role="dialog"] {
 
 .done {
   opacity: 0.5;
+  background: #efefef;
 }
 
 .done a p:first-child {
@@ -202,6 +203,7 @@ span {
   font-size: 1.4rem;
   border-bottom: none;
   border-top: 0.1rem solid rgb(230, 230, 230);
+  padding: 0.8rem 1.5rem;
 }
 
 #aboutPanel p {
