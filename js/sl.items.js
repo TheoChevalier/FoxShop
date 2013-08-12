@@ -1,15 +1,23 @@
+'use strict';
+
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
 /*******************************************************************************
  * Items
  ******************************************************************************/
 SL.Items = {
   elm: $id("items"),
   name: "Items",
-  nextView: "ItemView",
+  nextView: "newItemForm",
   store: DB_STORE_ITEMS,
   obj: {},
   list: {},
   loaded: false,
   init: function(aList) {
+    var aGuid;
+
     SL.view = this.name;
     this.list = aList;
     this.guid = aList.guid;
@@ -147,9 +155,20 @@ SL.Items = {
   },
   openNIF: function() {
     location.hash = "#newItemForm";
+
+    // Reset view
+    SL.newItemForm.elm.getElementsByClassName("title")[0].textContent=_("NIF-title");
+    SL.hide("NIF-delete");
+
+    // Reset form
+    $id("NIF-category-button").textContent = _("NIF-category-button");
+    $id("NIF-unit-button").textContent = _("NIF-unit-button");
+    $id('NIF-container').reset();
+
+    // Set name already typed on #items
     $id("NIF-name").value = $id("itemName").value;
   },
-  saveNIF: function() {
+  doneNIF: function() {
     var name = $id('NIF-name').value;
     var qty = $id('NIF-qty').value;
     var price = $id('NIF-price').value;

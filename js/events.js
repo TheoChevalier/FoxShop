@@ -1,3 +1,9 @@
+'use strict';
+
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
 // Add the eventListeners to buttons, etc.
 
   /*****************************************************************************
@@ -160,7 +166,10 @@
     SL.Items.pickImage();
   });
 
-  //New Item Form
+
+  /*****************************************************************************
+   * New Item Form
+   ****************************************************************************/
   $id("NIF-open").addEventListener("click", function() {
     SL.Items.openNIF();
   });
@@ -170,7 +179,7 @@
   });
 
   $id("NIF-done").addEventListener("click", function() {
-    SL.Items.saveNIF();
+    SL[SL.view].doneNIF();
   });
 
   $id("NIF-plus").addEventListener("click", function() {
@@ -180,34 +189,21 @@
     SL.Items.lessOne("NIF-qty");
   });
 
-  /*****************************************************************************
-   * itemView
-   ****************************************************************************/
-  SL.ItemView.elm.getElementsByClassName("icon-back")[0].parentNode.addEventListener("click",
-    function() {
-      location.hash = "#items";
-      SL.view = "Items";
-    });
-
-  $id("saveItem").addEventListener("click", function() {
-      //Switch views
-      SL.view = "Items";
-      SL.ItemView.save();
+  // Update fake select value
+  $id("NIF-category").addEventListener("change", function() {
+    var selected = this.options[this.selectedIndex];
+    $id("NIF-category-button").textContent = selected.textContent;
+  });
+  $id("NIF-unit").addEventListener("change", function() {
+    var selected = this.options[this.selectedIndex];
+    $id("NIF-unit-button").textContent = selected.textContent;
   });
 
-  $id("alarm-delete").addEventListener("click",
-    function() {
-      location.hash = "#deleteItem";
-      SL.initConfirm(1);
-    });
-
-  $id("plusOne").addEventListener("click", function() {
-    SL.Items.plusOne("newItemQty");
+  $id("NIF-delete").addEventListener("click",
+  function() {
+    location.hash = "#deleteItem";
+    SL.initConfirm(1);
   });
-  $id("lessOne").addEventListener("click", function() {
-    SL.Items.lessOne("newItemQty");
-  });
-
 
   /*****************************************************************************
    * deleteItem

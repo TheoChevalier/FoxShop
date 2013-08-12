@@ -1,4 +1,9 @@
-//  'use strict';
+'use strict';
+
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
 // DB init
 var DB_NAME = 'ShoppingList';
 var DB_VERSION = 3; // Use a long long for this value (don't use a float)

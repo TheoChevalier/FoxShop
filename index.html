@@ -130,7 +130,7 @@
       <header>
         <button id="NIF-close"><span class="icon icon-close">close</span></button>
         <menu type="toolbar"><button id="NIF-done"><span data-l10n-id="done">Done</span></button></menu>
-        <h1 data-l10n-id="NIF-title">New item</h1>
+        <h1 class="title" data-l10n-id="NIF-title">New item</h1>
       </header>
       <form id="NIF-container" onsubmit="return false;">
       <li>
@@ -170,68 +170,39 @@
           </p>
         </div>
 
-          <fieldset class="fillflow-row">
-            <p id="NIF-unit-p" class="fake-select">
-              <button id="NIF-unit-button" class="icon icon-dialog" data-l10n-id="NIF-unit-button">Unit</button>
-              <select id="NIF-unit" name="NIF-unit" class="action">
-                <option value="piece"  data-l10n-id="NIF-piece">Piece</option>
-                <option value="bag"    data-l10n-id="NIF-bag">Bag</option>
-                <option value="bottle" data-l10n-id="NIF-bottle">Bottle</option>
-                <option value="box"    data-l10n-id="NIF-box">Box</option>
-                <option value="case"   data-l10n-id="NIF-case">Case</option>
-                <option value="gallon" data-l10n-id="NIF-gallon">Gallon</option>
-                <option value="g"      data-l10n-id="NIF-g">g</option>
-                <option value="kg"     data-l10n-id="NIF-kg">Kg</option>
-              </select>
+        <fieldset class="fillflow-row">
+          <p id="NIF-unit-p" class="fake-select">
+            <button id="NIF-unit-button" class="icon icon-dialog" data-l10n-id="NIF-unit-button">Unit</button>
+            <select id="NIF-unit" name="NIF-unit" class="action">
+              <option value="piece"  data-l10n-id="NIF-piece">Piece</option>
+              <option value="bag"    data-l10n-id="NIF-bag">Bag</option>
+              <option value="bottle" data-l10n-id="NIF-bottle">Bottle</option>
+              <option value="box"    data-l10n-id="NIF-box">Box</option>
+              <option value="case"   data-l10n-id="NIF-case">Case</option>
+              <option value="gallon" data-l10n-id="NIF-gallon">Gallon</option>
+              <option value="g"      data-l10n-id="NIF-g">g</option>
+              <option value="kg"     data-l10n-id="NIF-kg">Kg</option>
+            </select>
+          </p>
+          <section>
+            <p class="setbox-item">
+              <button id="NIF-less" class="button">-</button><input id="NIF-qty" type="number" class="textfield" value="1" /><button type="reset">Clear</button><button id="NIF-plus" class="button">+</button>
             </p>
-            <section>
-              <p class="setbox-item">
-                <button id="NIF-less" class="button">-</button><input id="NIF-qty" type="number" class="textfield" value="1" /><button type="reset">Clear</button><button id="NIF-plus" class="button">+</button>
-              </p>
-              <p class="setbox-item">
-                <input id="NIF-price" type="number" class="textfield" data-l10n-id="NIF-price" placeholder="$ by…"/>
-                <button type="reset">Clear</button>
-              </p>
-            </section>
-          </fieldset>
-          <p class="fillflow-row">
+            <p class="setbox-item">
+              <input id="NIF-price" type="number" class="textfield" data-l10n-id="NIF-price" placeholder="$ by…"/>
+              <button type="reset">Clear</button>
+            </p>
+          </section>
+        </fieldset>
+
+        <p class="fillflow-row">
           <input id="NIF-note" data-l10n-id="NIF-note" placeholder="Note" class="textfield" type="text">
           <button type="reset">Clear</button>
-          </p>
-          </section>
-        </li>
+        </p>
+        </section>
+      </li>
+      <button id="NIF-delete" class="danger" data-l10n-id="delete">Delete</button>
       </form>
-    </section>
-
-    <section id="itemView" role="region" class="skin-organic">
-      <header>
-        <button class="back"><span class="icon icon-back"></span></button>
-        <menu type="toolbar">
-          <a href="#items" id="saveItem"><span data-l10n-id="done">Done</span></a>
-        </menu>
-        <h1 class="title" data-l10n-id="item">Item</h1>
-      </header>
-      <ul id="edit-alarm" class="tableView">
-        <li class="singleline field">
-          <span class="view-alarm-lbl" data-l10n-id="item">Item</span>
-          <input id="newItemName" type="text" class="right" data-l10n-id="new-item" placeholder="New item name"/>
-          <!--<button type="reset" id="resetNewItemName">reset</button>-->
-        </li>
-        <li class="singleline field">
-          <span class="view-alarm-lbl" data-l10n-id="quantity">Quantity</span>
-          <input id="newItemQty" type="number" class="right" data-l10n-id="new-qty" value="0" placeholder="Number to buy"/>
-          <span id="plusOne"></span><span id="lessOne"></span>
-          <!--<button type="reset" id="resetNewItemQty">reset</button>-->
-        </li>
-        <li id="newPrice" class="singleline field" hidden>
-          <span class="view-alarm-lbl" data-l10n-id="price">Price</span>
-          <input id="newItemPrice" type="number" class="right" data-l10n-id="new-price" placeholder="New price"/>
-          <!--<button type="reset" id="resetNewItemPrice">reset</button>-->
-        </li>
-        <li id="alarm-delete-button" class="singleline">
-          <a id="alarm-delete" data-l10n-id="delete">Delete</a>
-        </li>
-      </ul>
     </section>
 
     <form role="dialog" data-type="confirm" id="deleteItem" onsubmit="return false;">
