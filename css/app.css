@@ -112,7 +112,10 @@ section[role="region"], form[role="dialog"] {
 
 /* Margin for total*/
 .list p a:first-child {
-  margin-right: 2rem;
+  margin-right: 1rem;
+}
+.list p a:nth-child(2) {
+  margin-right: 1rem;
 }
 
 #scan {

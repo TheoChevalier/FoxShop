@@ -92,21 +92,31 @@ SL.Items = {
         // Name (first p)
         node = node.getElementsByTagName("p");
         node[0].textContent = item.name;
+        // Second p
+        node = node[1].getElementsByTagName("a");
 
-        // Set prices w/ currency at the right position (second p, first a)
+        // p2 > a1: qty
+        if (item.nb > 0) {
+          var unit = item.unit;
+          if (typeof unit === "undefined") {
+            unit = "piece";
+          }
+          node[0].setAttribute("data-l10n-args", "{n: "+item.nb+"}");
+          node[0].textContent = _("NIF-"+unit, {"n": item.nb});
+        }
+
+        // p2 > a2: price
         if (SL.Settings.obj.prices.value) {
-          node = node[1].getElementsByTagName("a");
           if(item.price != "") {
-            SL.setPrice(node[0], "item-price", item.price);
+            SL.setPrice(node[1], "item-price", item.price);
           } else {
-            node[0].textContent = "";
+            node[1].textContent = "";
           }
         }
 
-        if (item.nb > 1) {
-          // Quantity (second p, second a)
-          node[1].setAttribute("data-l10n-args", "{quantity: "+item.nb+"}");
-          node[1].textContent = _("item-quantity", {"quantity": item.nb});
+        // p2 > a3: note
+        if (typeof item.note !== "undefined") {
+          node[2].textContent = item.note;
         }
       }
     }
@@ -167,6 +177,12 @@ SL.Items = {
 
     // Set name already typed on #items
     $id("NIF-name").value = $id("itemName").value;
+
+    // Check price feature
+    $id("NIF-price").parentNode.setAttribute("hidden", "");
+    if (SL.Settings.obj["prices"].value) {
+      $id("NIF-price").parentNode.removeAttribute("hidden");
+    }
   },
   doneNIF: function() {
     var name = $id('NIF-name').value;

@@ -138,10 +138,12 @@ var SL = {
     var p2 = document.createElement('p');
     var total = document.createElement('a');
     var count = document.createElement('a');
+    var note = document.createElement('a');
     p1.textContent = aList.name;
 
     p2.appendChild(total);
     p2.appendChild(count);
+    p2.appendChild(note);
 
     newTitle.className = "liTitle";
     newTitle.addEventListener("click", function(e) {

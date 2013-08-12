@@ -23,7 +23,6 @@ SL.newItemForm = {
 
     $id("NIF-name").value = this.item.name;
     $id("NIF-qty").value = (typeof this.item.nb != "undefined") ? this.item.nb : 1;
-    $id("NIF-price").parentNode.setAttribute("hidden", "");
     $id("NIF-note").value = (typeof this.item.note != "undefined") ? this.item.note : "";
 
     // Set category if any
@@ -48,6 +47,7 @@ SL.newItemForm = {
       $id("NIF-unit-button").textContent = _("NIF-unit-button");
     }
 
+    $id("NIF-price").parentNode.setAttribute("hidden", "");
     if (SL.Settings.obj["prices"].value) {
       $id("NIF-price").parentNode.removeAttribute("hidden");
       $id("NIF-price").value = (typeof this.item.price != "undefined") ? this.item.price : "";
