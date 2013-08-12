@@ -102,7 +102,7 @@ SL.Items = {
             unit = "piece";
           }
           node[0].setAttribute("data-l10n-args", "{n: "+item.nb+"}");
-          node[0].textContent = _("NIF-"+unit, {"n": item.nb});
+          node[0].textContent = _("NIF-"+unit+"2", {"n": item.nb});
         }
 
         // p2 > a2: price
