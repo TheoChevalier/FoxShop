@@ -38,14 +38,13 @@ SL.newItemForm = {
 
     // Set unit if any
     if (typeof this.item.unit != "undefined") {
-      select = $id("NIF-unit").querySelector('option[value="'+this.item.unit+'"]');
-      select.setAttribute("selected","");
-      $id("NIF-unit-button").textContent = select.textContent;
+      var unit = this.item.unit;
     } else {
-      select = $id("NIF-unit").querySelector('option[value="piece"]');
-      select.setAttribute("selected","");
-      $id("NIF-unit-button").textContent = _("NIF-unit-button");
+      var unit = "piece";
     }
+    select = $id("NIF-unit").querySelector('option[value="'+unit+'"]');
+    select.setAttribute("selected","");
+    $id("NIF-unit-button").textContent = select.textContent;
 
     $id("NIF-price").parentNode.setAttribute("hidden", "");
     if (SL.Settings.obj["prices"].value) {

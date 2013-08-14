@@ -182,7 +182,11 @@ form[role="search"] p {
   padding: 0!important;
   overflow: hidden;
 }
-.list > li {
+.list header h2 {
+  border-bottom: none!important;
+  padding: 0!important;
+}
+.list li {
   padding: 0 2rem;
   pointer-events: none;
 }

@@ -17,6 +17,7 @@ SL.editMode = {
     location.hash = "#editMode";
     SL.view = this.name;
     var node = this.elm.getElementsByClassName("list")[0];
+    var aGuid;
     while (node.hasChildNodes()) {
       node.removeChild(node.lastChild);
     }
@@ -71,7 +72,7 @@ SL.editMode = {
   },
   remove: function() {
     var from = SL.capitalise(SL.removeSharp(this.openedFrom));
-    var nodes = this.elm.getElementsByClassName("list")[0].childNodes;
+    var nodes = this.elm.getElementsByClassName("list")[0].getElementsByTagName("li");
     location.hash = SL.oldHash;
 
     for(var i=0; i<nodes.length; i++) {
@@ -92,11 +93,16 @@ SL.editMode = {
         DB.deleteFromDB(guid, SL[from], false);
         delete SL[from].obj[guid];
 
+        var elm = document.querySelectorAll('li[data-listkey="'+guid+'"]');
+        var cat = elm[0].parentNode;
+        SL.removeElement(nodes[i]);
+
+        // Check if empty category
+        if (cat.getElementsByTagName("li").length == 0 && aView == "Items") {
+          SL.removeElement(cat);
+        }
         // Remove nodes
-        var els = document.querySelectorAll('li[data-listkey="'+guid+'"]');
-        [].forEach.call(els, function(v, i) {
-          v.style.display = "none";
-        });
+        SL.removeElement(elm[0]);
 
         // Update UI (count, total…)
         SL.Lists.updateUI();
@@ -105,20 +111,20 @@ SL.editMode = {
     }
   },
   selectAll: function() {
-    var nodes = this.elm.getElementsByClassName("list")[0].childNodes;
+    var nodes = this.elm.getElementsByClassName("list")[0].getElementsByTagName("li");
     for(var i=0; i<nodes.length; i++) {
       nodes[i].getElementsByTagName("input")[0].setAttribute("checked", "true");
     }
   },
   deselectAll: function() {
-    var nodes = this.elm.getElementsByClassName("list")[0].childNodes;
+    var nodes = this.elm.getElementsByClassName("list")[0].getElementsByTagName("li");
     for(var i=0; i<nodes.length; i++) {
       nodes[i].getElementsByTagName("input")[0].removeAttribute("checked");
     }
   },
   count: function() {
     var n = 0;
-    var nodes = this.elm.getElementsByClassName("list")[0].childNodes;
+    var nodes = this.elm.getElementsByClassName("list")[0].getElementsByTagName("li");
     for(var i=0; i<nodes.length; i++) {
       if(nodes[i].getElementsByTagName("input")[0].checked) {
         n += 1;

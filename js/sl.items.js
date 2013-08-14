@@ -52,12 +52,12 @@ SL.Items = {
       return;
     }
 
-    aItem = { guid: SL.guid(),
-              name: name,
-              list: this.guid,
-              nb: 1,
-              date: date.getTime(),
-              done: false
+    var aItem = { guid: SL.guid(),
+                  name: name,
+                  list: this.guid,
+                  nb: 1,
+                  date: date.getTime(),
+                  done: false
     };
 
     DB.store(aItem, this);
@@ -120,6 +120,28 @@ SL.Items = {
         }
       }
     }
+
+    var done = false;
+    var nodes = this.elm.getElementsByClassName("list")[0].childNodes;
+    var nbNodes = nodes.length;
+    var prev;
+    if(nbNodes > 1) {
+      while (!done) {
+        done = true;
+        for(var i=nbNodes-1; i>0; i--) {
+          prev = i-1;
+          if (_("NIF-"+nodes[prev].id).localeCompare(_("NIF-"+nodes[i].id)) > 0) {
+            done = false;
+            this.elm.getElementsByClassName("list")[0].appendChild(nodes[prev]);
+            nodes = this.elm.getElementsByClassName("list")[0].childNodes;
+          }
+        }
+      }
+      //Always put "other" cat at the bottom
+      if ($id("other") != null && typeof $id("other") !== "undefined") {
+        this.elm.getElementsByClassName("list")[0].appendChild($id("other"));
+      }
+    }
   },
   updateListStatus: function() {
     // Update total/remaining
@@ -172,7 +194,7 @@ SL.Items = {
 
     // Reset form
     $id("NIF-category-button").textContent = _("NIF-category-button");
-    $id("NIF-unit-button").textContent = _("NIF-unit-button");
+    $id("NIF-unit-button").textContent = _("NIF-piece2[zero]");
     $id('NIF-container').reset();
 
     // Set name already typed on #items
@@ -212,15 +234,15 @@ SL.Items = {
       qty = 1;
     }
 
-    aItem = { guid: SL.guid(),
-              name: name,
-              list: this.guid,
-              nb: qty,
-              price: price,
-              category: category,
-              note: note,
-              date: date.getTime(),
-              done: false
+    var aItem = { guid: SL.guid(),
+                  name: name,
+                  list: this.guid,
+                  nb: qty,
+                  price: price,
+                  category: category,
+                  note: note,
+                  date: date.getTime(),
+                  done: false
     };
 
     DB.store(aItem, this);

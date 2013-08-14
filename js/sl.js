@@ -157,19 +157,44 @@ var SL = {
     newLi.appendChild(packEnd);
     newLi.appendChild(newTitle);
 
-    aView.elm.getElementsByClassName("list")[0].appendChild(newLi);
+    if (aView.name !== "Items") {
+      aView.elm.getElementsByClassName("list")[0].appendChild(newLi);
+    } else {
+      var cat = aList.category;
+      if (typeof cat === "undefined") {
+        cat = "other";
+      }
+      if (typeof $id(cat) === "undefined" || $id(cat) == null) {
+        var category = document.createElement('ul');
+        category.className = "cat";
+        category.setAttribute("id", cat);
+
+        /* create category header */
+        var header = document.createElement("header");
+        var h2 = document.createElement("h2");
+        h2.setAttribute('data-l10n-id', "NIF-"+cat);
+        h2.textContent = _("NIF-"+cat);
+        header.appendChild(h2);
+
+        category.appendChild(header);
+        category.appendChild(newLi);
+        aView.elm.getElementsByClassName("list")[0].appendChild(category);
+      } else {
+        $id(cat).appendChild(newLi);
+      }
+    }
   },
 
   // Cross out all item
   completeall: function() {
     // Update UI
-    var nodes = SL[this.view].elm.getElementsByClassName("list")[0].childNodes;
+    var nodes = SL[this.view].elm.getElementsByClassName("list")[0].getElementsByTagName("li");
     for(var i=0; i<nodes.length; i++) {
-        nodes[i].getElementsByTagName('input')[0].setAttribute("checked", true);
-        nodes[i].className = 'done';
+      nodes[i].getElementsByTagName('input')[0].setAttribute("checked", true);
+      nodes[i].className = 'done';
     }
     // Update local obj, then UI, then DB
-    for (aGuid in SL[this.view].obj) {
+    for (var aGuid in SL[this.view].obj) {
       var aItem = SL[this.view].obj[aGuid];
       aItem.done = true;
 
@@ -183,13 +208,18 @@ var SL = {
 
   // Remove done items/lists
   removeDone: function(aView) {
-    var nodes = SL[aView].elm.getElementsByClassName("list")[0].childNodes;
+    var nodes = SL[aView].elm.getElementsByClassName("list")[0].getElementsByTagName("li");
     for(var i=0; i<nodes.length; i++) {
       var guid = nodes[i].dataset["listkey"];
       if (nodes[i].getElementsByTagName("input")[0].checked) {
+        var cat = nodes[i].parentNode;
         DB.deleteFromDB(guid, SL[this.view]);
-        // FIXME: use removeElement()
-        nodes[i].style.display = "none";
+        SL.removeElement(nodes[i]);
+
+        // Check if empty category
+        if (cat.getElementsByTagName("li").length == 0 && aView == "Items") {
+          SL.removeElement(cat);
+        }
       }
     }
     SL.Items.updateUI();
@@ -277,7 +307,7 @@ var SL = {
     return string.charAt(0).toUpperCase() + string.slice(1);
   },
   removeElement: function(node) {
-    if(node !== null) {
+    if(node.parentNode !== null) {
       node.parentNode.removeChild(node);
     }
   },
