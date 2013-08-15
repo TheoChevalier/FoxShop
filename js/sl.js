@@ -164,10 +164,10 @@ var SL = {
       if (typeof cat === "undefined") {
         cat = "other";
       }
-      if (typeof $id(cat) === "undefined" || $id(cat) == null) {
+      var catElm = aView.elm.getElementsByClassName(cat)[0];
+      if (typeof catElm === "undefined" || catElm == null) {
         var category = document.createElement('ul');
-        category.className = "cat";
-        category.setAttribute("id", cat);
+        category.className = cat;
 
         /* create category header */
         var header = document.createElement("header");
@@ -180,7 +180,7 @@ var SL = {
         category.appendChild(newLi);
         aView.elm.getElementsByClassName("list")[0].appendChild(category);
       } else {
-        $id(cat).appendChild(newLi);
+        catElm.appendChild(newLi);
       }
     }
   },
@@ -213,6 +213,7 @@ var SL = {
       var guid = nodes[i].dataset["listkey"];
       if (nodes[i].getElementsByTagName("input")[0].checked) {
         var cat = nodes[i].parentNode;
+        console.log(this.view);
         DB.deleteFromDB(guid, SL[this.view]);
         SL.removeElement(nodes[i]);
 

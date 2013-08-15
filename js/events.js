@@ -72,6 +72,7 @@
   // Close
   header.getElementsByTagName("button")[0].addEventListener("click", function() {
     location.hash = SL.editMode.openedFrom;
+    SL.view = SL.capitalise(SL.removeSharp(SL.editMode.openedFrom));
   });
 
   // Delete Selected

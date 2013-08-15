@@ -130,7 +130,7 @@ SL.Items = {
         done = true;
         for(var i=nbNodes-1; i>0; i--) {
           prev = i-1;
-          if (_("NIF-"+nodes[prev].id).localeCompare(_("NIF-"+nodes[i].id)) > 0) {
+          if (_("NIF-"+nodes[prev].className).localeCompare(_("NIF-"+nodes[i].className)) > 0) {
             done = false;
             this.elm.getElementsByClassName("list")[0].appendChild(nodes[prev]);
             nodes = this.elm.getElementsByClassName("list")[0].childNodes;
@@ -138,8 +138,9 @@ SL.Items = {
         }
       }
       //Always put "other" cat at the bottom
-      if ($id("other") != null && typeof $id("other") !== "undefined") {
-        this.elm.getElementsByClassName("list")[0].appendChild($id("other"));
+      var other = this.elm.getElementsByClassName("other")[0];
+      if (other != null && typeof other !== "undefined") {
+        this.elm.getElementsByClassName("list")[0].appendChild(other);
       }
     }
   },
