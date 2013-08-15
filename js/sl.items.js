@@ -281,7 +281,7 @@ SL.Items = {
     SL.Lists.obj[guid].date = date.getTime();
 
     // Clone items obj
-    for (aGuid in SL.Items.obj) {
+    for (var aGuid in SL.Items.obj) {
       var aItem = SL.Items.obj[aGuid];
       if (aItem.list === current.guid) {
         var guidItem = SL.guid();

@@ -116,7 +116,15 @@ SL.newItemForm = {
   },
   remove: function() {
     var guid = this.item.guid;
+    // Check if empty category
+    var cat = SL.Items.elm.querySelectorAll('li[data-listkey="'+guid+'"]')[0].parentNode.className;
     SL.removeElement(SL.Items.elm.querySelector('li[data-listkey="'+guid+'"]'));
+    cat = SL.Items.elm.getElementsByClassName(cat);
+    [].forEach.call(cat, function(v, i) {
+      if (v.getElementsByTagName("li").length == 0) {
+        SL.removeElement(v);
+      }
+    });
     location.hash = "#items";
     DB.deleteFromDB(guid, SL.Items);
     // Update UI
