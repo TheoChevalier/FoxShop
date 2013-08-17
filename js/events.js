@@ -373,3 +373,7 @@
   $id("about").addEventListener("click", function() {
     location.hash = "#aboutPanel";
   });
+
+  $id("contact-button").addEventListener("click", function() {
+    SL.Settings.contact();
+  });

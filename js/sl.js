@@ -11,6 +11,7 @@ var DB_STORE_LISTS = 'lists2';
 var DB_STORE_ITEMS = 'items1';
 var DB_STORE_SETTINGS = 'settings1';
 var db;
+var MOZACTIVITY = false;
 var SCANNER = true;
 var SHARE = false;
 var DEFAULT_CONF = {language:{value:""},
@@ -20,6 +21,7 @@ var DEFAULT_CONF = {language:{value:""},
                     userCurrency:{value:""},
                     currencyPosition:{value:""}
                    };
+var EMAIL = "foxshop@theochevalier.fr";
 
 // Alias for getElementById
 var $id = document.getElementById.bind(document);
@@ -67,6 +69,7 @@ window.onhashchange = function() {
   * feature detection
   ****************************************************************************/
   if (typeof MozActivity !== "undefined") {
+    MOZACTIVITY = true;
     SCANNER = true;
     SHARE = true;
   }

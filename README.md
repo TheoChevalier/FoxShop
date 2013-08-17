@@ -9,6 +9,11 @@ You can also try it out at http://theochevalier.github.com/FoxShop
 
 # Release notes
 
+### v1.1.5 — 2013-08-14
+* Display sorted items categories on list view
+* Add a contact button in Settings > About
+* **[Bugfix]** Miscellaneous bugfixes
+
 ### v1.1.4 — 2013-08-12
 * Better edit page for items
 * Units and notes are now displayed on items list

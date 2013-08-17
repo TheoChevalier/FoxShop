@@ -121,4 +121,17 @@ SL.Settings = {
       }
     }
   },
+  contact: function() {
+    if (!MOZACTIVITY) {
+      window.location.href = "mailto:" + EMAIL;
+      return;
+    }
+    var pick = new MozActivity({
+      name: "new",
+      data: {
+        type : "mail",
+        url: "mailto:" + EMAIL
+      }
+    });
+  }
 };
