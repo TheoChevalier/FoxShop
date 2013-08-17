@@ -70,8 +70,11 @@ window.onhashchange = function() {
   ****************************************************************************/
   if (typeof MozActivity !== "undefined") {
     MOZACTIVITY = true;
-    SCANNER = true;
-    SHARE = true;
+    SCANNER     = true;
+    SHARE       = true;
+  } else {
+    SCANNER     = false;
+    SHARE       = false;
   }
 
 
