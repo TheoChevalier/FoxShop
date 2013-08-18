@@ -131,6 +131,10 @@ section[role="region"], form[role="dialog"] {
   width: calc(100% - 45px);
 }
 
+#itemName, #listName {
+  line-height: 2.5rem;
+}
+
 #form-item p {
   padding-left: 0;
 }
@@ -350,6 +354,12 @@ animation: fadeOut 0.2s forwards;
   background-color: rgb(0, 138, 170);
 }
 
+#NIF-open {
+  font-size: 2.5rem;
+  width: 45px;
+  min-width: 45px;
+}
+
 #NIF-qty {
   width: 60%;
   display: inline-block;
@@ -479,8 +489,7 @@ form[role="dialog"][data-type="confirm"] {
 /* input_form.css */
 form[role="search"] p input, form[role="search"] p textarea {
   height: 3.5rem!important;
-  padding : 0;
-  padding-top: .5rem;
+  padding: 0.5rem 0px 0px 1rem;
 }
 
 form[role="search"]:after, form[role="search"]:before {
