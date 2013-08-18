@@ -1,6 +1,9 @@
 
 @import url(en-US.properties)
 
+[es-ES]
+@import url(es-ES.properties)
+
 [fr]
 @import url(fr.properties)
 

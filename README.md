@@ -9,6 +9,9 @@ You can also try it out at http://theochevalier.github.com/FoxShop
 
 # Release notes
 
+### v1.1.6 — 2013-08-18
+* FoxShop is now available in Spanish
+
 ### v1.1.5 — 2013-08-14
 * Display sorted items categories on list view
 * Add a contact button in Settings > About

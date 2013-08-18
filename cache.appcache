@@ -30,6 +30,7 @@ webL10n/l10n.js
 locales/data
 locales/fr.properties
 locales/en-US.properties
+locales/es-ES.properties
 locales/pl.properties
 locales/pt-BR.properties
 
