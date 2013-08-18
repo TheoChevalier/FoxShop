@@ -27,7 +27,7 @@ SL.Items = {
     this.updateUI();
 
     // Set title of the displayed Items list
-    this.elm.getElementsByClassName("title")[0].textContent=aList.name;
+    this.closeEditListName();
 
     // Display each item
     for (aGuid in this.obj) {

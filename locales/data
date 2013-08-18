@@ -1,7 +1,7 @@
 
 @import url(en-US.properties)
 
-[es-ES]
+[es]
 @import url(es-ES.properties)
 
 [fr]
