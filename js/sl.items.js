@@ -211,22 +211,26 @@ SL.Items = {
     }
   },
   doneNIF: function() {
-    var name = $id('NIF-name').value;
-    var qty = $id('NIF-qty').value;
-    var price = $id('NIF-price').value;
-    var category = $id('NIF-category').value;
-    var unit = $id('NIF-unit').value;
-    var note = $id('NIF-note').value;
+    var price = "";
+    var name = $id("NIF-name").value;
+    var qty  = parseFloat($id("NIF-qty").value);
+    var note  = $id("NIF-note").value;
+    var category  = $id("NIF-category").options[$id("NIF-category").selectedIndex].value;
+    var unit  = $id("NIF-unit").options[$id("NIF-unit").selectedIndex].value;
     var date = new Date();
 
     // Remove line-endings
     name = name.replace(/(\r\n|\n|\r)/gm,"");
 
-    var categoryForm = document.querySelector('select[name="NIF-category"]');
-    var category = categoryForm.options[categoryForm.selectedIndex].value;
-
-    var unitForm = document.querySelector('select[name="NIF-unit"]');
-    var unit = unitForm.options[unitForm.selectedIndex].value;
+    if (SL.Settings.obj["prices"].value && $id("NIF-price").value !== "") {
+      price = $id("NIF-price").value;
+      price = price.replace(/,/gm,".");
+      price = parseFloat(price).toFixed(2);
+      if (isNaN(price)) {
+        SL.displayStatus("msg-NaN");
+        return;
+      }
+    }
 
     // Handle empty form
     if (!name) {
@@ -244,6 +248,7 @@ SL.Items = {
                   nb: qty,
                   price: price,
                   category: category,
+                  unit: unit,
                   note: note,
                   date: date.getTime(),
                   done: false
@@ -254,8 +259,9 @@ SL.Items = {
     this.updateUI();
     SL.Lists.updateUI();
 
-    // Reset form
+    // Reset forms
     $id('NIF-container').reset();
+    $id("itemName").value = "";
     location.hash = "#items";
   },
   plusOne: function(id) {
