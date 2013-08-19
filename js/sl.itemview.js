@@ -26,15 +26,13 @@ SL.newItemForm = {
     $id("NIF-note").value = (typeof this.item.note != "undefined") ? this.item.note : "";
 
     // Set category if any
-    if (typeof this.item.category != "undefined") {
-      var select = $id("NIF-category").querySelector('option[value="'+this.item.category+'"]');
-      select.setAttribute("selected","");
-      $id("NIF-category-button").textContent = select.textContent;
-    } else {
-      select = $id("NIF-category").querySelector('option[value="other"]');
-      select.setAttribute("selected","");
-      $id("NIF-category-button").textContent = _("NIF-category-button");
+    var category = this.item.category;
+    if (typeof category == "undefined") {
+      category = "other";
     }
+    var select = $id("NIF-category").querySelector('option[value="'+category+'"]');
+    SL.updateSelectedOption("NIF-category", category);
+    $id("NIF-category-button").textContent = select.textContent;
 
     // Set unit if any
     if (typeof this.item.unit != "undefined") {
@@ -43,7 +41,7 @@ SL.newItemForm = {
       var unit = "piece";
     }
     select = $id("NIF-unit").querySelector('option[value="'+unit+'"]');
-    select.setAttribute("selected","");
+    SL.updateSelectedOption("NIF-unit", unit);
     $id("NIF-unit-button").textContent = select.textContent;
 
     $id("NIF-price").parentNode.setAttribute("hidden", "");
@@ -108,10 +106,11 @@ SL.newItemForm = {
 
     // Update UI
     SL.Lists.updateUI();
-    SL.Items.updateUI();
+    SL.Items.init(SL.Items.list);
 
-    // Reset form
+    // Reset forms
     $id('NIF-container').reset();
+    $id("itemName").value = "";
     location.hash = "#items";
   },
   remove: function() {

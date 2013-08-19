@@ -135,8 +135,8 @@ section[role="region"], form[role="dialog"] {
   line-height: 2.5rem;
 }
 
-#form-item p {
-  padding-left: 0;
+form[role="search"] p {
+  padding: 0;
 }
 
 #itemName, #scan, #NIF-open {
@@ -145,10 +145,6 @@ section[role="region"], form[role="dialog"] {
 
 #add-item {
   display: inline-block;
-}
-
-form[role="search"] p {
-  padding: 0 0 0 5px;
 }
 
 #image {display: none;}

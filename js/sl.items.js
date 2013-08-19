@@ -24,7 +24,6 @@ SL.Items = {
     SL.clear(this.name);
     location.hash = "#items";
     SL.Lists.updateUI();
-    this.updateUI();
 
     // Set title of the displayed Items list
     this.closeEditListName();
@@ -35,6 +34,9 @@ SL.Items = {
         SL.display(this.obj[aGuid], this);
       }
     }
+
+    // Display items info
+    this.updateUI();
   },
 
   // Add an item to the current list
@@ -121,6 +123,7 @@ SL.Items = {
       }
     }
 
+    // Reorder categories
     var done = false;
     var nodes = this.elm.getElementsByClassName("list")[0].childNodes;
     var nbNodes = nodes.length;

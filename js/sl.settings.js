@@ -63,10 +63,10 @@ SL.Settings = {
       pref = lang;
     }
 
-    var select = document.querySelector('select[name="language"]');
+    var select = $id("language-select");
     select = select.querySelector('option[value="'+pref+'"]');
 
-    select.setAttribute("selected","");
+    SL.updateSelectedOption("language-select", pref);
     $id("language").textContent = select.textContent;
 
     // Check Scan

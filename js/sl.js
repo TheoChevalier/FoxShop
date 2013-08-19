@@ -172,23 +172,28 @@ var SL = {
       }
       var catElm = aView.elm.getElementsByClassName(cat)[0];
       if (typeof catElm === "undefined" || catElm == null) {
-        var category = document.createElement('ul');
-        category.className = cat;
-
-        /* create category header */
-        var header = document.createElement("header");
-        var h2 = document.createElement("h2");
-        h2.setAttribute('data-l10n-id', "NIF-"+cat);
-        h2.textContent = _("NIF-"+cat);
-        header.appendChild(h2);
-
-        category.appendChild(header);
-        category.appendChild(newLi);
-        aView.elm.getElementsByClassName("list")[0].appendChild(category);
+        var listElm = aView.elm.getElementsByClassName("list")[0];
+        SL.newCatHeader(cat, newLi, listElm);
       } else {
         catElm.appendChild(newLi);
       }
     }
+  },
+
+  newCatHeader: function(cat, item, list) {
+    var category = document.createElement('ul');
+    category.className = cat;
+
+    /* create category header */
+    var header = document.createElement("header");
+    var h2 = document.createElement("h2");
+    h2.setAttribute('data-l10n-id', "NIF-"+cat);
+    h2.textContent = _("NIF-"+cat);
+    header.appendChild(h2);
+
+    category.appendChild(header);
+    category.appendChild(item);
+    list.appendChild(category);
   },
 
   // Cross out all item
@@ -451,6 +456,15 @@ var SL = {
 
     for (var i=0, len=elements.length; i<len; ++i)
         if (elements[i].checked) return elements[i].value;
+  },
+  updateSelectedOption: function(elm, option) {
+    var sel = $id(elm);
+    for(var i, j = 0; i = sel.options[j]; j++) {
+      if(i.value == option) {
+          sel.selectedIndex = j;
+          break;
+      }
+    }
   },
 };
 
