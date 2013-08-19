@@ -254,10 +254,14 @@ SL.Items = {
                   done: false
     };
 
-    DB.store(aItem, this);
+    // Update local obj, then UI, then DB
+    SL.Items.obj[aItem.guid] = aItem;
+
     SL.display(aItem, this);
-    this.updateUI();
     SL.Lists.updateUI();
+    this.updateUI();
+
+    DB.store(aItem, this);
 
     // Reset forms
     $id('NIF-container').reset();
