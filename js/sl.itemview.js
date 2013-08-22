@@ -49,6 +49,11 @@ SL.newItemForm = {
       $id("NIF-price").parentNode.removeAttribute("hidden");
       $id("NIF-price").value = (typeof this.item.price != "undefined") ? this.item.price : "";
     }
+
+    // Check if we can pick images
+    if (MOZACTIVITY) {
+      SL.show("thumbnail-action");
+    }
   },
 
   //Save current item into DB
@@ -129,6 +134,22 @@ SL.newItemForm = {
     // Update UI
     SL.Lists.updateUI();
     SL.Items.updateUI();
+  },
+  pickImage: function() {
+    if (!MOZACTIVITY) {
+      return;
+    }
+    var pick = new MozActivity({
+      name: "pick",
+      data: {
+        type: ["image/png", "image/jpg", "image/jpeg"]
+      }
+    });
+
+    pick.onsuccess = function () {
+      var url = window.URL.createObjectURL(this.result.blob);
+      SL.redimImage(url, "NIF-photo", 100, 100);
+    };
   },
   updateUI: function() {},
 }

@@ -183,6 +183,10 @@ $id("NIF-done").addEventListener("click", function() {
   SL[SL.view].doneNIF();
 });
 
+$id("thumbnail-action").addEventListener("click", function() {
+  SL.newItemForm.pickImage();
+});
+
 $id("NIF-plus").addEventListener("click", function() {
   SL.Items.plusOne("NIF-qty");
 });
