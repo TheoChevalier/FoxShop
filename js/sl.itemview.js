@@ -52,7 +52,8 @@ SL.newItemForm = {
 
     // Check if we can pick images
     if (MOZACTIVITY) {
-      SL.show("thumbnail-action");
+      // WIP — disabled
+      //SL.show("thumbnail-action");
     }
   },
 
@@ -111,7 +112,7 @@ SL.newItemForm = {
 
     // Update UI
     SL.Lists.updateUI();
-    SL.Items.init(SL.Items.list);
+    SL.Items.updateUI();
 
     // Reset forms
     $id('NIF-container').reset();

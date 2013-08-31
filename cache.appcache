@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# 2013-08-22
+# 2013-08-31
 
 CACHE:
 
@@ -57,6 +57,7 @@ css/building_blocks/progress_activity.css
 css/building_blocks/status.css
 
 img/icons/60.png
+img/icons/add.png
 img/icons/complete.png
 img/icons/delete.png
 img/icons/edit.png

@@ -28,13 +28,6 @@ SL.Items = {
     // Set title of the displayed Items list
     this.closeEditListName();
 
-    // Display each item
-    for (aGuid in this.obj) {
-      if (this.obj[aGuid].list == aList.guid) {
-        SL.display(this.obj[aGuid], this);
-      }
-    }
-
     // Display items info
     this.updateUI();
   },
@@ -75,6 +68,7 @@ SL.Items = {
   updateUI: function() {
     this.loaded = true;
     this.updateListStatus();
+    SL.clear(this.name);
 
     // Check scanner
     if (SL.Settings.obj.scanEnable.value && SCANNER) {
@@ -85,40 +79,44 @@ SL.Items = {
       $id("itemName").className = "noScan";
     }
 
-    // For each list, count items and calculate total
+    // For each item: display it and insert data
     for(var item in this.obj) {
       item = this.obj[item];
-      if (this.elm.querySelector('li[data-listkey="'+item.guid+'"]') !== null) {
-        var node = this.elm.querySelector('li[data-listkey="'+item.guid+'"]');
 
-        // Name (first p)
-        node = node.getElementsByTagName("p");
-        node[0].textContent = item.name;
-        // Second p
-        node = node[1].getElementsByTagName("a");
+      if (item.list == this.list.guid) {
+        SL.display(item, this);
+        if (this.elm.querySelector('li[data-listkey="'+item.guid+'"]') !== null) {
+          var node = this.elm.querySelector('li[data-listkey="'+item.guid+'"]');
 
-        // p2 > a1: qty
-        if (item.nb > 0) {
-          var unit = item.unit;
-          if (typeof unit === "undefined") {
-            unit = "piece";
+          // Name (first p)
+          node = node.getElementsByTagName("p");
+          node[0].textContent = item.name;
+          // Second p
+          node = node[1].getElementsByTagName("a");
+
+          // p2 > a1: qty
+          if (item.nb > 0) {
+            var unit = item.unit;
+            if (typeof unit === "undefined") {
+              unit = "piece";
+            }
+            node[0].setAttribute("data-l10n-args", "{n: "+item.nb+"}");
+            node[0].textContent = _("NIF-"+unit+"2", {"n": item.nb});
           }
-          node[0].setAttribute("data-l10n-args", "{n: "+item.nb+"}");
-          node[0].textContent = _("NIF-"+unit+"2", {"n": item.nb});
-        }
 
-        // p2 > a2: price
-        if (SL.Settings.obj.prices.value) {
-          if(item.price != "") {
-            SL.setPrice(node[1], "item-price", item.price);
-          } else {
-            node[1].textContent = "";
+          // p2 > a2: price
+          if (SL.Settings.obj.prices.value) {
+            if(item.price != "") {
+              SL.setPrice(node[1], "item-price", item.price);
+            } else {
+              node[1].textContent = "";
+            }
           }
-        }
 
-        // p2 > a3: note
-        if (typeof item.note !== "undefined") {
-          node[2].textContent = item.note;
+          // p2 > a3: note
+          if (typeof item.note !== "undefined") {
+            node[2].textContent = item.note;
+          }
         }
       }
     }

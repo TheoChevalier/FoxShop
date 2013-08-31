@@ -32,11 +32,6 @@ SL.Lists.elm.querySelector('button[type="reset"]').addEventListener("click",
 function() {
     $id("listName").textContent = "";
 });
-
-// Button to cross out all the lists
-SL.Lists.elm.getElementsByClassName("icon-complete")[0].addEventListener("click",  function() {
-  SL.completeall();
-});
  
 // Init event for edit view
 SL.Lists.elm.getElementsByClassName('edit')[0].addEventListener("click",
@@ -118,10 +113,6 @@ function() {
     $id("itemName").textContent = "";
 });
 
-// Button to cross out all the items
-SL.Items.elm.getElementsByClassName("icon-complete")[0].addEventListener("click",  function() {
-  SL.completeall();
-});
 
 // Display buttons
 SL.Items.elm.getElementsByClassName("back")[0].addEventListener("click",
@@ -186,6 +177,12 @@ $id("NIF-done").addEventListener("click", function() {
 $id("thumbnail-action").addEventListener("click", function() {
   SL.newItemForm.pickImage();
 });
+/*
+$id("input-photo").addEventListener("change", function() {
+  var url = $id("input-photo").value;
+  console.log(url);
+  SL.redimImage(url, "NIF-photo", 100, 100);
+});*/
 
 $id("NIF-plus").addEventListener("click", function() {
   SL.Items.plusOne("NIF-qty");
@@ -269,9 +266,21 @@ $id("moreLists").getElementsByClassName("cancel")[0].addEventListener("click",
     location.hash = "#lists";
   });
 
-  $id("removeDoneLists").addEventListener("click",
+$id("removeDoneLists").addEventListener("click",
   function() {
     SL.removeDone("Lists");
+    location.hash = "#lists";
+  });
+
+$id("checkLists").addEventListener("click",
+  function() {
+    SL.setAll(true);
+    location.hash = "#lists";
+  });
+
+$id("uncheckLists").addEventListener("click",
+  function() {
+    SL.setAll(false);
     location.hash = "#lists";
   });
 
@@ -289,10 +298,23 @@ $id("removeDoneItems").addEventListener("click",
     location.hash = "#items";
   });
 
-$id("cloneList").addEventListener("click", function() {
-  SL.Items.clone();
-  location.hash = "#lists";
-});
+$id("cloneList").addEventListener("click",
+  function() {
+    SL.Items.clone();
+    location.hash = "#lists";
+  });
+
+$id("checkItems").addEventListener("click",
+  function() {
+    SL.setAll(true);
+    location.hash = "#items";
+  });
+
+$id("uncheckItems").addEventListener("click",
+  function() {
+    SL.setAll(false);
+    location.hash = "#items";
+  });
 
 
 /*****************************************************************************

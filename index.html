@@ -56,7 +56,6 @@
         </ul>
         <ul>
           <li><button class="edit icon-delete">Edit</button></li>
-          <li><button class="icon-complete">Complete all</button></li>
           <li><button class="icon-more">More</button></li>
         </ul>
       </div>
@@ -118,7 +117,6 @@
         <ul>
           <li><button class="send pack-icon-send">Send</button></li>
           <li><button class="edit icon-delete">Edit</button></li>
-          <li><button class="icon-complete">Cross out all item</button></li>
           <li><button class="icon-more">More</button></li>
         </ul>
       </div>
@@ -144,6 +142,7 @@
           </p>
           <img id="NIF-photo" alt=""/>
         </a>
+        <!--<input type="file" id="input-photo" name"photo"/>-->
         <div class="item-body-exp">
           <p class="fillflow-row">
             <input id="NIF-name" class="textfield" data-l10n-id="NIF-name" placeholder="Name" type="text">
@@ -173,7 +172,7 @@
           <p id="NIF-unit-p" class="fake-select">
             <button id="NIF-unit-button" class="icon icon-dialog" data-l10n-id="NIF-piece2[zero]">Piece</button>
             <select id="NIF-unit" name="NIF-unit" class="action">
-              <option value="piece"  data-l10n-id="NIF-piece2" data-l10n-args='{"n":"0"}' checked>Piece</option>
+              <option value="piece"  data-l10n-id="NIF-piece2" data-l10n-args='{"n":"0"}'>Piece</option>
               <option value="bag"    data-l10n-id="NIF-bag2" data-l10n-args='{"n":"0"}'>Bag</option>
               <option value="bottle" data-l10n-id="NIF-bottle2" data-l10n-args='{"n":"0"}'>Bottle</option>
               <option value="box"    data-l10n-id="NIF-box2" data-l10n-args='{"n":"0"}'>Box</option>
@@ -253,8 +252,10 @@
     <form id="moreLists" role="dialog" data-type="action" onsubmit="return false;">
       <header data-l10n-id="more-actions">More actions</header>
       <menu>
-        <button id="removeDoneLists" data-l10n-id="delete-completed-lists"> Delete completed lists</button>
-        <button class="cancel" data-l10n-id="cancel"> Cancel </button>
+        <button id="removeDoneLists" data-l10n-id="delete-completed-lists">Delete completed lists</button>
+        <button id="checkLists" data-l10n-id="check-lists">Cross out all lists</button>
+        <button id="uncheckLists" data-l10n-id="uncheck-lists">Uncross all lists</button>
+        <button class="cancel" data-l10n-id="cancel">Cancel</button>
       </menu>
     </form>
 
@@ -262,8 +263,10 @@
       <header data-l10n-id="more-actions">More actions</header>
       <menu>
         <button id="cloneList" data-l10n-id="clone-list">Clone this list</button>
-        <button  id="removeDoneItems" data-l10n-id="delete-completed-items">Delete completed items</button>
-        <button class="cancel" data-l10n-id="cancel"> Cancel </button>
+        <button id="removeDoneItems" data-l10n-id="delete-completed-items">Delete completed items</button>
+        <button id="checkItems" data-l10n-id="check-items">Cross out all items</button>
+        <button id="uncheckItems" data-l10n-id="uncheck-items">Uncross all items</button>
+        <button class="cancel" data-l10n-id="cancel">Cancel</button>
       </menu>
     </form>
 

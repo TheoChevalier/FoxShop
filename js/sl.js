@@ -127,8 +127,8 @@ var SL = {
       SL.Items.updateUI();
 
       // Delete the item, add the updated one
-      DB.deleteFromDB(aList.guid, aView, true);
-      DB.store(aList, aView, true);
+      DB.deleteFromDB(aList.guid, aView, false);
+      DB.store(aList, aView, false);
 
       e.preventDefault();
     });
@@ -197,23 +197,28 @@ var SL = {
   },
 
   // Cross out all item
-  completeall: function() {
+  setAll: function(bool) {
     // Update UI
     var nodes = SL[this.view].elm.getElementsByClassName("list")[0].getElementsByTagName("li");
     for(var i=0; i<nodes.length; i++) {
-      nodes[i].getElementsByTagName('input')[0].setAttribute("checked", true);
-      nodes[i].className = 'done';
+      if (bool) {
+        nodes[i].getElementsByTagName('input')[0].setAttribute("checked", true);
+        nodes[i].className = 'done';
+      } else {
+        nodes[i].getElementsByTagName('input')[0].removeAttribute("checked", true);
+        nodes[i].className = '';
+      }
     }
     // Update local obj, then UI, then DB
     for (var aGuid in SL[this.view].obj) {
       var aItem = SL[this.view].obj[aGuid];
-      aItem.done = true;
+      aItem.done = bool;
 
       SL.Lists.updateUI();
       SL.Items.updateUI();
 
-      DB.deleteFromDB(aItem.guid, SL[this.view], true);
-      DB.store(aItem, SL[this.view], true);
+      DB.deleteFromDB(aItem.guid, SL[this.view], false);
+      DB.store(aItem, SL[this.view], false);
     }
   },
 
@@ -221,12 +226,11 @@ var SL = {
   removeDone: function(aView) {
     var nodes = SL[aView].elm.getElementsByClassName("list")[0].getElementsByTagName("li");
     for(var i=0; i<nodes.length; i++) {
-      var guid = nodes[i].dataset["listkey"];
       if (nodes[i].getElementsByTagName("input")[0].checked) {
+        var guid = nodes[i].dataset["listkey"];
         var cat = nodes[i].parentNode;
-        console.log(this.view);
-        DB.deleteFromDB(guid, SL[this.view]);
-        SL.removeElement(nodes[i]);
+        DB.deleteFromDB(guid, SL[aView], false);
+        delete SL[aView].obj[guid];
 
         // Check if empty category
         if (cat.getElementsByTagName("li").length == 0 && aView == "Items") {
@@ -489,7 +493,7 @@ redimImage: function(url, inId, inMW, inMH) {
       }
       // On ecrit l'image dans le document
       var img = document.getElementById(inId);
-      img.src= inImg;
+      img.src= url;
       img.width=dW;
       img.height=dH;
   };
