@@ -325,8 +325,8 @@ SL.Items = {
     var currency = SL.Settings.obj.userCurrency.value;
     var signature = SL.Settings.obj.signature.value;
     var content;
-    var Email;
-    var SMS;
+    var Email ="";
+    var SMS ="";
 
     if (!SHARE) {
       location.hash = "#enterEmail";
@@ -337,30 +337,32 @@ SL.Items = {
       currency = _("currency");
 
     if (signature) {
-      Email = title + " " + _("email-intro-end-sms") + "%0A%0A";
-      SMS = title + " " + _("email-intro-end-sms") + "\n\n";
+      Email = title + " " + _("email-intro-end-sms");
+      SMS = title + " " + _("email-intro-end-sms");
     }
 
     for(var item in this.obj) {
-      content = "";
       item = this.obj[item];
-      if (item.done) {
-        content += "- ["+_("bought")+"] ";
-      } else {
-        content += "- ";
+      content = "";
+      if (item.list == this.list.guid) {
+        if (item.done) {
+          content += "- ["+_("bought")+"] ";
+        } else {
+          content += "- ";
+        }
+        content += item.name;
+        if (item.qty > 1) {
+          content += " x" + item.qty;
+        }
+        if (prices && item.price > 0) {
+          if (position === "right")
+            content += " (" + item.price + " " + currency + ")";
+          else
+            content += " (" + currency + " " + item.price + ")";
+        }
+        Email += content;
+        SMS += content;
       }
-      content += item.name;
-      if (item.qty > 1) {
-        content += " x" + item.qty;
-      }
-      if (prices && item.price > 0) {
-        if (position === "right")
-          content += " (" + item.price + " " + currency + ")";
-        else
-          content += " (" + currency + " " + item.price + ")";
-      }
-      Email += content + "%0A";
-      SMS += content + "\n";
     }
 
     var a = new MozActivity({
