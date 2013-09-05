@@ -334,7 +334,7 @@ SL.Items = {
     }
 
     if (currency === "")
-      currency = _("currency");
+      currency = _("user-currency");
 
     if (signature) {
       Email = title + " " + _("email-intro-end-sms");
@@ -360,7 +360,7 @@ SL.Items = {
           else
             content += " (" + currency + " " + item.price + ")";
         }
-        Email += content;
+        Email += content + "%0A";
         SMS += content;
       }
     }
