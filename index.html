@@ -33,8 +33,6 @@
 
 <body>
   <div id="content">
-
-
     <section role="region" id="lists">
       <header>
         <menu type="toolbar">
@@ -132,7 +130,7 @@
       <form id="NIF-container" onsubmit="return false;">
       <li>
       <section class="item first">
-        <a id="thumbnail-action" class="item-media fillflow-media pull-right" style="display:none">
+        <a id="thumbnail-action" class="item-media fillflow-media pull-right">
           <p>
             <span role="button" class="icon-addimage"></span>
             <em data-l10n-id="add-picture">Add picture</em>
@@ -142,13 +140,13 @@
           </p>
           <img id="NIF-photo" alt=""/>
         </a>
-        <!--<input type="file" id="input-photo" name"photo"/>-->
+        <input type="file" id="input-photo" name"photo" accept="image/*"/>
         <div class="item-body-exp">
           <p class="fillflow-row">
             <input id="NIF-name" class="textfield" data-l10n-id="NIF-name" placeholder="Name" type="text">
             <button type="reset">Clear</button>
           </p>
-          <p class="fillflow-row fake-select">
+          <p class="fillflow-row fake-select" id="NIF-category-p">
             <button id="NIF-category-button" class="icon icon-dialog" data-l10n-id="NIF-category-button">Category</button>
             <select id="NIF-category" name="NIF-category" class="action textfield">
               <option value="other"      data-l10n-id="NIF-other">Other</option>
@@ -438,5 +436,6 @@
       'js/sl.enteremail.js',
       'js/events.js']);
   </script>
+  <canvas id="canvas"></canvas>
   </body>
 </html>

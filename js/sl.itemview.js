@@ -20,10 +20,14 @@ SL.newItemForm = {
     this.elm.getElementsByClassName("title")[0].textContent = this.item.name;
     $id('NIF-container').reset();
     SL.show("NIF-delete");
+    SL.show("thumbnail-action");
+    $id("NIF-photo").src ="";
 
     $id("NIF-name").value = this.item.name;
     $id("NIF-qty").value = (typeof this.item.nb != "undefined") ? this.item.nb : 1;
     $id("NIF-note").value = (typeof this.item.note != "undefined") ? this.item.note : "";
+    //$id("NIF-photo").src = aItem.image ? aItem.image : "";
+    DB.setBlob(this.item.guid, $id("NIF-photo"));
 
     // Set category if any
     var category = this.item.category;
@@ -48,12 +52,6 @@ SL.newItemForm = {
     if (SL.Settings.obj["prices"].value) {
       $id("NIF-price").parentNode.removeAttribute("hidden");
       $id("NIF-price").value = (typeof this.item.price != "undefined") ? this.item.price : "";
-    }
-
-    // Check if we can pick images
-    if (MOZACTIVITY) {
-      // WIP — disabled
-      //SL.show("thumbnail-action");
     }
   },
 
@@ -85,6 +83,13 @@ SL.newItemForm = {
       return;
     }
 
+    // If the user selected a picture, save it
+    if ($id("NIF-photo").src != "")
+      var image = $id("NIF-photo").src;
+    else
+      var image = false;
+
+
     // Update obj & DB
     item = SL.Items.obj[this.item.guid];
     item.name = name;
@@ -92,6 +97,7 @@ SL.newItemForm = {
     item.note = note;
     item.category = category;
     item.unit = unit;
+    item.image = image;
 
     if (SL.Settings.obj["prices"].value) {
       if ($id("NIF-price").value !== "") {
@@ -104,11 +110,11 @@ SL.newItemForm = {
         }
       }
       item.price = price;
-      SL.Items.obj[item.guid].price = price;
     }
 
     DB.deleteFromDB(item.guid, SL.Items, false);
     DB.store(item, SL.Items, false);
+    DB.storeBlob(item.guid, item.image);
 
     // Update UI
     SL.Lists.updateUI();
@@ -138,19 +144,41 @@ SL.newItemForm = {
   },
   pickImage: function() {
     if (!MOZACTIVITY) {
-      return;
-    }
+      $id('input-photo').click();
+      $id('input-photo').addEventListener('change', this.handleFileSelect, false);
+    } else {
     var pick = new MozActivity({
-      name: "pick",
-      data: {
-        type: ["image/png", "image/jpg", "image/jpeg"]
-      }
-    });
+        name: "pick",
+        data: {
+          type: ["image/png", "image/jpg", "image/jpeg"]
+        }
+      });
 
-    pick.onsuccess = function () {
-      var url = window.URL.createObjectURL(this.result.blob);
-      SL.redimImage(url, "NIF-photo", 100, 100);
-    };
+      pick.onsuccess = function () {
+        var url = window.URL.createObjectURL(this.result.blob);
+        $id("NIF-photo").src = url;
+
+        SL.redimImage(url, "NIF-photo", 100, 100);
+      };
+    }
+  },
+  handleFileSelect: function(evt) {
+    var files = evt.target.files; // FileList object
+
+    // render image file as thumbnail.
+    var f = files[0];
+    var reader = new FileReader();
+
+    // Closure to capture the file information.
+    reader.onload = (function(theFile) {
+      return function(e) {
+        // Render thumbnail.
+        SL.redimImage(e.target.result, "NIF-photo", 100, 100);
+      };
+    })(f);
+
+    // Read in the image file as a data URL.
+    reader.readAsDataURL(f);
   },
   updateUI: function() {},
 }

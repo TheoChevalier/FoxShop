@@ -6,37 +6,55 @@
 
 var DB = {
   openDb: function() {
-    var req = window.indexedDB.open(DB_NAME, DB_VERSION);
-    req.onsuccess = function (evt) {
-      // Better use "this" than "req" to get the result to avoid problems with
-      // garbage collection.
-      // db = req.result;
-      db = this.result;
-      SL.finishInit();
-    };
-    req.onerror = function (evt) {
-      DB.resetApp();
-      console.error("openDb:", this.errorCode);
-    };
+  // Create/open database
+  var request = indexedDB.open(DB_NAME, DB_VERSION);
 
-    req.onupgradeneeded = function (evt) {
+  request.onerror = function (event) {
+    DB.resetApp();
+    console.error("openDb:", this.errorCode);
+  };
+   
+  request.onsuccess = function (event) {
+  db = request.result;
+  SL.finishInit();
+
+  // Interim solution for Google Chrome to create an objectStore. Will be deprecated
+  /*if (db.setVersion) {
+    if (db.version != DB_VERSION) {
+      var setVersion = db.setVersion(DB_VERSION);
+      setVersion.onsuccess = function () {
+        DB.createObjectStore(db);
+      };
+    }
+  }*/
+  };
+  // For future use. Currently only in latest Firefox versions
+  request.onupgradeneeded = function (event) {
+    if (event.oldVersion === 0) {
       var store = this.result.createObjectStore(
         DB_STORE_LISTS, { keyPath: 'id', autoIncrement: true });
-
       store.createIndex('guid', 'guid', { unique: true });
 
       // Store items
       var storeItems = this.result.createObjectStore(
         DB_STORE_ITEMS, { keyPath: 'id', autoIncrement: true });
-
       storeItems.createIndex('guid', 'guid', { unique: true });
 
-      // Store items
+      // Store images
+      this.result.createObjectStore(DB_STORE_IMAGES);
+
+      // Store settings
       var storeSettings = this.result.createObjectStore(
         DB_STORE_SETTINGS, { keyPath: 'id', autoIncrement: true });
-
       storeSettings.createIndex('guid', 'guid', { unique: true });
-    };
+    }
+
+    if (event.oldVersion === 3) {
+      // Store images
+      this.result.createObjectStore(DB_STORE_IMAGES);
+    }
+  };
+
   },
 
   /**
@@ -60,6 +78,36 @@ var DB = {
     };
     req.onerror = function() {
       console.error(this.error);
+    };
+  },
+
+  storeBlob: function(guid, blob) {
+    var store = this.getObjectStore(DB_STORE_IMAGES, 'readwrite');
+    // Put the blob into the dabase
+    var put = store.put(blob, guid);
+  },
+
+  getBlob: function(guid) {
+    var store = this.getObjectStore(DB_STORE_IMAGES, 'readwrite');
+    var req = store.get(guid);
+    req.onsuccess = function (event) {
+      // Set img src
+      if (typeof event.target.result !== "undefined")
+        return event.target.result;
+      else return false;
+    };
+    req.onerror = function (event) {
+      return false;
+    }
+  },
+
+  setBlob: function(guid, elm) {
+    var store = this.getObjectStore(DB_STORE_IMAGES, 'readwrite');
+    var req = store.get(guid);
+    req.onsuccess = function (event) {
+      // Set img src
+      if (typeof event.target.result !== "undefined")
+        elm.src = event.target.result;
     };
   },
 
@@ -179,6 +227,8 @@ var DB = {
         req.onsuccess = function (evt) {
           var result = this.result;
           SL[aView].obj[result.guid] = result;
+          // Try to retreive picture
+          //SL[aView].obj[result.guid].image = DB.getBlob(result.guid);
         };
         // Move on to the next object in store
         cursor.continue();
@@ -201,6 +251,10 @@ var DB = {
    */
   getObjectStore: function(storename, mode) {
     var tx = db.transaction(storename, mode);
+    tx.onerror = function(event) {
+      DB.createObjectStore(db);
+      return tx.objectStore(storename);
+    }
     return tx.objectStore(storename);
   },
 
@@ -210,10 +264,10 @@ var DB = {
   resetApp: function() {
     db.close();
 
-    var request = window.indexedDB.deleteDatabase(DB_NAME);
+    var request = indexedDB.deleteDatabase(DB_NAME);
 
     request.onerror = function(event) {
-      alert("clear-error");
+      alert(_("clear-error"));
     };
 
     request.onsuccess = function(event) {

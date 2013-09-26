@@ -170,12 +170,7 @@ form[role="search"] p {
   font-weight: bold;
 }
 
-.pack-end {
-  background: url('../img/icons/go.png') no-repeat;
-  width: 16px;
-  height: 16px;
-  z-index: 7;
-}
+
 .list{
   position: relative;
   z-index: 1;
@@ -258,6 +253,8 @@ span {
 #newItemForm .button:active {
     background-color: rgb(0, 138, 170)!important;
 }
+
+#canvas {display: none;}
 
 /******************************************************************************
  * CSS animations
@@ -366,6 +363,7 @@ animation: fadeOut 0.2s forwards;
 
 fieldset {
   font-size: 1.8rem;
+  margin: 0px 0px 0.5rem !important;
 }
 
 #NIF-container {
@@ -377,6 +375,11 @@ fieldset {
 #newItemForm .fake-select {
   padding-left: 0!important;
   padding-right: 0!important;
+}
+
+#input-photo {
+  position: absolute;
+  left: -99rem;
 }
 
 #newItemForm select {
@@ -584,6 +587,10 @@ form ul li:last-child {
   padding: 1.1rem 3rem!important;
   margin: 0!important;
   height: 3.8rem!important;
+}
+
+#NIF-category-p {
+  padding: .4rem 3rem !important;
 }
 
 .fake-select.small {

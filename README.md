@@ -8,6 +8,8 @@ FoxShop is available on the [Firefox Marketplace](https://marketplace.firefox.co
 You can also try it out at http://theochevalier.github.com/FoxShop
 
 # Release notes
+### v1.1.7 — 2013-09-26
+* **[New feature]** Items pictures
 
 ### v1.1.6 — 2013-08-18
 * FoxShop is now available in Spanish
