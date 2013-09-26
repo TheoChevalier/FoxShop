@@ -43,7 +43,8 @@ if (location.host === "localhost") {
 
 // Lock screen orientation
 try {
-  window.screen.mozLockOrientation("portrait");
+  window.screen.mozLockOrientation("portrait-primary");
+  console.log(window.screen.mozLockOrientation("portrait-primary"));
 } catch(e){}
 
 /*****************************************************************************
