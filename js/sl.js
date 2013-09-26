@@ -41,6 +41,11 @@ if (location.host === "localhost") {
   var MANIFEST = location.protocol + "//" + location.host + "/FoxShop/manifest.webapp";
 }
 
+// Lock screen orientation
+try {
+  window.screen.mozLockOrientation("portrait");
+} catch(e){}
+
 /*****************************************************************************
 * App event listeners
 ****************************************************************************/
@@ -110,6 +115,7 @@ var SL = {
     var newToggle = document.createElement('label');
     var mySpan = document.createElement('span');
     var checkbox = document.createElement('input');
+    newToggle.className = "pack-checkbox";
     checkbox.setAttribute('type', 'checkbox');
     if (aList.done) {
       newLi.className = "done";

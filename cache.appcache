@@ -40,8 +40,8 @@ css/lists.css
 css/newItem.css
 
 # Fonts
-css/fonts/MozTT%20Light.ttf
-css/fonts/MozTT%20Regular.ttf
+css/fonts/FiraSans-Light.ttf
+css/fonts/FiraSans-Regular.ttf
 
 # CSS Building Blocks
 css/building_blocks/headers.css
@@ -66,9 +66,11 @@ img/icons/gear.png
 img/icons/scan.png
 img/icons/share.png
 
+css/building_blocks/action_menu/images/icons/close.png
 css/building_blocks/action_menu/images/ui/alpha.png
 css/building_blocks/action_menu/images/ui/pattern.png
 css/building_blocks/action_menu/images/ui/gradient.png
+css/building_blocks/action_menu/images/ui/separator.png
 css/building_blocks/buttons/images/icons/dialog.png
 css/building_blocks/buttons/images/icons/view.png
 css/building_blocks/buttons/images/ui/danger-press.png
@@ -105,9 +107,7 @@ css/building_blocks/headers/images/ui/dark/negative.png
 css/building_blocks/headers/images/ui/dark/separator.png
 css/building_blocks/headers/images/ui/dark/subheader.png
 css/building_blocks/headers/images/ui/header.png
-css/building_blocks/headers/images/ui/negative.png
 css/building_blocks/headers/images/ui/organic/header.png
-css/building_blocks/headers/images/ui/organic/negative.png
 css/building_blocks/headers/images/ui/organic/pattern.png
 css/building_blocks/headers/images/ui/organic/separator.png
 css/building_blocks/headers/images/ui/organic/subheader.png

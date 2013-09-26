@@ -5,13 +5,13 @@
 @import url(newItem.css);
 
 @font-face {
-  font-family: 'MozTTLight';
-  src: url(fonts/MozTT%20Light.ttf) format("truetype");
+  font-family: 'FiraSans-Light';
+  src: url(fonts/FiraSans-Light.ttf) format("truetype");
 }
 
 @font-face {
-  font-family: 'MozTT';
-  src: url(fonts/MozTT%20Regular.ttf) format("truetype");
+  font-family: 'FiraSans-Regular';
+  src: url(fonts/FiraSans-Regular.ttf) format("truetype");
 }
 
 header,footer {
@@ -32,7 +32,7 @@ html, body {
   padding: 0;
   font-size: 10px;
   height: 100%;
-  font-family: "MozTTLight", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "FiraSans-Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #333333;
   width: 100%;
   margin: 0 auto;
@@ -250,7 +250,9 @@ span {
 
 
 [role="toolbar"] button:active,
-#newItemForm .button:active {
+#scan:active,
+#newItemForm .button:active,
+#thumbnail-action:active {
     background-color: rgb(0, 138, 170)!important;
 }
 
@@ -505,11 +507,11 @@ label:not([for]) input + span {
 
 /* fix webkit in lists.css */
 [data-type="list"] li > label {
-  left: 0;
-  width: 5rem;
-  height: 6rem;
-  border-top: none;
-  pointer-events: auto;
+  left: 1.5rem!important;
+  width: 5rem!important;
+  height: 6rem!important;
+  border-top: none!important;
+  pointer-events: auto!important;
 }
 
 [data-type="list"] li > label:active {
@@ -558,7 +560,7 @@ input[type="search"],
 input[type="url"],
 input[type="number"],
 textarea {
-  font-family: "MozTTLight";
+  font-family: "FiraSans-Light";
 }
 
 

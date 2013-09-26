@@ -321,6 +321,10 @@ SL.Items = {
         target.nb   = aItem.nb;
         target.done = aItem.done;
         target.date = date.getTime();
+        target.image = aItem.image;
+        target.category = aItem.category;
+        target.unit = aItem.unit;
+        target.note = aItem.note;
         target.list = guid;
         target.guid = guidItem;
         if (typeof aItem.price !== "undefined") {

@@ -41,7 +41,7 @@ SL.editMode = {
 
     // Part 1 toggle
     var newToggle = document.createElement('label');
-    newToggle.className +="danger";
+    newToggle.className +="pack-checkbox danger";
 
     var mySpan = document.createElement('span');
     var checkbox = document.createElement('input');
