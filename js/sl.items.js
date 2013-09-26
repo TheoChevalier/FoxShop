@@ -333,6 +333,7 @@ SL.Items = {
 
         SL.display(target, SL.Items);
         DB.store(target, SL.Items);
+        DB.storeBlob(target.guid, target.image);
       }
     }
 

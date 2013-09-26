@@ -158,7 +158,7 @@ SL.newItemForm = {
         var url = window.URL.createObjectURL(this.result.blob);
         $id("NIF-photo").src = url;
 
-        SL.redimImage(url, "NIF-photo", 100, 100);
+        SL.redimImage(url, "NIF-photo", 200, 200);
       };
     }
   },
@@ -173,7 +173,7 @@ SL.newItemForm = {
     reader.onload = (function(theFile) {
       return function(e) {
         // Render thumbnail.
-        SL.redimImage(e.target.result, "NIF-photo", 100, 100);
+        SL.redimImage(e.target.result, "NIF-photo", 200, 200);
       };
     })(f);
 

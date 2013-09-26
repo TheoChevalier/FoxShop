@@ -476,12 +476,6 @@ var SL = {
     // Declarations des variables "Nouvelle Taille"
     var dW = 0;
     var dH = 0;
-    // Create context
-    var canvas = $id("canvas");
-    var ctx = canvas.getContext("2d");
-    canvas.width = 100;
-    canvas.height = 100;
-
     // Declaration d'un objet Image
     var oImg = new Image();
     // Affectation du chemin de l'image a l'objet
@@ -517,10 +511,17 @@ var SL = {
                 dH = parseInt((h * dW) / w, 10);
             }
         }
+        // Create an empty canvas element
+        var canvas = document.createElement("canvas");
+        canvas.width = inMW;
+        canvas.height = inMH;
+
+        // Copy the image contents to the canvas
+        var ctx = canvas.getContext("2d");
         ctx.drawImage(oImg, 0, 0, dW, dH);
         // On ecrit l'image dans le document
         var img = document.getElementById(inId);
-        img.src = $id("canvas").toDataURL("image/png");
+        img.src = canvas.toDataURL("image/png");
     };
   },
 
