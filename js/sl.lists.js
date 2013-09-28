@@ -104,6 +104,7 @@ SL.Lists = {
       }
       // Get nodes
       var elm = this.elm.querySelector('li[data-listkey="'+aList+'"]');
+      elm.getElementsByTagName("img")[0].src = "img/icons/go.png";
       if (complete && nb > 0) {
         elm.className = "done";
         elm.getElementsByTagName("input")[0].setAttribute('checked', true);
