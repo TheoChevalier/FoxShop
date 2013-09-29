@@ -21,7 +21,6 @@ SL.Items = {
     SL.view = this.name;
     this.list = aList;
     this.guid = aList.guid;
-    SL.clear(this.name);
     location.hash = "#items";
     SL.Lists.updateUI();
 
@@ -131,26 +130,105 @@ SL.Items = {
     }
 
     // Reorder categories
+    var permute = false;
     var done = false;
     var nodes = this.elm.getElementsByClassName("list")[0].childNodes;
     var nbNodes = nodes.length;
+    var sort = this.list.sort;
     var prev;
-    if(nbNodes > 1) {
-      while (!done) {
-        done = true;
-        for(var i=nbNodes-1; i>0; i--) {
-          prev = i-1;
-          if (_("NIF-"+nodes[prev].className).localeCompare(_("NIF-"+nodes[i].className)) > 0) {
-            done = false;
-            this.elm.getElementsByClassName("list")[0].appendChild(nodes[prev]);
-            nodes = this.elm.getElementsByClassName("list")[0].childNodes;
+    var i;
+    var dataCurrent;
+    var dataPrevious;
+    var other;
+
+    if (SL.Settings.obj.defaultSort.value === "" || sort === "" || sort === "category") {
+      if(nbNodes > 1) {
+        while (!done) {
+          done = true;
+          for(i=nbNodes-1; i>0; i--) {
+            prev = i-1;
+            if (_("NIF-"+nodes[prev].className).localeCompare(_("NIF-"+nodes[i].className)) > 0) {
+              done = false;
+              this.elm.getElementsByClassName("list")[0].appendChild(nodes[prev]);
+              nodes = this.elm.getElementsByClassName("list")[0].childNodes;
+            }
           }
         }
+        //Always put "other" cat at the bottom
+        other = this.elm.getElementsByClassName("other")[0];
+        if (other != null && typeof other !== "undefined") {
+          this.elm.getElementsByClassName("list")[0].appendChild(other);
+        }
       }
-      //Always put "other" cat at the bottom
-      var other = this.elm.getElementsByClassName("other")[0];
-      if (other != null && typeof other !== "undefined") {
-        this.elm.getElementsByClassName("list")[0].appendChild(other);
+    } else {
+      // If we have a different sort setting recorded
+      nodes = this.elm.getElementsByClassName("list")[0].getElementsByTagName("li");
+      nbNodes = nodes.length;
+      if(nbNodes > 1) {
+        // Remove all nodes from categories <ul>
+        for(i=nbNodes-1; i>0; i--) {
+          prev = i-1;
+          this.elm.getElementsByClassName("list")[0].appendChild(nodes[prev]);
+        }
+
+        // Regen nodes list
+        nodes = this.elm.getElementsByClassName("list")[0].getElementsByTagName("li");
+        while (!done) {
+          done = true;
+          for(i=nbNodes-1; i>0; i--) {
+            prev = i-1;
+            dataCurrent = nodes[i].dataset["listkey"];
+            dataPrevious = nodes[prev].dataset["listkey"];
+
+            // Sort by name
+            if (sort == "alpha") {
+              dataCurrent = this.obj[dataCurrent].name;
+              dataPrevious = this.obj[dataPrevious].name;
+              permute = (dataPrevious.localeCompare(dataCurrent) > 0);
+            }
+
+            // Sort by price
+            if (sort == "price") {
+              dataCurrent = this.obj[dataCurrent].price;
+              if (dataCurrent != "") {
+                first = (price1 == "");
+                second = (price1 != "" && price2 == "");
+                  
+                if (first) price1 = dataCurrent;
+                if (second) price2 = dataCurrent;
+
+                if (first && second) {
+                  if (second > first) {
+
+                  }
+                }
+
+
+                dataCurrent = this.obj[dataCurrent].price;
+                dataPrevious = this.obj[dataPrevious].price;
+                permute = (dataPrevious > dataCurrent);
+              }
+            }
+
+            if (permute) {
+              done = false;
+              this.elm.getElementsByClassName("list")[0].appendChild(nodes[prev]);
+            }
+
+
+            nodes = this.elm.getElementsByClassName("list")[0].getElementsByTagName("li");
+          }
+        }
+        // Remove category nodes
+        nodes = this.elm.getElementsByClassName("list")[0].getElementsByTagName("ul");
+        nbNodes = nodes.length;
+        if (nbNodes > 0) {
+          for(i=0; i<nbNodes; i++) {
+            nodes[i].style.display="none";
+            //document.getElementsByTagName("html")[0].appendChild(nodes[i]);
+            //SL.removeElement(SL.Items.elm.querySelector('ul[class="'+nodes[i].className+'"]'));
+          }
+        }
       }
     }
   },
@@ -342,6 +420,30 @@ SL.Items = {
     DB.store(SL.Lists.obj[guid], SL.Lists, false);
     SL.Lists.updateUI();
     SL.Items.updateUI();
+  },
+  getSort: function() {
+    var list = this.list;
+    var option = SL.Settings.obj.defaultSort.value;
+    if (list.sort !== "" && typeof list.sort !== "undefined") {
+      option = list.sort;
+    }
+    SL.updateSelectedOption("sort-options", option);
+    var selected = $id("sort-options").options[$id("sort-options").selectedIndex];
+    $id("sort-button").textContent = selected.textContent;
+    location.hash = "#sortSetting";
+  },
+  setSort: function() {
+    var list = this.list;
+    var selected = $id("sort-options").options[$id("sort-options").selectedIndex];
+    $id("sort-button").textContent = selected.textContent;
+    this.list.sort = selected.value;
+    SL.Lists.obj[list.guid].sort = selected.value;
+    SL.Items.updateUI();
+
+    DB.deleteFromDB(list.guid, SL.Lists, false);
+    DB.store(list, SL.Lists, false);
+    location.hash = "#items";
+
   },
   mozActivity: function() {
     var title = _("email-title-begin") + this.list.name + " " +_("email-title-end");

@@ -18,6 +18,7 @@ var SHARE = false;
 var DEFAULT_CONF = {language:{value:""},
                     scanEnable:{value:true},
                     prices:{value:true},
+                    defaultSort:{value:"category"},
                     signature:{value:true},
                     userCurrency:{value:""},
                     currencyPosition:{value:""}
@@ -194,6 +195,7 @@ var SL = {
         var listElm = aView.elm.getElementsByClassName("list")[0];
         SL.newCatHeader(cat, newLi, listElm);
       } else {
+        catElm.style.display="block";
         catElm.appendChild(newLi);
       }
     }

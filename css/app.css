@@ -214,6 +214,8 @@ span {
   padding: 0.8rem 1.5rem;
 }
 
+#settingsPanel, #aboutPanel {background-color: #F4F4F4;}
+
 #aboutPanel p {
   width: -webkit-calc(100% - 6rem);
   width: calc(100% - 6rem);
@@ -246,6 +248,10 @@ span {
   background: url("../img/icons/edit.png") no-repeat 50% 50% / 3rem auto!important;
 }
 
+.icon-sort {
+  background: url("../img/icons/sort.png") no-repeat 50% 50% / 3rem auto!important;
+}
+
 .pack-icon-send {
   background: url("../img/icons/share.png") no-repeat 50% 50% / 3rem auto !important;
 }
@@ -258,10 +264,8 @@ span {
 #scan:active,
 #newItemForm .button:active,
 #thumbnail-action:active {
-    background-color: rgb(0, 138, 170)!important;
+    background-color: #008aaa!important;
 }
-
-#canvas {display: none;}
 
 /******************************************************************************
  * CSS animations

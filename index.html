@@ -114,11 +114,29 @@
         </ul>
         <ul>
           <li><button class="send pack-icon-send">Send</button></li>
+          <li><button class="sort icon-sort">Sort</button></li>
           <li><button class="edit icon-delete">Edit</button></li>
           <li><button class="icon-more">More</button></li>
         </ul>
       </div>
     </section>
+
+    <form role="dialog" data-type="confirm" id="sortSetting" onsubmit="return false;">
+    <section>
+      <h1 data-l10n-id="sort-title">Select a sorting method for this list</h1>
+      <p class="fake-select">
+        <button id="sort-button" class="icon icon-dialog">Category</button>
+        <select id="sort-options" name="sort-options" class="action textfield">
+          <option value="category" data-l10n-id="sort-category">By category</option>
+          <option value="alpha"    data-l10n-id="sort-alpha">By item name</option>
+          <!--<option value="price"    data-l10n-id="sort-price">By price</option>-->
+        </select>
+      </p>
+    </section>
+    <menu>
+      <button class="full cancel" data-l10n-id="cancel">Cancel</button>
+    </menu>
+    </form>
 
 
     <section id="newItemForm" class="view-edit-contact" role="region">
@@ -218,18 +236,20 @@
 
     <form role="dialog" data-type="confirm" id="enterEmail" onsubmit="return false;">
     <section>
-      <h1 data-l10n-id="send-title">Send this list</h1>
-      <p>
+    <h1>Sorry, sharing feature is only available on Firefox OS at the moment, we are fixing it!</h1>
+      <!--<h1 data-l10n-id="send-title">Send this list</h1>-->
+      <p style="display:none">
         <span data-l10n-id="send-desc">To send this list to another person, please provide his email:</span>
-        <p style="text-align: center">
+        <p style="text-align: center; display:none">
           <input type="email" id="email" data-l10n-id="email" placeholder="Email">
           <button type="reset" id="resetEmail">reset</button>
         </p>
       </p>
+
     </section>
     <menu>
-      <button class="cancel" data-l10n-id="cancel">Cancel</button>
-      <button role="button" class="recommend send" data-l10n-id="send">Send</button>
+      <button class="cancel full" data-l10n-id="cancel">Cancel</button>
+      <button style="display:none" role="button" class="recommend send" data-l10n-id="send">Send</button>
     </menu>
     </form>
 

@@ -160,6 +160,25 @@ $id("scan").addEventListener("click", function() {
 
 
 /*****************************************************************************
+ * Sort menu
+ ****************************************************************************/
+// Open sort menu
+SL.Items.elm.getElementsByClassName("icon-sort")[0].addEventListener("click",
+function() {
+  SL.Items.getSort();
+});
+
+// Leave Sort menu
+$id("sortSetting").getElementsByClassName("cancel")[0].addEventListener("click",
+function() {
+  location.hash = "#items";
+});
+
+$id("sort-options").addEventListener("change", function() {
+  SL.Items.setSort();
+});
+
+/*****************************************************************************
  * New Item Form
  ****************************************************************************/
 $id("NIF-open").addEventListener("click", function() {
