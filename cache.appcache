@@ -33,6 +33,7 @@ locales/en-US.properties
 locales/es-ES.properties
 locales/pl.properties
 locales/pt-BR.properties
+locales/sr.properties
 
 # Custom CSS
 css/app.css
