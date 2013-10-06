@@ -219,6 +219,7 @@ var SL = {
 
   // Cross out all item
   setAll: function(bool) {
+    var change = false;
     // Update UI
     var nodes = SL[this.view].elm.getElementsByClassName("list")[0].getElementsByTagName("li");
     for(var i=0; i<nodes.length; i++) {
@@ -233,13 +234,22 @@ var SL = {
     // Update local obj, then UI, then DB
     for (var aGuid in SL[this.view].obj) {
       var aItem = SL[this.view].obj[aGuid];
-      aItem.done = bool;
+      if (this.view == "Items") {
+        if (aItem.list == SL.Items.list.guid) {
+          change = true;
+        }
+      } else {
+        change = true;
+      }
 
-      SL.Lists.updateUI();
-      SL.Items.updateUI();
+      if (change) {
+        aItem.done = bool;
+        SL.Lists.updateUI();
+        SL.Items.updateUI();
 
-      DB.deleteFromDB(aItem.guid, SL[this.view], false);
-      DB.store(aItem, SL[this.view], false);
+        DB.deleteFromDB(aItem.guid, SL[this.view], false);
+        DB.store(aItem, SL[this.view], false);
+      }
     }
   },
 

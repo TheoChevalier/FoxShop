@@ -12,3 +12,6 @@
 
 [pt-BR]
 @import url(pt-BR.properties)
+
+[sr]
+@import url(sr.properties)

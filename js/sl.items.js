@@ -166,9 +166,8 @@ SL.Items = {
       nbNodes = nodes.length;
       if(nbNodes > 1) {
         // Remove all nodes from categories <ul>
-        for(i=nbNodes-1; i>0; i--) {
-          prev = i-1;
-          this.elm.getElementsByClassName("list")[0].appendChild(nodes[prev]);
+        for(i=nbNodes-1; i>=0; i--) {
+          this.elm.getElementsByClassName("list")[0].appendChild(nodes[i]);
         }
 
         // Regen nodes list
@@ -203,7 +202,6 @@ SL.Items = {
                   }
                 }
 
-
                 dataCurrent = this.obj[dataCurrent].price;
                 dataPrevious = this.obj[dataPrevious].price;
                 permute = (dataPrevious > dataCurrent);
@@ -214,7 +212,6 @@ SL.Items = {
               done = false;
               this.elm.getElementsByClassName("list")[0].appendChild(nodes[prev]);
             }
-
 
             nodes = this.elm.getElementsByClassName("list")[0].getElementsByTagName("li");
           }
