@@ -100,7 +100,8 @@ SL.Items = {
             if (typeof unit === "undefined") {
               unit = "piece";
             }
-            node[0].setAttribute("data-l10n-args", "{n: "+item.nb+"}");
+            node[0].setAttribute("data-l10n-id", "NIF-"+unit+"2");
+            node[0].setAttribute("data-l10n-args", '{"n":'+item.nb+'}');
             node[0].textContent = _("NIF-"+unit+"2", {"n": item.nb});
           }
 
