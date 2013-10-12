@@ -108,7 +108,7 @@ SL.Items = {
           // p2 > a2: price
           if (SL.Settings.obj.prices.value) {
             if (item.price != '') {
-              SL.setPrice(node[1], 'item-price', item.price);
+              SL.setPrice(node[1], 'item-price2', item.price);
             } else {
               node[1].textContent = '';
             }

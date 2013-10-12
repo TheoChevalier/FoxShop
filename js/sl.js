@@ -309,8 +309,8 @@ var SL = {
       bVal = currency;
     }
     elm.setAttribute('data-l10n-id', string);
-    elm.setAttribute('data-l10n-args', "{'a':"+aVal+", 'b':"+bVal+"}");
-    elm.textContent = _(string, {'a':aVal, 'b':bVal});
+    elm.setAttribute('data-l10n-args', "{'a':"+aVal+" , 'b':"+bVal+"}");
+    elm.textContent = _(string, {'a':aVal , 'b':bVal});
   },
   displayStatus: function(id) {
     var status = $id('status');
