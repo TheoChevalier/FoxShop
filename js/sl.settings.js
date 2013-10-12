@@ -8,36 +8,36 @@
  * Settings
  ******************************************************************************/
 SL.Settings = {
-  elm: $id("settingsPanel"),
-  name: "Settings",
-  openedFrom: "Lists",
+  elm: $id('settingsPanel'),
+  name: 'Settings',
+  openedFrom: 'Lists',
   store: DB_STORE_SETTINGS,
   obj: DEFAULT_CONF,
   loaded: false,
   // Init the view
   init: function() {
     this.openedFrom = location.hash;
-    location.hash = "#settingsPanel";
+    location.hash = '#settingsPanel';
 
     // Check MozActivity support for scanner
     if (!SCANNER) {
-      $id("scanEnable").parentNode.parentNode.style.display = "none";
+      $id('scanEnable').parentNode.parentNode.style.display = 'none';
     }
 
     // Display current version number
-    if (typeof window.navigator.mozApps !== "undefined") {
+    if (typeof window.navigator.mozApps !== 'undefined') {
       var request = window.navigator.mozApps.getSelf();
       request.onsuccess = function(e) {
         if (request.result) {
-          $id("version").textContent = "FoxShop v" + request.result.manifest.version;
+          $id('version').textContent = 'FoxShop v' + request.result.manifest.version;
         }
-      }
+      };
     }
   },
   // Save (or update) a setting, then updateUI
   save: function(guid, value) {
     var setting = {
-      guid:  guid,
+      guid: guid,
       value: value
     };
 
@@ -57,80 +57,80 @@ SL.Settings = {
 
     // Lang pref
 
-    if (pref !== lang && pref !== "") {
+    if (pref !== lang && pref !== '') {
       document.webL10n.setLanguage(pref);
     } else {
       pref = lang;
     }
 
-    var select = $id("language-select");
-    select = select.querySelector('option[value="'+pref+'"]');
+    var select = $id('language-select');
+    select = select.querySelector('option[value="' + pref + '"]');
 
-    SL.updateSelectedOption("language-select", pref);
-    $id("language").textContent = select.textContent;
+    SL.updateSelectedOption('language-select', pref);
+    $id('language').textContent = select.textContent;
 
     // Check Scan
     if (this.obj.scanEnable.value) {
-      $id("scanEnable").setAttribute("checked", "");
+      $id('scanEnable').setAttribute('checked', '');
     }
 
     // Prices bool
     if (this.obj.prices.value) {
-      $id("prices").setAttribute("checked", "");
-      $id("currency").removeAttribute("disabled");
+      $id('prices').setAttribute('checked', '');
+      $id('currency').removeAttribute('disabled');
     }
 
     // Signature bool
     if (this.obj.signature.value) {
-      $id("signature").setAttribute("checked", "");
+      $id('signature').setAttribute('checked', '');
     }
 
     // Currency
     if (this.obj.userCurrency.value) {
-      $id("userCurrency").value = this.obj.userCurrency.value;
+      $id('userCurrency').value = this.obj.userCurrency.value;
     } else {
-      $id("userCurrency").value = _("user-currency");
+      $id('userCurrency').value = _('user-currency');
     }
 
     // Currency’s position
-    if(this.obj.currencyPosition.value) {
-      if (this.obj.currencyPosition.value == "right") {
+    if (this.obj.currencyPosition.value) {
+      if (this.obj.currencyPosition.value == 'right') {
         position = false;
       } else {
         position = true;
       }
     } else {
-      if( _("user-currency-position") == "right") {
+      if (_('user-currency-position') == 'right') {
         position = false;
       } else {
         position = true;
       }
     }
 
-    if(position) {
-      $id("positionLeft").setAttribute("checked", "");
+    if (position) {
+      $id('positionLeft').setAttribute('checked', '');
       if (!SL.Settings.obj.currencyPosition.value) {
-        SL.Settings.obj.currencyPosition.value = "left";
-        SL.Settings.save("currencyPosition", "left");
+        SL.Settings.obj.currencyPosition.value = 'left';
+        SL.Settings.save('currencyPosition', 'left');
       }
     } else {
-      $id("positionRight").setAttribute("checked", "");
+      $id('positionRight').setAttribute('checked', '');
       if (!SL.Settings.obj.currencyPosition.value) {
-        SL.Settings.obj.currencyPosition.value = "right";
-        SL.Settings.save("currencyPosition", "right");
+        SL.Settings.obj.currencyPosition.value = 'right';
+        SL.Settings.save('currencyPosition', 'right');
       }
     }
   },
   contact: function() {
     if (!MOZACTIVITY) {
-      window.location.href = "mailto:" + EMAIL;
+      window.location.href = 'mailto:' + EMAIL;
       return;
     }
     var pick = new MozActivity({
-      name: "new",
+      name: 'new',
       data: {
-        type : "mail",
-        url: "mailto:" + EMAIL
+        type: 'mail',
+        url: 'mailto:' + EMAIL
       }
     });
   }

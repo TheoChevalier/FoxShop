@@ -9,12 +9,12 @@ var DB = {
   // Create/open database
   var request = indexedDB.open(DB_NAME, DB_VERSION);
 
-  request.onerror = function (event) {
+  request.onerror = function(event) {
     DB.resetApp();
-    console.error("openDb:", this.errorCode);
+    console.error('openDb:', this.errorCode);
   };
-   
-  request.onsuccess = function (event) {
+
+  request.onsuccess = function(event) {
   db = request.result;
   SL.finishInit();
 
@@ -29,7 +29,7 @@ var DB = {
   }*/
   };
   // For future use. Currently only in latest Firefox versions
-  request.onupgradeneeded = function (event) {
+  request.onupgradeneeded = function(event) {
     if (event.oldVersion === 0) {
       var store = this.result.createObjectStore(
         DB_STORE_LISTS, { keyPath: 'id', autoIncrement: true });
@@ -60,7 +60,7 @@ var DB = {
   /**
    * @param {string} name
    * @param {string} date
-   * Insert a new object in the view's DB
+   * Insert a new object in the view's DB.
    */
   store: function(aList, view, bool) {
     var store = this.getObjectStore(view.store, 'readwrite');
@@ -70,11 +70,11 @@ var DB = {
     } catch (e) {
       throw e;
     }
-    if (typeof bool === "undefined") {
+    if (typeof bool === 'undefined') {
       view.obj[aList.guid] = aList;
     }
-    req.onsuccess = function (evt) {
-      console.log("Inserted");
+    req.onsuccess = function(evt) {
+      console.log('Inserted');
     };
     req.onerror = function() {
       console.error(this.error);
@@ -90,24 +90,24 @@ var DB = {
   getBlob: function(guid) {
     var store = this.getObjectStore(DB_STORE_IMAGES, 'readwrite');
     var req = store.get(guid);
-    req.onsuccess = function (event) {
+    req.onsuccess = function(event) {
       // Set img src
-      if (typeof event.target.result !== "undefined" && event.target.result !== APP_PATH)
+      if (typeof event.target.result !== 'undefined' && event.target.result !== APP_PATH)
         return event.target.result;
       else return false;
     };
-    req.onerror = function (event) {
+    req.onerror = function(event) {
       return false;
-    }
+    };
   },
 
   setBlob: function(guid, elm) {
     var store = this.getObjectStore(DB_STORE_IMAGES, 'readwrite');
     var req = store.get(guid);
-    req.onsuccess = function (event) {
+    req.onsuccess = function(event) {
       // Set img src
       console.log(event.target.result);
-      if (typeof event.target.result !== "undefined" && event.target.result !== APP_PATH)
+      if (typeof event.target.result !== 'undefined' && event.target.result !== APP_PATH)
         elm.src = event.target.result;
     };
   },
@@ -116,10 +116,10 @@ var DB = {
    * @param {IDBObjectStore=} store
    */
    displayList: function(store, view) {
-    if (store == null || typeof store == 'undefined' ){
+    if (store == null || typeof store == 'undefined') {
       store = DB.getObjectStore(view.store, 'readonly');
     }
-      
+
     var req = store.count();
     // Requests are executed in the order in which they were made against the
     // transaction, and their results are returned in the same order.
@@ -129,7 +129,7 @@ var DB = {
 
     };
     req.onerror = function(evt) {
-      console.error("add error", this.error);
+      console.error('add error', this.error);
     };
 
     var i = 0;
@@ -139,10 +139,10 @@ var DB = {
       // If the cursor is pointing at something, ask for the data
       if (cursor) {
         req = store.get(cursor.key);
-        req.onsuccess = function (evt) {
+        req.onsuccess = function(evt) {
           var aList = this.result;
           view.display(aList);
-          if (typeof SL[view.name].obj != "undefined") {
+          if (typeof SL[view.name].obj != 'undefined') {
             SL[view.name].obj[aList.guid] = aList;
           }
           i++;
@@ -152,7 +152,7 @@ var DB = {
         cursor.continue();
 
       } else {
-        console.log("No more entries");
+        console.log('No more entries');
       }
     };
   },
@@ -162,7 +162,7 @@ var DB = {
    * @param {string} biblioid
    */
   deleteFromDB: function(guid, view, bool) {
-    if (typeof bool === "undefined") {
+    if (typeof bool === 'undefined') {
       // Delete from obj
       delete view.obj[guid];
     }
@@ -170,13 +170,13 @@ var DB = {
     var req = store.index('guid');
     req.get(guid).onsuccess = function(evt) {
       if (typeof this.result == 'undefined') {
-        console.error("No matching record found");
+        console.error('No matching record found');
         return;
       }
       DB.deleteList(this.result.id, store, view);
     };
-    req.onerror = function (evt) {
-      console.error("deletePublicationFromBib:", this.errorCode);
+    req.onerror = function(evt) {
+      console.error('deletePublicationFromBib:', this.errorCode);
     };
   },
 
@@ -197,7 +197,7 @@ var DB = {
     req.onsuccess = function(evt) {
       var record = this.result;
       if (typeof record == 'undefined') {
-        console.error("No matching record found");
+        console.error('No matching record found');
         return;
       }
       // Warning: The exact same key used for creation needs to be passed for
@@ -205,14 +205,14 @@ var DB = {
       // be a Number for deletion.
       req = store.delete(key);
       req.onsuccess = function(evt) {
-        console.log("Item succesfully deleted");
+        console.log('Item succesfully deleted');
       };
-      req.onerror = function (evt) {
-        console.error("deletePublication:", this.errorCode);
+      req.onerror = function(evt) {
+        console.error('deletePublication:', this.errorCode);
       };
     };
-    req.onerror = function (evt) {
-      console.error("deletePublication:", this.errorCode);
+    req.onerror = function(evt) {
+      console.error('deletePublication:', this.errorCode);
       };
   },
 
@@ -225,7 +225,7 @@ var DB = {
       // If the cursor is pointing at something, ask for the data
       if (cursor) {
         req = store.get(cursor.key);
-        req.onsuccess = function (evt) {
+        req.onsuccess = function(evt) {
           var result = this.result;
           SL[aView].obj[result.guid] = result;
           // Try to retreive picture
@@ -234,28 +234,28 @@ var DB = {
         // Move on to the next object in store
         cursor.continue();
       } else {
-        if (typeof SL[aView].loaded != "undefined") {
-          if(!SL[aView].loaded) {
+        if (typeof SL[aView].loaded != 'undefined') {
+          if (!SL[aView].loaded) {
             SL[aView].updateUI();
           }
         }
         if (!SL.Lists.loaded) {
-          DB.updateObj("Lists");
+          DB.updateObj('Lists');
         }
       }
-    }
+    };
   },
 
   /**
    * @param {string} store_name
-   * @param {string} mode either "readonly" or "readwrite"
+   * @param {string} mode either "readonly" or "readwrite".
    */
   getObjectStore: function(storename, mode) {
     var tx = db.transaction(storename, mode);
     tx.onerror = function(event) {
       DB.createObjectStore(db);
       return tx.objectStore(storename);
-    }
+    };
     return tx.objectStore(storename);
   },
 
@@ -268,7 +268,7 @@ var DB = {
     var request = indexedDB.deleteDatabase(DB_NAME);
 
     request.onerror = function(event) {
-      alert(_("clear-error"));
+      alert(_('clear-error'));
     };
 
     request.onsuccess = function(event) {
@@ -281,15 +281,15 @@ var DB = {
       SL.Lists.updateUI();
 
       // Warn user
-      SL.displayStatus("clear-ok");
+      SL.displayStatus('clear-ok');
 
       // Create new DB
       DB.openDb();
 
       // Go to list view
-      location.hash = "#lists";
+      location.hash = '#lists';
       SL.Lists.init();
     };
-  },
+  }
 
 };

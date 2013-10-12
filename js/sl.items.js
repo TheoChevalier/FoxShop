@@ -8,9 +8,9 @@
  * Items
  ******************************************************************************/
 SL.Items = {
-  elm: $id("items"),
-  name: "Items",
-  nextView: "newItemForm",
+  elm: $id('items'),
+  name: 'Items',
+  nextView: 'newItemForm',
   store: DB_STORE_ITEMS,
   obj: {},
   list: {},
@@ -21,7 +21,7 @@ SL.Items = {
     SL.view = this.name;
     this.list = aList;
     this.guid = aList.guid;
-    location.hash = "#items";
+    location.hash = '#items';
     SL.Lists.updateUI();
 
     // Set title of the displayed Items list
@@ -34,15 +34,15 @@ SL.Items = {
   // Add an item to the current list
   new: function() {
     var name = $id('itemName').value;
-    $id('itemName').value = "";
+    $id('itemName').value = '';
     var date = new Date();
 
     // Remove line-endings
-    name = name.replace(/(\r\n|\n|\r)/gm,"");
+    name = name.replace(/(\r\n|\n|\r)/gm, '');
 
     // Handle empty form
     if (!name) {
-      SL.displayStatus("msg-name");
+      SL.displayStatus('msg-name');
       return;
     }
 
@@ -71,59 +71,59 @@ SL.Items = {
 
     // Check scanner
     if (SL.Settings.obj.scanEnable.value && SCANNER) {
-      SL.show("scan");
-      $id("itemName").className = "";
+      SL.show('scan');
+      $id('itemName').className = '';
     } else {
-      SL.hide("scan");
-      $id("itemName").className = "noScan";
+      SL.hide('scan');
+      $id('itemName').className = 'noScan';
     }
 
     // For each item: display it and insert data
-    for(var item in this.obj) {
+    for (var item in this.obj) {
       item = this.obj[item];
 
       if (item.list == this.list.guid) {
         SL.display(item, this);
-        if (this.elm.querySelector('li[data-listkey="'+item.guid+'"]') !== null) {
-          var node = this.elm.querySelector('li[data-listkey="'+item.guid+'"]');
-          var img = node.getElementsByTagName("img")[0];
+        if (this.elm.querySelector('li[data-listkey="' + item.guid + '"]') !== null) {
+          var node = this.elm.querySelector('li[data-listkey="' + item.guid + '"]');
+          var img = node.getElementsByTagName('img')[0];
 
           // Name (first p)
-          node = node.getElementsByTagName("p");
+          node = node.getElementsByTagName('p');
           node[0].textContent = item.name;
           // Second p
-          node = node[1].getElementsByTagName("a");
+          node = node[1].getElementsByTagName('a');
 
           // p2 > a1: qty
           if (item.nb > 0) {
             var unit = item.unit;
-            if (typeof unit === "undefined") {
-              unit = "piece";
+            if (typeof unit === 'undefined') {
+              unit = 'piece';
             }
-            node[0].setAttribute("data-l10n-id", "NIF-"+unit+"2");
-            node[0].setAttribute("data-l10n-args", '{"n":'+item.nb+'}');
-            node[0].textContent = _("NIF-"+unit+"2", {"n": item.nb});
+            node[0].setAttribute('data-l10n-id', 'NIF-'+ unit + '2');
+            node[0].setAttribute('data-l10n-args', '{"n":' + item.nb + '}');
+            node[0].textContent = _('NIF-'+ unit + '2', {'n': item.nb});
           }
 
           // p2 > a2: price
           if (SL.Settings.obj.prices.value) {
-            if(item.price != "") {
-              SL.setPrice(node[1], "item-price", item.price);
+            if (item.price != '') {
+              SL.setPrice(node[1], 'item-price', item.price);
             } else {
-              node[1].textContent = "";
+              node[1].textContent = '';
             }
           }
 
           // p2 > a3: note
-          if (typeof item.note !== "undefined") {
+          if (typeof item.note !== 'undefined') {
             node[2].textContent = item.note;
           }
 
 
           // Picture
-          img.src = "";
-          if (item.image !== "" && typeof item.image !== "undefined" && item.image !== APP_PATH) {
-            console.log(item.image + " " + APP_PATH);
+          img.src = '';
+          if (item.image !== '' && typeof item.image !== 'undefined' && item.image !== APP_PATH) {
+            console.log(item.image + ' ' + APP_PATH);
             img.src = item.image;
           } else {
             DB.setBlob(item.guid, img);
@@ -137,8 +137,8 @@ SL.Items = {
     var permutePrice = false;
     var posPrice;
     var done = false;
-    var listNode = this.elm.getElementsByClassName("list")[0];
-    var nodes = this.elm.getElementsByClassName("list")[0].childNodes;
+    var listNode = this.elm.getElementsByClassName('list')[0];
+    var nodes = this.elm.getElementsByClassName('list')[0].childNodes;
     var nbNodes = nodes.length;
     var sort = this.list.sort;
     var prev;
@@ -148,65 +148,65 @@ SL.Items = {
     var other;
     var previousPrice = 0;
 
-    if (SL.Settings.obj.defaultSort.value === "" || sort === "" || sort === "category") {
-      if(nbNodes > 1) {
+    if (SL.Settings.obj.defaultSort.value === '' || sort === '' || sort === 'category') {
+      if (nbNodes > 1) {
         while (!done) {
           done = true;
-          for(i=nbNodes-1; i>0; i--) {
-            prev = i-1;
-            if (_("NIF-"+nodes[prev].className).localeCompare(_("NIF-"+nodes[i].className)) > 0) {
+          for (i = nbNodes - 1; i > 0; i--) {
+            prev = i - 1;
+            if (_('NIF-'+ nodes[prev].className).localeCompare(_('NIF-'+ nodes[i].className)) > 0) {
               done = false;
               listNode.appendChild(nodes[prev]);
-              nodes = this.elm.getElementsByClassName("list")[0].childNodes;
+              nodes = this.elm.getElementsByClassName('list')[0].childNodes;
             }
           }
         }
         //Always put "other" cat at the bottom
-        other = this.elm.getElementsByClassName("other")[0];
-        if (other != null && typeof other !== "undefined") {
+        other = this.elm.getElementsByClassName('other')[0];
+        if (other != null && typeof other !== 'undefined') {
           listNode.appendChild(other);
         }
       }
     } else {
       // If we have a different sort setting recorded
-      nodes = this.elm.getElementsByClassName("list")[0].getElementsByTagName("li");
+      nodes = this.elm.getElementsByClassName('list')[0].getElementsByTagName('li');
       nbNodes = nodes.length;
-      if(nbNodes > 1) {
+      if (nbNodes > 1) {
         // Remove all nodes from categories <ul>
-        for(i=nbNodes-1; i>=0; i--) {
+        for (i = nbNodes - 1; i >= 0; i--) {
           listNode.appendChild(nodes[i]);
         }
 
-        if (sort == "price") {
-          for(i=nbNodes-1; i>=0; i--) {
-            var guid = nodes[i].dataset["listkey"];
-            if (this.obj[guid].price != "") {
+        if (sort == 'price') {
+          for (i = nbNodes - 1; i >= 0; i--) {
+            var guid = nodes[i].dataset['listkey'];
+            if (this.obj[guid].price != '') {
               listNode.appendChild(nodes[i]);
             }
           }
         }
         // Regen nodes list
-        nodes = this.elm.getElementsByClassName("list")[0].getElementsByTagName("li");
-        previousPrice = this.obj[nodes[nbNodes-1].dataset["listkey"]].price;
+        nodes = this.elm.getElementsByClassName('list')[0].getElementsByTagName('li');
+        previousPrice = this.obj[nodes[nbNodes - 1].dataset['listkey']].price;
         while (!done) {
           done = true;
           permutePrice = false;
-          for(i=nbNodes-1; i>0; i--) {
-            prev = i-1;
-            dataCurrent = nodes[i].dataset["listkey"];
-            dataPrevious = nodes[prev].dataset["listkey"];
+          for (i = nbNodes - 1; i > 0; i--) {
+            prev = i - 1;
+            dataCurrent = nodes[i].dataset['listkey'];
+            dataPrevious = nodes[prev].dataset['listkey'];
 
             // Sort by name
-            if (sort == "alpha") {
+            if (sort == 'alpha') {
               dataCurrent = this.obj[dataCurrent].name;
               dataPrevious = this.obj[dataPrevious].name;
               permute = (dataPrevious.localeCompare(dataCurrent) > 0);
             }
 
             // Sort by price
-            if (sort == "price") {
+            if (sort == 'price') {
               dataCurrent = this.obj[dataPrevious].price;
-              if (typeof dataCurrent != "undefined" && dataCurrent != "" && dataCurrent < previousPrice) {
+              if (typeof dataCurrent != 'undefined' && dataCurrent != '' && dataCurrent < previousPrice) {
                 posPrice = i;
                 permutePrice = true;
                 previousPrice = dataCurrent;
@@ -216,23 +216,23 @@ SL.Items = {
             if (permute) {
               done = false;
               if (prev == 0) done = true;
-              this.elm.getElementsByClassName("list")[0].appendChild(nodes[prev]);
+              this.elm.getElementsByClassName('list')[0].appendChild(nodes[prev]);
             }
 
-            nodes = this.elm.getElementsByClassName("list")[0].getElementsByTagName("li");
+            nodes = this.elm.getElementsByClassName('list')[0].getElementsByTagName('li');
           }
           // Add lowest to top
           if (permutePrice) {
               done = false;
-              this.elm.getElementsByClassName("list")[0].appendChild(nodes[posPrice]);
+              this.elm.getElementsByClassName('list')[0].appendChild(nodes[posPrice]);
             }
         }
         // Remove category nodes
-        nodes = this.elm.getElementsByClassName("list")[0].getElementsByTagName("ul");
+        nodes = this.elm.getElementsByClassName('list')[0].getElementsByTagName('ul');
         nbNodes = nodes.length;
         if (nbNodes > 0) {
-          for(i=0; i<nbNodes; i++) {
-            nodes[i].style.display="none";
+          for (i = 0; i < nbNodes; i++) {
+            nodes[i].style.display = 'none';
             //document.getElementsByTagName("html")[0].appendChild(nodes[i]);
             //SL.removeElement(SL.Items.elm.querySelector('ul[class="'+nodes[i].className+'"]'));
           }
@@ -243,94 +243,94 @@ SL.Items = {
   updateListStatus: function() {
     // Update total/remaining
     if (this.list.total > 0 && SL.Settings.obj.prices.value) {
-      if (typeof this.list.remaining == "undefined" || this.list.remaining == "") {
-        this.list.remaining  = 0;
+      if (typeof this.list.remaining == 'undefined' || this.list.remaining == '') {
+        this.list.remaining = 0;
       }
-      SL.show("list-status");
-      SL.setPrice($id("list-total"), "total-list", this.list.total);
-      SL.setPrice($id("list-remaining"), "remaining-list", this.list.remaining);
+      SL.show('list-status');
+      SL.setPrice($id('list-total'), 'total-list', this.list.total);
+      SL.setPrice($id('list-remaining'), 'remaining-list', this.list.remaining);
     } else {
-      SL.hide("list-status");
+      SL.hide('list-status');
     }
   },
   openEditListName: function() {
-    var input = $id("newListName").getElementsByTagName("input")[0];
+    var input = $id('newListName').getElementsByTagName('input')[0];
     input.value = this.list.name;
-    this.elm.getElementsByClassName("title")[0].style.display = "none";
-    $id("editList").style.display = "none";
-    $id("newListName").style.display = "block";
-    $id("saveList").style.display = "block";
+    this.elm.getElementsByClassName('title')[0].style.display = 'none';
+    $id('editList').style.display = 'none';
+    $id('newListName').style.display = 'block';
+    $id('saveList').style.display = 'block';
   },
   closeEditListName: function() {
-    var title = this.elm.getElementsByClassName("title")[0];
+    var title = this.elm.getElementsByClassName('title')[0];
     title.textContent = this.list.name;
-    title.style.display = "block";
-    $id("editList").style.display = "block";
-    $id("newListName").style.display = "none";
-    $id("saveList").style.display = "none";
+    title.style.display = 'block';
+    $id('editList').style.display = 'block';
+    $id('newListName').style.display = 'none';
+    $id('saveList').style.display = 'none';
   },
   saveListName: function() {
-    var newName = $id("newListName").getElementsByTagName("input")[0].value;
-    if (newName !== "") {
+    var newName = $id('newListName').getElementsByTagName('input')[0].value;
+    if (newName !== '') {
       this.closeEditListName();
       this.list.name = newName;
-      this.elm.getElementsByClassName("title")[0].textContent = newName;
+      this.elm.getElementsByClassName('title')[0].textContent = newName;
       SL.Lists.updateUI();
       DB.deleteFromDB(this.list.guid, SL.Lists, false);
       DB.store(this.list, SL.Lists, false);
     } else {
-      SL.displayStatus("msg-name");
+      SL.displayStatus('msg-name');
     }
   },
   openNIF: function() {
-    location.hash = "#newItemForm";
+    location.hash = '#newItemForm';
 
     // Reset view
-    SL.newItemForm.elm.getElementsByClassName("title")[0].textContent=_("NIF-title");
-    SL.hide("NIF-delete");
-    SL.show("thumbnail-action");
-    $id("NIF-photo").src ="";
+    SL.newItemForm.elm.getElementsByClassName('title')[0].textContent = _('NIF-title');
+    SL.hide('NIF-delete');
+    SL.show('thumbnail-action');
+    $id('NIF-photo').src = '';
 
     // Reset form
-    $id("NIF-category-button").textContent = _("NIF-category-button");
-    $id("NIF-unit-button").textContent = _("NIF-piece2[zero]");
+    $id('NIF-category-button').textContent = _('NIF-category-button');
+    $id('NIF-unit-button').textContent = _('NIF-piece2[zero]');
     $id('NIF-container').reset();
 
     // Set name already typed on #items
-    $id("NIF-name").value = $id("itemName").value;
+    $id('NIF-name').value = $id('itemName').value;
 
     // Check price feature
-    $id("NIF-price").parentNode.setAttribute("hidden", "");
-    if (SL.Settings.obj["prices"].value) {
-      $id("NIF-price").parentNode.removeAttribute("hidden");
+    $id('NIF-price').parentNode.setAttribute('hidden', '');
+    if (SL.Settings.obj['prices'].value) {
+      $id('NIF-price').parentNode.removeAttribute('hidden');
     }
 
   },
   doneNIF: function() {
-    var price = "";
-    var name = $id("NIF-name").value;
-    var qty  = parseFloat($id("NIF-qty").value);
-    var note  = $id("NIF-note").value;
-    var category  = $id("NIF-category").options[$id("NIF-category").selectedIndex].value;
-    var unit  = $id("NIF-unit").options[$id("NIF-unit").selectedIndex].value;
+    var price = '';
+    var name = $id('NIF-name').value;
+    var qty = parseFloat($id('NIF-qty').value);
+    var note = $id('NIF-note').value;
+    var category = $id('NIF-category').options[$id('NIF-category').selectedIndex].value;
+    var unit = $id('NIF-unit').options[$id('NIF-unit').selectedIndex].value;
     var date = new Date();
 
     // Remove line-endings
-    name = name.replace(/(\r\n|\n|\r)/gm,"");
+    name = name.replace(/(\r\n|\n|\r)/gm, '');
 
-    if (SL.Settings.obj["prices"].value && $id("NIF-price").value !== "") {
-      price = $id("NIF-price").value;
-      price = price.replace(/,/gm,".");
+    if (SL.Settings.obj['prices'].value && $id('NIF-price').value !== '') {
+      price = $id('NIF-price').value;
+      price = price.replace(/,/gm, '.');
       price = parseFloat(price).toFixed(2);
       if (isNaN(price)) {
-        SL.displayStatus("msg-NaN");
+        SL.displayStatus('msg-NaN');
         return;
       }
     }
 
     // Handle empty form
     if (!name) {
-      SL.displayStatus("msg-name");
+      SL.displayStatus('msg-name');
       return;
     }
 
@@ -339,8 +339,8 @@ SL.Items = {
     }
 
     // If the user selected a picture, save it
-    if ($id("NIF-photo").src != "")
-      var image = $id("NIF-photo").src;
+    if ($id('NIF-photo').src != '')
+      var image = $id('NIF-photo').src;
     else
       var image = false;
 
@@ -369,12 +369,12 @@ SL.Items = {
 
     // Reset forms
     $id('NIF-container').reset();
-    $id("itemName").value = "";
-    location.hash = "#items";
+    $id('itemName').value = '';
+    location.hash = '#items';
   },
   plusOne: function(id) {
     var current = parseInt($id(id).value);
-    if(!current > 0) {
+    if (!current > 0) {
       current = 0;
     }
     $id(id).value = current + 1;
@@ -393,7 +393,7 @@ SL.Items = {
     // Clone list obj
     SL.Lists.obj[guid] = {};
     SL.Lists.obj[guid].guid = guid;
-    SL.Lists.obj[guid].name = current.name + " ("+_("copy")+")";
+    SL.Lists.obj[guid].name = current.name + ' ('+ _('copy') + ')';
     SL.Lists.obj[guid].done = current.done;
     SL.Lists.obj[guid].date = date.getTime();
 
@@ -404,7 +404,7 @@ SL.Items = {
         var guidItem = SL.guid();
         var target = {};
         target.name = aItem.name;
-        target.nb   = aItem.nb;
+        target.nb = aItem.nb;
         target.done = aItem.done;
         target.date = date.getTime();
         target.image = aItem.image;
@@ -413,7 +413,7 @@ SL.Items = {
         target.note = aItem.note;
         target.list = guid;
         target.guid = guidItem;
-        if (typeof aItem.price !== "undefined") {
+        if (typeof aItem.price !== 'undefined') {
           target.price = aItem.price;
         }
 
@@ -432,70 +432,70 @@ SL.Items = {
   getSort: function() {
     var list = this.list;
     var option = SL.Settings.obj.defaultSort.value;
-    if (list.sort !== "" && typeof list.sort !== "undefined") {
+    if (list.sort !== '' && typeof list.sort !== 'undefined') {
       option = list.sort;
     }
-    SL.updateSelectedOption("sort-options", option);
-    var selected = $id("sort-options").options[$id("sort-options").selectedIndex];
-    $id("sort-button").textContent = selected.textContent;
-    location.hash = "#sortSetting";
+    SL.updateSelectedOption('sort-options', option);
+    var selected = $id('sort-options').options[$id('sort-options').selectedIndex];
+    $id('sort-button').textContent = selected.textContent;
+    location.hash = '#sortSetting';
   },
   setSort: function() {
     var list = this.list;
-    var selected = $id("sort-options").options[$id("sort-options").selectedIndex];
-    $id("sort-button").textContent = selected.textContent;
+    var selected = $id('sort-options').options[$id('sort-options').selectedIndex];
+    $id('sort-button').textContent = selected.textContent;
     this.list.sort = selected.value;
     SL.Lists.obj[list.guid].sort = selected.value;
     SL.Items.updateUI();
 
     DB.deleteFromDB(list.guid, SL.Lists, false);
     DB.store(list, SL.Lists, false);
-    location.hash = "#items";
+    location.hash = '#items';
 
   },
   mozActivity: function() {
-    var title = _("email-title-begin") + this.list.name + " " +_("email-title-end");
+    var title = _('email-title-begin') + this.list.name + ' ' + _('email-title-end');
     var prices = SL.Settings.obj.prices.value;
     var position = SL.Settings.obj.currencyPosition.value;
     var currency = SL.Settings.obj.userCurrency.value;
     var signature = SL.Settings.obj.signature.value;
     var content;
-    var Email ="";
-    var SMS ="";
+    var Email = '';
+    var SMS = '';
 
     if (!SHARE) {
-      location.hash = "#enterEmail";
+      location.hash = '#enterEmail';
       return;
     }
 
-    if (currency === "")
-      currency = _("user-currency");
+    if (currency === '')
+      currency = _('user-currency');
 
     if (signature) {
-      Email = title + " " + _("email-intro-end-sms");
-      SMS = title + " " + _("email-intro-end-sms");
+      Email = title + ' ' + _('email-intro-end-sms');
+      SMS = title + ' ' + _('email-intro-end-sms');
     }
 
-    for(var item in this.obj) {
+    for (var item in this.obj) {
       item = this.obj[item];
-      content = "";
+      content = '';
       if (item.list == this.list.guid) {
         if (item.done) {
-          content += "- ["+_("bought")+"] ";
+          content += '- ['+ _('bought') + '] ';
         } else {
-          content += "- ";
+          content += '- ';
         }
         content += item.name;
         if (prices && item.price > 0) {
-          if (position === "right")
-            content += " " + item.price + " " + currency;
+          if (position === 'right')
+            content += ' ' + item.price + ' ' + currency;
           else
-            content += " " + currency + " " + item.price;
+            content += ' ' + currency + ' ' + item.price;
         }
         if (item.qty > 1) {
-          content += " x" + item.qty;
+          content += ' x' + item.qty;
         }
-        Email += content + "%0A";
+        Email += content + '%0A';
         SMS += content;
       }
     }
@@ -503,7 +503,7 @@ SL.Items = {
     var a = new MozActivity({
       name: 'new',
       data: {
-        url: "mailto:?subject=" + title +"&body=" + Email, // for emails,
+        url: 'mailto:?subject=' + title + '&body=' + Email, // for emails,
         body: SMS // for SMS
       }
     });
@@ -513,20 +513,20 @@ SL.Items = {
       return;
     }
     var pick = new MozActivity({
-      name: "pick",
+      name: 'pick',
       data: {
-        type: ["image/png", "image/jpg", "image/jpeg"]
+        type: ['image/png', 'image/jpg', 'image/jpeg']
       }
     });
 
-    pick.onsuccess = function () {
-      $id("image").src = window.URL.createObjectURL(this.result.blob);
-      alert("We are analysing the picture…");
-      var barcode = SL.getBarcodeFromImage("image");
+    pick.onsuccess = function() {
+      $id('image').src = window.URL.createObjectURL(this.result.blob);
+      alert('We are analysing the picture…');
+      var barcode = SL.getBarcodeFromImage('image');
       barcode = barcode.toString();
       var url = 'http://theochevalier.fr/app/php/barcode/index.php?barcode=' + barcode;
       SL.callOtherDomain(url);
     };
   }
-}
+};
 

@@ -8,8 +8,8 @@
  * ItemView
  ******************************************************************************/
 SL.newItemForm = {
-  elm: $id("newItemForm"),
-  name: "newItemForm",
+  elm: $id('newItemForm'),
+  name: 'newItemForm',
   item: {},
   init: function(aItem) {
     location.hash = this.elm.id;
@@ -17,65 +17,65 @@ SL.newItemForm = {
     this.item = aItem;
 
     // Reset view
-    this.elm.getElementsByClassName("title")[0].textContent = this.item.name;
+    this.elm.getElementsByClassName('title')[0].textContent = this.item.name;
     $id('NIF-container').reset();
-    SL.show("NIF-delete");
-    SL.show("thumbnail-action");
-    $id("NIF-photo").src ="";
+    SL.show('NIF-delete');
+    SL.show('thumbnail-action');
+    $id('NIF-photo').src = '';
 
-    $id("NIF-name").value = this.item.name;
-    $id("NIF-qty").value = (typeof this.item.nb != "undefined") ? this.item.nb : 1;
-    $id("NIF-note").value = (typeof this.item.note != "undefined") ? this.item.note : "";
+    $id('NIF-name').value = this.item.name;
+    $id('NIF-qty').value = (typeof this.item.nb != 'undefined') ? this.item.nb : 1;
+    $id('NIF-note').value = (typeof this.item.note != 'undefined') ? this.item.note : '';
     //$id("NIF-photo").src = aItem.image ? aItem.image : "";
-    DB.setBlob(this.item.guid, $id("NIF-photo"));
+    DB.setBlob(this.item.guid, $id('NIF-photo'));
 
     // Set category if any
     var category = this.item.category;
-    if (typeof category == "undefined") {
-      category = "other";
+    if (typeof category == 'undefined') {
+      category = 'other';
     }
-    var select = $id("NIF-category").querySelector('option[value="'+category+'"]');
-    SL.updateSelectedOption("NIF-category", category);
-    $id("NIF-category-button").textContent = select.textContent;
+    var select = $id('NIF-category').querySelector('option[value="' + category + '"]');
+    SL.updateSelectedOption('NIF-category', category);
+    $id('NIF-category-button').textContent = select.textContent;
 
     // Set unit if any
-    if (typeof this.item.unit != "undefined") {
+    if (typeof this.item.unit != 'undefined') {
       var unit = this.item.unit;
     } else {
-      var unit = "piece";
+      var unit = 'piece';
     }
-    select = $id("NIF-unit").querySelector('option[value="'+unit+'"]');
-    SL.updateSelectedOption("NIF-unit", unit);
-    $id("NIF-unit-button").textContent = select.textContent;
+    select = $id('NIF-unit').querySelector('option[value="' + unit + '"]');
+    SL.updateSelectedOption('NIF-unit', unit);
+    $id('NIF-unit-button').textContent = select.textContent;
 
-    $id("NIF-price").parentNode.setAttribute("hidden", "");
-    if (SL.Settings.obj["prices"].value) {
-      $id("NIF-price").parentNode.removeAttribute("hidden");
-      $id("NIF-price").value = (typeof this.item.price != "undefined") ? this.item.price : "";
+    $id('NIF-price').parentNode.setAttribute('hidden', '');
+    if (SL.Settings.obj['prices'].value) {
+      $id('NIF-price').parentNode.removeAttribute('hidden');
+      $id('NIF-price').value = (typeof this.item.price != 'undefined') ? this.item.price : '';
     }
   },
 
   //Save current item into DB
   doneNIF: function() {
-    var l10n = "";
+    var l10n = '';
     var item;
-    var price = "";
-    var name = $id("NIF-name").value;
-    var qty  = parseFloat($id("NIF-qty").value);
-    var note  = $id("NIF-note").value;
-    var category  = $id("NIF-category").options[$id("NIF-category").selectedIndex].value;
-    var unit  = $id("NIF-unit").options[$id("NIF-unit").selectedIndex].value;
+    var price = '';
+    var name = $id('NIF-name').value;
+    var qty = parseFloat($id('NIF-qty').value);
+    var note = $id('NIF-note').value;
+    var category = $id('NIF-category').options[$id('NIF-category').selectedIndex].value;
+    var unit = $id('NIF-unit').options[$id('NIF-unit').selectedIndex].value;
 
     // Check values, display error
     if (!name || !qty) {
       if (!name) {
-        l10n = "msg-name";
+        l10n = 'msg-name';
         if (!qty) {
-          l10n = "msg-name-qty";
+          l10n = 'msg-name-qty';
         }
       } else {
         if (!qty) {
-          l10n = "msg-qty";
+          l10n = 'msg-qty';
         }
       }
 
@@ -84,8 +84,8 @@ SL.newItemForm = {
     }
 
     // If the user selected a picture, save it
-    if ($id("NIF-photo").src != "")
-      var image = $id("NIF-photo").src;
+    if ($id('NIF-photo').src != '')
+      var image = $id('NIF-photo').src;
     else
       var image = false;
 
@@ -99,13 +99,13 @@ SL.newItemForm = {
     item.unit = unit;
     item.image = image;
 
-    if (SL.Settings.obj["prices"].value) {
-      if ($id("NIF-price").value !== "") {
-        price = $id("NIF-price").value;
-        price = price.replace(/,/gm,".");
+    if (SL.Settings.obj['prices'].value) {
+      if ($id('NIF-price').value !== '') {
+        price = $id('NIF-price').value;
+        price = price.replace(/,/gm, '.');
         price = parseFloat(price).toFixed(2);
         if (isNaN(price)) {
-          SL.displayStatus("msg-NaN");
+          SL.displayStatus('msg-NaN');
           return;
         }
       }
@@ -122,21 +122,21 @@ SL.newItemForm = {
 
     // Reset forms
     $id('NIF-container').reset();
-    $id("itemName").value = "";
-    location.hash = "#items";
+    $id('itemName').value = '';
+    location.hash = '#items';
   },
   remove: function() {
     var guid = this.item.guid;
     // Check if empty category
-    var cat = SL.Items.elm.querySelectorAll('li[data-listkey="'+guid+'"]')[0].parentNode.className;
-    SL.removeElement(SL.Items.elm.querySelector('li[data-listkey="'+guid+'"]'));
+    var cat = SL.Items.elm.querySelectorAll('li[data-listkey="' + guid + '"]')[0].parentNode.className;
+    SL.removeElement(SL.Items.elm.querySelector('li[data-listkey="' + guid + '"]'));
     cat = SL.Items.elm.getElementsByClassName(cat);
     [].forEach.call(cat, function(v, i) {
-      if (v.getElementsByTagName("li").length == 0) {
+      if (v.getElementsByTagName('li').length == 0) {
         SL.removeElement(v);
       }
     });
-    location.hash = "#items";
+    location.hash = '#items';
     DB.deleteFromDB(guid, SL.Items);
     // Update UI
     SL.Lists.updateUI();
@@ -148,17 +148,17 @@ SL.newItemForm = {
       $id('input-photo').addEventListener('change', this.handleFileSelect, false);
     } else {
     var pick = new MozActivity({
-        name: "pick",
+        name: 'pick',
         data: {
-          type: ["image/png", "image/jpg", "image/jpeg"]
+          type: ['image/png', 'image/jpg', 'image/jpeg']
         }
       });
 
-      pick.onsuccess = function () {
+      pick.onsuccess = function() {
         var url = window.URL.createObjectURL(this.result.blob);
-        $id("NIF-photo").src = url;
+        $id('NIF-photo').src = url;
 
-        SL.redimImage(url, "NIF-photo", 200, 200);
+        SL.redimImage(url, 'NIF-photo', 200, 200);
       };
     }
   },
@@ -173,12 +173,12 @@ SL.newItemForm = {
     reader.onload = (function(theFile) {
       return function(e) {
         // Render thumbnail.
-        SL.redimImage(e.target.result, "NIF-photo", 200, 200);
+        SL.redimImage(e.target.result, 'NIF-photo', 200, 200);
       };
     })(f);
 
     // Read in the image file as a data URL.
     reader.readAsDataURL(f);
   },
-  updateUI: function() {},
-}
+  updateUI: function() {}
+};
