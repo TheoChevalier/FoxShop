@@ -12,6 +12,9 @@ var DB_STORE_ITEMS = 'items1';
 var DB_STORE_IMAGES = 'images1';
 var DB_STORE_SETTINGS = 'settings1';
 var db;
+
+//App var
+var APP_PATH = location.protocol + "//" + location.host + "/FoxShop/";
 var MOZACTIVITY = false;
 var SCANNER = true;
 var SHARE = false;
@@ -39,7 +42,7 @@ var $id = document.getElementById.bind(document);
 if (location.host === "localhost") {
   var MANIFEST = "http://localhost/FoxShop/manifest.webapp";
 } else {
-  var MANIFEST = location.protocol + "//" + location.host + "/FoxShop/manifest.webapp";
+  var MANIFEST = APP_PATH + "manifest.webapp";
 }
 
 // Lock screen orientation
@@ -154,7 +157,7 @@ var SL = {
     var packEnd  = document.createElement('aside');
     var packEndImg  = document.createElement('img');
     packEnd.className = "pack-end";
-    packEndImg.src="";
+    packEndImg.src="img/icons/go.png";
     packEnd.appendChild(packEndImg);
 
 

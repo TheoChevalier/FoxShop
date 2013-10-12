@@ -121,7 +121,9 @@ SL.Items = {
 
 
           // Picture
-          if (item.image !== "" && typeof item.image !== "undefined") {
+          img.src = "";
+          if (item.image !== "" && typeof item.image !== "undefined" && item.image !== APP_PATH) {
+            console.log(item.image + " " + APP_PATH);
             img.src = item.image;
           } else {
             DB.setBlob(item.guid, img);
@@ -132,7 +134,10 @@ SL.Items = {
 
     // Reorder categories
     var permute = false;
+    var permutePrice = false;
+    var posPrice;
     var done = false;
+    var listNode = this.elm.getElementsByClassName("list")[0];
     var nodes = this.elm.getElementsByClassName("list")[0].childNodes;
     var nbNodes = nodes.length;
     var sort = this.list.sort;
@@ -141,6 +146,7 @@ SL.Items = {
     var dataCurrent;
     var dataPrevious;
     var other;
+    var previousPrice = 0;
 
     if (SL.Settings.obj.defaultSort.value === "" || sort === "" || sort === "category") {
       if(nbNodes > 1) {
@@ -150,7 +156,7 @@ SL.Items = {
             prev = i-1;
             if (_("NIF-"+nodes[prev].className).localeCompare(_("NIF-"+nodes[i].className)) > 0) {
               done = false;
-              this.elm.getElementsByClassName("list")[0].appendChild(nodes[prev]);
+              listNode.appendChild(nodes[prev]);
               nodes = this.elm.getElementsByClassName("list")[0].childNodes;
             }
           }
@@ -158,7 +164,7 @@ SL.Items = {
         //Always put "other" cat at the bottom
         other = this.elm.getElementsByClassName("other")[0];
         if (other != null && typeof other !== "undefined") {
-          this.elm.getElementsByClassName("list")[0].appendChild(other);
+          listNode.appendChild(other);
         }
       }
     } else {
@@ -168,13 +174,23 @@ SL.Items = {
       if(nbNodes > 1) {
         // Remove all nodes from categories <ul>
         for(i=nbNodes-1; i>=0; i--) {
-          this.elm.getElementsByClassName("list")[0].appendChild(nodes[i]);
+          listNode.appendChild(nodes[i]);
         }
 
+        if (sort == "price") {
+          for(i=nbNodes-1; i>=0; i--) {
+            var guid = nodes[i].dataset["listkey"];
+            if (this.obj[guid].price != "") {
+              listNode.appendChild(nodes[i]);
+            }
+          }
+        }
         // Regen nodes list
         nodes = this.elm.getElementsByClassName("list")[0].getElementsByTagName("li");
+        previousPrice = this.obj[nodes[nbNodes-1].dataset["listkey"]].price;
         while (!done) {
           done = true;
+          permutePrice = false;
           for(i=nbNodes-1; i>0; i--) {
             prev = i-1;
             dataCurrent = nodes[i].dataset["listkey"];
@@ -189,33 +205,27 @@ SL.Items = {
 
             // Sort by price
             if (sort == "price") {
-              dataCurrent = this.obj[dataCurrent].price;
-              if (dataCurrent != "") {
-                first = (price1 == "");
-                second = (price1 != "" && price2 == "");
-                  
-                if (first) price1 = dataCurrent;
-                if (second) price2 = dataCurrent;
-
-                if (first && second) {
-                  if (second > first) {
-
-                  }
-                }
-
-                dataCurrent = this.obj[dataCurrent].price;
-                dataPrevious = this.obj[dataPrevious].price;
-                permute = (dataPrevious > dataCurrent);
+              dataCurrent = this.obj[dataPrevious].price;
+              if (typeof dataCurrent != "undefined" && dataCurrent != "" && dataCurrent < previousPrice) {
+                posPrice = i;
+                permutePrice = true;
+                previousPrice = dataCurrent;
               }
             }
 
             if (permute) {
               done = false;
+              if (prev == 0) done = true;
               this.elm.getElementsByClassName("list")[0].appendChild(nodes[prev]);
             }
 
             nodes = this.elm.getElementsByClassName("list")[0].getElementsByTagName("li");
           }
+          // Add lowest to top
+          if (permutePrice) {
+              done = false;
+              this.elm.getElementsByClassName("list")[0].appendChild(nodes[posPrice]);
+            }
         }
         // Remove category nodes
         nodes = this.elm.getElementsByClassName("list")[0].getElementsByTagName("ul");

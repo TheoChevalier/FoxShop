@@ -206,6 +206,9 @@ span {
   margin: auto;
   background-color: #fff;
 }
+.pack-end img[src=""] {
+  display: none;
+}
 
 #list-status h2 {
   font-size: 1.4rem;

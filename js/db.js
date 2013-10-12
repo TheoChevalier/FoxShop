@@ -92,7 +92,7 @@ var DB = {
     var req = store.get(guid);
     req.onsuccess = function (event) {
       // Set img src
-      if (typeof event.target.result !== "undefined")
+      if (typeof event.target.result !== "undefined" && event.target.result !== APP_PATH)
         return event.target.result;
       else return false;
     };
@@ -106,7 +106,8 @@ var DB = {
     var req = store.get(guid);
     req.onsuccess = function (event) {
       // Set img src
-      if (typeof event.target.result !== "undefined")
+      console.log(event.target.result);
+      if (typeof event.target.result !== "undefined" && event.target.result !== APP_PATH)
         elm.src = event.target.result;
     };
   },

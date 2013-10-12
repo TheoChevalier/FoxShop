@@ -8,8 +8,13 @@ FoxShop is available on the [Firefox Marketplace](https://marketplace.firefox.co
 You can also try it out at http://theochevalier.github.com/FoxShop
 
 # Release notes
+### v1.10.0 — 2013-10-12
+* New locale: Italiano [it]
+* New locale: Serbian (Srpski) [sr-latn]
+* You can now sort lists by prices
+
 ### v1.1.9 — 2013-10-06
-* New locale: Serbian (Cрпски) [sr]
+* New locale: Serbian (Српски) [sr-cyrl]
 
 ### v1.1.8 — 2013-09-29
 * **[New feature]** List sorting options
@@ -18,7 +23,7 @@ You can also try it out at http://theochevalier.github.com/FoxShop
 * **[New feature]** Items pictures
 
 ### v1.1.6 — 2013-08-18
-* FoxShop is now available in Spanish
+* New locale: Spanish [es]
 
 ### v1.1.5 — 2013-08-14
 * Display sorted items categories on list view
