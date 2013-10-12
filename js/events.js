@@ -353,7 +353,7 @@ document.querySelector('select[name="language"]').addEventListener('change', fun
   $id('language').textContent = selected.textContent;
 
   // Change language
-  document.webL10n.setLanguage(selected.value);
+  webL10n.language.code = selected.value;
 });
 
 /*

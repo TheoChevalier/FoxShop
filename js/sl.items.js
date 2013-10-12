@@ -123,7 +123,6 @@ SL.Items = {
           // Picture
           img.src = '';
           if (item.image !== '' && typeof item.image !== 'undefined' && item.image !== APP_PATH) {
-            console.log(item.image + ' ' + APP_PATH);
             img.src = item.image;
           } else {
             DB.setBlob(item.guid, img);

@@ -115,7 +115,7 @@ SL.Lists = {
       // Set items count
       elmCount.setAttribute('data-l10n-id', 'nb-items');
       elmCount.setAttribute('data-l10n-args', '{"n":' + nb + '}');
-      elmCount.textContent = _('nb-items', {'n': nb});
+      elmCount.textContent = _('nb-items', {'n':nb});
 
       // Display total with the right currency at the right position
       SL.setPrice(elmTotal, 'total-list', total);

@@ -30,10 +30,12 @@ webL10n/l10n.js
 locales/data
 locales/fr.properties
 locales/en-US.properties
-locales/es-ES.properties
+locales/es.properties
+locales/it.properties
 locales/pl.properties
 locales/pt-BR.properties
-locales/sr.properties
+locales/sr-Cyrl.properties
+locales/sr-Latn.properties
 
 # Custom CSS
 css/app.css
@@ -109,6 +111,7 @@ css/building_blocks/headers/images/ui/dark/negative.png
 css/building_blocks/headers/images/ui/dark/separator.png
 css/building_blocks/headers/images/ui/dark/subheader.png
 css/building_blocks/headers/images/ui/header.png
+css/building_blocks/headers/images/ui/noise-pattern.png
 css/building_blocks/headers/images/ui/organic/header.png
 css/building_blocks/headers/images/ui/organic/pattern.png
 css/building_blocks/headers/images/ui/organic/separator.png

@@ -37,6 +37,8 @@ var IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction
 
 // Alias for getElementById
 var $id = document.getElementById.bind(document);
+var webL10n = navigator.mozL10n;
+var _ = webL10n.get;
 
 // Define manifest URL
 if (location.host === 'localhost') {
@@ -149,7 +151,7 @@ var SL = {
       DB.deleteFromDB(aList.guid, aView, false);
       DB.store(aList, aView, false);
 
-      e.preventDefault();
+      e.defaultPrevented;
     });
 
 
@@ -300,15 +302,15 @@ var SL = {
       return;
     }
 
-    var a = currency;
-    var b = value;
+    var aVal = currency;
+    var bVal = value;
     if (position == 'right') {
-      a = value;
-      b = currency;
+      aVal = value;
+      bVal = currency;
     }
     elm.setAttribute('data-l10n-id', string);
-    elm.setAttribute('data-l10n-args', '{"a":"' + a + '", "b":"' + b + '"}');
-    elm.textContent = _(string, {'a': a, 'b': b});
+    elm.setAttribute('data-l10n-args', "{'a':"+aVal+", 'b':"+bVal+"}");
+    elm.textContent = _(string, {'a':aVal, 'b':bVal});
   },
   displayStatus: function(id) {
     var status = $id('status');

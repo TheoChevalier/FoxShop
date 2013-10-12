@@ -51,14 +51,14 @@ SL.Settings = {
   // Function called after populating this.names in DB.updateObj()
   updateUI: function() {
     var pref = this.obj.language.value;
-    var lang = document.webL10n.getLanguage();
+    var lang = webL10n.language.code;
     var position = true;
     this.loaded = true;
 
     // Lang pref
 
     if (pref !== lang && pref !== '') {
-      document.webL10n.setLanguage(pref);
+      webL10n.language.code = pref;
     } else {
       pref = lang;
     }

@@ -106,7 +106,6 @@ var DB = {
     var req = store.get(guid);
     req.onsuccess = function(event) {
       // Set img src
-      console.log(event.target.result);
       if (typeof event.target.result !== 'undefined' && event.target.result !== APP_PATH)
         elm.src = event.target.result;
     };
