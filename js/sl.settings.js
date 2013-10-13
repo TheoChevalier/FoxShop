@@ -29,7 +29,7 @@ SL.Settings = {
       var request = window.navigator.mozApps.getSelf();
       request.onsuccess = function(e) {
         if (request.result) {
-          $id('version').textContent = 'FoxShop v' + request.result.manifest.version;
+          $id('version').textContent = _('app-name') + request.result.manifest.version;
         }
       };
     }

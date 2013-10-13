@@ -471,7 +471,7 @@ SL.Items = {
       currency = _('user-currency');
 
     if (signature) {
-      Email = title + ' ' + _('email-intro-end-sms');
+      Email = title + ' ' + _('email-intro-end-sms') + '%0A';
       SMS = title + ' ' + _('email-intro-end-sms');
     }
 
@@ -479,24 +479,56 @@ SL.Items = {
       item = this.obj[item];
       content = '';
       if (item.list == this.list.guid) {
+
+        // Done
         if (item.done) {
           content += '- ['+ _('bought') + '] ';
         } else {
           content += '- ';
         }
+
+        // Name
         content += item.name;
+
+        // Qty
+        if (item.qty > 0) {
+          content += ' (' + item.qty;
+        } else {
+          content += ' (1';
+        }
+
+        // Price
         if (prices && item.price > 0) {
           if (position === 'right')
-            content += ' ' + item.price + ' ' + currency;
+            content += ' x ' + item.price + ' ' + currency;
           else
-            content += ' ' + currency + ' ' + item.price;
+            content += ' x ' + currency + ' ' + item.price;
         }
-        if (item.qty > 1) {
-          content += ' x' + item.qty;
+        content += ')';
+
+        // Note
+        if (typeof item.note !== "undefined" && item.note !== "") {
+          content += ' (' + item.note + ')';
         }
+
         Email += content + '%0A';
         SMS += content;
       }
+    }
+    // Total & Remaining
+    if (prices) {
+      var aTotal = currency;
+      var bTotal = this.list.total;
+      var aRem = currency;
+      var bRem = this.list.remaining;
+      if (position == 'right') {
+        aTotal = this.list.total;
+        bTotal = currency;
+        aRem = this.list.remaining;
+        bRem = currency;
+      }
+      Email += '%0A%0A' + _('total-list', {'a':aTotal, 'b':bTotal});
+      Email += '%0A' + _('remaining-list', {'a':aRem, 'b':bRem});
     }
 
     var a = new MozActivity({

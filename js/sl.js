@@ -171,6 +171,7 @@ var SL = {
     var count = document.createElement('a');
     var note = document.createElement('a');
     p1.textContent = aList.name;
+    note.className = "note";
 
     p2.appendChild(total);
     p2.appendChild(count);

@@ -202,6 +202,10 @@ span {
   margin-left: -3.5rem;
 }
 
+.note {
+  font-style:italic;
+}
+
 .pack-end img, #NIF-photo {
   margin: auto;
   background-color: #fff;
