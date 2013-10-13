@@ -459,6 +459,7 @@ SL.Items = {
     var currency = SL.Settings.obj.userCurrency.value;
     var signature = SL.Settings.obj.signature.value;
     var content;
+    var qty;
     var Email = '';
 
     if (!SHARE) {
