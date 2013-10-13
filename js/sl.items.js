@@ -460,7 +460,6 @@ SL.Items = {
     var signature = SL.Settings.obj.signature.value;
     var content;
     var Email = '';
-    var unit = 'piece';
 
     if (!SHARE) {
       location.hash = '#enterEmail';
@@ -486,10 +485,11 @@ SL.Items = {
         content += item.name;
 
         // Qty & unit
-        if (typeof item.unit !== "undefined" && item.unit !== "") {
-          unit = item.unit;
+        var unit = item.unit;
+        if (typeof unit === 'undefined') {
+          unit = 'piece';
         }
-        qty = (item.qty > 0) ? item.qty : 1;
+        qty = (item.nb > 0) ? item.nb : 1;
 
         content += ' (' + _('NIF-'+unit+'2', {'n':qty});
 
