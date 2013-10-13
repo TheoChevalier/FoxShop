@@ -492,9 +492,9 @@ SL.Items = {
 
         // Qty
         if (item.qty > 0) {
-          content += ' (' + item.qty;
+          content += ' [' + toString(item.qty);
         } else {
-          content += ' (1';
+          content += ' [1';
         }
 
         // Price
@@ -504,11 +504,11 @@ SL.Items = {
           else
             content += ' x ' + currency + ' ' + item.price;
         }
-        content += ')';
+        content += ']';
 
         // Note
         if (typeof item.note !== "undefined" && item.note !== "") {
-          content += ' (' + item.note + ')';
+          content += ' [' + item.note + ']';
         }
 
         Email += content + '%0A';
@@ -535,7 +535,7 @@ SL.Items = {
       name: 'new',
       data: {
         url: 'mailto:?subject=' + title + '&body=' + Email, // for emails,
-        body: SMS // for SMS
+        body: Email // for SMS
       }
     });
   },

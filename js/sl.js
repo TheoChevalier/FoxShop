@@ -151,7 +151,7 @@ var SL = {
       DB.deleteFromDB(aList.guid, aView, false);
       DB.store(aList, aView, false);
 
-      e.defaultPrevented;
+      e.preventDefault();
     });
 
 

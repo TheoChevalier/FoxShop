@@ -82,7 +82,6 @@ SL.Lists = {
       var total = 0;
       var remaining = 0;
       var nb = 0;
-      var complete = true;
       var tmp;
 
       // Display it
@@ -90,9 +89,6 @@ SL.Lists = {
       for (var aItem in SL.Items.obj) {
         if (SL.Items.obj[aItem].list == aList) {
           nb++;
-          if (!SL.Items.obj[aItem].done) {
-            complete = false;
-          }
           if (typeof SL.Items.obj[aItem].price != 'undefined') {
             tmp = parseFloat(SL.Items.obj[aItem].price * SL.Items.obj[aItem].nb);
             total += tmp;
@@ -104,7 +100,7 @@ SL.Lists = {
       }
       // Get nodes
       var elm = this.elm.querySelector('li[data-listkey="' + aList + '"]');
-      if (complete && nb > 0) {
+      if (SL.Items.obj[aItem].done) {
         elm.className = 'done';
         elm.getElementsByTagName('input')[0].setAttribute('checked', true);
       }
