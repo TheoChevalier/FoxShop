@@ -460,7 +460,7 @@ SL.Items = {
     var signature = SL.Settings.obj.signature.value;
     var content;
     var Email = '';
-    var SMS = '';
+    var unit = 'piece';
 
     if (!SHARE) {
       location.hash = '#enterEmail';
@@ -469,11 +469,6 @@ SL.Items = {
 
     if (currency === '')
       currency = _('user-currency');
-
-    if (signature) {
-      Email = title + ' ' + _('email-intro-end-sms') + '%0A';
-      SMS = title + ' ' + _('email-intro-end-sms');
-    }
 
     for (var item in this.obj) {
       item = this.obj[item];
@@ -490,12 +485,13 @@ SL.Items = {
         // Name
         content += item.name;
 
-        // Qty
-        if (item.qty > 0) {
-          content += ' [' + toString(item.qty);
-        } else {
-          content += ' [1';
+        // Qty & unit
+        if (typeof item.unit !== "undefined" && item.unit !== "") {
+          unit = item.unit;
         }
+        qty = (item.qty > 0) ? item.qty : 1;
+
+        content += ' (' + _('NIF-'+unit+'2', {'n':qty});
 
         // Price
         if (prices && item.price > 0) {
@@ -504,17 +500,17 @@ SL.Items = {
           else
             content += ' x ' + currency + ' ' + item.price;
         }
-        content += ']';
+        content += ')';
 
         // Note
         if (typeof item.note !== "undefined" && item.note !== "") {
-          content += ' [' + item.note + ']';
+          content += '  (' + item.note + ')';
         }
 
         Email += content + '%0A';
-        SMS += content;
       }
     }
+
     // Total & Remaining
     if (prices) {
       var aTotal = currency;
@@ -529,6 +525,11 @@ SL.Items = {
       }
       Email += '%0A%0A' + _('total-list', {'a':aTotal, 'b':bTotal});
       Email += '%0A' + _('remaining-list', {'a':aRem, 'b':bRem});
+    }
+
+    // Signature
+    if (signature) {
+      Email += '%0A%0A%0A' + title + ' ' + _('email-intro-end-sms');
     }
 
     var a = new MozActivity({
