@@ -8,6 +8,9 @@ FoxShop is available on the [Firefox Marketplace](https://marketplace.firefox.co
 You can also try it out at http://theochevalier.github.com/FoxShop
 
 # Release notes
+### v1.11.0 — 2013-10-16
+* New locale: Deutsch [de]
+
 ### v1.10.0 — 2013-10-12
 * New locale: Italiano [it]
 * New locale: Serbian (Srpski) [sr-latn]
