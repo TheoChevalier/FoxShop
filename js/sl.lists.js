@@ -100,7 +100,7 @@ SL.Lists = {
       }
       // Get nodes
       var elm = this.elm.querySelector('li[data-listkey="' + aList + '"]');
-      if (SL.Items.obj[aItem].done) {
+      if (SL.Items.obj[aList].done) {
         elm.className = 'done';
         elm.getElementsByTagName('input')[0].setAttribute('checked', true);
       }
