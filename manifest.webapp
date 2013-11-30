@@ -16,6 +16,9 @@
   "installs_allowed_from": ["*"],
   "appcache_path": "/FoxShop/cache.appcache",
   "locales": {
+    "ca": {
+      "description": "With FoxShop, you easily create, edit and share <b>multiple shopping lists</b> directly from your device, in your language.<br>FoxShop is <b>time-saving</b>, you can manage quantities and prices in your currency to optimize your purchases and add items by <b>scanning</b> them. It lets you always keep an eye on the total amount of your list!<br>Now, you don't have to keep everything in mind, and you can even <b>clone a list</b> to reuse it. Be organized, try FoxShop!"
+    },
     "de": {
       "description": "Mit FoxShop kannst du <b>mehrere Einkaufslisten</b> einfach erstellen, bearbeiten und teilen. FoxShop ist <b>zeitsparend</b>, du kannst Mengen und Preise in deiner Währung verwalten um deine Einkaufe zu optimieren und Einträge durch <b>Scannen</b> hinzufügen. Es hilft dir, den Gesamtpreis deiner Liste immer im Auge zu behalten! Nun must du dir nicht mehr alles merken und du kannst <b>Liste kopieren</b> um sie wieder zu verwenden. Sei organisiert, teste FoxShop!"
     },
