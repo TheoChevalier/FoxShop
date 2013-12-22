@@ -148,7 +148,7 @@ SL.Items = {
     var previousPrice = 0;
 
     if (SL.Settings.obj.defaultSort.value === '' || sort === '' || sort === 'category') {
-      if (nbNodes > 1) {
+      if (nbNodes > 0) {
         while (!done) {
           done = true;
           for (i = nbNodes - 1; i > 0; i--) {
@@ -170,7 +170,7 @@ SL.Items = {
       // If we have a different sort setting recorded
       nodes = this.elm.getElementsByClassName('list')[0].getElementsByTagName('li');
       nbNodes = nodes.length;
-      if (nbNodes > 1) {
+      if (nbNodes > 0) {
         // Remove all nodes from categories <ul>
         for (i = nbNodes - 1; i >= 0; i--) {
           listNode.appendChild(nodes[i]);
@@ -226,11 +226,13 @@ SL.Items = {
               this.elm.getElementsByClassName('list')[0].appendChild(nodes[posPrice]);
             }
         }
-        // Remove category nodes
+        // Remove empty category nodes
         nodes = this.elm.getElementsByClassName('list')[0].getElementsByTagName('ul');
         nbNodes = nodes.length;
-        if (nbNodes > 0) {
-          for (i = 0; i < nbNodes; i++) {
+        // Check each cat headers
+        for (i = 0; i <= nbNodes; i++) {
+          // Check lenght of li list
+          if (nodes[i].getElementsByTagName('li').length == 0) {
             nodes[i].style.display = 'none';
             //document.getElementsByTagName("html")[0].appendChild(nodes[i]);
             //SL.removeElement(SL.Items.elm.querySelector('ul[class="'+nodes[i].className+'"]'));

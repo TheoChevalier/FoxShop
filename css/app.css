@@ -523,8 +523,9 @@ label:not([for]) input + span {
 
 /* fix webkit in lists.css */
 [data-type="list"] li > label {
-  left: 0!important;
-  width: 5rem!important;
+  left: 0rem !important;
+  padding-left: 1.5rem!important;
+  width: 3.5rem!important;
   height: 6rem!important;
   border-top: none!important;
   pointer-events: auto!important;
@@ -538,10 +539,6 @@ label:not([for]) input + span {
   background-color: #eaeae7;
 }
 
-#editMode [data-type="list"] li > a:after {
-  content: "";
-  background-color: #eaeae7;
-}
 
 [data-type="list"] li > label input + span {
   left: 50%!important;
@@ -556,6 +553,9 @@ label:not([for]) input + span {
 
 .settings ul li > small {
   padding-top: 1rem!important;
+}
+
+.settings .pack-checkbox {
 }
 
 
