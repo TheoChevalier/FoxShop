@@ -232,7 +232,7 @@ SL.Items = {
         // Check each cat headers
         for (i = 0; i <= nbNodes; i++) {
           // Check lenght of li list
-          if (nodes[i].getElementsByTagName('li').length == 0) {
+          if (typeof nodes[i] != "undefined" && nodes[i].getElementsByTagName('li').length == 0) {
             nodes[i].style.display = 'none';
             //document.getElementsByTagName("html")[0].appendChild(nodes[i]);
             //SL.removeElement(SL.Items.elm.querySelector('ul[class="'+nodes[i].className+'"]'));

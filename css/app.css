@@ -519,17 +519,23 @@ form[role="search"]:after, form[role="search"]:before {
 label:not([for]) input + span {
   pointer-events: auto;
 }
+label.pack-checkbox, label.pack-radio {
+  margin-left: 1.5rem!important;
+}
 
 
 /* fix webkit in lists.css */
-[data-type="list"] li > label {
-  left: 0rem !important;
+[data-type="list"] li > .pack-checkbox,
+[data-type="list"] li > .pack-radio,
+[data-type="list"] li > .pack-switch {
+  left: -1.5rem !important;
   padding-left: 1.5rem!important;
   width: 3.5rem!important;
   height: 6rem!important;
   border-top: none!important;
   pointer-events: auto!important;
 }
+
 
 [data-type="list"] li > label:active {
   background-color: #b2f2ff;
