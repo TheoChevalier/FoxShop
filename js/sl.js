@@ -28,15 +28,8 @@ var DEFAULT_CONF = {language: {value: ''},
                    };
 var EMAIL = 'foxshop@theochevalier.fr';
 
- // IndexedDB
-var indexedDB = window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB || window.OIndexedDB || window.msIndexedDB;
-
-var IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction
-                     || window.OIDBTransaction || window.msIDBTransaction;
-
 // Alias for getElementById
 var $id = document.getElementById.bind(document);
-function $(id) { return document.getElementById(id); };
 var webL10n = navigator.mozL10n;
 var _ = webL10n.get;
 
