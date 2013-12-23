@@ -46,7 +46,7 @@ SL.newItemForm = {
     }
     select = $id('NIF-unit').querySelector('option[value="' + unit + '"]');
     SL.updateSelectedOption('NIF-unit', unit);
-    $id('NIF-unit-button').textContent = select.textContent;
+    $id('NIF-unit-button').textContent = _("NIF-"+unit+"2",  {'n':0});
 
     $id('NIF-price').parentNode.setAttribute('hidden', '');
     if (SL.Settings.obj['prices'].value) {
