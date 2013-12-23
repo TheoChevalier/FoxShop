@@ -523,8 +523,22 @@ label.pack-checkbox, label.pack-radio {
   margin-left: 1.5rem!important;
 }
 
+label.pack-checkbox input ~ span:after,
+label.pack-radio input ~ span:after {
+  left: auto;
+  right: 4.5rem;
+}
+
+label.pack-switch input ~ span:after {
+  right: 3rem;
+}
+
 
 /* fix webkit in lists.css */
+[data-type="list"] li > .pack-checkbox input ~ span:after {
+  margin-left: 1.5rem;
+}
+
 [data-type="list"] li > .pack-checkbox,
 [data-type="list"] li > .pack-radio,
 [data-type="list"] li > .pack-switch {
