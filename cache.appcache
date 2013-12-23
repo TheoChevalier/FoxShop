@@ -87,7 +87,10 @@ css/building_blocks/buttons/images/ui/shadow.png
 css/building_blocks/confirm/images/ui/default.png
 css/building_blocks/confirm/images/ui/pattern.png
 css/building_blocks/confirm/images/ui/gradient.png
+css/building_blocks/edit_mode/images/icons/back.png
 css/building_blocks/edit_mode/images/icons/close.png
+css/building_blocks/edit_mode/images/icons/skin-dark/back.png
+css/building_blocks/edit_mode/images/icons/skin-dark/close.png
 css/building_blocks/edit_mode/images/ui/alpha.png
 css/building_blocks/edit_mode/images/ui/danger-press.png
 css/building_blocks/edit_mode/images/ui/danger.png
@@ -141,6 +144,7 @@ css/building_blocks/switches/images/switch/handler.png
 css/building_blocks/switches/images/switch/icon.png
 css/building_blocks/switches/images/switch/background.png
 css/building_blocks/switches/images/switch/background_off.png
+
 
 NETWORK:
 *
