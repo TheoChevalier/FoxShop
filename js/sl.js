@@ -359,7 +359,7 @@ var SL = {
   },
   clear: function(aView) {
     var node = SL[aView].elm.getElementsByClassName('list')[0];
-    while (typeof node != "undefined" || node.hasChildNodes()) {
+    while (typeof node != "undefined" && node.hasChildNodes()) {
       node.removeChild(node.lastChild);
     }
   },
