@@ -9,6 +9,9 @@ You can also try it out at http://theochevalier.github.com/FoxShop
 
 # Release notes
 
+### v1.12.3 — 2014-04-21
+* Minor change: updated Serbian tranlations
+
 ### v1.12.0 — 2013-12-23
 * New visual theme
 * New locale: Català [ca]
