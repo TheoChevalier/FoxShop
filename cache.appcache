@@ -28,6 +28,7 @@ lazyload-min/lazyload-min.js
 # L10N
 webL10n/l10n.js
 locales/data
+locales/bg.properties
 locales/ca.properties
 locales/de.properties
 locales/fr.properties

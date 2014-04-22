@@ -1,6 +1,9 @@
 
 @import url(en-US.properties)
 
+[bg]
+@import url(bg.properties)
+
 [ca]
 @import url(ca.properties)
 

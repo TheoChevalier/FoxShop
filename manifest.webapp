@@ -1,5 +1,5 @@
 {
-  "version": "1.12.3",
+  "version": "1.12.4",
   "name": "FoxShop",
   "description": "With FoxShop, you easily create, edit and share <b>multiple shopping lists</b> directly from your device, in your language.<br>FoxShop is <b>time-saving</b>, you can manage quantities and prices in your currency to optimize your purchases and add items by <b>scanning</b> them. It lets you always keep an eye on the total amount of your list!<br>Now, you don't have to keep everything in mind, and you can even <b>clone a list</b> to reuse it. Be organized, try FoxShop!",
   "launch_path": "/FoxShop/index.html",
@@ -16,6 +16,9 @@
   "installs_allowed_from": ["*"],
   "appcache_path": "/FoxShop/cache.appcache",
   "locales": {
+    "bg": {
+      "description": "С FoxShop лесно ще създавате и споделяте <b>множество пазарски списъци</b> направо в телефона си и на вашия език. FoxShop ви <b>пести време</b> - дава ви възможност да управлявате количествата и цените във вашата валута за по-оптимално пазаруване, както можете да добавяте продукти, чрез <b>сканиране</b>. Дава ви възможност да следите общата сума за целия списък! Вече не е нужно да помните всичко, а и можете да копирате списък, за да го преизползвате. Бъдете организиран, пробвайте FoxShop!"
+    },
     "ca": {
       "description": "With FoxShop, you easily create, edit and share <b>multiple shopping lists</b> directly from your device, in your language.<br>FoxShop is <b>time-saving</b>, you can manage quantities and prices in your currency to optimize your purchases and add items by <b>scanning</b> them. It lets you always keep an eye on the total amount of your list!<br>Now, you don't have to keep everything in mind, and you can even <b>clone a list</b> to reuse it. Be organized, try FoxShop!"
     },
@@ -38,7 +41,7 @@
       "description": "Com o FoxShop, você facilmente cria, edita e compartilha <b>múltiplas listas de compras</b> diretamente do seu dispositivo, no seu idioma. Com o FoxShop você <b>economiza tempo</b>, você pode gerenciar quantidades e preços na sua moeda para otimizar suas compras e adicionar itens <b>digitalizando-os</b>. Ele permite que você sempre mantenha um olho sobre o valor total da sua lista! Agora, você não tem que manter tudo em mente, e você ainda pode <b>clonar uma lista</b> para reutilizá-la. Seja organizado, teste o FoxShop!"
     },
     "sr": {
-      "description": "With FoxShop, you easily create, edit and share <b>multiple shopping lists</b> directly from your device, in your language.<br>FoxShop is <b>time-saving</b>, you can manage quantities and prices in your currency to optimize your purchases and add items by <b>scanning</b> them. It lets you always keep an eye on the total amount of your list!<br>Now, you don't have to keep everything in mind, and you can even <b>clone a list</b> to reuse it. Be organized, try FoxShop!"
+      "description": "Помоћу FoxShop-а, са лакоћом можете да креирате, уређујете и делите <b>више листа за куповину</b> директно са уређаја. FoxShop <b>штеди време</b>; можете да управљате количином робе и ценама у локалној валути, као и да додајете предмете <b>скенирањем</b>. Омогућава вам да увек пазите на износ куповине. Не морате све да памтите, можете чак и да <b>копирате листу</b> ради поновне употребе. Будите организовани, пробајте FoxShop!"
     }
   },
   "default_locale": "en"

@@ -9,6 +9,9 @@ You can also try it out at http://theochevalier.github.com/FoxShop
 
 # Release notes
 
+### v1.12.4 — 2014-04-22
+* New locale: Bulgarian (български) [bg]
+
 ### v1.12.3 — 2014-04-21
 * Minor change: updated Serbian tranlations
 
