@@ -26,6 +26,10 @@ textarea {
   margin: 0 0 1rem 0;
 }
 
+label:active {
+  background-color: transparent;
+}
+
 textarea {
   height: 10rem;
   max-height: 10rem;
@@ -75,13 +79,13 @@ form p textarea + button[type="reset"] {
   font-size: 0;
   opacity: 0;
   pointer-events: none;
-  background: url(input_areas/images/clear.svg) no-repeat center / 3rem;
+  background: url(input_areas/images/clear.png) no-repeat 50% 50% / 2.4rem auto;
 }
 
 
 .skin-dark p input + button[type="reset"],
 .skin-dark p textarea + button[type="reset"] {
-  background-image: url(input_areas/images/clear_dark.svg);
+  background-image: url(input_areas/images/clear_dark.png);
 }
 
 /* To avoid colission with BB butons */
@@ -92,6 +96,10 @@ li textarea + button[type="reset"]:after {
 
 textarea {
   padding: 1.2rem;
+}
+
+form p input:focus {
+  padding-right: 3rem;
 }
 
 form p input:focus + button[type="reset"],
@@ -202,8 +210,6 @@ input:invalid,
 textarea:invalid,
 .skin-dark input:invalid,
 .skin-dark textarea:invalid {
-  box-shadow: inset 0 -0.1rem 0 #820000;
-  border-bottom-color: #820000;
   color: #b90000;
 }
 
@@ -213,6 +219,14 @@ textarea:focus,
 .skin-dark textarea:focus {
   box-shadow: inset 0 -0.1rem 0 #00caf2;
   border-bottom-color: #00caf2;
+}
+
+input:invalid:focus,
+textarea:invalid:focus,
+.skin-dark input:invalid:focus,
+.skin-dark textarea:invalid:focus {
+  box-shadow: inset 0 -0.1rem 0 #820000;
+  border-bottom-color: #820000;
 }
 
 /* Tidy (search/submit) */
@@ -264,6 +278,7 @@ form[role="search"] p textarea:invalid,
 form[role="search"] p input:focus,
 form[role="search"] p textarea:focus {
   border: none;
+  box-shadow: none;
 }
 
 form[role="search"].skin-dark p input,
@@ -287,8 +302,10 @@ form[role="search"] button[type="submit"] {
   border-radius: 0;
   margin: 0;
   position: relative;
-  background: none;
+  background-image: none;
+  background-color: unset;
   font-style: italic;
+  overflow: visible;
 }
 
 form[role="search"] button[type="submit"]:after {
@@ -299,6 +316,13 @@ form[role="search"] button[type="submit"]:after {
   bottom: 0.7rem;
   width: 0.1rem;
   background: #c7c7c7;
+}
+
+form[role="search"] button[type="submit"].icon {
+  font-size: 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 3rem;
 }
 
 form[role="search"] p input + button[type="reset"]{
@@ -325,7 +349,7 @@ form[role="search"].full button[type="submit"] {
 
 form[role="search"] button.icon:active,
 form[role="search"] button[type="submit"]:active {
-  background: #b2f2ff;
+  background-color: #b2f2ff;
   color: #fff;
 }
 
@@ -352,7 +376,7 @@ form button::-moz-focus-inner {
   max-width: calc(100% - 1.4rem);
   overflow: hidden;
   padding: 0 1.5rem;
-  margin: 0 0 0.6rem 0.7rem;
+  margin: 0 0 0.6rem 0;
   line-height: 2.8rem;
   border-radius: 1.4rem;
   text-overflow: ellipsis;
@@ -367,37 +391,39 @@ form button::-moz-focus-inner {
   padding-right: 3.7rem;
 }
 
-.bb-editable [contenteditable].invalid {
+.bb-editable [contenteditable="false"].invalid {
   background-color: #fedcdc;
   padding-left: 3.3rem;
 }
 
-.bb-editable [contenteditable=false].invalid:before {
+.bb-editable [contenteditable="false"].invalid:before {
     content: "!";
     position: absolute;
-    top: 0.7rem;
+    top: 0.6rem;
     left: 0.8rem;
     display: block;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.7rem;
+    height: 1.6rem;
     padding: 0;
     border-radius: 50%;
-    line-height: 1.4rem;
+    line-height: 1.6rem;
     font-size: 1.2rem;
     text-align: center;
+    text-indent: -0.1rem;
     font-style: normal;
     font-weight: 600;
-    text-indent: 0.1rem;
     color: #fff;
     background-color: #b80404;
 }
 
-.bb-editable [contenteditable]:hover,
-.bb-editable [contenteditable]:active {
-  color: #fff;
-  background-color: #b2f2ff;
+.bb-editable [contenteditable="false"].invalid:hover:before,
+.bb-editable [contenteditable="false"].invalid:active:before {
+  color: #b2f2ff;
+  background-color: #fff;
 }
 
+.bb-editable [contenteditable]:hover,
+.bb-editable [contenteditable]:active,
 .bb-editable [contenteditable].invalid:hover,
 .bb-editable [contenteditable].invalid:active {
   color: #fff;
@@ -438,7 +464,7 @@ form button::-moz-focus-inner {
     font-size: 1.8rem;
     font-style: normal;
     color: #000;
-    background: none repeat scroll 0% 0% transparent;
+    background: none repeat scroll 0 0 transparent;
 }
 
 .skin-comms .bb-editable [contenteditable]:hover,
@@ -450,6 +476,10 @@ form button::-moz-focus-inner {
 /******************************************************************************
  * Right-to-Left layout
  */
+
+html[dir="rtl"] ::-moz-placeholder {
+  text-align: right;
+}
 
 html[dir="rtl"] fieldset legend {
   background: rgba(0,0,0,0.05) url(input_areas/images/dialog_rtl.svg) no-repeat 1rem calc(100% - 1rem);
@@ -468,6 +498,10 @@ html[dir="rtl"] input[type="time"][disabled],
 html[dir="rtl"] input[type="datetime"][disabled],
 html[dir="rtl"] input[type="datetime-local"][disabled] {
   background-image: url(input_areas/images/dialog_disabled_rtl.svg);
+}
+
+html[dir="rtl"] form p input:focus {
+  padding: 0 1.5rem 0 3rem;
 }
 
 html[dir="rtl"] form p input + button[type="reset"],
