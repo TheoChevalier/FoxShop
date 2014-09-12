@@ -9,7 +9,7 @@ You can also try it out at http://theochevalier.github.com/FoxShop
 
 # Release notes
 
-### v1.13.0 — 2014-09-12
+### v1.13.1 — 2014-09-12
 * New visual theme
 * **[Bugfix]** Empty/broken pictures were displayed for all items
 * **[Bugfix]** “Sort by category” was not enabled by default

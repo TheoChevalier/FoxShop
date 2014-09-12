@@ -202,8 +202,8 @@ SL.Items = {
 
             // Sort by name
             if (sort == 'alpha') {
-              dataCurrent = this.obj[dataCurrent].name;
-              dataPrevious = this.obj[dataPrevious].name;
+              dataCurrent = this.obj[dataCurrent].name.toLowerCase();
+              dataPrevious = this.obj[dataPrevious].name.toLowerCase();
               permute = (dataPrevious.localeCompare(dataCurrent) > 0);
             }
 
