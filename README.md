@@ -5,7 +5,7 @@ FoxShop is a free & open WebApp helping you manage and share multiple shopping l
 
 FoxShop is available on the [Firefox Marketplace](https://marketplace.firefox.com/app/foxshop/).
 
-[![https://marketplace.firefox.com/app/foxshop/][http://theochevalier.github.io/FoxShop/img/icons/firefox-marketplace.png]][Get it in the Firefox Marketplace]
+[![Get it in the Firefox Marketplace](http://theochevalier.github.io/FoxShop/img/icons/firefox-marketplace.png)](https://marketplace.firefox.com/app/foxshop/)
 
 You can also try it out at http://theochevalier.github.com/FoxShop
 
