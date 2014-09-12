@@ -84,10 +84,12 @@ SL.newItemForm = {
     }
 
     // If the user selected a picture, save it
-    if ($id('NIF-photo').src != '')
+    if ($id('NIF-photo').src != '') {
       var image = $id('NIF-photo').src;
-    else
+    }
+    else {
       var image = false;
+    }
 
 
     // Update obj & DB

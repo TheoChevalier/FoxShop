@@ -87,6 +87,7 @@ SL.Items = {
         if (this.elm.querySelector('li[data-listkey="' + item.guid + '"]') !== null) {
           var node = this.elm.querySelector('li[data-listkey="' + item.guid + '"]');
           var img = node.getElementsByTagName('img')[0];
+          img.src = 'img/icons/default.png';
 
           // Name (first p)
           node = node.getElementsByTagName('p');
@@ -121,9 +122,13 @@ SL.Items = {
 
 
           // Picture
-          img.src = '';
+
           if (item.image !== '' && typeof item.image !== 'undefined' && item.image !== APP_PATH) {
+            img.onerror = function() {
+              this.src='img/icons/default.png';
+            }
             img.src = item.image;
+
           } else {
             DB.setBlob(item.guid, img);
           }
@@ -139,7 +144,7 @@ SL.Items = {
     var listNode = this.elm.getElementsByClassName('list')[0];
     var nodes = this.elm.getElementsByClassName('list')[0].childNodes;
     var nbNodes = nodes.length;
-    var sort = this.list.sort;
+    var sort = this.list.sort ? this.list.sort : SL.Settings.obj.defaultSort.value;
     var prev;
     var i;
     var dataCurrent;
@@ -147,7 +152,7 @@ SL.Items = {
     var other;
     var previousPrice = 0;
 
-    if (SL.Settings.obj.defaultSort.value === '' || sort === '' || sort === 'category') {
+    if (sort === '' || sort === 'category') {
       if (nbNodes > 0) {
         while (!done) {
           done = true;
@@ -538,8 +543,7 @@ SL.Items = {
     var a = new MozActivity({
       name: 'new',
       data: {
-        url: 'mailto:?subject=' + title + '&body=' + Email, // for emails,
-        body: Email // for SMS
+        url: 'mailto:?subject=' + title + '&body=' + Email, // for emails
       }
     });
   },

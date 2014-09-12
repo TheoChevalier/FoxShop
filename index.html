@@ -34,6 +34,7 @@
 </head>
 
 <body>
+<div id="background"></div>
   <div id="content">
     <section role="region" id="lists">
       <header>
@@ -42,42 +43,38 @@
         </menu>
         <h1 id="title" data-l10n-id="app-name">FoxShop</h1>
       </header>
-        <form role="search" id="form-list" onsubmit="return false;">
-          <button type="submit" id="add-list" data-l10n-id="add-list">Add</button>
-          <p>
-            <textarea id="listName" data-l10n-id="listName" placeholder="New list name"></textarea>
-            <button type="reset">reset</button>
-          </p>
-        </form>
-        <ul data-type="list" class="list"></ul>
+      <form role="search" id="form-list" onsubmit="return false;">
+        <button type="submit" id="add-list" data-l10n-id="add-list">Add</button>
+        <p>
+          <textarea id="listName" data-l10n-id="listName" placeholder="New list name"></textarea>
+          <button type="reset">reset</button>
+        </p>
+      </form>
+      <ul data-type="list" class="list"></ul>
       <div role="toolbar">
-        <ul>
-          <li><button class="icon-settings">Settings</button></li>
-        </ul>
-        <ul>
-          <li><button class="edit icon-delete">Edit</button></li>
-          <li><button class="icon-more">More</button></li>
-        </ul>
+        <button class="icon-settings"></button>
+        <button class="edit icon-delete"></button>
+        <button class="icon-more"></button>
       </div>
     </section>
 
-
-    <form role="dialog" data-type="edit" onsubmit="return false;" id="editMode">
-      <header>
-        <button><span class="icon icon-close">close</span></button>
-        <menu type="toolbar">
-          <button data-l10n-id="delete-list">Delete</button>
-        </menu>
-        <h1 data-l10n-id="edit-list">Edit Mode</h1>
-      </header>
+    <form role="dialog" id="editMode" data-type="edit" onsubmit="return false;">
+      <section role="region" id="lists">
+        <header>
+          <button class="close"><span class="icon icon-close"></span></button>
+          <menu type="toolbar">
+            <button><span data-l10n-id="delete-list"></span></button>
+          </menu>
+          <h1 data-l10n-id="edit-list">Edit Mode</h1>
+        </header>
         <ul data-type="list" class="list">
         </ul>
+      </section>
       <menu>
         <button data-l10n-id="deselect-all">Deselect all</button>
         <button data-l10n-id="select-all">Select all</button>
       </menu>
     </form>
-
 
     <section id="items" role="region">
       <header>
@@ -88,7 +85,6 @@
         </menu>
         <form action="#" id="newListName">
           <input placeholder="New name" required="required" type="text" data-l10n-id="new-list-name">
-          <button type="reset"></button>
         </form>
         <h1 class="title" data-l10n-id="items">Items</h1>
       </header>
@@ -111,15 +107,11 @@
         </h2>
       </header>
       <div role="toolbar">
-        <ul>
-          <li><button class="icon-settings"></button></li>
-        </ul>
-        <ul>
-          <li><button class="send pack-icon-send">Send</button></li>
-          <li><button class="sort icon-sort">Sort</button></li>
-          <li><button class="edit icon-delete">Edit</button></li>
-          <li><button class="icon-more">More</button></li>
-        </ul>
+        <button class="icon-settings"></button>
+        <button class="send pack-icon-send"></button>
+        <button class="sort icon-sort"></button>
+        <button class="edit icon-delete"></button>
+        <button class="icon-more"></button>
       </div>
     </section>
 
@@ -275,10 +267,9 @@
     </form>
 
 
-
     <form id="moreLists" role="dialog" data-type="action" onsubmit="return false;">
       <header data-l10n-id="more-actions">More actions</header>
-      <menu>
+      <menu type="toolbar">
         <button id="removeDoneLists" data-l10n-id="delete-completed-lists">Delete completed lists</button>
         <button id="checkLists" data-l10n-id="check-lists">Cross out all lists</button>
         <button id="uncheckLists" data-l10n-id="uncheck-lists">Uncross all lists</button>
@@ -288,7 +279,7 @@
 
     <form id="moreItems" role="dialog" data-type="action" onsubmit="return false;">
       <header data-l10n-id="more-actions">More actions</header>
-      <menu>
+      <menu type="toolbar">
         <button id="cloneList" data-l10n-id="clone-list">Clone this list</button>
         <button id="removeDoneItems" data-l10n-id="delete-completed-items">Delete completed items</button>
         <button id="checkItems" data-l10n-id="check-items">Cross out all items</button>
