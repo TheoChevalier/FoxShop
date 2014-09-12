@@ -3,11 +3,15 @@
 
 FoxShop is a free & open WebApp helping you manage and share multiple shopping lists.
 
-FoxShop is available on the [Firefox Marketplace](https://marketplace.firefox.com/app/foxshop/)  
+FoxShop is available on the [Firefox Marketplace](https://marketplace.firefox.com/app/foxshop/).
+![Get it in the Firefox Marketplace](http://theochevalier.github.io/FoxShop/img/icons/firefox-marketplace.png) 
 
 You can also try it out at http://theochevalier.github.com/FoxShop
 
 # Release notes
+
+### v1.13.2 — 2014-09-12
+* Disabling Barcode reader until it gets fixed
 
 ### v1.13.1 — 2014-09-12
 * New visual theme

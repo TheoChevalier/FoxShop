@@ -78,17 +78,18 @@ window.onhashchange = function() {
   if (SL.currentHash == '#' || SL.currentHash == '') location.hash = '#lists';
 };
 
-  /*****************************************************************************
-  * feature detection
-  ****************************************************************************/
-  if (typeof MozActivity !== 'undefined') {
-    MOZACTIVITY = true;
-    SCANNER = true;
-    SHARE = true;
-  } else {
-    SCANNER = false;
-    SHARE = false;
-  }
+/*****************************************************************************
+* feature detection
+****************************************************************************/
+if (typeof MozActivity !== 'undefined') {
+  MOZACTIVITY = true;
+  SHARE = true;
+} else {
+  SHARE = false;
+}
+
+// Disabling scanner feature until I can improve it
+SCANNER = false;
 
 
 var SL = {
