@@ -387,8 +387,8 @@ animation: fadeOut 0.2s forwards;
 
 #NIF-open {
   font-size: 2.5rem;
-  width: 45px;
-  min-width: 45px;
+  width: 45px!important;
+  min-width: 45px!important;
 }
 
 #NIF-qty {
