@@ -11,6 +11,9 @@ You can also try it out at http://theochevalier.github.com/FoxShop (No installat
 
 # Release notes
 
+### v1.13.4 — 2014-09-28
+* **[Bugfix]** Layout fixes for Firefox OS 1.1 devices
+
 ### v1.13.2 — 2014-09-12
 * Disabling Barcode reader until it gets fixed
 

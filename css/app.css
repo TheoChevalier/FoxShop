@@ -173,7 +173,7 @@ form[role="search"] p {
 }
 
 #resetItems {
-  right: 40px;
+  right: 45px;
 }
 
 #resetEmail {
@@ -387,8 +387,8 @@ animation: fadeOut 0.2s forwards;
 
 #NIF-open {
   font-size: 2.5rem;
-  width: 45px!important;
-  min-width: 45px!important;
+  width: 40px;
+  min-width: 40px;
 }
 
 #NIF-qty {
