@@ -128,7 +128,8 @@ li .button {
   margin: 0 0 1rem;
   overflow: hidden;
   border-radius: 0;
-  display: flex;
+  display: fixed;
+
   height: auto;
   min-height: 4rem;
   text-overflow: initial;

@@ -7,7 +7,7 @@ FoxShop is available on the [Firefox Marketplace](https://marketplace.firefox.co
 
 [![Get it in the Firefox Marketplace](http://theochevalier.github.io/FoxShop/img/icons/firefox-marketplace.png)](https://marketplace.firefox.com/app/foxshop/)
 
-You can also try it out at http://theochevalier.github.com/FoxShop
+You can also try it out at http://theochevalier.github.com/FoxShop (No installation required)
 
 # Release notes
 

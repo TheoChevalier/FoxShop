@@ -524,10 +524,6 @@ form[role="dialog"][data-type="confirm"] > section {
   font-size: 1.5rem;
 }
 
-form[role="search"] button {
-  width: auto;
-}
-
 form[role="dialog"][data-type="confirm"] {
   padding: 0;
 }
@@ -540,6 +536,15 @@ form[role="search"] p input, form[role="search"] p textarea {
 
 form[role="search"]:after, form[role="search"]:before {
   background: none!important;
+}
+
+form[role="search"] button {
+  width: auto;
+}
+
+/* Override CSS unset when no support in Gecko */
+form[role="search"] button[type="submit"] {
+  background-color: transparent;
 }
 
 /*switches.css*/
