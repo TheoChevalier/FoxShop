@@ -10,8 +10,11 @@ FoxShop is available on the [Firefox Marketplace](https://marketplace.firefox.co
 You can also try it out at http://theochevalier.github.com/FoxShop (No installation required)
 
 # Release notes
+### v1.13.4 — 2014-10-05
+* **[Bugfix]** Layout fixes for Firefox OS 1.1 devices
+* Disable fullscreen mode to access time from the device statusbar
 
-### v1.13.4 — 2014-09-28
+### v1.13.3 — 2014-09-28
 * **[Bugfix]** Layout fixes for Firefox OS 1.1 devices
 
 ### v1.13.2 — 2014-09-12

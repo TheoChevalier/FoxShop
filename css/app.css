@@ -101,7 +101,7 @@ section[role="region"], form[role="dialog"] {
 }
 
 .number {
-  float:right;
+  float: right;
   display: block;
   width: 10%;
   min-width: 60px;
@@ -141,8 +141,8 @@ section[role="region"], form[role="dialog"] {
 }
 
 #itemName.noScan {
-  width: -webkit-calc(100% - 45px);
-  width: calc(100% - 45px);
+  width: -webkit-calc(100% - 50px);
+  width: calc(100% - 50px);
 }
 
 #itemName, #listName {
@@ -242,6 +242,10 @@ span {
 #editMode[role="dialog"][data-type="edit"] > menu {
   position:fixed;
 }
+#editMode[role="dialog"][data-type="edit"] > menu button {
+  width: 48%;
+  float: left;
+}
 
 /* !important ALL THE THINGS! Ewk. */
 .icon-settings {
@@ -278,9 +282,12 @@ span {
 
 [role="toolbar"] button:active,
 #scan:active,
-#newItemForm .button:active,
-#thumbnail-action:active {
+#newItemForm .button:active {
     background-color: #008aaa!important;
+}
+
+#thumbnail-action:active {
+  background-color: rgb(178, 242, 255);
 }
 
 div[role="toolbar"] {
@@ -392,7 +399,7 @@ animation: fadeOut 0.2s forwards;
 }
 
 #NIF-qty {
-  width: 60%;
+  width: 58%;
   display: inline-block;
   text-align: center;
 }
@@ -635,6 +642,11 @@ input[type="url"],
 input[type="number"],
 textarea {
   font-family: "FiraSans-Light";
+  padding: 0;
+}
+
+form p input:focus {
+    padding-right: 0;
 }
 
 
