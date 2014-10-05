@@ -18,12 +18,13 @@ var APP_PATH = location.protocol + '//' + location.host + '/FoxShop/';
 var MOZACTIVITY = false;
 var SCANNER = true;
 var SHARE = false;
-var DEFAULT_CONF = {language: {value: ''},
-                    scanEnable: {value: true},
-                    prices: {value: true},
-                    defaultSort: {value: 'category'},
-                    signature: {value: true},
-                    userCurrency: {value: ''},
+var DEFAULT_CONF = {screenWakeLock:   {value: false},
+                    language:         {value: ''},
+                    scanEnable:       {value: true},
+                    prices:           {value: true},
+                    defaultSort:      {value: 'category'},
+                    signature:        {value: true},
+                    userCurrency:     {value: ''},
                     currencyPosition: {value: ''}
                    };
 var EMAIL = 'foxshop@theochevalier.fr';
@@ -98,7 +99,6 @@ var SL = {
   view: 'Lists',
   // Actions that needs the DB to be ready
   finishInit: function() {
-
     // Load all the data in <view>.obj
     DB.updateObj('Settings');
     DB.updateObj('Items');

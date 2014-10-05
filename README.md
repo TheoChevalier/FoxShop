@@ -10,6 +10,9 @@ FoxShop is available on the [Firefox Marketplace](https://marketplace.firefox.co
 You can also try it out at http://theochevalier.github.com/FoxShop (No installation required)
 
 # Release notes
+### v1.13.5 — 2014-10-05
+* **[New feature]** New setting to prevent screen lock while shopping
+
 ### v1.13.4 — 2014-10-05
 * **[Bugfix]** Layout fixes for Firefox OS 1.1 devices
 * Disable fullscreen mode to access time from the device statusbar

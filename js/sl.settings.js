@@ -69,6 +69,9 @@ SL.Settings = {
     SL.updateSelectedOption('language-select', pref);
     $id('language').textContent = select.textContent;
 
+    // Check screen wake lock
+    this.toggleWakeLock(this.obj.screenWakeLock.value);
+
     // Check Scan
     if (this.obj.scanEnable.value) {
       $id('scanEnable').setAttribute('checked', '');
@@ -133,5 +136,18 @@ SL.Settings = {
         url: 'mailto:' + EMAIL
       }
     });
+  },
+  toggleWakeLock: function(lock) {
+    if (lock) {
+      $id('screenWakeLock').setAttribute('checked', '');
+
+      wakeLock = window.navigator.requestWakeLock('screen');
+
+      window.addEventListener('unload', function () {
+        wakeLock.unlock();
+      });
+    } else {
+      window.navigator.requestWakeLock('screen').unlock();
+    }
   }
 };

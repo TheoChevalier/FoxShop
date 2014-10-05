@@ -382,6 +382,11 @@ $id('setEditCurrency').addEventListener('click', function() {
 });
 
 // Switches
+$id('screenWakeLock').addEventListener('click', function() {
+  SL.Settings.save('screenWakeLock', this.checked);
+  SL.Settings.toggleWakeLock(this.checked);
+});
+
 $id('scanEnable').addEventListener('click', function() {
   // Update the obj before refreshing Lists view
   SL.Settings.save('scanEnable', this.checked);
