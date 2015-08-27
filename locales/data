@@ -22,6 +22,9 @@
 [it]
 @import url(it.properties)
 
+[ja]
+@import url(ja.properties)
+
 [pl]
 @import url(pl.properties)
 
