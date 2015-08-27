@@ -1,5 +1,5 @@
 {
-  "version": "1.13.5.3",
+  "version": "1.13.6",
   "name": "FoxShop",
   "description": "With FoxShop, you easily create, edit and share <b>multiple shopping lists</b> directly from your device, in your language.<br>FoxShop is <b>time-saving</b>, you can manage quantities and prices in your currency to optimize your purchases and add items by <b>scanning</b> them. It lets you always keep an eye on the total amount of your list!<br>Now, you don't have to keep everything in mind, and you can even <b>clone a list</b> to reuse it. Be organized, try FoxShop!",
   "launch_path": "/FoxShop/index.html",
@@ -32,6 +32,9 @@
     },
     "it": {
       "description": "Con FoxShop, puoi creare, condividere e modifcare <b>le tue liste della spesa</b> direttamente dal tuo smartphone, nella tua lingua. FoxShop ti permette di <b>salvare tempo</b>: potrai, infatti, controllare quantita' e prezzo usando la tua valuta per ottimizzare i tuoi acquisti nonche' aggiungere nuovi prodotti <b>utilizzando lo scanner integrato</b>. FoxShop ti permette di sapere il prezzo finale della tua spesa! Ora, non devi ricordarti tutti i prodotti a memoria, puoi <b>duplicare le liste </b>per poi riusarle. Organizzati! Prova FoxShop!"
+    },
+    "ja": {
+      "description": "FoxShop で簡単に<b>複数のお買い物リスト</b>を作成、編集、共有できます。FoxShop は<b>時間節約</b>アプリです。お買い物の数量と価格をあなたの通貨で管理し、支払いを最適化できます。また、品物を<b>スキャン</b>して追加できます。これでお買い物リストの全部の品物が一目瞭然です！ 買うものをすべて覚えておく必要はありません。<b>リストを複製</b>して再利用することもできます。FoxShop で管理しましょう！"
     },
     "pl": {
       "description": "Za pomocą FoxShop możesz łatwo tworzyć, edytować i udostępniać <b>listy zakupów</b> bezpośrednio na Twoim urządzeniu i w Twoim języku.<br>FoxShop <b>oszczędza czas</b>, możesz zarządzać ilością i cenami i dodawać zakupy, <b>skanując</b> kod paskowy. Dzięki kontroli kosztów możesz zoptymalizować zakupy, widząc cały czas koszt zakupów.<br>Teraz nie musisz wszystkiego pamiętać, czy robić notatki na karteczce. Możesz także powielać listy, by użyć je ponownie. Bądź zorganizowany/zorganizowana, wypróbuj FoxShop!"
