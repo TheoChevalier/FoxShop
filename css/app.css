@@ -97,6 +97,7 @@ section[role="region"], form[role="dialog"] {
 .liTitle {
   display: inline-block;
   width: 100%;
+  width: calc(100% - 95px);
   height: 100%;
 }
 
@@ -334,7 +335,7 @@ animation: fadeIn 0.2s forwards;
 0% { opacity: 0; }
 100% { opacity: 1; }
 }
- 
+
 /* Close Value Selector */
 animation: fadeOut 0.2s forwards;
 @keyframes fadeOut {
@@ -703,4 +704,3 @@ section[role="region"] > ul > li > p + .fake-select {
   padding-top: 1.1rem!important;
   margin-top: -0.8rem!important;
 }
-

@@ -10,6 +10,9 @@ FoxShop is available on the [Firefox Marketplace](https://marketplace.firefox.co
 You can also try it out at http://theochevalier.github.com/FoxShop (No installation required)
 
 # Release notes
+### v1.13.7 — 2016-01-23
+* **[Bugfix]** [First item title not displayed for all lists with recent Gecko](https://github.com/TheoChevalier/FoxShop/issues/61)
+
 ### v1.13.6 — 2015-09-27
 * New locale: Japanese (日本語) [ja]
 
@@ -90,7 +93,7 @@ You can also try it out at http://theochevalier.github.com/FoxShop (No installat
 
 Issues, feedback and pull requests are much appreciated, don’t hesitate!
 
-You can even [localize it in your language](http://beta.babelzilla.org/projects/p/FoxShop/) on Babelzilla. 
+You can even [localize it in your language](http://beta.babelzilla.org/projects/p/FoxShop/) on Babelzilla.
 
 # Licence
 
