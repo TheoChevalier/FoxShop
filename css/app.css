@@ -522,6 +522,10 @@ form[role="dialog"][data-type="edit"] {
   margin-bottom: 6.5rem;
 }
 
+[role="dialog"][data-type="action"] > menu > button:last-child:before {
+  background: none;
+}
+
 
 /* Allow events on clear button*/
 form p input + button[type="reset"], form p textarea + button[type="reset"] {
