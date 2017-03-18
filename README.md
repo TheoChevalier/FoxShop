@@ -1,6 +1,9 @@
 
 # FoxShop
 
+ [![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+ 
+
 FoxShop is a free & open WebApp helping you manage and share multiple shopping lists.
 
 FoxShop is available on the [Firefox Marketplace](https://marketplace.firefox.com/app/foxshop/).
